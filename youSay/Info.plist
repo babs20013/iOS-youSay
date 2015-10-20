@@ -18,10 +18,58 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1651430315095340</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>1651430315095340</string>
+	<key>FacebookDisplayName
+  &lt;key&gt;CFBundleURLSchemes&lt;/key&gt;
+  &lt;array&gt;
+    &lt;string&gt;fb1651430315095340&lt;/string&gt;
+  &lt;/array&gt;
+  &lt;/dict&gt;
+&lt;/array&gt;
+  &lt;key&gt;FacebookAppID&lt;/key&gt;
+  &lt;string&gt;1651430315095340&lt;/string&gt;
+  &lt;key&gt;FacebookDisplayName&lt;/key&gt;
+&lt;string&gt;YouSay&lt;/string&gt;</key>
+	<string>YouSay</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbauth2</string>
+		<string>fbapi</string>
+		<string>fbapi20130214</string>
+		<string>fbapi20130410</string>
+		<string>fbapi20130410</string>
+		<string>fbapi20130702</string>
+		<string>fbapi20131010</string>
+		<string>fbapi20131219</string>
+		<string>fbapi20140410</string>
+		<string>fbapi20140116</string>
+		<string>fbapi20150313</string>
+		<string>fbapi20150629</string>
+		<string>fbauth</string>
+		<string>fb-messenger-api20140430</string>
+		<string>TestA</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
