@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "ServiceConnector.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController  <ServiceConnectorDelegate>
 
 
 @end
