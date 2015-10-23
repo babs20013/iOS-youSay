@@ -9,5 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface MessageTableViewCell : UITableViewCell
+@property (nonatomic , strong) IBOutlet UIButton * hideButton;
+@property (nonatomic , strong) IBOutlet UIButton * UNDOButton;
+@property (nonatomic , strong) IBOutlet UIView * UNDOView;
+
+@property (nonatomic, strong) IBOutlet UILabel * userNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel * likeCountLabel;
+@property (nonatomic, strong) IBOutlet UIButton * likeButton;
+@property (nonatomic, strong) IBOutlet UITextView * messageLabel;
 
 @end

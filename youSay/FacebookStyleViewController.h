@@ -10,4 +10,5 @@
 
 @interface FacebookStyleViewController : UIViewController
 @property (nonatomic,strong) NSDictionary * profileDictionary;
+@property (nonatomic, strong) NSMutableArray * saysArray;
 @end

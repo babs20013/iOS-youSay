@@ -11,10 +11,9 @@
 #import "AppDelegate.h"
 #import "JSONDictionaryExtensions.h"
 #import "FacebookStyleViewController.h"
-
-
-#define TCMBaseURL @"http://examdroid.com:8383"
 #define BaseURL @"https://yousayweb.com/yousay/backend/api/"
+#import <SystemConfiguration/SystemConfiguration.h>
+#import "Reachability.h"
 
 @interface ViewController ()
 {
@@ -27,8 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     accessToken = @"";
-
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,8 +35,30 @@
 
 - (IBAction)faceBookAction:(id)sender {
     
+    
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!"
+                                                        message:@"There IS NO internet connection"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else {
+        
+        NSLog(@"There IS internet connection");
+    
     [[UIApplication sharedApplication]
      canOpenURL:[NSURL URLWithString:@"TestA://"]];
+    
+    [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
+
     
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
     [login logInWithReadPermissions:@[@"email"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
@@ -62,14 +81,11 @@
         }
     }];
 }
+}
 
 -(void)loadFaceBookData:(NSString*)fbURLString param:(NSDictionary*)param
 {
     
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
     
     AFHTTPClient * client = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:fbURLString]];
     [client registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -99,9 +115,6 @@
                 if([resultDic valueForKey:@"id"]&&[[resultDic valueForKey:@"id"]isKindOfClass:[NSString class]]){
                     facebook_id=[resultDic valueForKey:@"id"];
                 }
-//                if([resultDic valueForKey:@"access_token"]&&[[resultDic valueForKey:@"access_token"]isKindOfClass:[NSString class]]){
-//                    accessToken=[resultDic valueForKey:@"access_token"];
-//                }
                 
                 NSLog(@"%@",@{ @"email" :email,@"gender" : gender,@"facebook_id" : facebook_id,@"first_name" : first_name,@"last_name" : last_name});
                 
@@ -124,9 +137,11 @@
 //    output.text = dictionary.JSONString; // set the textview to the raw string value of the data recieved
     if([[dictionary valueForKey:@"message"] isEqualToString:@"success"])
     {
-        FacebookStyleViewController *dest = [self.storyboard instantiateViewControllerWithIdentifier:@"FacebookStyleViewController"];
-        dest.profileDictionary = [dictionary valueForKey:@"profile"];
-        [self.navigationController pushViewController:dest animated:YES];
+        UITabBarController *tabar= [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+
+        FacebookStyleViewController *dest = [tabar.viewControllers objectAtIndex:0];
+       dest.profileDictionary = [dictionary valueForKey:@"profile"];
+        [self.navigationController pushViewController:tabar animated:NO];
     }
     
     NSLog(@"yuouSay : %@",dictionary);

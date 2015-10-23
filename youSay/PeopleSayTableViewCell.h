@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PeopleSayTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) IBOutlet UILabel * peopleSayLabel;
 @end

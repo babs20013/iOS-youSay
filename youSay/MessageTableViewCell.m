@@ -9,6 +9,7 @@
 #import "MessageTableViewCell.h"
 
 @implementation MessageTableViewCell
+@synthesize hideButton, UNDOButton, UNDOView, userNameLabel, likeCountLabel, likeButton, messageLabel;;
 
 - (void)awakeFromNib {
     // Initialization code

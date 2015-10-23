@@ -16,6 +16,8 @@
 		5D047E281BD7554700D2C2FE /* square-cash-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D047E241BD7554700D2C2FE /* square-cash-icon.png */; };
 		5D047E291BD7554700D2C2FE /* facebook-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D047E251BD7554700D2C2FE /* facebook-icon.png */; };
 		5D047E2A1BD7554700D2C2FE /* ProfilePicture.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D047E261BD7554700D2C2FE /* ProfilePicture.png */; };
+		5D91F79B1BDA9C69005845BE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D91F79A1BDA9C69005845BE /* SystemConfiguration.framework */; };
+		5D91F79E1BDA9D33005845BE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D91F79D1BDA9D33005845BE /* Reachability.m */; };
 		5DBF3B971BD80AA200ACF60D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DBF3B961BD80AA200ACF60D /* Images.xcassets */; };
 		5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BA31BD8210D00ACF60D /* BLKFlexibleHeightBar.m */; };
 		5DBF3BA91BD8210D00ACF60D /* UIView+BLKFlexibleHeightBarSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BA51BD8210D00ACF60D /* UIView+BLKFlexibleHeightBarSubview.m */; };
@@ -55,6 +57,9 @@
 		5D047E241BD7554700D2C2FE /* square-cash-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square-cash-icon.png"; sourceTree = "<group>"; };
 		5D047E251BD7554700D2C2FE /* facebook-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-icon.png"; sourceTree = "<group>"; };
 		5D047E261BD7554700D2C2FE /* ProfilePicture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProfilePicture.png; sourceTree = "<group>"; };
+		5D91F79A1BDA9C69005845BE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5D91F79C1BDA9D33005845BE /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		5D91F79D1BDA9D33005845BE /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		5DBF3B961BD80AA200ACF60D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5DBF3BA21BD8210D00ACF60D /* BLKFlexibleHeightBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLKFlexibleHeightBar.h; sourceTree = "<group>"; };
 		5DBF3BA31BD8210D00ACF60D /* BLKFlexibleHeightBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLKFlexibleHeightBar.m; sourceTree = "<group>"; };
@@ -99,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D91F79B1BDA9C69005845BE /* SystemConfiguration.framework in Frameworks */,
 				4FB16F6028629C6BDBBA350E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,10 +141,7 @@
 				5DBF3BB81BD8213D00ACF60D /* MainScreen */,
 				358C908A1BD654AC000B17AB /* AppDelegate.h */,
 				358C908B1BD654AC000B17AB /* AppDelegate.m */,
-				358C908D1BD654AC000B17AB /* ViewController.h */,
-				358C908E1BD654AC000B17AB /* ViewController.m */,
-				5DBF3BB91BD8216600ACF60D /* FacebookStyleViewController.h */,
-				5DBF3BBA1BD8216600ACF60D /* FacebookStyleViewController.m */,
+				5DBF3BDA1BD988CF00ACF60D /* ViewControllers */,
 				358C90901BD654AC000B17AB /* Main.storyboard */,
 				358C90931BD654AC000B17AB /* Assets.xcassets */,
 				358C90981BD654AC000B17AB /* Info.plist */,
@@ -211,6 +214,8 @@
 		5DBF3BB81BD8213D00ACF60D /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
+				5D91F79C1BDA9D33005845BE /* Reachability.h */,
+				5D91F79D1BDA9D33005845BE /* Reachability.m */,
 				5DBF3BBB1BD8216600ACF60D /* FacebookStyleBar.h */,
 				5DBF3BBC1BD8216600ACF60D /* FacebookStyleBar.m */,
 				5DBF3BBD1BD8216600ACF60D /* ProfileTableViewCell.h */,
@@ -246,9 +251,21 @@
 			name = JSONDictionaryExtensions;
 			sourceTree = "<group>";
 		};
+		5DBF3BDA1BD988CF00ACF60D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				358C908D1BD654AC000B17AB /* ViewController.h */,
+				358C908E1BD654AC000B17AB /* ViewController.m */,
+				5DBF3BB91BD8216600ACF60D /* FacebookStyleViewController.h */,
+				5DBF3BBA1BD8216600ACF60D /* FacebookStyleViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		641ACAE6EB98C3799C34D85E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5D91F79A1BDA9C69005845BE /* SystemConfiguration.framework */,
 				1787B273D28568E85213A729 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -387,6 +404,7 @@
 				358C90891BD654AC000B17AB /* main.m in Sources */,
 				5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */,
 				5DBF3BCB1BD8216600ACF60D /* LongPressTableViewCell.m in Sources */,
+				5D91F79E1BDA9D33005845BE /* Reachability.m in Sources */,
 				5DBF3BCA1BD8216600ACF60D /* CarmsTableViewCell.m in Sources */,
 				5DBF3BB41BD8212500ACF60D /* BLKFlexibleHeightBarBehaviorDefiner.m in Sources */,
 				5DBF3BD01BD821DF00ACF60D /* SquareCashStyleBar.m in Sources */,

@@ -9,7 +9,7 @@
 #import "PeopleSayTableViewCell.h"
 
 @implementation PeopleSayTableViewCell
-
+@synthesize peopleSayLabel;
 - (void)awakeFromNib {
     // Initialization code
 }

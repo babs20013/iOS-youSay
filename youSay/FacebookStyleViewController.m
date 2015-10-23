@@ -29,18 +29,18 @@
 @end
 
 @implementation FacebookStyleViewController
-@synthesize  profileDictionary;
+@synthesize  profileDictionary, saysArray;
 - (void)viewDidLoad
 {
+    saysArray = [[NSMutableArray alloc] init];
+   saysArray = [profileDictionary valueForKey:@"says"];
     
-    NSLog(@"deeel : %@",profileDictionary);
+    
     [super viewDidLoad];
     
     [self setNeedsStatusBarAppearanceUpdate];
     
     self.navigationController.navigationBar.hidden = YES;
-    
-    
 
     self.myCustomBar = [[SquareCashStyleBar alloc] initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 100.0)];
     
@@ -86,7 +86,17 @@
     [self.myCustomBar addSubview:closeButton];
     
     [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    
+    UITapGestureRecognizer * tapper = [[UITapGestureRecognizer alloc]
+              initWithTarget:self action:@selector(handleSingleTap:)];
+    tapper.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapper];
 
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender
+{
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,7 +129,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 4)
-    return 40;
+    return saysArray.count;
     else
     return 1;
 }
@@ -170,37 +180,137 @@
     {
         static NSString *cellIdentifier = @"ProfileTableViewCell";
         ProfileTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+      //  if(cel == nil) {
+        cel.nameLabel.text = [profileDictionary valueForKey:@"name"];
+        cel.popularLabel.text = [NSString stringWithFormat:@"%@",[profileDictionary valueForKey:@"popularity"]];
+        cel.rankLabel.text = [NSString stringWithFormat:@"%@",[profileDictionary valueForKey:@"rank"]];
+        
+        UIImage* myImage = [UIImage imageWithData:
+                            [NSData dataWithContentsOfURL:
+                             [NSURL URLWithString: [profileDictionary valueForKey:@"picture"]]]];
+        cel.profileImageView.image = myImage;
+     //   }
         return cel;
     }
     else if (indexPath.section == 1)
     {
         static NSString *cellIdentifier = @"CarmsTableViewCell";
         CarmsTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+     //   if(cel == nil) {
+        NSArray * charmsArray = [profileDictionary valueForKey:@"charms"];
+        NSDictionary * dict = [charmsArray objectAtIndex:0];
+        cel.charmLabel1.text = [dict valueForKey:@"name"];
+        int score = [[dict valueForKey:@"rate"] integerValue];
+        score *= 100;
+        cel.charmScoreLabel1.text = [NSString stringWithFormat:@"%d",score];
+        CGRect newFrame = cel.charmView1.frame;
+        newFrame.size.height = (CGFloat)90/100*score;
+        newFrame.origin.y = 90.0 - newFrame.size.height ;
+        [cel.charmView1 setFrame:newFrame];
+        
+        dict = [charmsArray objectAtIndex:1];
+        cel.charmLabel2.text = [dict valueForKey:@"name"];
+        score = [[dict valueForKey:@"rate"] integerValue];
+        score *= 100;
+        cel.charmScoreLabel2.text = [NSString stringWithFormat:@"%d",score];
+        newFrame = cel.charmView2.frame;
+        newFrame.size.height = (CGFloat)90/100*score;
+        newFrame.origin.y = 90.0 - newFrame.size.height ;
+        [cel.charmView2 setFrame:newFrame];
+        
+        dict = [charmsArray objectAtIndex:2];
+        cel.charmLabel3.text = [dict valueForKey:@"name"];
+        score = [[dict valueForKey:@"rate"] integerValue];
+        score *= 100;
+        cel.charmScoreLabel3.text = [NSString stringWithFormat:@"%d",score];
+        newFrame = cel.charmView3.frame;
+        newFrame.size.height = (CGFloat)90/100*score;
+        newFrame.origin.y = 90.0 - newFrame.size.height ;
+        [cel.charmView3 setFrame:newFrame];
+
+        dict = [charmsArray objectAtIndex:3];
+        cel.charmLabel4.text = [dict valueForKey:@"name"];
+        score = [[dict valueForKey:@"rate"] integerValue];
+        score *= 100;
+        cel.charmScoreLabel4.text = [NSString stringWithFormat:@"%d",score];
+        newFrame = cel.charmView4.frame;
+        newFrame.size.height = (CGFloat)90/100*score;
+        newFrame.origin.y = 90.0 - newFrame.size.height ;
+        [cel.charmView4 setFrame:newFrame];
+
+         dict = [charmsArray objectAtIndex:4];
+        cel.charmLabel5.text = [dict valueForKey:@"name"];
+        score = [[dict valueForKey:@"rate"] integerValue];
+        score *= 100;
+        cel.charmScoreLabel5.text = [NSString stringWithFormat:@"%d",score];
+        newFrame = cel.charmView5.frame;
+        newFrame.size.height = (CGFloat)90/100*score;
+        newFrame.origin.y = 90.0 - newFrame.size.height ;
+        [cel.charmView5 setFrame:newFrame];
+     //   }
         return cel;
     }
     else if (indexPath.section == 2)
     {
         static NSString *cellIdentifier = @"LongPressTableViewCell";
         LongPressTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if(cel == nil) {
+        }
         return cel;
     }
     else if (indexPath.section == 3)
     {
         static NSString *cellIdentifier = @"PeopleSayTableViewCell";
         PeopleSayTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//        if(cel == nil) {
+//        }
+        cel.peopleSayLabel.text = [NSString stringWithFormat:@"What people said about %@:",[profileDictionary valueForKey:@"name"]];
         return cel;
     }
     else if (indexPath.section == 4)
     {
         static NSString *cellIdentifier = @"MessageTableViewCell";
         MessageTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+      //  if(cel == nil) {
+        NSDictionary * dict = [saysArray objectAtIndex:indexPath.row];
+        cel.userNameLabel.text = [dict valueForKey:@"by"];
+        cel.messageLabel.text = [NSString stringWithFormat:@"said: %@",[dict valueForKey:@"text"]];
+        cel.likeCountLabel.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"like_count"]];
+            
+        [cel.hideButton addTarget:self action:@selector(hideButtonClicked:withEvent:) forControlEvents:UIControlEventTouchUpInside];
+        [cel.UNDOButton addTarget:self action:@selector(undoButtonClicked:withEvent:) forControlEvents:UIControlEventTouchUpInside];
+   
+      //  }
         return cel;
     }
 
-   // cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     return cell;
 }
 
+
+- (void)hideButtonClicked:(UIButton *)sender  withEvent: (UIEvent *) event
+{
+     MessageTableViewCell *cell = (MessageTableViewCell*)sender.superview.superview; //Since you are adding to cell.contentView, navigate two levels to get cell object
+    cell.UNDOView.hidden = false;
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    NSLog(@"did select : %ld",(long)indexPath.row);
+}
+
+- (void)undoButtonClicked:(UIButton *)sender  withEvent: (UIEvent *) event
+{
+    MessageTableViewCell *cell = (MessageTableViewCell*)sender.superview.superview.superview; //Since you are adding to cell.contentView, navigate two levels to get cell object
+    cell.UNDOView.hidden = true;
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    NSLog(@"did select : %ld",(long)indexPath.row);
+}
+
+
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if(indexPath.section == 4) {
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    NSString *cellText = cell.textLabel.text;
+//    }
+//}
 
 
 
