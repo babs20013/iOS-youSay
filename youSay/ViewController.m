@@ -39,7 +39,7 @@
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
+        NSLog(@"There is no internet connection");
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!"
                                                         message:@"There IS NO internet connection"
