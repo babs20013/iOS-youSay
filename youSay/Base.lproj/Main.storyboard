@@ -92,36 +92,6 @@
                     <navigationItem key="navigationItem" id="RTC-Tm-fbM"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
-                <view contentMode="scaleToFill" id="FzK-Z9-qMp">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAd-Ha-BA6">
-                            <rect key="frame" x="46" y="275" width="228" height="30"/>
-                            <animations/>
-                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" title="Connect with Facebook">
-                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="faceBookAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="a6N-7d-ESy"/>
-                            </connections>
-                        </button>
-                        <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VCv-Er-xBV">
-                            <rect key="frame" x="330" y="511" width="46" height="30"/>
-                            <animations/>
-                            <state key="normal" title="Button">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                    </subviews>
-                    <animations/>
-                    <color key="backgroundColor" red="0.43705638489999998" green="0.93851209369999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstItem="OAd-Ha-BA6" firstAttribute="centerY" secondItem="FzK-Z9-qMp" secondAttribute="centerY" id="0P3-q4-yTS"/>
-                        <constraint firstItem="OAd-Ha-BA6" firstAttribute="centerX" secondItem="FzK-Z9-qMp" secondAttribute="centerX" id="ec4-Og-hwK"/>
-                    </constraints>
-                </view>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="242" y="308"/>
