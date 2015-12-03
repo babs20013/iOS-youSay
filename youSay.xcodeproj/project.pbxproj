@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */; };
 		358C90891BD654AC000B17AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C90881BD654AC000B17AB /* main.m */; };
 		358C908C1BD654AC000B17AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C908B1BD654AC000B17AB /* AppDelegate.m */; };
 		358C908F1BD654AC000B17AB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C908E1BD654AC000B17AB /* ViewController.m */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		0C0E040A22DA4EB705AB3C5B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		1787B273D28568E85213A729 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		358C90841BD654AC000B17AB /* youSay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = youSay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		358C90881BD654AC000B17AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		358C908A1BD654AC000B17AB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				358C90981BD654AC000B17AB /* Info.plist */,
 				5DBF3B961BD80AA200ACF60D /* Images.xcassets */,
 				358C90871BD654AC000B17AB /* Supporting Files */,
+				1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */,
 			);
 			path = youSay;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 			files = (
 				5DBF3BD21BD8237000ACF60D /* Close.png in Resources */,
 				358C90941BD654AC000B17AB /* Assets.xcassets in Resources */,
+				1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */,
 				5DBF3B971BD80AA200ACF60D /* Images.xcassets in Resources */,
 				5D047E2A1BD7554700D2C2FE /* ProfilePicture.png in Resources */,
 				5D047E281BD7554700D2C2FE /* square-cash-icon.png in Resources */,
