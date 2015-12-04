@@ -69,6 +69,7 @@
                             <mask key="constraints">
                                 <include reference="T4w-oM-Egn"/>
                                 <include reference="iwY-2v-WDe"/>
+                                <exclude reference="moa-c2-u7t"/>
                             </mask>
                         </variation>
                     </view>

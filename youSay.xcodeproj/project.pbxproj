@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0086811C117E740077677B /* AddNewSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0086801C117E740077677B /* AddNewSayViewController.m */; };
 		1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */; };
 		358C90891BD654AC000B17AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C90881BD654AC000B17AB /* main.m */; };
 		358C908C1BD654AC000B17AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C908B1BD654AC000B17AB /* AppDelegate.m */; };
@@ -42,6 +43,8 @@
 /* Begin PBXFileReference section */
 		0C0E040A22DA4EB705AB3C5B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		1787B273D28568E85213A729 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B0086801C117E740077677B /* AddNewSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewSayViewController.m; sourceTree = "<group>"; };
+		1B0086821C117E910077677B /* AddNewSayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNewSayViewController.h; sourceTree = "<group>"; };
 		1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		358C90841BD654AC000B17AB /* youSay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = youSay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		358C90881BD654AC000B17AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -261,6 +264,8 @@
 				358C908E1BD654AC000B17AB /* ViewController.m */,
 				5DBF3BB91BD8216600ACF60D /* FacebookStyleViewController.h */,
 				5DBF3BBA1BD8216600ACF60D /* FacebookStyleViewController.m */,
+				1B0086821C117E910077677B /* AddNewSayViewController.h */,
+				1B0086801C117E740077677B /* AddNewSayViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -405,6 +410,7 @@
 				5DBF3BCC1BD8216600ACF60D /* PeopleSayTableViewCell.m in Sources */,
 				5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */,
 				5DBF3BCD1BD8216600ACF60D /* MessageTableViewCell.m in Sources */,
+				1B0086811C117E740077677B /* AddNewSayViewController.m in Sources */,
 				358C90891BD654AC000B17AB /* main.m in Sources */,
 				5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */,
 				5DBF3BCB1BD8216600ACF60D /* LongPressTableViewCell.m in Sources */,

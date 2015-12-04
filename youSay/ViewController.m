@@ -14,6 +14,7 @@
 #define BaseURL @"https://yousayweb.com/yousay/backend/api/"
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "Reachability.h"
+#import "AddNewSayViewController.h"
 
 @interface ViewController ()
 {
@@ -147,6 +148,16 @@
     NSLog(@"yuouSay : %@",dictionary);
     [SVProgressHUD dismiss];
 
+}
+
+- (IBAction)dummyButton:(id)sender {
+    NSLog(@"open AddNewSay");
+//    AddNewSayViewController *newSayVC = [[AddNewSayViewController alloc]init];
+//    [self.navigationController pushViewController:newSayVC animated:YES];
+//    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddNewSayViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddNewSay"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
