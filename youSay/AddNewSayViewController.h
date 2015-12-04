@@ -10,9 +10,10 @@
 
 @interface AddNewSayViewController : UIViewController
 
-@property (nonatomic, strong) UITextView *addSayTextView;
-@property (nonatomic, strong) UIView *textViewBG;
-@property (nonatomic, strong) UIView *profileView;
-
+@property (nonatomic, strong) IBOutlet UITextView *addSayTextView;
+@property (nonatomic, strong) IBOutlet UIView *textViewBG;
+@property (nonatomic, strong) IBOutlet UIView *profileView;
+@property (nonatomic, strong) IBOutlet UIView *chooseBGView;
+@property (nonatomic, strong) IBOutlet UIView *colorContainer;
 
 @end
