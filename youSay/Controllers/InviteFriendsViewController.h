@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InviteFriendsViewController : UIViewController 
+@interface InviteFriendsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong) IBOutlet UITableView *tblFriends;
+@property (nonatomic,strong) IBOutlet UIView *searchView;
+
 
 @end

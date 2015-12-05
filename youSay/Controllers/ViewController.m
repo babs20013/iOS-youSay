@@ -14,7 +14,7 @@
 #define BaseURL @"https://yousayweb.com/yousay/backend/api/"
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "Reachability.h"
-#import "AddNewSayViewController.h"
+#import "InviteFriendsViewController.h"
 
 @interface ViewController ()
 {
@@ -156,7 +156,7 @@
 //    [self.navigationController pushViewController:newSayVC animated:YES];
 //    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AddNewSayViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddNewSay"];
+    InviteFriendsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"InviteFriend"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

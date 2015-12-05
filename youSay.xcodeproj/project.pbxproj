@@ -39,6 +39,7 @@
 		5DBF3BD01BD821DF00ACF60D /* SquareCashStyleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BCF1BD821DF00ACF60D /* SquareCashStyleBar.m */; };
 		5DBF3BD21BD8237000ACF60D /* Close.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBF3BD11BD8237000ACF60D /* Close.png */; };
 		5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BD51BD93BE800ACF60D /* ServiceConnector.m */; };
+		9A1406761C1305B5006547A0 /* UICheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1406751C1305B5006547A0 /* UICheckBox.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,8 @@
 		5DBF3BD51BD93BE800ACF60D /* ServiceConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConnector.m; sourceTree = "<group>"; };
 		5DBF3BD81BD93BFC00ACF60D /* JSONDictionaryExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONDictionaryExtensions.h; sourceTree = "<group>"; };
 		5DBF3BD91BD93C9000ACF60D /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		9A1406741C1305B5006547A0 /* UICheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UICheckBox.h; path = UIComponent/UICheckBox.h; sourceTree = "<group>"; };
+		9A1406751C1305B5006547A0 /* UICheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UICheckBox.m; path = UIComponent/UICheckBox.m; sourceTree = "<group>"; };
 		A49055F20855DDD853D5A0A6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +159,7 @@
 				5DBF3B961BD80AA200ACF60D /* Images.xcassets */,
 				358C90871BD654AC000B17AB /* Supporting Files */,
 				1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */,
+				9A1406771C1305BB006547A0 /* UIComponent */,
 			);
 			path = youSay;
 			sourceTree = "<group>";
@@ -293,6 +297,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		9A1406771C1305BB006547A0 /* UIComponent */ = {
+			isa = PBXGroup;
+			children = (
+				9A1406741C1305B5006547A0 /* UICheckBox.h */,
+				9A1406751C1305B5006547A0 /* UICheckBox.m */,
+			);
+			name = UIComponent;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -413,6 +426,7 @@
 				5DBF3BC81BD8216600ACF60D /* FacebookStyleBar.m in Sources */,
 				5DBF3BA91BD8210D00ACF60D /* UIView+BLKFlexibleHeightBarSubview.m in Sources */,
 				1B00868F1C11F2560077677B /* AddNewSayViewController.m in Sources */,
+				9A1406761C1305B5006547A0 /* UICheckBox.m in Sources */,
 				5DBF3BC91BD8216600ACF60D /* ProfileTableViewCell.m in Sources */,
 				1B0086911C11F2560077677B /* FacebookStyleViewController.m in Sources */,
 				5DBF3BCC1BD8216600ACF60D /* PeopleSayTableViewCell.m in Sources */,
