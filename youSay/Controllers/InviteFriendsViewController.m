@@ -33,7 +33,7 @@
     UICheckBox *btnCheckAll = [[UICheckBox alloc]initWithStateSelected:NO frame:CGRectMake(self.view.frame.size.width - 35, 15, 25, 25)];
     
     UILabel *lblSearchAll = [[UILabel alloc]initWithFrame:CGRectMake(txtSearchFriends.frame.origin.x+txtSearchFriends.frame.size.width+10, txtSearchFriends.frame.origin.y, 30, txtSearchFriends.frame.size.height)];
-    [lblSearchAll setText:@"Search All"];
+    [lblSearchAll setText:@"Select All"];
     [lblSearchAll setFont:[UIFont systemFontOfSize:12]];
     [lblSearchAll sizeToFit];
     lblSearchAll.frame = CGRectMake(self.view.frame.size.width-btnCheckAll.frame.size.width-10 - lblSearchAll.frame.size.width-5, 10, lblSearchAll.frame.size.width, 35);
