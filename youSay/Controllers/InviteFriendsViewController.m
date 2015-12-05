@@ -78,7 +78,7 @@
     imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
     [leftView addSubview:imgMagnifyingGlass];
-    txtSearchFriends = [[UITextField alloc]initWithFrame:CGRectMake(10, 10, 200, 35)];
+    txtSearchFriends = [[UITextField alloc]initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - lblSearchAll.frame.size.width - btnCheckAll.frame.size.width -30, 35)];
     [txtSearchFriends setBackgroundColor:[UIColor clearColor]];
     txtSearchFriends.font = [UIFont systemFontOfSize:12];
     txtSearchFriends.placeholder = @"Invite friends";
@@ -92,7 +92,7 @@
     [self.searchView addSubview:btnCheckAll];
 
     //Footer View
-    UIButton *btnInvite = [UIHelper flatButtonWithTitle:@"Invite" frame:CGRectMake(10, 0, self.footerView.frame.size.width-20, self.footerView.frame.size.height-10)];
+    UIButton *btnInvite = [UIHelper flatButtonWithTitle:@"Invite" frame:CGRectMake(10, 0, self.view.frame.size.width-20, self.footerView.frame.size.height-10)];
     [self.footerView addSubview:btnInvite];
 
 }
