@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    addSayTextView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,7 +32,7 @@
 #pragma mark IBAction
 
 - (IBAction)btnCloseClicked:(id)sender {
-    [self.view removeFromSuperview];
+    [self.navigationController popViewControllerAnimated:YES];
 
 }
 
@@ -42,7 +43,6 @@
 
 - (IBAction)btnColorlicked:(id)sender {
     [chooseBGView setHidden:NO];
-    [self.view bringSubviewToFront:chooseBGView];
     [self addColorButton];
 }
 
@@ -102,10 +102,22 @@
         button.layer.cornerRadius = 0.5 * button.bounds.size.width;
         [button setBackgroundColor:[arrayColor objectAtIndex:i]];
         [button addTarget:self action:@selector(selectColor:) forControlEvents:UIControlEventTouchUpInside];
+        [chooseBGView bringSubviewToFront:colorContainer];
         [colorContainer addSubview:button];
+        
     }
+}
+
+#pragma mark UITextViewDelegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+//    CGRect textViewFrame = CGRectMake(textViewBG.frame.origin.x, textViewBG.frame.origin.y, textViewBG.frame.size.width, textViewBG.frame.size.height-256);
+//    textViewBG.frame = textViewFrame;
+//    textView.frame = textViewFrame;
     
-    
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
 
 }
 

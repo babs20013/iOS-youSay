@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B0086811C117E740077677B /* AddNewSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0086801C117E740077677B /* AddNewSayViewController.m */; };
+		1B00868E1C11F2560077677B /* InviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0086861C11F2560077677B /* InviteFriendsViewController.m */; };
+		1B00868F1C11F2560077677B /* AddNewSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0086881C11F2560077677B /* AddNewSayViewController.m */; };
+		1B0086901C11F2560077677B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B00868A1C11F2560077677B /* ViewController.m */; };
+		1B0086911C11F2560077677B /* FacebookStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B00868C1C11F2560077677B /* FacebookStyleViewController.m */; };
 		1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */; };
 		358C90891BD654AC000B17AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C90881BD654AC000B17AB /* main.m */; };
 		358C908C1BD654AC000B17AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C908B1BD654AC000B17AB /* AppDelegate.m */; };
-		358C908F1BD654AC000B17AB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C908E1BD654AC000B17AB /* ViewController.m */; };
 		358C90921BD654AC000B17AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 358C90901BD654AC000B17AB /* Main.storyboard */; };
 		358C90941BD654AC000B17AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 358C90931BD654AC000B17AB /* Assets.xcassets */; };
 		4FB16F6028629C6BDBBA350E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1787B273D28568E85213A729 /* libPods.a */; };
@@ -28,7 +30,6 @@
 		5DBF3BB51BD8212500ACF60D /* SquareCashStyleBehaviorDefiner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BAF1BD8212500ACF60D /* SquareCashStyleBehaviorDefiner.m */; };
 		5DBF3BB61BD8212500ACF60D /* FacebookStyleBarBehaviorDefiner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BB11BD8212500ACF60D /* FacebookStyleBarBehaviorDefiner.m */; };
 		5DBF3BB71BD8212500ACF60D /* BLKDelegateSplitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BB31BD8212500ACF60D /* BLKDelegateSplitter.m */; };
-		5DBF3BC71BD8216600ACF60D /* FacebookStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BBA1BD8216600ACF60D /* FacebookStyleViewController.m */; };
 		5DBF3BC81BD8216600ACF60D /* FacebookStyleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BBC1BD8216600ACF60D /* FacebookStyleBar.m */; };
 		5DBF3BC91BD8216600ACF60D /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BBE1BD8216600ACF60D /* ProfileTableViewCell.m */; };
 		5DBF3BCA1BD8216600ACF60D /* CarmsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BC01BD8216600ACF60D /* CarmsTableViewCell.m */; };
@@ -43,15 +44,19 @@
 /* Begin PBXFileReference section */
 		0C0E040A22DA4EB705AB3C5B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		1787B273D28568E85213A729 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B0086801C117E740077677B /* AddNewSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewSayViewController.m; sourceTree = "<group>"; };
-		1B0086821C117E910077677B /* AddNewSayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNewSayViewController.h; sourceTree = "<group>"; };
+		1B0086861C11F2560077677B /* InviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteFriendsViewController.m; path = Controllers/InviteFriendsViewController.m; sourceTree = "<group>"; };
+		1B0086871C11F2560077677B /* InviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InviteFriendsViewController.h; path = Controllers/InviteFriendsViewController.h; sourceTree = "<group>"; };
+		1B0086881C11F2560077677B /* AddNewSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddNewSayViewController.m; path = Controllers/AddNewSayViewController.m; sourceTree = "<group>"; };
+		1B0086891C11F2560077677B /* AddNewSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewSayViewController.h; path = Controllers/AddNewSayViewController.h; sourceTree = "<group>"; };
+		1B00868A1C11F2560077677B /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Controllers/ViewController.m; sourceTree = "<group>"; };
+		1B00868B1C11F2560077677B /* FacebookStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookStyleViewController.h; path = Controllers/FacebookStyleViewController.h; sourceTree = "<group>"; };
+		1B00868C1C11F2560077677B /* FacebookStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookStyleViewController.m; path = Controllers/FacebookStyleViewController.m; sourceTree = "<group>"; };
+		1B00868D1C11F2560077677B /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = Controllers/ViewController.h; sourceTree = "<group>"; };
 		1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		358C90841BD654AC000B17AB /* youSay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = youSay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		358C90881BD654AC000B17AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		358C908A1BD654AC000B17AB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		358C908B1BD654AC000B17AB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		358C908D1BD654AC000B17AB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		358C908E1BD654AC000B17AB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		358C90911BD654AC000B17AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		358C90931BD654AC000B17AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		358C90981BD654AC000B17AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -80,8 +85,6 @@
 		5DBF3BB11BD8212500ACF60D /* FacebookStyleBarBehaviorDefiner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookStyleBarBehaviorDefiner.m; sourceTree = "<group>"; };
 		5DBF3BB21BD8212500ACF60D /* BLKDelegateSplitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLKDelegateSplitter.h; sourceTree = "<group>"; };
 		5DBF3BB31BD8212500ACF60D /* BLKDelegateSplitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLKDelegateSplitter.m; sourceTree = "<group>"; };
-		5DBF3BB91BD8216600ACF60D /* FacebookStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookStyleViewController.h; sourceTree = "<group>"; };
-		5DBF3BBA1BD8216600ACF60D /* FacebookStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookStyleViewController.m; sourceTree = "<group>"; };
 		5DBF3BBB1BD8216600ACF60D /* FacebookStyleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookStyleBar.h; sourceTree = "<group>"; };
 		5DBF3BBC1BD8216600ACF60D /* FacebookStyleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookStyleBar.m; sourceTree = "<group>"; };
 		5DBF3BBD1BD8216600ACF60D /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
@@ -260,12 +263,14 @@
 		5DBF3BDA1BD988CF00ACF60D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				358C908D1BD654AC000B17AB /* ViewController.h */,
-				358C908E1BD654AC000B17AB /* ViewController.m */,
-				5DBF3BB91BD8216600ACF60D /* FacebookStyleViewController.h */,
-				5DBF3BBA1BD8216600ACF60D /* FacebookStyleViewController.m */,
-				1B0086821C117E910077677B /* AddNewSayViewController.h */,
-				1B0086801C117E740077677B /* AddNewSayViewController.m */,
+				1B00868D1C11F2560077677B /* ViewController.h */,
+				1B00868A1C11F2560077677B /* ViewController.m */,
+				1B0086871C11F2560077677B /* InviteFriendsViewController.h */,
+				1B0086861C11F2560077677B /* InviteFriendsViewController.m */,
+				1B0086891C11F2560077677B /* AddNewSayViewController.h */,
+				1B0086881C11F2560077677B /* AddNewSayViewController.m */,
+				1B00868B1C11F2560077677B /* FacebookStyleViewController.h */,
+				1B00868C1C11F2560077677B /* FacebookStyleViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -399,18 +404,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B0086901C11F2560077677B /* ViewController.m in Sources */,
 				5DBF3BAA1BD8210D00ACF60D /* BLKFlexibleHeightBarSubviewLayoutAttributes.m in Sources */,
-				358C908F1BD654AC000B17AB /* ViewController.m in Sources */,
+				1B00868E1C11F2560077677B /* InviteFriendsViewController.m in Sources */,
 				5DBF3BB51BD8212500ACF60D /* SquareCashStyleBehaviorDefiner.m in Sources */,
 				5DBF3BB71BD8212500ACF60D /* BLKDelegateSplitter.m in Sources */,
 				358C908C1BD654AC000B17AB /* AppDelegate.m in Sources */,
 				5DBF3BC81BD8216600ACF60D /* FacebookStyleBar.m in Sources */,
 				5DBF3BA91BD8210D00ACF60D /* UIView+BLKFlexibleHeightBarSubview.m in Sources */,
+				1B00868F1C11F2560077677B /* AddNewSayViewController.m in Sources */,
 				5DBF3BC91BD8216600ACF60D /* ProfileTableViewCell.m in Sources */,
+				1B0086911C11F2560077677B /* FacebookStyleViewController.m in Sources */,
 				5DBF3BCC1BD8216600ACF60D /* PeopleSayTableViewCell.m in Sources */,
 				5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */,
 				5DBF3BCD1BD8216600ACF60D /* MessageTableViewCell.m in Sources */,
-				1B0086811C117E740077677B /* AddNewSayViewController.m in Sources */,
 				358C90891BD654AC000B17AB /* main.m in Sources */,
 				5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */,
 				5DBF3BCB1BD8216600ACF60D /* LongPressTableViewCell.m in Sources */,
@@ -419,7 +426,6 @@
 				5DBF3BB41BD8212500ACF60D /* BLKFlexibleHeightBarBehaviorDefiner.m in Sources */,
 				5DBF3BD01BD821DF00ACF60D /* SquareCashStyleBar.m in Sources */,
 				5DBF3BB61BD8212500ACF60D /* FacebookStyleBarBehaviorDefiner.m in Sources */,
-				5DBF3BC71BD8216600ACF60D /* FacebookStyleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

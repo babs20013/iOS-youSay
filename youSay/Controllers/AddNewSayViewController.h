@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddNewSayViewController : UIViewController
+@interface AddNewSayViewController : UIViewController <UITextViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextView *addSayTextView;
 @property (nonatomic, strong) IBOutlet UIView *textViewBG;
