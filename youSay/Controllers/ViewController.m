@@ -55,7 +55,7 @@
     [[UIApplication sharedApplication]
      canOpenURL:[NSURL URLWithString:@"TestA://"]];
     
-    [SVProgressHUD show];
+    //[SVProgressHUD show];
     [SVProgressHUD setStatus:@"Loading..."];
     UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
     [SVProgressHUD setBackgroundColor:blackColor];
