@@ -11,6 +11,8 @@
 @interface InviteFriendsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) IBOutlet UITableView *tblFriends;
 @property (nonatomic,strong) IBOutlet UIView *searchView;
+@property (nonatomic,strong) IBOutlet UIView *footerView;
+@property (nonatomic,strong) NSMutableArray *arrFriends;
 
 
 @end

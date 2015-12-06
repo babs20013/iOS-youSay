@@ -2,7 +2,7 @@
 //  UICheckBox.m
 //  youSay
 //
-//  Created by muthiafirdaus on 05/12/2015.
+//  Created by muliana on 05/12/2015.
 //  Copyright © 2015 macbokpro. All rights reserved.
 //
 
@@ -36,7 +36,6 @@
     return self;
 }
 -(void)setup{
-    [self addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 
     [self addTarget:self action:@selector(onTouch) forControlEvents:UIControlEventTouchUpInside];
 
@@ -49,38 +48,29 @@
 }
 
 -(void)updateState{
-    self.selected = !self.selected;
+    _checked = !_checked;
     [self updateUI];
 }
 -(void)updateUI{
     
-    if (self.selected) {
+    if (_checked) {
         imageState.image = [UIImage imageNamed:@"checked"];
     }
     else{
         imageState.image = [UIImage imageNamed:@"unchecked"];
+    }
+    
+    if (self.callback) {
+        self.callback(_checked);
     }
 }
 -(void)onTouch{
     [self updateState];
 }
 
-
--(void)observeValueForKeyPath:(NSString *)keyPath
-                     ofObject:(id)object
-                       change:(NSDictionary *)change
-                      context:(void *)context
-{
-    if ([keyPath isEqualToString:@"selected"])
-    {
-        [self updateUI];
-    }
-    else
-        [super observeValueForKeyPath:keyPath
-                             ofObject:object
-                               change:change
-                              context:context];
+-(void)setChecked:(BOOL)checked{
+    _checked = checked;
+    [self updateUI];
 }
-
 
 @end

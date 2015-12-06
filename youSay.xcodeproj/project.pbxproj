@@ -40,6 +40,8 @@
 		5DBF3BD21BD8237000ACF60D /* Close.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBF3BD11BD8237000ACF60D /* Close.png */; };
 		5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BD51BD93BE800ACF60D /* ServiceConnector.m */; };
 		9A1406761C1305B5006547A0 /* UICheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1406751C1305B5006547A0 /* UICheckBox.m */; };
+		9A14067A1C13370C006547A0 /* UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1406791C13370C006547A0 /* UIHelper.m */; };
+		9A14067E1C133C65006547A0 /* FriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A14067D1C133C65006547A0 /* FriendModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +109,10 @@
 		5DBF3BD91BD93C9000ACF60D /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		9A1406741C1305B5006547A0 /* UICheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UICheckBox.h; path = UIComponent/UICheckBox.h; sourceTree = "<group>"; };
 		9A1406751C1305B5006547A0 /* UICheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UICheckBox.m; path = UIComponent/UICheckBox.m; sourceTree = "<group>"; };
+		9A1406781C13370C006547A0 /* UIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIHelper.h; path = UIComponent/UIHelper.h; sourceTree = "<group>"; };
+		9A1406791C13370C006547A0 /* UIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIHelper.m; path = UIComponent/UIHelper.m; sourceTree = "<group>"; };
+		9A14067C1C133C65006547A0 /* FriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendModel.h; sourceTree = "<group>"; };
+		9A14067D1C133C65006547A0 /* FriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendModel.m; sourceTree = "<group>"; };
 		A49055F20855DDD853D5A0A6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +152,7 @@
 		358C90861BD654AC000B17AB /* youSay */ = {
 			isa = PBXGroup;
 			children = (
+				9A14067B1C133C42006547A0 /* Model */,
 				5DBF3BD71BD93BF100ACF60D /* JSONDictionaryExtensions */,
 				5DBF3BD31BD93BD500ACF60D /* Service Connector */,
 				5DBF3BA11BD8210100ACF60D /* BLKFlexibleHeightBar */,
@@ -302,8 +309,19 @@
 			children = (
 				9A1406741C1305B5006547A0 /* UICheckBox.h */,
 				9A1406751C1305B5006547A0 /* UICheckBox.m */,
+				9A1406781C13370C006547A0 /* UIHelper.h */,
+				9A1406791C13370C006547A0 /* UIHelper.m */,
 			);
 			name = UIComponent;
+			sourceTree = "<group>";
+		};
+		9A14067B1C133C42006547A0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9A14067C1C133C65006547A0 /* FriendModel.h */,
+				9A14067D1C133C65006547A0 /* FriendModel.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -428,9 +446,11 @@
 				1B00868F1C11F2560077677B /* AddNewSayViewController.m in Sources */,
 				9A1406761C1305B5006547A0 /* UICheckBox.m in Sources */,
 				5DBF3BC91BD8216600ACF60D /* ProfileTableViewCell.m in Sources */,
+				9A14067A1C13370C006547A0 /* UIHelper.m in Sources */,
 				1B0086911C11F2560077677B /* FacebookStyleViewController.m in Sources */,
 				5DBF3BCC1BD8216600ACF60D /* PeopleSayTableViewCell.m in Sources */,
 				5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */,
+				9A14067E1C133C65006547A0 /* FriendModel.m in Sources */,
 				5DBF3BCD1BD8216600ACF60D /* MessageTableViewCell.m in Sources */,
 				358C90891BD654AC000B17AB /* main.m in Sources */,
 				5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */,
