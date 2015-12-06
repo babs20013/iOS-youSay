@@ -12,6 +12,7 @@
 #import "FriendModel.h"
 @interface InviteFriendsViewController (){
     UITextField *txtSearchFriends;
+    NSArray *arrayFriendList;
 }
 @end
 
@@ -20,32 +21,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //DUMMY //TODO: change to actual data
-    FriendModel *f1 = [[FriendModel alloc]init];
-    f1.Name = @"Andy Muliana";
-    f1.Location = @"Las Vegas";
-    f1.ProfileImage = [UIImage imageNamed:@"Color"];
-    f1.Selected = NO;
     
-    FriendModel *f2 = [[FriendModel alloc]init];
-    f2.Name = @"Budi Darsono";
-    f2.Location = @"Ndeso";
-    f2.ProfileImage = [UIImage imageNamed:@"Color"];
-    f2.Selected = NO;
-    
-    FriendModel *f3 = [[FriendModel alloc]init];
-    f3.Name = @"James Bond";
-    f3.Location = @"London";
-    f3.ProfileImage = [UIImage imageNamed:@"Color"];
-    f3.Selected = YES;
-    
-    FriendModel *f4 = [[FriendModel alloc]init];
-    f4.Name = @"Leon Kennedy";
-    f4.Location = @"Menchester";
-    f4.ProfileImage = [UIImage imageNamed:@"Color"];
-    f4.Selected = NO;
-    
-    arrFriends  = [NSMutableArray arrayWithObjects:f1,f2,f3,f4,nil];
+    arrFriends = [[NSMutableArray alloc]init];
+    [self loadFriendList];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)initiateDisplay {
+    for (int i = 0; i < arrayFriendList.count; i++) {
+        NSDictionary *dictFrienDetail = [arrayFriendList objectAtIndex:i];
+        FriendModel *model = [[FriendModel alloc] init];
+        model.Name = [dictFrienDetail objectForKey:@"name"];
+        model.Selected = NO;
+        
+        NSDictionary *picture = [dictFrienDetail objectForKey:@"picture"];
+        NSDictionary *pictureData = [picture objectForKey:@"data"];
+        NSURL *url = [NSURL URLWithString:[pictureData objectForKey:@"url"]];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        model.ProfileImage = [[UIImage alloc] initWithData:data];
+        
+        model.Location = @"Last Vegas";
+        [arrFriends addObject:model];
+    }
     
     [self.view setBackgroundColor:[UIColor colorWithRed:195/255.f green:205/255.f blue:207/255.f alpha:1]];
     self.tblFriends.layer.cornerRadius = 5;
@@ -90,19 +91,26 @@
     [self.searchView addSubview:txtSearchFriends];
     
     [self.searchView addSubview:btnCheckAll];
-
+    
     //Footer View
     UIButton *btnInvite = [UIHelper flatButtonWithTitle:@"Invite" frame:CGRectMake(10, 0, self.view.frame.size.width-20, self.footerView.frame.size.height-10)];
     [self.footerView addSubview:btnInvite];
-
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)loadFriendList {
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+                                  initWithGraphPath:@"153149751711359?fields=taggable_friends"
+                                  parameters:nil
+                                  HTTPMethod:@"GET"];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                          id result,
+                                          NSError *error) {
+        NSDictionary *dictresult = result;
+        NSDictionary *taggableFriend = [dictresult objectForKey:@"taggable_friends"];
+        arrayFriendList = [taggableFriend objectForKey:@"data"];
+        [self initiateDisplay];
+    }];
 }
-
-
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [arrFriends count];;

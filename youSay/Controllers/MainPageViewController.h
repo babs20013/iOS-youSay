@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ViewPagerController.h"
 #import "FacebookStyleViewController.h"
+#import "InviteFriendsViewController.h"
 @interface MainPageViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate>
 
 @end

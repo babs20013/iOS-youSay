@@ -59,8 +59,8 @@
     [SVProgressHUD setStatus:@"Loading..."];
     UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
     [SVProgressHUD setBackgroundColor:blackColor];
-
-    
+        
+    /*
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
     [login logInWithReadPermissions:@[@"email"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
         if (error) {
@@ -80,8 +80,14 @@
                 
             }
         }
-    }];
-}
+    }];*/
+    }
+    
+    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
+    dialog.fromViewController = self;
+    //dialog.content = @"test";
+    dialog.mode = FBSDKShareDialogModeShareSheet;
+    [dialog show];
 }
 
 -(void)loadFaceBookData:(NSString*)fbURLString param:(NSDictionary*)param

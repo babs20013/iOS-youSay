@@ -816,7 +816,7 @@
         <!--Invite Friends View Controller-->
         <scene sceneID="7kS-H3-nQn">
             <objects>
-                <viewController storyboardIdentifier="InviteFriend" id="huF-AE-k7h" customClass="InviteFriendsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InviteFriendsViewController" id="huF-AE-k7h" customClass="InviteFriendsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dLW-B0-nYe"/>
                         <viewControllerLayoutGuide type="bottom" id="0eS-eR-e9w"/>
