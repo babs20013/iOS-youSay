@@ -11,6 +11,8 @@
 		1B00868F1C11F2560077677B /* AddNewSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0086881C11F2560077677B /* AddNewSayViewController.m */; };
 		1B0086901C11F2560077677B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B00868A1C11F2560077677B /* ViewController.m */; };
 		1B0086911C11F2560077677B /* FacebookStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B00868C1C11F2560077677B /* FacebookStyleViewController.m */; };
+		1B2FD6341C14271F005840A2 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2FD6331C14271F005840A2 /* ViewPagerController.m */; };
+		1B2FD6371C1427A2005840A2 /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2FD6361C1427A2005840A2 /* MainPageViewController.m */; };
 		1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */; };
 		358C90891BD654AC000B17AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C90881BD654AC000B17AB /* main.m */; };
 		358C908C1BD654AC000B17AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C908B1BD654AC000B17AB /* AppDelegate.m */; };
@@ -55,6 +57,10 @@
 		1B00868B1C11F2560077677B /* FacebookStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookStyleViewController.h; path = Controllers/FacebookStyleViewController.h; sourceTree = "<group>"; };
 		1B00868C1C11F2560077677B /* FacebookStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookStyleViewController.m; path = Controllers/FacebookStyleViewController.m; sourceTree = "<group>"; };
 		1B00868D1C11F2560077677B /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = Controllers/ViewController.h; sourceTree = "<group>"; };
+		1B2FD6321C14271F005840A2 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
+		1B2FD6331C14271F005840A2 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
+		1B2FD6351C1427A2005840A2 /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainPageViewController.h; path = Controllers/MainPageViewController.h; sourceTree = "<group>"; };
+		1B2FD6361C1427A2005840A2 /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainPageViewController.m; path = Controllers/MainPageViewController.m; sourceTree = "<group>"; };
 		1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		358C90841BD654AC000B17AB /* youSay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = youSay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		358C90881BD654AC000B17AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -282,6 +288,8 @@
 				1B0086881C11F2560077677B /* AddNewSayViewController.m */,
 				1B00868B1C11F2560077677B /* FacebookStyleViewController.h */,
 				1B00868C1C11F2560077677B /* FacebookStyleViewController.m */,
+				1B2FD6351C1427A2005840A2 /* MainPageViewController.h */,
+				1B2FD6361C1427A2005840A2 /* MainPageViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -307,6 +315,8 @@
 		9A1406771C1305BB006547A0 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				1B2FD6321C14271F005840A2 /* ViewPagerController.h */,
+				1B2FD6331C14271F005840A2 /* ViewPagerController.m */,
 				9A1406741C1305B5006547A0 /* UICheckBox.h */,
 				9A1406751C1305B5006547A0 /* UICheckBox.m */,
 				9A1406781C13370C006547A0 /* UIHelper.h */,
@@ -453,10 +463,12 @@
 				9A14067E1C133C65006547A0 /* FriendModel.m in Sources */,
 				5DBF3BCD1BD8216600ACF60D /* MessageTableViewCell.m in Sources */,
 				358C90891BD654AC000B17AB /* main.m in Sources */,
+				1B2FD6341C14271F005840A2 /* ViewPagerController.m in Sources */,
 				5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */,
 				5DBF3BCB1BD8216600ACF60D /* LongPressTableViewCell.m in Sources */,
 				5D91F79E1BDA9D33005845BE /* Reachability.m in Sources */,
 				5DBF3BCA1BD8216600ACF60D /* CarmsTableViewCell.m in Sources */,
+				1B2FD6371C1427A2005840A2 /* MainPageViewController.m in Sources */,
 				5DBF3BB41BD8212500ACF60D /* BLKFlexibleHeightBarBehaviorDefiner.m in Sources */,
 				5DBF3BD01BD821DF00ACF60D /* SquareCashStyleBar.m in Sources */,
 				5DBF3BB61BD8212500ACF60D /* FacebookStyleBarBehaviorDefiner.m in Sources */,
