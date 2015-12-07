@@ -250,8 +250,6 @@
 				5D91F79D1BDA9D33005845BE /* Reachability.m */,
 				5DBF3BBB1BD8216600ACF60D /* FacebookStyleBar.h */,
 				5DBF3BBC1BD8216600ACF60D /* FacebookStyleBar.m */,
-				5DBF3BBD1BD8216600ACF60D /* ProfileTableViewCell.h */,
-				5DBF3BBE1BD8216600ACF60D /* ProfileTableViewCell.m */,
 				5DBF3BBF1BD8216600ACF60D /* CarmsTableViewCell.h */,
 				5DBF3BC01BD8216600ACF60D /* CarmsTableViewCell.m */,
 				5DBF3BC11BD8216600ACF60D /* LongPressTableViewCell.h */,
@@ -298,6 +296,8 @@
 				1B2FD6361C1427A2005840A2 /* MainPageViewController.m */,
 				1BA91E441C158CF60062733B /* ProfileViewController.h */,
 				1BA91E451C158D060062733B /* ProfileViewController.m */,
+				5DBF3BBD1BD8216600ACF60D /* ProfileTableViewCell.h */,
+				5DBF3BBE1BD8216600ACF60D /* ProfileTableViewCell.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

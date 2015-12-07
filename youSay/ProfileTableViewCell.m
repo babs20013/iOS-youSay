@@ -10,7 +10,7 @@
 #import "ProfileTableViewCell.h"
 
 @implementation ProfileTableViewCell
-@synthesize profileImageView, rankLabel, popularLabel, nameLabel;
+@synthesize imgViewCover, imgViewProfilePicture, newbie, popular, lblName;
 
 - (void)awakeFromNib {
     // Initialization code

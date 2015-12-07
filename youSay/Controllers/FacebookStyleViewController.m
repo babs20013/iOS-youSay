@@ -173,14 +173,14 @@
     {
         static NSString *cellIdentifier = @"ProfileTableViewCell";
         ProfileTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        cel.nameLabel.text = [profileDictionary valueForKey:@"name"];
-        cel.popularLabel.text = [NSString stringWithFormat:@"%@",[profileDictionary valueForKey:@"popularity"]];
-        cel.rankLabel.text = [NSString stringWithFormat:@"%@",[profileDictionary valueForKey:@"rank"]];
-        
-        UIImage* myImage = [UIImage imageWithData:
-                            [NSData dataWithContentsOfURL:
-                             [NSURL URLWithString: [profileDictionary valueForKey:@"picture"]]]];
-        cel.profileImageView.image = myImage;
+//        cel.nameLabel.text = [profileDictionary valueForKey:@"name"];
+//        cel.popularLabel.text = [NSString stringWithFormat:@"%@",[profileDictionary valueForKey:@"popularity"]];
+//        cel.rankLabel.text = [NSString stringWithFormat:@"%@",[profileDictionary valueForKey:@"rank"]];
+//        
+//        UIImage* myImage = [UIImage imageWithData:
+//                            [NSData dataWithContentsOfURL:
+//                             [NSURL URLWithString: [profileDictionary valueForKey:@"picture"]]]];
+//        cel.profileImageView.image = myImage;
         return cel;
     }
     else if (indexPath.section == 1)

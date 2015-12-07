@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ProfileTableViewCell : UITableViewCell
-@property (nonatomic, strong) IBOutlet UIImageView * profileImageView;
-@property (nonatomic, strong) IBOutlet UILabel * nameLabel;
-@property (nonatomic, strong) IBOutlet UILabel * rankLabel;
-@property (nonatomic, strong) IBOutlet UILabel * popularLabel;
+@property (nonatomic, strong) IBOutlet UIImageView *imgViewCover;
+@property (nonatomic, strong) IBOutlet UIImageView *imgViewProfilePicture;
+@property (nonatomic, strong) IBOutlet UIButton *newbie;
+@property (nonatomic, strong) IBOutlet UIButton *popular;
+@property (nonatomic, strong) IBOutlet UILabel *lblName;
 @end
