@@ -15,6 +15,7 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "Reachability.h"
 #import "MainPageViewController.h"
+#import "ProfileOwnerModel.h"
 
 @interface ViewController ()
 {
@@ -60,7 +61,6 @@
     UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
     [SVProgressHUD setBackgroundColor:blackColor];
         
-    /*
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
     [login logInWithReadPermissions:@[@"email"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
         if (error) {
@@ -75,19 +75,19 @@
                  accessToken = [FBSDKAccessToken currentAccessToken].tokenString;
                 if([accessToken isKindOfClass:[NSString class]]){
                     NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
-                    [self loadFaceBookData:completeUrl param:@{@"fields":@"email,name,first_name,last_name,gender",@"access_token":accessToken}];
+                    [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":accessToken}];
                 }
                 
             }
         }
-    }];*/
+    }];
     }
-    
-    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
-    dialog.fromViewController = self;
-    //dialog.content = @"test";
-    dialog.mode = FBSDKShareDialogModeShareSheet;
-    [dialog show];
+//    
+//    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
+//    dialog.fromViewController = self;
+//    //dialog.content = @"test";
+//    dialog.mode = FBSDKShareDialogModeShareSheet;
+//    [dialog show];
 }
 
 -(void)loadFaceBookData:(NSString*)fbURLString param:(NSDictionary*)param
@@ -101,29 +101,26 @@
          parameters:param
             success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
-                NSString* email=@"";
                 NSString* facebook_id=@"";
-                NSString* first_name=@"";
-                NSString* last_name=@"";
-                NSString* gender=@"";
                 
-                if([resultDic valueForKey:@"email"]&&[[resultDic valueForKey:@"email"]isKindOfClass:[NSString class]]){
-                    email=[resultDic valueForKey:@"email"];
-                }
-                if([resultDic valueForKey:@"first_name"]&&[[resultDic valueForKey:@"first_name"]isKindOfClass:[NSString class]]){
-                    first_name=[resultDic valueForKey:@"first_name"];
-                }
-                if([resultDic valueForKey:@"last_name"]&&[[resultDic valueForKey:@"last_name"]isKindOfClass:[NSString class]]){
-                    last_name=[resultDic valueForKey:@"last_name"];
-                }
-                if([resultDic valueForKey:@"gender"]&&[[resultDic valueForKey:@"gender"]isKindOfClass:[NSString class]]){
-                    gender=[resultDic valueForKey:@"gender"];
-                }
+                ProfileOwnerModel *model = [[ProfileOwnerModel alloc]init];
+                model.Name = [resultDic valueForKey:@"name"];
+                
+                //--Get profile picture
+                NSDictionary *pictureDict = [[resultDic objectForKey:@"picture"] objectForKey:@"data"];
+                NSString *pictureURL = [pictureDict objectForKey:@"url"];
+                model.ProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:pictureURL]]];
+                
+                //--Get cover picture
+                NSString *coverURL = [[resultDic objectForKey:@"cover"] objectForKey:@"source"];
+                model.CoverImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverURL]]];
+                
+                
                 if([resultDic valueForKey:@"id"]&&[[resultDic valueForKey:@"id"]isKindOfClass:[NSString class]]){
                     facebook_id=[resultDic valueForKey:@"id"];
                 }
-                
-                NSLog(@"%@",@{ @"email" :email,@"gender" : gender,@"facebook_id" : facebook_id,@"first_name" : first_name,@"last_name" : last_name});
+                [AppDelegate sharedDelegate].profileOwner = model;
+//                NSLog(@"%@",@{ @"email" :email,@"gender" : gender,@"facebook_id" : facebook_id,@"first_name" : first_name,@"last_name" : last_name});
                 
                 ServiceConnector *serviceConnector = [[ServiceConnector alloc] init];
                 serviceConnector.delegate = self;
@@ -144,14 +141,21 @@
 //    output.text = dictionary.JSONString; // set the textview to the raw string value of the data recieved
     if([[dictionary valueForKey:@"message"] isEqualToString:@"success"])
     {
-        UITabBarController *tabar= [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-
-        FacebookStyleViewController *dest = [tabar.viewControllers objectAtIndex:0];
-       dest.profileDictionary = [dictionary valueForKey:@"profile"];
-        [self.navigationController pushViewController:tabar animated:NO];
+//        UITabBarController *tabar= [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+//
+//        FacebookStyleViewController *dest = [tabar.viewControllers objectAtIndex:0];
+//       dest.profileDictionary = [dictionary valueForKey:@"profile"];
+//        [self.navigationController pushViewController:tabar animated:NO];
+//        
+//        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+        vc.profileDictionary = [dictionary valueForKey:@"profile"];
+        [self.navigationController pushViewController:vc animated:YES];
     }
     
     NSLog(@"yuouSay : %@",dictionary);
+    
     [SVProgressHUD dismiss];
 
 }

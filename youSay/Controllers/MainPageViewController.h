@@ -11,5 +11,7 @@
 #import "FacebookStyleViewController.h"
 #import "InviteFriendsViewController.h"
 @interface MainPageViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate>
+@property (nonatomic,strong) NSDictionary * profileDictionary;
+@property (nonatomic, strong) NSMutableArray * saysArray;
 
 @end

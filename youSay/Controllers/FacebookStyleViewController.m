@@ -210,7 +210,7 @@
         
         dict = [charmsArray objectAtIndex:2];
         cel.charmLabel3.text = [dict valueForKey:@"name"];
-        score = [[dict valueForKey:@"rate"] integerValue];
+        score = 70;//[[dict valueForKey:@"rate"] integerValue];
         score *= 100;
         cel.charmScoreLabel3.text = [NSString stringWithFormat:@"%d",score];
         newFrame = cel.charmView3.frame;

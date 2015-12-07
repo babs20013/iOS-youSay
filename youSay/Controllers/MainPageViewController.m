@@ -7,6 +7,7 @@
 //
 
 #import "MainPageViewController.h"
+#import "ProfileViewController.h"
 @interface MainPageViewController (){
     NSUInteger numberOfTabs;
 }
@@ -58,8 +59,9 @@
 //        return vc;
     }
     else{
-        FacebookStyleViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FacebookStyleViewController"];
+        ProfileViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
         
+        cvc.profileDictionary = self.profileDictionary;
         return cvc;
     }
 }
