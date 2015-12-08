@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface PeopleSayTableViewCell : UITableViewCell
-@property (nonatomic, strong) IBOutlet UILabel * peopleSayLabel;
+@property (nonatomic, strong) IBOutlet UILabel *peopleSayTitleLabel;
+@property (nonatomic, strong) IBOutlet UIImageView *imgViewProfilePic;
+@property (nonatomic, strong) IBOutlet UIView *peopleSayView;
+@property (nonatomic, strong) IBOutlet UILabel *peopleSayLabel;
+@property (nonatomic, strong) IBOutlet UILabel *dateLabel;
+@property (nonatomic, strong) IBOutlet UILabel *likesLabel;
 @end
+

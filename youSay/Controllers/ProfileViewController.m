@@ -35,6 +35,7 @@
 @implementation ProfileViewController
 
 @synthesize profileDictionary;
+@synthesize saysArray;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,7 +45,13 @@
     UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
     searchBar.backgroundColor = [UIColor clearColor];
     searchBar.tintColor = [UIColor clearColor];
-    [self.view addSubview:searchBar];
+    //[self.view addSubview:searchBar];
+    
+    saysArray = [[NSMutableArray alloc]init];
+    NSString *string1 = @"test";
+    [saysArray addObject:string1];
+    [saysArray addObject:string1];
+    [saysArray addObject:string1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,17 +63,30 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     //TODO-- Should be dynamic based on the iPhone device height
-    return 511;
+    if (indexPath.section == 0) {
+        return 511;
+    }
+    else if (indexPath.section == 1) {
+        return 220;
+    }
+    return 0;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    //TODO-- Should be dynamic based on the iPhone device height
+    if (section == 0) {
+        return 1;
+    }
+    else if (section == 1) {
+        return saysArray.count;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -128,7 +148,7 @@
     {
         static NSString *cellIdentifier = @"PeopleSayTableViewCell";
         PeopleSayTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        cel.peopleSayLabel.text = [NSString stringWithFormat:@"What people said about %@:",[profileDictionary valueForKey:@"name"]];
+//        cel.peopleSayLabel.text = [NSString stringWithFormat:@"What people said about %@:",[profileDictionary valueForKey:@"name"]];
         return cel;
     }
    
