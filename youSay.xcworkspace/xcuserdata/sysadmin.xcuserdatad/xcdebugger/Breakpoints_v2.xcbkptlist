@@ -41,29 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "youSay/Controllers/InviteFriendsViewController.m"
-            timestampString = "471107274.40244"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "youSay/Controllers/ProfileViewController.m"
-            timestampString = "471201703.817094"
+            timestampString = "471237665.267719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "-getCharmsDisplay:withScore:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -11,6 +11,8 @@
 
 @implementation ProfileTableViewCell
 @synthesize imgViewCover, imgViewProfilePicture, newbie, popular, lblName;
+@synthesize lblCharm1, lblCharm2, lblCharm3, lblCharm4, lblCharm5;
+@synthesize viewCharm1, viewCharm2, viewCharm3, viewCharm4, viewCharm5;
 
 - (void)awakeFromNib {
     // Initialization code
