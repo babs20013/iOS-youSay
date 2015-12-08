@@ -992,6 +992,10 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXD-s6-lei" userLabel="CoverView">
                                                     <rect key="frame" x="0.0" y="0.0" width="310" height="125"/>
                                                     <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zhk-b9-8Bj" userLabel="CoverPicture">
+                                                            <rect key="frame" x="2" y="0.0" width="310" height="125"/>
+                                                            <animations/>
+                                                        </imageView>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OWM-P9-iZl" userLabel="ProfilePicture">
                                                             <rect key="frame" x="10" y="23" width="80" height="80"/>
                                                             <animations/>
@@ -1001,21 +1005,21 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Svb-fU-0hT">
-                                                            <rect key="frame" x="98" y="10" width="214" height="20"/>
+                                                            <rect key="frame" x="98" y="23" width="214" height="18"/>
                                                             <animations/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="214" id="nUm-fw-l5G"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="16"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lI-QT-wVx" userLabel="newB">
-                                                            <rect key="frame" x="95" y="35" width="45" height="45"/>
+                                                            <rect key="frame" x="95" y="46" width="40" height="40"/>
                                                             <animations/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="45" id="AQu-jw-v4w"/>
-                                                                <constraint firstAttribute="height" constant="45" id="qzy-EB-Npz"/>
+                                                                <constraint firstAttribute="width" constant="40" id="AQu-jw-v4w"/>
+                                                                <constraint firstAttribute="height" constant="40" id="qzy-EB-Npz"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                                             <state key="normal" title="65" backgroundImage="Heart">
@@ -1023,11 +1027,11 @@
                                                             </state>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKL-km-99h" userLabel="popular">
-                                                            <rect key="frame" x="150" y="35" width="45" height="45"/>
+                                                            <rect key="frame" x="145" y="46" width="40" height="40"/>
                                                             <animations/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="45" id="cQa-xq-eu0"/>
-                                                                <constraint firstAttribute="height" constant="45" id="dTZ-N7-hJc"/>
+                                                                <constraint firstAttribute="width" constant="40" id="cQa-xq-eu0"/>
+                                                                <constraint firstAttribute="height" constant="40" id="dTZ-N7-hJc"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                                             <state key="normal" title="65" backgroundImage="Star">
@@ -1035,23 +1039,19 @@
                                                             </state>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NewB" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJw-sY-AUf">
-                                                            <rect key="frame" x="95" y="86" width="45" height="12"/>
+                                                            <rect key="frame" x="95" y="97" width="40" height="12"/>
                                                             <animations/>
-                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Most Popular" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZo-kp-9Dy">
-                                                            <rect key="frame" x="150" y="80" width="45" height="24"/>
+                                                            <rect key="frame" x="145" y="91" width="40" height="23"/>
                                                             <animations/>
-                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zhk-b9-8Bj" userLabel="CoverPicture">
-                                                            <rect key="frame" x="2" y="0.0" width="310" height="125"/>
-                                                            <animations/>
-                                                        </imageView>
                                                     </subviews>
                                                     <animations/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1072,7 +1072,7 @@
                                                         <constraint firstItem="6lI-QT-wVx" firstAttribute="leading" secondItem="OWM-P9-iZl" secondAttribute="trailing" constant="5" id="oWd-Lg-2JP"/>
                                                         <constraint firstItem="mJw-sY-AUf" firstAttribute="trailing" secondItem="6lI-QT-wVx" secondAttribute="trailing" id="p55-u2-hYJ"/>
                                                         <constraint firstItem="lZo-kp-9Dy" firstAttribute="centerY" secondItem="mJw-sY-AUf" secondAttribute="centerY" id="rjV-VS-l6A"/>
-                                                        <constraint firstItem="Svb-fU-0hT" firstAttribute="top" secondItem="dXD-s6-lei" secondAttribute="top" constant="10" id="u0j-YW-BEe"/>
+                                                        <constraint firstItem="Svb-fU-0hT" firstAttribute="top" secondItem="OWM-P9-iZl" secondAttribute="top" id="wJM-9p-UWy"/>
                                                         <constraint firstItem="lZo-kp-9Dy" firstAttribute="centerX" secondItem="lKL-km-99h" secondAttribute="centerX" id="xsu-tH-vce"/>
                                                         <constraint firstItem="Zhk-b9-8Bj" firstAttribute="centerY" secondItem="OWM-P9-iZl" secondAttribute="centerY" id="yi8-Yo-Fwk"/>
                                                     </constraints>
@@ -1087,7 +1087,7 @@
                                                                 <constraint firstAttribute="width" constant="285" id="99J-jz-Xfx"/>
                                                                 <constraint firstAttribute="height" constant="30" id="W5R-GK-A0z"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1168,9 +1168,9 @@
                                                             <state key="normal" title="FB"/>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uad-gD-3bx">
-                                                            <rect key="frame" x="241" y="294" width="38" height="17"/>
+                                                            <rect key="frame" x="241" y="294" width="38" height="16"/>
                                                             <animations/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1188,7 +1188,7 @@
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long press on charm to edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8VA-lO-RaK">
                                                                     <rect key="frame" x="0.0" y="9" width="310" height="32"/>
                                                                     <animations/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -1210,7 +1210,7 @@
                                                                 <constraint firstAttribute="width" constant="55" id="1q4-Pf-cR4"/>
                                                                 <constraint firstAttribute="height" constant="21" id="2q6-Gw-qab"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1221,7 +1221,7 @@
                                                                 <constraint firstAttribute="height" constant="21" id="8YZ-g9-mws"/>
                                                                 <constraint firstAttribute="width" constant="55" id="esK-5j-zoA"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1232,7 +1232,7 @@
                                                                 <constraint firstAttribute="height" constant="21" id="WfK-p6-zNn"/>
                                                                 <constraint firstAttribute="width" constant="55" id="uyF-Zb-7zD"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1243,7 +1243,7 @@
                                                                 <constraint firstAttribute="height" constant="21" id="68L-B4-4EV"/>
                                                                 <constraint firstAttribute="width" constant="55" id="Ym3-J8-0ZL"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1254,7 +1254,7 @@
                                                                 <constraint firstAttribute="height" constant="21" id="X1z-xz-HoW"/>
                                                                 <constraint firstAttribute="width" constant="55" id="bfP-21-cG6"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1320,6 +1320,16 @@
                                             <outlet property="viewCharm4" destination="fxW-tK-5Uv" id="sPA-ux-dM4"/>
                                             <outlet property="viewCharm5" destination="mr1-sS-77Q" id="c6U-Me-5x1"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PeopleSayTableViewCell" id="84r-SK-Jvj" customClass="PeopleSayTableViewCell">
+                                        <rect key="frame" x="0.0" y="539" width="310" height="5"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="84r-SK-Jvj" id="8sk-2w-GwW">
+                                            <rect key="frame" x="0.0" y="0.0" width="310" height="4"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <animations/>
+                                        </tableViewCellContentView>
+                                        <animations/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

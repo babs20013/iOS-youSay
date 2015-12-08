@@ -254,8 +254,6 @@
 				5DBF3BC01BD8216600ACF60D /* CarmsTableViewCell.m */,
 				5DBF3BC11BD8216600ACF60D /* LongPressTableViewCell.h */,
 				5DBF3BC21BD8216600ACF60D /* LongPressTableViewCell.m */,
-				5DBF3BC31BD8216600ACF60D /* PeopleSayTableViewCell.h */,
-				5DBF3BC41BD8216600ACF60D /* PeopleSayTableViewCell.m */,
 				5DBF3BC51BD8216600ACF60D /* MessageTableViewCell.h */,
 				5DBF3BC61BD8216600ACF60D /* MessageTableViewCell.m */,
 				5DBF3BCE1BD821DF00ACF60D /* SquareCashStyleBar.h */,
@@ -298,6 +296,8 @@
 				1BA91E451C158D060062733B /* ProfileViewController.m */,
 				5DBF3BBD1BD8216600ACF60D /* ProfileTableViewCell.h */,
 				5DBF3BBE1BD8216600ACF60D /* ProfileTableViewCell.m */,
+				5DBF3BC31BD8216600ACF60D /* PeopleSayTableViewCell.h */,
+				5DBF3BC41BD8216600ACF60D /* PeopleSayTableViewCell.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

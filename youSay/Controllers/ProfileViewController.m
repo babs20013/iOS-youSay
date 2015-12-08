@@ -111,7 +111,7 @@
         NSInteger score4 = [[dict4 valueForKey:@"rate"] integerValue];
         
         NSDictionary * dict5 = [charmsArray objectAtIndex:4];
-        cel.lblCharm5.text = [dict5 valueForKey:@"name"];
+        cel.lblCharm5.text = @"ana";//[dict5 valueForKey:@"name"];
         NSInteger score5 = [[dict5 valueForKey:@"rate"] integerValue];
         
         [cel.viewCharm1 addSubview:[self getCharmsDisplay:cel.viewCharm1.frame.size.height withScore:10]];
@@ -141,10 +141,18 @@
     viewToAttach.backgroundColor = [UIColor whiteColor];
     CGFloat heightPerUnit = chartHeight/11;
     
-    for (int i=10; i<=score;) {
+    int roundedScore = 0;
+    if (score%10 < 5) {
+        roundedScore = score/10*10;
+    }
+    else {
+        roundedScore = score/10*10+10;
+    }
+    
+    for (int i=10; i<= roundedScore;) {
         int multiplier = (100-i)/10 +1;
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, multiplier*heightPerUnit+1, 50, heightPerUnit-1)];
-        view.layer.cornerRadius = 0.1 * view.bounds.size.width;
+        view.layer.cornerRadius = 0.07 * view.bounds.size.width;
         view.layer.masksToBounds = YES;
         view.layer.borderWidth = 1;
         view.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
@@ -153,7 +161,7 @@
         [viewToAttach addSubview:view];
         i=i+10;
         
-        if (i > score && score%10 == 0) {
+        if (i > roundedScore) {
             UILabel *lblScore = [[UILabel alloc] initWithFrame:CGRectMake(0, view.frame.origin.y - 25, 50, 30)];
             lblScore.text = [NSString stringWithFormat:@"%i", score];
             lblScore.textColor = kColorLabel;
@@ -163,26 +171,26 @@
         }
     }
  
-    if (score%10 > 0) {
-        int multiplier = (100-(score+(score%10)))/10+1;
-        int fractionHeight = (heightPerUnit/10)*(score%10)-1;
-        
-        UIView *viewHalf = [[UIView alloc]initWithFrame:CGRectMake(0, (multiplier+1)*heightPerUnit-fractionHeight, 50, fractionHeight)];
-        viewHalf.layer.cornerRadius = 0.1 * viewHalf.bounds.size.width;
-        viewHalf.layer.masksToBounds = YES;
-        viewHalf.layer.borderWidth = 1;
-        viewHalf.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-        viewHalf.backgroundColor = [self getColor:score+10-(score%10)];
-        [viewToAttach addSubview:viewHalf];
-        
-        UILabel *lblScore = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHalf.frame.origin.y - 25, 50, 30)];
-        lblScore.text = [NSString stringWithFormat:@"%i", score];
-        lblScore.textColor = kColorLabel;
-        lblScore.textAlignment = NSTextAlignmentCenter;
-        lblScore.font = [UIFont systemFontOfSize:14.0 weight:bold];
-        [viewToAttach addSubview:lblScore];
-    }
-        
+//    if (score%10 >= 5) {
+//        int multiplier = (100-(score+(score%10)))/10+1;
+//       // int fractionHeight = (heightPerUnit/10)*(score%10)-1;
+//        
+//        UIView *viewHalf = [[UIView alloc]initWithFrame:CGRectMake(0, (multiplier+1)*heightPerUnit+1, 50, heightPerUnit-1)];
+//        viewHalf.layer.cornerRadius = 0.07 * viewHalf.bounds.size.width;
+//        viewHalf.layer.masksToBounds = YES;
+//        viewHalf.layer.borderWidth = 1;
+//        viewHalf.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+//        viewHalf.backgroundColor = [self getColor:score+10-(score%10)];
+//        [viewToAttach addSubview:viewHalf];
+//        
+//        UILabel *lblScore = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHalf.frame.origin.y - 25, 50, 30)];
+//        lblScore.text = [NSString stringWithFormat:@"%i", score];
+//        lblScore.textColor = kColorLabel;
+//        lblScore.textAlignment = NSTextAlignmentCenter;
+//        lblScore.font = [UIFont systemFontOfSize:14.0 weight:bold];
+//        [viewToAttach addSubview:lblScore];
+//    }
+//    
     return viewToAttach;
 }
 

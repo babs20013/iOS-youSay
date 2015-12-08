@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Controllers/ProfileViewController.m"
-            timestampString = "471241433.439585"
+            timestampString = "471245898.260316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "-getCharmsDisplay:withScore:"
             landmarkType = "5">
          </BreakpointContent>
