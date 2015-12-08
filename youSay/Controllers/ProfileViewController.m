@@ -23,6 +23,8 @@
 #define kColor90 [UIColor colorWithRed:31.0/255.0 green:175.0/255.0 blue:197.0/255.0 alpha:1.0]
 #define kColor100 [UIColor colorWithRed:1.0/255.0 green:172.0/255.0 blue:197.0/255.0 alpha:1.0]
 
+#define kColorLabel [UIColor colorWithRed:27.0/255.0 green:174.0/255.0 blue:198.0/255.0 alpha:1.0]
+
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate> {
     ProfileOwnerModel *profileModel;
 }
@@ -134,6 +136,7 @@
 }
 
 - (UIView*)getCharmsDisplay:(CGFloat)chartHeight withScore:(NSInteger)score {
+    
     UIView *viewToAttach = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, chartHeight)];
     viewToAttach.backgroundColor = [UIColor whiteColor];
     CGFloat heightPerUnit = chartHeight/11;
@@ -149,6 +152,15 @@
         view.backgroundColor = [self getColor:i];
         [viewToAttach addSubview:view];
         i=i+10;
+        
+        if (i > score && score%10 == 0) {
+            UILabel *lblScore = [[UILabel alloc] initWithFrame:CGRectMake(0, view.frame.origin.y - 25, 50, 30)];
+            lblScore.text = [NSString stringWithFormat:@"%i", score];
+            lblScore.textColor = kColorLabel;
+            lblScore.textAlignment = NSTextAlignmentCenter;
+            lblScore.font = [UIFont systemFontOfSize:14.0 weight:bold];
+            [viewToAttach addSubview:lblScore];
+        }
     }
  
     if (score%10 > 0) {
@@ -162,7 +174,15 @@
         viewHalf.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         viewHalf.backgroundColor = [self getColor:score+10-(score%10)];
         [viewToAttach addSubview:viewHalf];
+        
+        UILabel *lblScore = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHalf.frame.origin.y - 25, 50, 30)];
+        lblScore.text = [NSString stringWithFormat:@"%i", score];
+        lblScore.textColor = kColorLabel;
+        lblScore.textAlignment = NSTextAlignmentCenter;
+        lblScore.font = [UIFont systemFontOfSize:14.0 weight:bold];
+        [viewToAttach addSubview:lblScore];
     }
+        
     return viewToAttach;
 }
 
