@@ -27,6 +27,7 @@
 #define kColor100 [UIColor colorWithRed:1.0/255.0 green:172.0/255.0 blue:197.0/255.0 alpha:1.0]
 
 #define kColorLabel [UIColor colorWithRed:27.0/255.0 green:174.0/255.0 blue:198.0/255.0 alpha:1.0]
+#define kColorBG [UIColor colorWithRed:180.0/255.0 green:185.0/255.0 blue:187.0/255.0 alpha:1.0]
 
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate> {
     ProfileOwnerModel *profileModel;
@@ -71,10 +72,31 @@
 
 #pragma mark TableView
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *thisView = [[UIView alloc]init];
+    thisView.backgroundColor = kColorBG;
+    return thisView;
+}
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+//
+//}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        return 10;
+    }
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 1) {
+        return 35;
+    }
+    return 0;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     //TODO-- Should be dynamic based on the iPhone device height
     if (indexPath.section == 0) {
-        return 511;
+        return 525;
     }
     else if (indexPath.section == 1) {
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
@@ -125,6 +147,8 @@
         NSInteger wiz = [[profileDictionary objectForKey:@"rank"] integerValue];
         [cel.newbie setTitle:[NSString stringWithFormat:@"%ld", (long)wiz] forState:UIControlStateNormal];
         [cel.popular setTitle:[NSString stringWithFormat:@"%ld", (long)popularity] forState:UIControlStateNormal];
+        cel.lblRankLevel.text = [profileDictionary objectForKey:@"rank_level"];
+        cel.lblPopularityLevel.text = [profileDictionary objectForKey:@"popularity_level"];
         
         //--Charms Box
         NSArray * charmsArray = [profileDictionary valueForKey:@"charms"];
@@ -148,7 +172,7 @@
         cel.lblCharm5.text = [dict5 valueForKey:@"name"];
         NSInteger score5 = [[dict5 valueForKey:@"rate"] integerValue];
         
-        [cel.viewCharm1 addSubview:[self getCharmsDisplay:cel.viewCharm1.frame.size.height withScore:10]];
+        [cel.viewCharm1 addSubview:[self getCharmsDisplay:cel.viewCharm1.frame.size.height withScore:100]];
         [cel.viewCharm2 addSubview:[self getCharmsDisplay:cel.viewCharm2.frame.size.height withScore:80]];
         [cel.viewCharm3 addSubview:[self getCharmsDisplay:cel.viewCharm3.frame.size.height withScore:75]];
         [cel.viewCharm4 addSubview:[self getCharmsDisplay:cel.viewCharm4.frame.size.height withScore:64]];
@@ -174,6 +198,7 @@
         cel.likesLabel.text = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"like_count"]];
         cel.peopleSayLabel.text = [currentSaysDict objectForKey:@"text"];
         cel.btnHide.tag = indexPath.row;
+        cel.btnUndo.tag = indexPath.row;
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel.peopleSayView setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
         [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];                                          
@@ -233,7 +258,7 @@
     
     UIView *viewToAttach = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, chartHeight)];
     viewToAttach.backgroundColor = [UIColor whiteColor];
-    CGFloat heightPerUnit = chartHeight/11;
+    CGFloat heightPerUnit = chartHeight/11.5;
     
     int roundedScore = 0;
     if (score%10 < 5) {

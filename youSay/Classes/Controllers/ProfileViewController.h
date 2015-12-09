@@ -13,4 +13,5 @@
 @property (nonatomic,strong) NSDictionary * profileDictionary;
 @property (nonatomic,strong) NSDictionary * colorDictionary;
 @property (nonatomic, strong) NSMutableArray * saysArray;
+@property (nonatomic, strong) IBOutlet UIButton * btnAddSay;
 @end
