@@ -13,6 +13,9 @@
 @property (nonatomic,strong) UIImage *CoverImage;
 @property (nonatomic,strong) UIImage *ProfileImage;
 @property (nonatomic,assign) BOOL Selected;
-
+@property (nonatomic,strong) NSString *UserID;
+@property (nonatomic,strong) NSString *FacebookID;
+@property (nonatomic,strong) NSString *FacebookToken;
+@property (nonatomic,strong) NSString *token;
 
 @end

@@ -11,7 +11,6 @@
 #import "FacebookStyleBar.h"
 #import "FacebookStyleBarBehaviorDefiner.h"
 #import "ProfileTableViewCell.h"
-#import "CarmsTableViewCell.h"
 #import "LongPressTableViewCell.h"
 #import "PeopleSayTableViewCell.h"
 #import "MessageTableViewCell.h"
@@ -183,62 +182,62 @@
 //        cel.profileImageView.image = myImage;
         return cel;
     }
-    else if (indexPath.section == 1)
-    {
-        static NSString *cellIdentifier = @"CarmsTableViewCell";
-        CarmsTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        NSArray * charmsArray = [profileDictionary valueForKey:@"charms"];
-        NSDictionary * dict = [charmsArray objectAtIndex:0];
-        cel.charmLabel1.text = [dict valueForKey:@"name"];
-        int score = [[dict valueForKey:@"rate"] integerValue];
-        score *= 100;
-        cel.charmScoreLabel1.text = [NSString stringWithFormat:@"%d",score];
-        CGRect newFrame = cel.charmView1.frame;
-        newFrame.size.height = (CGFloat)90/100*score;
-        newFrame.origin.y = 90.0 - newFrame.size.height ;
-        [cel.charmView1 setFrame:newFrame];
-        
-        dict = [charmsArray objectAtIndex:1];
-        cel.charmLabel2.text = [dict valueForKey:@"name"];
-        score = [[dict valueForKey:@"rate"] integerValue];
-        score *= 100;
-        cel.charmScoreLabel2.text = [NSString stringWithFormat:@"%d",score];
-        newFrame = cel.charmView2.frame;
-        newFrame.size.height = (CGFloat)90/100*score;
-        newFrame.origin.y = 90.0 - newFrame.size.height ;
-        [cel.charmView2 setFrame:newFrame];
-        
-        dict = [charmsArray objectAtIndex:2];
-        cel.charmLabel3.text = [dict valueForKey:@"name"];
-        score = 70;//[[dict valueForKey:@"rate"] integerValue];
-        score *= 100;
-        cel.charmScoreLabel3.text = [NSString stringWithFormat:@"%d",score];
-        newFrame = cel.charmView3.frame;
-        newFrame.size.height = (CGFloat)90/100*score;
-        newFrame.origin.y = 90.0 - newFrame.size.height ;
-        [cel.charmView3 setFrame:newFrame];
-
-        dict = [charmsArray objectAtIndex:3];
-        cel.charmLabel4.text = [dict valueForKey:@"name"];
-        score = [[dict valueForKey:@"rate"] integerValue];
-        score *= 100;
-        cel.charmScoreLabel4.text = [NSString stringWithFormat:@"%d",score];
-        newFrame = cel.charmView4.frame;
-        newFrame.size.height = (CGFloat)90/100*score;
-        newFrame.origin.y = 90.0 - newFrame.size.height ;
-        [cel.charmView4 setFrame:newFrame];
-
-         dict = [charmsArray objectAtIndex:4];
-        cel.charmLabel5.text = [dict valueForKey:@"name"];
-        score = [[dict valueForKey:@"rate"] integerValue];
-        score *= 100;
-        cel.charmScoreLabel5.text = [NSString stringWithFormat:@"%d",score];
-        newFrame = cel.charmView5.frame;
-        newFrame.size.height = (CGFloat)90/100*score;
-        newFrame.origin.y = 90.0 - newFrame.size.height ;
-        [cel.charmView5 setFrame:newFrame];
-        return cel;
-    }
+//    else if (indexPath.section == 1)
+//    {
+//        static NSString *cellIdentifier = @"CarmsTableViewCell";
+//        CarmsTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//        NSArray * charmsArray = [profileDictionary valueForKey:@"charms"];
+//        NSDictionary * dict = [charmsArray objectAtIndex:0];
+//        cel.charmLabel1.text = [dict valueForKey:@"name"];
+//        int score = [[dict valueForKey:@"rate"] integerValue];
+//        score *= 100;
+//        cel.charmScoreLabel1.text = [NSString stringWithFormat:@"%d",score];
+//        CGRect newFrame = cel.charmView1.frame;
+//        newFrame.size.height = (CGFloat)90/100*score;
+//        newFrame.origin.y = 90.0 - newFrame.size.height ;
+//        [cel.charmView1 setFrame:newFrame];
+//        
+//        dict = [charmsArray objectAtIndex:1];
+//        cel.charmLabel2.text = [dict valueForKey:@"name"];
+//        score = [[dict valueForKey:@"rate"] integerValue];
+//        score *= 100;
+//        cel.charmScoreLabel2.text = [NSString stringWithFormat:@"%d",score];
+//        newFrame = cel.charmView2.frame;
+//        newFrame.size.height = (CGFloat)90/100*score;
+//        newFrame.origin.y = 90.0 - newFrame.size.height ;
+//        [cel.charmView2 setFrame:newFrame];
+//        
+//        dict = [charmsArray objectAtIndex:2];
+//        cel.charmLabel3.text = [dict valueForKey:@"name"];
+//        score = 70;//[[dict valueForKey:@"rate"] integerValue];
+//        score *= 100;
+//        cel.charmScoreLabel3.text = [NSString stringWithFormat:@"%d",score];
+//        newFrame = cel.charmView3.frame;
+//        newFrame.size.height = (CGFloat)90/100*score;
+//        newFrame.origin.y = 90.0 - newFrame.size.height ;
+//        [cel.charmView3 setFrame:newFrame];
+//
+//        dict = [charmsArray objectAtIndex:3];
+//        cel.charmLabel4.text = [dict valueForKey:@"name"];
+//        score = [[dict valueForKey:@"rate"] integerValue];
+//        score *= 100;
+//        cel.charmScoreLabel4.text = [NSString stringWithFormat:@"%d",score];
+//        newFrame = cel.charmView4.frame;
+//        newFrame.size.height = (CGFloat)90/100*score;
+//        newFrame.origin.y = 90.0 - newFrame.size.height ;
+//        [cel.charmView4 setFrame:newFrame];
+//
+//         dict = [charmsArray objectAtIndex:4];
+//        cel.charmLabel5.text = [dict valueForKey:@"name"];
+//        score = [[dict valueForKey:@"rate"] integerValue];
+//        score *= 100;
+//        cel.charmScoreLabel5.text = [NSString stringWithFormat:@"%d",score];
+//        newFrame = cel.charmView5.frame;
+//        newFrame.size.height = (CGFloat)90/100*score;
+//        newFrame.origin.y = 90.0 - newFrame.size.height ;
+//        [cel.charmView5 setFrame:newFrame];
+//        return cel;
+//    }
     else if (indexPath.section == 2)
     {
         static NSString *cellIdentifier = @"LongPressTableViewCell";

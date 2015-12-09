@@ -11,5 +11,6 @@
 @interface ProfileViewController : UIViewController <UITextViewDelegate>
 
 @property (nonatomic,strong) NSDictionary * profileDictionary;
+@property (nonatomic,strong) NSDictionary * colorDictionary;
 @property (nonatomic, strong) NSMutableArray * saysArray;
 @end

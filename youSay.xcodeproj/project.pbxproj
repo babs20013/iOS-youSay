@@ -7,18 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B00868E1C11F2560077677B /* InviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0086861C11F2560077677B /* InviteFriendsViewController.m */; };
-		1B00868F1C11F2560077677B /* AddNewSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0086881C11F2560077677B /* AddNewSayViewController.m */; };
-		1B0086901C11F2560077677B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B00868A1C11F2560077677B /* ViewController.m */; };
-		1B0086911C11F2560077677B /* FacebookStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B00868C1C11F2560077677B /* FacebookStyleViewController.m */; };
-		1B2FD6341C14271F005840A2 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2FD6331C14271F005840A2 /* ViewPagerController.m */; };
-		1B2FD6371C1427A2005840A2 /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2FD6361C1427A2005840A2 /* MainPageViewController.m */; };
-		1B4CD8681C15357F0073CEA4 /* FriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4CD8651C15357F0073CEA4 /* FriendModel.m */; };
-		1B4CD8691C15357F0073CEA4 /* ProfileOwnerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4CD8671C15357F0073CEA4 /* ProfileOwnerModel.m */; };
-		1BA91E461C158D060062733B /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA91E451C158D060062733B /* ProfileViewController.m */; };
+		1B17E3AB1C180BB30080A574 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AA1C180BB30080A574 /* AppDelegate.m */; };
+		1B17E3BC1C180BD90080A574 /* AddNewSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AD1C180BD90080A574 /* AddNewSayViewController.m */; };
+		1B17E3BD1C180BD90080A574 /* FacebookStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AF1C180BD90080A574 /* FacebookStyleViewController.m */; };
+		1B17E3BE1C180BD90080A574 /* InviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B11C180BD90080A574 /* InviteFriendsViewController.m */; };
+		1B17E3BF1C180BD90080A574 /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B31C180BD90080A574 /* MainPageViewController.m */; };
+		1B17E3C01C180BD90080A574 /* PeopleSayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B51C180BD90080A574 /* PeopleSayTableViewCell.m */; };
+		1B17E3C11C180BD90080A574 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B71C180BD90080A574 /* ProfileTableViewCell.m */; };
+		1B17E3C21C180BD90080A574 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B91C180BD90080A574 /* ProfileViewController.m */; };
+		1B17E3C31C180BD90080A574 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3BB1C180BD90080A574 /* ViewController.m */; };
+		1B17E3C81C180BE90080A574 /* FriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3C51C180BE90080A574 /* FriendModel.m */; };
+		1B17E3C91C180BE90080A574 /* ProfileOwnerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3C71C180BE90080A574 /* ProfileOwnerModel.m */; };
+		1B17E3D01C180BF70080A574 /* UICheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3CB1C180BF70080A574 /* UICheckBox.m */; };
+		1B17E3D11C180BF70080A574 /* UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3CD1C180BF70080A574 /* UIHelper.m */; };
+		1B17E3D21C180BF70080A574 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3CF1C180BF70080A574 /* ViewPagerController.m */; };
+		1B17E3D91C180C050080A574 /* HTTPReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3D41C180C050080A574 /* HTTPReq.m */; };
+		1B17E3DA1C180C050080A574 /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3D61C180C050080A574 /* Property.m */; };
+		1B17E3DB1C180C050080A574 /* Serializable.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3D81C180C050080A574 /* Serializable.m */; };
+		1B17E3E41C180C120080A574 /* IQHTTPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3DD1C180C120080A574 /* IQHTTPConstants.m */; };
+		1B17E3E51C180C120080A574 /* IQHTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3DF1C180C120080A574 /* IQHTTPService.m */; };
+		1B17E3E61C180C120080A574 /* IQMultipartFormData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3E11C180C120080A574 /* IQMultipartFormData.m */; };
+		1B17E3E71C180C120080A574 /* NSError+HumanFriendly.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3E31C180C120080A574 /* NSError+HumanFriendly.m */; };
+		1B17E3EA1C180C1C0080A574 /* IQURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3E91C180C1C0080A574 /* IQURLConnection.m */; };
+		1B17E3F01C180C6A0080A574 /* constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3ED1C180C6A0080A574 /* constant.m */; };
+		1B17E3F11C180C6A0080A574 /* url.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3EF1C180C6A0080A574 /* url.m */; };
+		1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3F21C1813C20080A574 /* RequestModel.m */; };
 		1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */; };
 		358C90891BD654AC000B17AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C90881BD654AC000B17AB /* main.m */; };
-		358C908C1BD654AC000B17AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C908B1BD654AC000B17AB /* AppDelegate.m */; };
 		358C90921BD654AC000B17AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 358C90901BD654AC000B17AB /* Main.storyboard */; };
 		358C90941BD654AC000B17AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 358C90931BD654AC000B17AB /* Assets.xcassets */; };
 		4FB16F6028629C6BDBBA350E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1787B273D28568E85213A729 /* libPods.a */; };
@@ -36,44 +51,69 @@
 		5DBF3BB61BD8212500ACF60D /* FacebookStyleBarBehaviorDefiner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BB11BD8212500ACF60D /* FacebookStyleBarBehaviorDefiner.m */; };
 		5DBF3BB71BD8212500ACF60D /* BLKDelegateSplitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BB31BD8212500ACF60D /* BLKDelegateSplitter.m */; };
 		5DBF3BC81BD8216600ACF60D /* FacebookStyleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BBC1BD8216600ACF60D /* FacebookStyleBar.m */; };
-		5DBF3BC91BD8216600ACF60D /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BBE1BD8216600ACF60D /* ProfileTableViewCell.m */; };
-		5DBF3BCA1BD8216600ACF60D /* CarmsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BC01BD8216600ACF60D /* CarmsTableViewCell.m */; };
 		5DBF3BCB1BD8216600ACF60D /* LongPressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BC21BD8216600ACF60D /* LongPressTableViewCell.m */; };
-		5DBF3BCC1BD8216600ACF60D /* PeopleSayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BC41BD8216600ACF60D /* PeopleSayTableViewCell.m */; };
 		5DBF3BCD1BD8216600ACF60D /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BC61BD8216600ACF60D /* MessageTableViewCell.m */; };
 		5DBF3BD01BD821DF00ACF60D /* SquareCashStyleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BCF1BD821DF00ACF60D /* SquareCashStyleBar.m */; };
 		5DBF3BD21BD8237000ACF60D /* Close.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBF3BD11BD8237000ACF60D /* Close.png */; };
 		5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BD51BD93BE800ACF60D /* ServiceConnector.m */; };
-		9A1406761C1305B5006547A0 /* UICheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1406751C1305B5006547A0 /* UICheckBox.m */; };
-		9A14067A1C13370C006547A0 /* UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1406791C13370C006547A0 /* UIHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0C0E040A22DA4EB705AB3C5B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		1787B273D28568E85213A729 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B0086861C11F2560077677B /* InviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteFriendsViewController.m; path = Controllers/InviteFriendsViewController.m; sourceTree = "<group>"; };
-		1B0086871C11F2560077677B /* InviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InviteFriendsViewController.h; path = Controllers/InviteFriendsViewController.h; sourceTree = "<group>"; };
-		1B0086881C11F2560077677B /* AddNewSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddNewSayViewController.m; path = Controllers/AddNewSayViewController.m; sourceTree = "<group>"; };
-		1B0086891C11F2560077677B /* AddNewSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewSayViewController.h; path = Controllers/AddNewSayViewController.h; sourceTree = "<group>"; };
-		1B00868A1C11F2560077677B /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Controllers/ViewController.m; sourceTree = "<group>"; };
-		1B00868B1C11F2560077677B /* FacebookStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookStyleViewController.h; path = Controllers/FacebookStyleViewController.h; sourceTree = "<group>"; };
-		1B00868C1C11F2560077677B /* FacebookStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookStyleViewController.m; path = Controllers/FacebookStyleViewController.m; sourceTree = "<group>"; };
-		1B00868D1C11F2560077677B /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = Controllers/ViewController.h; sourceTree = "<group>"; };
-		1B2FD6321C14271F005840A2 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
-		1B2FD6331C14271F005840A2 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
-		1B2FD6351C1427A2005840A2 /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainPageViewController.h; path = Controllers/MainPageViewController.h; sourceTree = "<group>"; };
-		1B2FD6361C1427A2005840A2 /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainPageViewController.m; path = Controllers/MainPageViewController.m; sourceTree = "<group>"; };
-		1B4CD8641C15357F0073CEA4 /* FriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendModel.h; path = Model/FriendModel.h; sourceTree = "<group>"; };
-		1B4CD8651C15357F0073CEA4 /* FriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendModel.m; path = Model/FriendModel.m; sourceTree = "<group>"; };
-		1B4CD8661C15357F0073CEA4 /* ProfileOwnerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileOwnerModel.h; path = Model/ProfileOwnerModel.h; sourceTree = "<group>"; };
-		1B4CD8671C15357F0073CEA4 /* ProfileOwnerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileOwnerModel.m; path = Model/ProfileOwnerModel.m; sourceTree = "<group>"; };
-		1BA91E441C158CF60062733B /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = Controllers/ProfileViewController.h; sourceTree = "<group>"; };
-		1BA91E451C158D060062733B /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = Controllers/ProfileViewController.m; sourceTree = "<group>"; };
+		1B17E3A91C180BB30080A574 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1B17E3AA1C180BB30080A574 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1B17E3AC1C180BD90080A574 /* AddNewSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewSayViewController.h; path = youSay/Classes/Controllers/AddNewSayViewController.h; sourceTree = SOURCE_ROOT; };
+		1B17E3AD1C180BD90080A574 /* AddNewSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddNewSayViewController.m; path = youSay/Classes/Controllers/AddNewSayViewController.m; sourceTree = SOURCE_ROOT; };
+		1B17E3AE1C180BD90080A574 /* FacebookStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookStyleViewController.h; path = youSay/Classes/Controllers/FacebookStyleViewController.h; sourceTree = SOURCE_ROOT; };
+		1B17E3AF1C180BD90080A574 /* FacebookStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookStyleViewController.m; path = youSay/Classes/Controllers/FacebookStyleViewController.m; sourceTree = SOURCE_ROOT; };
+		1B17E3B01C180BD90080A574 /* InviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InviteFriendsViewController.h; path = youSay/Classes/Controllers/InviteFriendsViewController.h; sourceTree = SOURCE_ROOT; };
+		1B17E3B11C180BD90080A574 /* InviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteFriendsViewController.m; path = youSay/Classes/Controllers/InviteFriendsViewController.m; sourceTree = SOURCE_ROOT; };
+		1B17E3B21C180BD90080A574 /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainPageViewController.h; path = youSay/Classes/Controllers/MainPageViewController.h; sourceTree = SOURCE_ROOT; };
+		1B17E3B31C180BD90080A574 /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainPageViewController.m; path = youSay/Classes/Controllers/MainPageViewController.m; sourceTree = SOURCE_ROOT; };
+		1B17E3B41C180BD90080A574 /* PeopleSayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PeopleSayTableViewCell.h; path = youSay/Classes/Controllers/PeopleSayTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		1B17E3B51C180BD90080A574 /* PeopleSayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PeopleSayTableViewCell.m; path = youSay/Classes/Controllers/PeopleSayTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		1B17E3B61C180BD90080A574 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileTableViewCell.h; path = youSay/Classes/Controllers/ProfileTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		1B17E3B71C180BD90080A574 /* ProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileTableViewCell.m; path = youSay/Classes/Controllers/ProfileTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		1B17E3B81C180BD90080A574 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = youSay/Classes/Controllers/ProfileViewController.h; sourceTree = SOURCE_ROOT; };
+		1B17E3B91C180BD90080A574 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = youSay/Classes/Controllers/ProfileViewController.m; sourceTree = SOURCE_ROOT; };
+		1B17E3BA1C180BD90080A574 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = youSay/Classes/Controllers/ViewController.h; sourceTree = SOURCE_ROOT; };
+		1B17E3BB1C180BD90080A574 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = youSay/Classes/Controllers/ViewController.m; sourceTree = SOURCE_ROOT; };
+		1B17E3C41C180BE90080A574 /* FriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendModel.h; path = youSay/Classes/Model/FriendModel.h; sourceTree = SOURCE_ROOT; };
+		1B17E3C51C180BE90080A574 /* FriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendModel.m; path = youSay/Classes/Model/FriendModel.m; sourceTree = SOURCE_ROOT; };
+		1B17E3C61C180BE90080A574 /* ProfileOwnerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileOwnerModel.h; path = youSay/Classes/Model/ProfileOwnerModel.h; sourceTree = SOURCE_ROOT; };
+		1B17E3C71C180BE90080A574 /* ProfileOwnerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileOwnerModel.m; path = youSay/Classes/Model/ProfileOwnerModel.m; sourceTree = SOURCE_ROOT; };
+		1B17E3CA1C180BF70080A574 /* UICheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UICheckBox.h; path = youSay/Classes/Component/UIComponent/UICheckBox.h; sourceTree = SOURCE_ROOT; };
+		1B17E3CB1C180BF70080A574 /* UICheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UICheckBox.m; path = youSay/Classes/Component/UIComponent/UICheckBox.m; sourceTree = SOURCE_ROOT; };
+		1B17E3CC1C180BF70080A574 /* UIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIHelper.h; path = youSay/Classes/Component/UIComponent/UIHelper.h; sourceTree = SOURCE_ROOT; };
+		1B17E3CD1C180BF70080A574 /* UIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIHelper.m; path = youSay/Classes/Component/UIComponent/UIHelper.m; sourceTree = SOURCE_ROOT; };
+		1B17E3CE1C180BF70080A574 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewPagerController.h; path = youSay/Classes/Component/UIComponent/ViewPagerController.h; sourceTree = SOURCE_ROOT; };
+		1B17E3CF1C180BF70080A574 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewPagerController.m; path = youSay/Classes/Component/UIComponent/ViewPagerController.m; sourceTree = SOURCE_ROOT; };
+		1B17E3D31C180C050080A574 /* HTTPReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPReq.h; path = youSay/Classes/Component/API/HTTPReq.h; sourceTree = SOURCE_ROOT; };
+		1B17E3D41C180C050080A574 /* HTTPReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPReq.m; path = youSay/Classes/Component/API/HTTPReq.m; sourceTree = SOURCE_ROOT; };
+		1B17E3D51C180C050080A574 /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Property.h; path = youSay/Classes/Component/API/Property.h; sourceTree = SOURCE_ROOT; };
+		1B17E3D61C180C050080A574 /* Property.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Property.m; path = youSay/Classes/Component/API/Property.m; sourceTree = SOURCE_ROOT; };
+		1B17E3D71C180C050080A574 /* Serializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Serializable.h; path = youSay/Classes/Component/API/Serializable.h; sourceTree = SOURCE_ROOT; };
+		1B17E3D81C180C050080A574 /* Serializable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Serializable.m; path = youSay/Classes/Component/API/Serializable.m; sourceTree = SOURCE_ROOT; };
+		1B17E3DC1C180C120080A574 /* IQHTTPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IQHTTPConstants.h; path = youSay/Classes/Component/API/IQHTTPService/IQHTTPConstants.h; sourceTree = SOURCE_ROOT; };
+		1B17E3DD1C180C120080A574 /* IQHTTPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IQHTTPConstants.m; path = youSay/Classes/Component/API/IQHTTPService/IQHTTPConstants.m; sourceTree = SOURCE_ROOT; };
+		1B17E3DE1C180C120080A574 /* IQHTTPService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IQHTTPService.h; path = youSay/Classes/Component/API/IQHTTPService/IQHTTPService.h; sourceTree = SOURCE_ROOT; };
+		1B17E3DF1C180C120080A574 /* IQHTTPService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IQHTTPService.m; path = youSay/Classes/Component/API/IQHTTPService/IQHTTPService.m; sourceTree = SOURCE_ROOT; };
+		1B17E3E01C180C120080A574 /* IQMultipartFormData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IQMultipartFormData.h; path = youSay/Classes/Component/API/IQHTTPService/IQMultipartFormData.h; sourceTree = SOURCE_ROOT; };
+		1B17E3E11C180C120080A574 /* IQMultipartFormData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IQMultipartFormData.m; path = youSay/Classes/Component/API/IQHTTPService/IQMultipartFormData.m; sourceTree = SOURCE_ROOT; };
+		1B17E3E21C180C120080A574 /* NSError+HumanFriendly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+HumanFriendly.h"; path = "youSay/Classes/Component/API/IQHTTPService/NSError+HumanFriendly.h"; sourceTree = SOURCE_ROOT; };
+		1B17E3E31C180C120080A574 /* NSError+HumanFriendly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+HumanFriendly.m"; path = "youSay/Classes/Component/API/IQHTTPService/NSError+HumanFriendly.m"; sourceTree = SOURCE_ROOT; };
+		1B17E3E81C180C1C0080A574 /* IQURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IQURLConnection.h; path = youSay/Classes/Component/API/IQHTTPService/IQURLConnection/IQURLConnection.h; sourceTree = SOURCE_ROOT; };
+		1B17E3E91C180C1C0080A574 /* IQURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IQURLConnection.m; path = youSay/Classes/Component/API/IQHTTPService/IQURLConnection/IQURLConnection.m; sourceTree = SOURCE_ROOT; };
+		1B17E3EC1C180C6A0080A574 /* constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constant.h; sourceTree = "<group>"; };
+		1B17E3ED1C180C6A0080A574 /* constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = constant.m; sourceTree = "<group>"; };
+		1B17E3EE1C180C6A0080A574 /* url.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = url.h; sourceTree = "<group>"; };
+		1B17E3EF1C180C6A0080A574 /* url.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = url.m; sourceTree = "<group>"; };
+		1B17E3F21C1813C20080A574 /* RequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestModel.m; path = youSay/Classes/Model/RequestModel.m; sourceTree = SOURCE_ROOT; };
+		1B17E3F41C1813CF0080A574 /* RequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RequestModel.h; path = youSay/Classes/Model/RequestModel.h; sourceTree = SOURCE_ROOT; };
 		1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		358C90841BD654AC000B17AB /* youSay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = youSay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		358C90881BD654AC000B17AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		358C908A1BD654AC000B17AB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		358C908B1BD654AC000B17AB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		358C90911BD654AC000B17AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		358C90931BD654AC000B17AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		358C90981BD654AC000B17AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,14 +144,8 @@
 		5DBF3BB31BD8212500ACF60D /* BLKDelegateSplitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLKDelegateSplitter.m; sourceTree = "<group>"; };
 		5DBF3BBB1BD8216600ACF60D /* FacebookStyleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookStyleBar.h; sourceTree = "<group>"; };
 		5DBF3BBC1BD8216600ACF60D /* FacebookStyleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookStyleBar.m; sourceTree = "<group>"; };
-		5DBF3BBD1BD8216600ACF60D /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
-		5DBF3BBE1BD8216600ACF60D /* ProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewCell.m; sourceTree = "<group>"; };
-		5DBF3BBF1BD8216600ACF60D /* CarmsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarmsTableViewCell.h; sourceTree = "<group>"; };
-		5DBF3BC01BD8216600ACF60D /* CarmsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarmsTableViewCell.m; sourceTree = "<group>"; };
 		5DBF3BC11BD8216600ACF60D /* LongPressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LongPressTableViewCell.h; sourceTree = "<group>"; };
 		5DBF3BC21BD8216600ACF60D /* LongPressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LongPressTableViewCell.m; sourceTree = "<group>"; };
-		5DBF3BC31BD8216600ACF60D /* PeopleSayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeopleSayTableViewCell.h; sourceTree = "<group>"; };
-		5DBF3BC41BD8216600ACF60D /* PeopleSayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeopleSayTableViewCell.m; sourceTree = "<group>"; };
 		5DBF3BC51BD8216600ACF60D /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
 		5DBF3BC61BD8216600ACF60D /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		5DBF3BCE1BD821DF00ACF60D /* SquareCashStyleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareCashStyleBar.h; sourceTree = "<group>"; };
@@ -121,10 +155,6 @@
 		5DBF3BD51BD93BE800ACF60D /* ServiceConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConnector.m; sourceTree = "<group>"; };
 		5DBF3BD81BD93BFC00ACF60D /* JSONDictionaryExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONDictionaryExtensions.h; sourceTree = "<group>"; };
 		5DBF3BD91BD93C9000ACF60D /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		9A1406741C1305B5006547A0 /* UICheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UICheckBox.h; path = UIComponent/UICheckBox.h; sourceTree = "<group>"; };
-		9A1406751C1305B5006547A0 /* UICheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UICheckBox.m; path = UIComponent/UICheckBox.m; sourceTree = "<group>"; };
-		9A1406781C13370C006547A0 /* UIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIHelper.h; path = UIComponent/UIHelper.h; sourceTree = "<group>"; };
-		9A1406791C13370C006547A0 /* UIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIHelper.m; path = UIComponent/UIHelper.m; sourceTree = "<group>"; };
 		A49055F20855DDD853D5A0A6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +171,79 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B17E34D1C18067F0080A574 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				9A1406771C1305BB006547A0 /* UIComponent */,
+				1B17E34E1C1806860080A574 /* API */,
+			);
+			name = Component;
+			path = Classes/Component;
+			sourceTree = "<group>";
+		};
+		1B17E34E1C1806860080A574 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				1B17E3D31C180C050080A574 /* HTTPReq.h */,
+				1B17E3D41C180C050080A574 /* HTTPReq.m */,
+				1B17E3D51C180C050080A574 /* Property.h */,
+				1B17E3D61C180C050080A574 /* Property.m */,
+				1B17E3D71C180C050080A574 /* Serializable.h */,
+				1B17E3D81C180C050080A574 /* Serializable.m */,
+				1B17E3581C1807120080A574 /* IQHTTPService */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		1B17E3581C1807120080A574 /* IQHTTPService */ = {
+			isa = PBXGroup;
+			children = (
+				1B17E3DC1C180C120080A574 /* IQHTTPConstants.h */,
+				1B17E3DD1C180C120080A574 /* IQHTTPConstants.m */,
+				1B17E3DE1C180C120080A574 /* IQHTTPService.h */,
+				1B17E3DF1C180C120080A574 /* IQHTTPService.m */,
+				1B17E3E01C180C120080A574 /* IQMultipartFormData.h */,
+				1B17E3E11C180C120080A574 /* IQMultipartFormData.m */,
+				1B17E3E21C180C120080A574 /* NSError+HumanFriendly.h */,
+				1B17E3E31C180C120080A574 /* NSError+HumanFriendly.m */,
+				1B17E3651C18072A0080A574 /* IQURLConnection */,
+			);
+			path = IQHTTPService;
+			sourceTree = "<group>";
+		};
+		1B17E3651C18072A0080A574 /* IQURLConnection */ = {
+			isa = PBXGroup;
+			children = (
+				1B17E3E81C180C1C0080A574 /* IQURLConnection.h */,
+				1B17E3E91C180C1C0080A574 /* IQURLConnection.m */,
+			);
+			path = IQURLConnection;
+			sourceTree = "<group>";
+		};
+		1B17E3691C1807C00080A574 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1B17E3A91C180BB30080A574 /* AppDelegate.h */,
+				1B17E3AA1C180BB30080A574 /* AppDelegate.m */,
+				1B17E3EB1C180C570080A574 /* Logic */,
+				5DBF3BDA1BD988CF00ACF60D /* ViewControllers */,
+				9A14067B1C133C42006547A0 /* Model */,
+				1B17E34D1C18067F0080A574 /* Component */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		1B17E3EB1C180C570080A574 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				1B17E3EC1C180C6A0080A574 /* constant.h */,
+				1B17E3ED1C180C6A0080A574 /* constant.m */,
+				1B17E3EE1C180C6A0080A574 /* url.h */,
+				1B17E3EF1C180C6A0080A574 /* url.m */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
 		358C907B1BD654AC000B17AB = {
 			isa = PBXGroup;
 			children = (
@@ -164,21 +267,17 @@
 		358C90861BD654AC000B17AB /* youSay */ = {
 			isa = PBXGroup;
 			children = (
-				9A14067B1C133C42006547A0 /* Model */,
+				1B17E3691C1807C00080A574 /* Classes */,
 				5DBF3BD71BD93BF100ACF60D /* JSONDictionaryExtensions */,
 				5DBF3BD31BD93BD500ACF60D /* Service Connector */,
 				5DBF3BA11BD8210100ACF60D /* BLKFlexibleHeightBar */,
 				5DBF3BB81BD8213D00ACF60D /* MainScreen */,
-				358C908A1BD654AC000B17AB /* AppDelegate.h */,
-				358C908B1BD654AC000B17AB /* AppDelegate.m */,
-				5DBF3BDA1BD988CF00ACF60D /* ViewControllers */,
 				358C90901BD654AC000B17AB /* Main.storyboard */,
 				358C90931BD654AC000B17AB /* Assets.xcassets */,
 				358C90981BD654AC000B17AB /* Info.plist */,
 				5DBF3B961BD80AA200ACF60D /* Images.xcassets */,
 				358C90871BD654AC000B17AB /* Supporting Files */,
 				1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */,
-				9A1406771C1305BB006547A0 /* UIComponent */,
 			);
 			path = youSay;
 			sourceTree = "<group>";
@@ -250,8 +349,6 @@
 				5D91F79D1BDA9D33005845BE /* Reachability.m */,
 				5DBF3BBB1BD8216600ACF60D /* FacebookStyleBar.h */,
 				5DBF3BBC1BD8216600ACF60D /* FacebookStyleBar.m */,
-				5DBF3BBF1BD8216600ACF60D /* CarmsTableViewCell.h */,
-				5DBF3BC01BD8216600ACF60D /* CarmsTableViewCell.m */,
 				5DBF3BC11BD8216600ACF60D /* LongPressTableViewCell.h */,
 				5DBF3BC21BD8216600ACF60D /* LongPressTableViewCell.m */,
 				5DBF3BC51BD8216600ACF60D /* MessageTableViewCell.h */,
@@ -282,24 +379,25 @@
 		5DBF3BDA1BD988CF00ACF60D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1B00868D1C11F2560077677B /* ViewController.h */,
-				1B00868A1C11F2560077677B /* ViewController.m */,
-				1B0086871C11F2560077677B /* InviteFriendsViewController.h */,
-				1B0086861C11F2560077677B /* InviteFriendsViewController.m */,
-				1B0086891C11F2560077677B /* AddNewSayViewController.h */,
-				1B0086881C11F2560077677B /* AddNewSayViewController.m */,
-				1B00868B1C11F2560077677B /* FacebookStyleViewController.h */,
-				1B00868C1C11F2560077677B /* FacebookStyleViewController.m */,
-				1B2FD6351C1427A2005840A2 /* MainPageViewController.h */,
-				1B2FD6361C1427A2005840A2 /* MainPageViewController.m */,
-				1BA91E441C158CF60062733B /* ProfileViewController.h */,
-				1BA91E451C158D060062733B /* ProfileViewController.m */,
-				5DBF3BBD1BD8216600ACF60D /* ProfileTableViewCell.h */,
-				5DBF3BBE1BD8216600ACF60D /* ProfileTableViewCell.m */,
-				5DBF3BC31BD8216600ACF60D /* PeopleSayTableViewCell.h */,
-				5DBF3BC41BD8216600ACF60D /* PeopleSayTableViewCell.m */,
+				1B17E3AC1C180BD90080A574 /* AddNewSayViewController.h */,
+				1B17E3AD1C180BD90080A574 /* AddNewSayViewController.m */,
+				1B17E3AE1C180BD90080A574 /* FacebookStyleViewController.h */,
+				1B17E3AF1C180BD90080A574 /* FacebookStyleViewController.m */,
+				1B17E3B01C180BD90080A574 /* InviteFriendsViewController.h */,
+				1B17E3B11C180BD90080A574 /* InviteFriendsViewController.m */,
+				1B17E3B21C180BD90080A574 /* MainPageViewController.h */,
+				1B17E3B31C180BD90080A574 /* MainPageViewController.m */,
+				1B17E3B41C180BD90080A574 /* PeopleSayTableViewCell.h */,
+				1B17E3B51C180BD90080A574 /* PeopleSayTableViewCell.m */,
+				1B17E3B61C180BD90080A574 /* ProfileTableViewCell.h */,
+				1B17E3B71C180BD90080A574 /* ProfileTableViewCell.m */,
+				1B17E3B81C180BD90080A574 /* ProfileViewController.h */,
+				1B17E3B91C180BD90080A574 /* ProfileViewController.m */,
+				1B17E3BA1C180BD90080A574 /* ViewController.h */,
+				1B17E3BB1C180BD90080A574 /* ViewController.m */,
 			);
 			name = ViewControllers;
+			path = Classes/Controllers;
 			sourceTree = "<group>";
 		};
 		641ACAE6EB98C3799C34D85E /* Frameworks */ = {
@@ -323,25 +421,28 @@
 		9A1406771C1305BB006547A0 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
-				1B2FD6321C14271F005840A2 /* ViewPagerController.h */,
-				1B2FD6331C14271F005840A2 /* ViewPagerController.m */,
-				9A1406741C1305B5006547A0 /* UICheckBox.h */,
-				9A1406751C1305B5006547A0 /* UICheckBox.m */,
-				9A1406781C13370C006547A0 /* UIHelper.h */,
-				9A1406791C13370C006547A0 /* UIHelper.m */,
+				1B17E3CA1C180BF70080A574 /* UICheckBox.h */,
+				1B17E3CB1C180BF70080A574 /* UICheckBox.m */,
+				1B17E3CC1C180BF70080A574 /* UIHelper.h */,
+				1B17E3CD1C180BF70080A574 /* UIHelper.m */,
+				1B17E3CE1C180BF70080A574 /* ViewPagerController.h */,
+				1B17E3CF1C180BF70080A574 /* ViewPagerController.m */,
 			);
-			name = UIComponent;
+			path = UIComponent;
 			sourceTree = "<group>";
 		};
 		9A14067B1C133C42006547A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1B4CD8641C15357F0073CEA4 /* FriendModel.h */,
-				1B4CD8651C15357F0073CEA4 /* FriendModel.m */,
-				1B4CD8661C15357F0073CEA4 /* ProfileOwnerModel.h */,
-				1B4CD8671C15357F0073CEA4 /* ProfileOwnerModel.m */,
+				1B17E3C41C180BE90080A574 /* FriendModel.h */,
+				1B17E3C51C180BE90080A574 /* FriendModel.m */,
+				1B17E3C61C180BE90080A574 /* ProfileOwnerModel.h */,
+				1B17E3C71C180BE90080A574 /* ProfileOwnerModel.m */,
+				1B17E3F41C1813CF0080A574 /* RequestModel.h */,
+				1B17E3F21C1813C20080A574 /* RequestModel.m */,
 			);
 			name = Model;
+			path = Classes/Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,34 +556,44 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B0086901C11F2560077677B /* ViewController.m in Sources */,
 				5DBF3BAA1BD8210D00ACF60D /* BLKFlexibleHeightBarSubviewLayoutAttributes.m in Sources */,
-				1B00868E1C11F2560077677B /* InviteFriendsViewController.m in Sources */,
 				5DBF3BB51BD8212500ACF60D /* SquareCashStyleBehaviorDefiner.m in Sources */,
+				1B17E3C21C180BD90080A574 /* ProfileViewController.m in Sources */,
+				1B17E3E51C180C120080A574 /* IQHTTPService.m in Sources */,
 				5DBF3BB71BD8212500ACF60D /* BLKDelegateSplitter.m in Sources */,
-				358C908C1BD654AC000B17AB /* AppDelegate.m in Sources */,
+				1B17E3BC1C180BD90080A574 /* AddNewSayViewController.m in Sources */,
 				5DBF3BC81BD8216600ACF60D /* FacebookStyleBar.m in Sources */,
+				1B17E3F01C180C6A0080A574 /* constant.m in Sources */,
+				1B17E3D21C180BF70080A574 /* ViewPagerController.m in Sources */,
+				1B17E3E41C180C120080A574 /* IQHTTPConstants.m in Sources */,
+				1B17E3DA1C180C050080A574 /* Property.m in Sources */,
 				5DBF3BA91BD8210D00ACF60D /* UIView+BLKFlexibleHeightBarSubview.m in Sources */,
-				1B00868F1C11F2560077677B /* AddNewSayViewController.m in Sources */,
-				9A1406761C1305B5006547A0 /* UICheckBox.m in Sources */,
-				5DBF3BC91BD8216600ACF60D /* ProfileTableViewCell.m in Sources */,
-				9A14067A1C13370C006547A0 /* UIHelper.m in Sources */,
-				1B0086911C11F2560077677B /* FacebookStyleViewController.m in Sources */,
-				5DBF3BCC1BD8216600ACF60D /* PeopleSayTableViewCell.m in Sources */,
+				1B17E3BE1C180BD90080A574 /* InviteFriendsViewController.m in Sources */,
+				1B17E3D11C180BF70080A574 /* UIHelper.m in Sources */,
 				5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */,
+				1B17E3C31C180BD90080A574 /* ViewController.m in Sources */,
+				1B17E3AB1C180BB30080A574 /* AppDelegate.m in Sources */,
 				5DBF3BCD1BD8216600ACF60D /* MessageTableViewCell.m in Sources */,
+				1B17E3E61C180C120080A574 /* IQMultipartFormData.m in Sources */,
+				1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */,
+				1B17E3C81C180BE90080A574 /* FriendModel.m in Sources */,
 				358C90891BD654AC000B17AB /* main.m in Sources */,
-				1B2FD6341C14271F005840A2 /* ViewPagerController.m in Sources */,
+				1B17E3D91C180C050080A574 /* HTTPReq.m in Sources */,
+				1B17E3EA1C180C1C0080A574 /* IQURLConnection.m in Sources */,
+				1B17E3BF1C180BD90080A574 /* MainPageViewController.m in Sources */,
 				5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */,
+				1B17E3C01C180BD90080A574 /* PeopleSayTableViewCell.m in Sources */,
 				5DBF3BCB1BD8216600ACF60D /* LongPressTableViewCell.m in Sources */,
-				1BA91E461C158D060062733B /* ProfileViewController.m in Sources */,
+				1B17E3F11C180C6A0080A574 /* url.m in Sources */,
+				1B17E3E71C180C120080A574 /* NSError+HumanFriendly.m in Sources */,
 				5D91F79E1BDA9D33005845BE /* Reachability.m in Sources */,
-				5DBF3BCA1BD8216600ACF60D /* CarmsTableViewCell.m in Sources */,
-				1B2FD6371C1427A2005840A2 /* MainPageViewController.m in Sources */,
-				1B4CD8691C15357F0073CEA4 /* ProfileOwnerModel.m in Sources */,
+				1B17E3DB1C180C050080A574 /* Serializable.m in Sources */,
+				1B17E3D01C180BF70080A574 /* UICheckBox.m in Sources */,
 				5DBF3BB41BD8212500ACF60D /* BLKFlexibleHeightBarBehaviorDefiner.m in Sources */,
 				5DBF3BD01BD821DF00ACF60D /* SquareCashStyleBar.m in Sources */,
-				1B4CD8681C15357F0073CEA4 /* FriendModel.m in Sources */,
+				1B17E3C91C180BE90080A574 /* ProfileOwnerModel.m in Sources */,
+				1B17E3C11C180BD90080A574 /* ProfileTableViewCell.m in Sources */,
+				1B17E3BD1C180BD90080A574 /* FacebookStyleViewController.m in Sources */,
 				5DBF3BB61BD8212500ACF60D /* FacebookStyleBarBehaviorDefiner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

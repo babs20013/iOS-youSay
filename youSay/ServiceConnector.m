@@ -56,6 +56,8 @@
     [request setHTTPBody:data]; //set the data as the post body
     [request addValue:[NSString stringWithFormat:@"%d",data.length] forHTTPHeaderField:@"Content-Length"];
     
+    NSLog(@"request jsonnya gini: %@", request.allHTTPHeaderFields);
+    NSLog(@"request jsonnya gini: %@", request.HTTPBody);
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     if(!connection){
         NSLog(@"Connection Failed");

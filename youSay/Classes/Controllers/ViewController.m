@@ -16,10 +16,16 @@
 #import "Reachability.h"
 #import "MainPageViewController.h"
 #import "ProfileOwnerModel.h"
+#import "HTTPReq.h"
+#import "RequestModel.h"
+#import "constant.h"
 
 @interface ViewController ()
 {
     NSString * accessToken;
+    ProfileOwnerModel *profileModel;
+    NSDictionary *profileDict;
+    NSDictionary *colorDict;
 }
 @end
 
@@ -62,7 +68,7 @@
     [SVProgressHUD setBackgroundColor:blackColor];
         
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-    [login logInWithReadPermissions:@[@"email"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+        [login logInWithReadPermissions:@[@"email"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error){
         if (error) {
             // Process error
         } else if (result.isCancelled) {
@@ -92,8 +98,6 @@
 
 -(void)loadFaceBookData:(NSString*)fbURLString param:(NSDictionary*)param
 {
-    
-    
     AFHTTPClient * client = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:fbURLString]];
     [client registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [client setDefaultHeader:@"Accept" value:@"text/html"];
@@ -103,29 +107,25 @@
                 NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
                 NSString* facebook_id=@"";
                 
-                ProfileOwnerModel *model = [[ProfileOwnerModel alloc]init];
-                model.Name = [resultDic valueForKey:@"name"];
+                profileModel = [[ProfileOwnerModel alloc]init];
+                profileModel.Name = [resultDic valueForKey:@"name"];
+                profileModel.UserID = [resultDic objectForKey:@"user_id"];
+                profileModel.FacebookToken = [resultDic objectForKey:@"access_token"];
+                profileModel.FacebookID = [resultDic objectForKey:@"id"];
                 
                 //--Get profile picture
                 NSDictionary *pictureDict = [[resultDic objectForKey:@"picture"] objectForKey:@"data"];
                 NSString *pictureURL = [pictureDict objectForKey:@"url"];
-                model.ProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:pictureURL]]];
+                profileModel.ProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:pictureURL]]];
                 
                 //--Get cover picture
                 NSString *coverURL = [[resultDic objectForKey:@"cover"] objectForKey:@"source"];
-                model.CoverImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverURL]]];
-                
+                profileModel.CoverImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverURL]]];
                 
                 if([resultDic valueForKey:@"id"]&&[[resultDic valueForKey:@"id"]isKindOfClass:[NSString class]]){
                     facebook_id=[resultDic valueForKey:@"id"];
                 }
-                [AppDelegate sharedDelegate].profileOwner = model;
-//                NSLog(@"%@",@{ @"email" :email,@"gender" : gender,@"facebook_id" : facebook_id,@"first_name" : first_name,@"last_name" : last_name});
-                
-                ServiceConnector *serviceConnector = [[ServiceConnector alloc] init];
-                serviceConnector.delegate = self;
-                [serviceConnector postTest:@"login" authorization_id:facebook_id access_token:accessToken authority_type:@"2" app_name:@"yousay_ios" app_version:@"1.0.16" device_info:@"iPhone"];
-                
+                [self requestLogin];
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [SVProgressHUD dismiss];
@@ -133,31 +133,67 @@
             }];
 }
 
-#pragma mark - ServiceConnectorDelegate -
-
--(void)requestReturnedData:(NSData *)data{ //activated when data is returned
+- (void)requestLogin {
+    RequestModel *loginReq = [[RequestModel alloc]init];
+    loginReq.request = REQUEST_LOGIN;
+    loginReq.authorization_id = profileModel.FacebookID;
+    loginReq.authority_type = AUTHORITY_TYPE_FB;
+    loginReq.authority_access_token = accessToken;
+    loginReq.app_name = APP_NAME;
+    loginReq.app_version = APP_VERSION;
+    loginReq.device_info = @"iPhone 5";
     
-    NSDictionary *dictionary = [NSDictionary dictionaryWithJSONData:data];
-//    output.text = dictionary.JSONString; // set the textview to the raw string value of the data recieved
-    if([[dictionary valueForKey:@"message"] isEqualToString:@"success"])
-    {
-//        UITabBarController *tabar= [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-//
-//        FacebookStyleViewController *dest = [tabar.viewControllers objectAtIndex:0];
-//       dest.profileDictionary = [dictionary valueForKey:@"profile"];
-//        [self.navigationController pushViewController:tabar animated:NO];
-//        
-//        
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:loginReq completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                profileModel.UserID = [dictResult valueForKey:@"user_id"];
+                profileModel.token = [dictResult valueForKey:@"token"];
+                [AppDelegate sharedDelegate].profileOwner = profileModel;
+                profileDict = [result objectForKey:@"profile"];
+                [self requestSayColor];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+          
+        }
+    }];
+}
+
+- (void)requestSayColor {
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_SAY_COLOR forKey:@"request"];
+    [dictRequest setObject:profileModel.UserID forKey:@"user_id"];
+    [dictRequest setObject:profileModel.token forKey:@"token"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                colorDict = [result objectForKey:@"colors"];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
-        vc.profileDictionary = [dictionary valueForKey:@"profile"];
+        vc.profileDictionary = profileDict;
+        vc.colorDictionary = colorDict;
         [self.navigationController pushViewController:vc animated:YES];
-    }
+    }];
     
-    NSLog(@"yuouSay : %@",dictionary);
-    
-    [SVProgressHUD dismiss];
-
 }
 
 - (IBAction)dummyButton:(id)sender {

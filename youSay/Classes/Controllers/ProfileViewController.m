@@ -11,6 +11,9 @@
 #import "ProfileTableViewCell.h"
 #import "PeopleSayTableViewCell.h"
 #import "ProfileOwnerModel.h"
+#import "constant.h"
+#import "url.h"
+#import "HTTPReq.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -35,10 +38,17 @@
 @implementation ProfileViewController
 
 @synthesize profileDictionary;
+@synthesize colorDictionary;
 @synthesize saysArray;
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     
     profileModel = [AppDelegate sharedDelegate].profileOwner;
     self.tableView.delegate = self;
@@ -55,6 +65,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 #pragma mark TableView
 
@@ -146,6 +158,7 @@
         static NSString *cellIdentifier = @"PeopleSayTableViewCell";
         PeopleSayTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.row];
+        NSString *colorIndex = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
         cel.imgViewProfilePic.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[currentSaysDict objectForKey:@"profile_image"]]]];
         cel.imgViewProfilePic.layer.cornerRadius = 0.5 * cel.imgViewProfilePic.bounds.size.width;
         cel.imgViewProfilePic.layer.masksToBounds = YES;
@@ -156,10 +169,51 @@
         cel.likesLabel.text = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"like_count"]];
         cel.peopleSayLabel.text = [currentSaysDict objectForKey:@"text"];
         cel.btnHide.tag = indexPath.row;
+        NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
+        [cel.peopleSayView setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
+        [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];
+        
         return cel;
     }
    
     return cell;
+}
+
+-(UIColor*)colorWithHexString:(NSString*)hex
+{
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    cString = [cString stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
 }
 
 - (UIView*)getCharmsDisplay:(CGFloat)chartHeight withScore:(NSInteger)score {
@@ -262,23 +316,23 @@
 }
 
 - (IBAction)btnHideClicked:(id)sender {
-    NSLog(@"btnClick : %d", [sender tag]);
+    NSLog(@"btnClick : %ld", (long)[sender tag]);
 
 }
 
 - (IBAction)btnReportClicked:(id)sender {
-    NSLog(@"btnReport : %d", [sender tag]);
+    NSLog(@"btnReport : %ld", (long)[sender tag]);
     
 }
 
 - (IBAction)btnShareClicked:(id)sender {
-    NSLog(@"btnShare : %d", [sender tag]);
+    NSLog(@"btnShare : %ld", (long)[sender tag]);
     
 }
 
 - (IBAction)btnLikesClicked:(id)sender {
-    NSLog(@"btnLikes : %d", [sender tag]);
-    
+    NSLog(@"btnLikes : %ld", (long)[sender tag]);
+    //TODO Change the button to liked or no-liked
 }
 
 

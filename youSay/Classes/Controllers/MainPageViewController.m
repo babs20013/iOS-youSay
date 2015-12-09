@@ -62,6 +62,7 @@
         ProfileViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
         
         cvc.profileDictionary = self.profileDictionary;
+        cvc.colorDictionary = self.colorDictionary;
         return cvc;
     }
 }
