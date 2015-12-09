@@ -15,5 +15,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *peopleSayLabel;
 @property (nonatomic, strong) IBOutlet UILabel *dateLabel;
 @property (nonatomic, strong) IBOutlet UILabel *likesLabel;
+@property (nonatomic, strong) IBOutlet UIButton *btnHide;
 @end
 

@@ -48,10 +48,7 @@
     //[self.view addSubview:searchBar];
     
     saysArray = [[NSMutableArray alloc]init];
-    NSString *string1 = @"test";
-    [saysArray addObject:string1];
-    [saysArray addObject:string1];
-    [saysArray addObject:string1];
+    saysArray = [profileDictionary valueForKey:@"says"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,7 +64,7 @@
         return 511;
     }
     else if (indexPath.section == 1) {
-        return 220;
+        return 230;
     }
     return 0;
 }
@@ -131,7 +128,7 @@
         NSInteger score4 = [[dict4 valueForKey:@"rate"] integerValue];
         
         NSDictionary * dict5 = [charmsArray objectAtIndex:4];
-        cel.lblCharm5.text = @"ana";//[dict5 valueForKey:@"name"];
+        cel.lblCharm5.text = [dict5 valueForKey:@"name"];
         NSInteger score5 = [[dict5 valueForKey:@"rate"] integerValue];
         
         [cel.viewCharm1 addSubview:[self getCharmsDisplay:cel.viewCharm1.frame.size.height withScore:10]];
@@ -148,7 +145,17 @@
     {
         static NSString *cellIdentifier = @"PeopleSayTableViewCell";
         PeopleSayTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-//        cel.peopleSayLabel.text = [NSString stringWithFormat:@"What people said about %@:",[profileDictionary valueForKey:@"name"]];
+        NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.row];
+        cel.imgViewProfilePic.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[currentSaysDict objectForKey:@"profile_image"]]]];
+        cel.imgViewProfilePic.layer.cornerRadius = 0.5 * cel.imgViewProfilePic.bounds.size.width;
+        cel.imgViewProfilePic.layer.masksToBounds = YES;
+        cel.imgViewProfilePic.layer.borderWidth = 1;
+        cel.imgViewProfilePic.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        cel.peopleSayTitleLabel.text = [NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]];
+        cel.dateLabel.text = [currentSaysDict objectForKey:@"date"];
+        cel.likesLabel.text = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"like_count"]];
+        cel.peopleSayLabel.text = [currentSaysDict objectForKey:@"text"];
+        cel.btnHide.tag = indexPath.row;
         return cel;
     }
    
@@ -254,7 +261,25 @@
     return color;
 }
 
+- (IBAction)btnHideClicked:(id)sender {
+    NSLog(@"btnClick : %d", [sender tag]);
 
+}
+
+- (IBAction)btnReportClicked:(id)sender {
+    NSLog(@"btnReport : %d", [sender tag]);
+    
+}
+
+- (IBAction)btnShareClicked:(id)sender {
+    NSLog(@"btnShare : %d", [sender tag]);
+    
+}
+
+- (IBAction)btnLikesClicked:(id)sender {
+    NSLog(@"btnLikes : %d", [sender tag]);
+    
+}
 
 
 @end
