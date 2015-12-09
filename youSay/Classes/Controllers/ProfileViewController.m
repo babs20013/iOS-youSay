@@ -30,6 +30,7 @@
 
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate> {
     ProfileOwnerModel *profileModel;
+    NSMutableDictionary *dictHideSay;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -49,7 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    dictHideSay = [[NSMutableDictionary alloc] init];
     profileModel = [AppDelegate sharedDelegate].profileOwner;
     self.tableView.delegate = self;
     UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
@@ -76,6 +77,10 @@
         return 511;
     }
     else if (indexPath.section == 1) {
+        NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+        if ([[dictHideSay objectForKey:index] isEqualToString:@"isHide"]) {
+            return 300;
+        }
         return 230;
     }
     return 0;
@@ -171,8 +176,16 @@
         cel.btnHide.tag = indexPath.row;
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel.peopleSayView setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
-        [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];
+        [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];                                          
         
+        NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+        if ([[dictHideSay objectForKey:index] isEqualToString:@"isHide"]) {
+            [cel.hideSayView setHidden:NO];
+        }
+        else {
+            [cel.hideSayView setHidden:YES];
+        }
+        cel.selectionStyle = UITableViewCellSelectionStyleNone;
         return cel;
     }
    
@@ -317,7 +330,17 @@
 
 - (IBAction)btnHideClicked:(id)sender {
     NSLog(@"btnClick : %ld", (long)[sender tag]);
+    NSString *index = [NSString stringWithFormat:@"%ld", (long)[sender tag]];
+    [dictHideSay setObject:@"isHide" forKey:index];
+    [self.tableView reloadData];
 
+}
+
+- (IBAction)btnUndoClicked:(id)sender {
+    NSLog(@"btnUndo : %ld", (long)[sender tag]);
+    NSString *index = [NSString stringWithFormat:@"%ld", (long)[sender tag]];
+    [dictHideSay setObject:@"isNoHide" forKey:index];
+    [self.tableView reloadData];
 }
 
 - (IBAction)btnReportClicked:(id)sender {
