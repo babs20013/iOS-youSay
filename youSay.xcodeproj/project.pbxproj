@@ -59,6 +59,11 @@
 		9A9CB60F1C19B8200082B3E5 /* SlideNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6091C19B8200082B3E5 /* SlideNavigationController.m */; };
 		9A9CB6151C19B9860082B3E5 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6141C19B9860082B3E5 /* MenuViewController.m */; };
 		9A9CB6181C19B9D10082B3E5 /* CommonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6171C19B9D10082B3E5 /* CommonHelper.m */; };
+		9A9CB6251C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB61C1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorFade.m */; };
+		9A9CB6261C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB61E1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScale.m */; };
+		9A9CB6271C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6201C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m */; };
+		9A9CB6281C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6221C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m */; };
+		9A9CB6291C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -164,6 +169,17 @@
 		9A9CB6141C19B9860082B3E5 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuViewController.m; path = youSay/Classes/Controllers/MenuViewController.m; sourceTree = SOURCE_ROOT; };
 		9A9CB6161C19B9D10082B3E5 /* CommonHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommonHelper.h; path = youSay/Classes/Component/CommonHelper.h; sourceTree = SOURCE_ROOT; };
 		9A9CB6171C19B9D10082B3E5 /* CommonHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommonHelper.m; path = youSay/Classes/Component/CommonHelper.m; sourceTree = SOURCE_ROOT; };
+		9A9CB61A1C19CEB10082B3E5 /* SlideNavigationContorllerAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimator.h; sourceTree = "<group>"; };
+		9A9CB61B1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorFade.h; sourceTree = "<group>"; };
+		9A9CB61C1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorFade.m; sourceTree = "<group>"; };
+		9A9CB61D1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorScale.h; sourceTree = "<group>"; };
+		9A9CB61E1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorScale.m; sourceTree = "<group>"; };
+		9A9CB61F1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorScaleAndFade.h; sourceTree = "<group>"; };
+		9A9CB6201C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorScaleAndFade.m; sourceTree = "<group>"; };
+		9A9CB6211C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorSlide.h; sourceTree = "<group>"; };
+		9A9CB6221C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorSlide.m; sourceTree = "<group>"; };
+		9A9CB6231C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorSlideAndFade.h; sourceTree = "<group>"; };
+		9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorSlideAndFade.m; sourceTree = "<group>"; };
 		A49055F20855DDD853D5A0A6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -462,12 +478,31 @@
 		9A9CB5FB1C19B8200082B3E5 /* SlideNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				9A9CB6191C19CEB10082B3E5 /* Animations */,
 				9A9CB6081C19B8200082B3E5 /* SlideNavigationController.h */,
 				9A9CB6091C19B8200082B3E5 /* SlideNavigationController.m */,
 			);
 			name = SlideNavigation;
 			path = youSay/Classes/Component/UIComponent/SlideNavigation;
 			sourceTree = SOURCE_ROOT;
+		};
+		9A9CB6191C19CEB10082B3E5 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				9A9CB61A1C19CEB10082B3E5 /* SlideNavigationContorllerAnimator.h */,
+				9A9CB61B1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorFade.h */,
+				9A9CB61C1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorFade.m */,
+				9A9CB61D1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScale.h */,
+				9A9CB61E1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScale.m */,
+				9A9CB61F1C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.h */,
+				9A9CB6201C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m */,
+				9A9CB6211C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.h */,
+				9A9CB6221C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m */,
+				9A9CB6231C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.h */,
+				9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -590,6 +625,7 @@
 				1B17E3F01C180C6A0080A574 /* constant.m in Sources */,
 				1B17E3D21C180BF70080A574 /* ViewPagerController.m in Sources */,
 				9A9CB60F1C19B8200082B3E5 /* SlideNavigationController.m in Sources */,
+				9A9CB6271C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */,
 				1B17E3E41C180C120080A574 /* IQHTTPConstants.m in Sources */,
 				1B17E3DA1C180C050080A574 /* Property.m in Sources */,
 				9A9CB6181C19B9D10082B3E5 /* CommonHelper.m in Sources */,
@@ -599,13 +635,17 @@
 				5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */,
 				1B17E3C31C180BD90080A574 /* ViewController.m in Sources */,
 				1B17E3AB1C180BB30080A574 /* AppDelegate.m in Sources */,
+				9A9CB6261C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScale.m in Sources */,
 				5DBF3BCD1BD8216600ACF60D /* MessageTableViewCell.m in Sources */,
 				1B17E3E61C180C120080A574 /* IQMultipartFormData.m in Sources */,
 				1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */,
+				9A9CB6251C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorFade.m in Sources */,
 				1B17E3C81C180BE90080A574 /* FriendModel.m in Sources */,
 				358C90891BD654AC000B17AB /* main.m in Sources */,
 				1B17E3D91C180C050080A574 /* HTTPReq.m in Sources */,
+				9A9CB6281C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m in Sources */,
 				1B17E3EA1C180C1C0080A574 /* IQURLConnection.m in Sources */,
+				9A9CB6291C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */,
 				1B17E3BF1C180BD90080A574 /* MainPageViewController.m in Sources */,
 				5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */,
 				1B17E3C01C180BD90080A574 /* PeopleSayTableViewCell.m in Sources */,
