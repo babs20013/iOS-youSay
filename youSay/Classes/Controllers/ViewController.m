@@ -19,7 +19,8 @@
 #import "HTTPReq.h"
 #import "RequestModel.h"
 #import "constant.h"
-
+#import "ProfileViewController.h"
+#import "CommonHelper.h"
 @interface ViewController ()
 {
     NSString * accessToken;
@@ -201,9 +202,18 @@
 //    AddNewSayViewController *newSayVC = [[AddNewSayViewController alloc]init];
 //    [self.navigationController pushViewController:newSayVC animated:YES];
 //    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
-    [self.navigationController pushViewController:vc animated:YES];
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    MainPageViewController *rightMenu = (MainPageViewController*)[CommonHelper instantiateViewControllerWithIdentifier:@"MainPageViewController" storyboard:@"Main" bundle:nil];
+    [[SlideNavigationController sharedInstance] popToRootAndSwitchToViewController:rightMenu withCompletion:nil];
+}
+
+
+- (BOOL)slideNavigationControllerShouldDisplayRightMenu
+{
+    return YES;
 }
 
 
