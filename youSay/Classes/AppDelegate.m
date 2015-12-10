@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
-
+#import "SlideNavigationController.h"
+#import "MenuViewController.h"
+#import "CommonHelper.h"
 @interface AppDelegate ()
 
 @end
@@ -22,6 +24,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    MenuViewController *rightMenu = (MenuViewController*)[CommonHelper instantiateViewControllerWithIdentifier:@"MenuViewController" storyboard:@"Main" bundle:nil];
+    [SlideNavigationController sharedInstance].rightMenu = rightMenu;
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];;

@@ -14,7 +14,7 @@
 #import "constant.h"
 #import "url.h"
 #import "HTTPReq.h"
-
+#import "SlideNavigationController.h"
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
 #define kColor30 [UIColor colorWithRed:186.0/255.0 green:227.0/255.0 blue:86.0/255.0 alpha:1.0]
@@ -62,6 +62,18 @@
     
     saysArray = [[NSMutableArray alloc]init];
     saysArray = [profileDictionary valueForKey:@"says"];
+    
+    
+    UIImageView *imgMagnifyingGlass = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 15, 15)];
+    imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
+    [leftView addSubview:imgMagnifyingGlass];
+    self.txtSearch.leftView = leftView;
+    self.txtSearch.leftViewMode = UITextFieldViewModeAlways;
+    self.txtSearch.layer.cornerRadius = round(self.txtSearch.frame.size.height / 2);
+    self.txtSearch.layer.borderWidth = 1;
+    self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -422,6 +434,10 @@
 - (IBAction)btnLikesClicked:(id)sender {
     NSLog(@"btnLikes : %ld", (long)[sender tag]);
     //TODO Change the button to liked or no-liked
+}
+
+-(IBAction)btnOpenMenu:(UIButton*)sender{
+    [[SlideNavigationController sharedInstance]openMenu:MenuRight withCompletion:nil];
 }
 
 

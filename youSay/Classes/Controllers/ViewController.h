@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "ServiceConnector.h"
+#import "SlideNavigationController.h"
 
-@interface ViewController : UIViewController  <ServiceConnectorDelegate>
+@interface ViewController : UIViewController  <ServiceConnectorDelegate,SlideNavigationControllerDelegate>
 
 
 @end
