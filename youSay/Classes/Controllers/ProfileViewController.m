@@ -25,6 +25,7 @@
 #define kColor80 [UIColor colorWithRed:53.0/255.0 green:184.0/255.0 blue:202.0/255.0 alpha:1.0]
 #define kColor90 [UIColor colorWithRed:31.0/255.0 green:175.0/255.0 blue:197.0/255.0 alpha:1.0]
 #define kColor100 [UIColor colorWithRed:1.0/255.0 green:172.0/255.0 blue:197.0/255.0 alpha:1.0]
+#define kColorDefault [UIColor colorWithRed:209.0/255.0 green:209.0/255.0 blue:209.0/255.0 alpha:1.0]
 
 #define kColorLabel [UIColor colorWithRed:27.0/255.0 green:174.0/255.0 blue:198.0/255.0 alpha:1.0]
 #define kColorBG [UIColor colorWithRed:180.0/255.0 green:185.0/255.0 blue:187.0/255.0 alpha:1.0]
@@ -96,7 +97,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     //TODO-- Should be dynamic based on the iPhone device height
     if (indexPath.section == 0) {
-        return 525;
+        return self.view.frame.size.height - 49;
     }
     else if (indexPath.section == 1) {
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
@@ -110,7 +111,10 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 
 {
-    return 2;
+    if ([saysArray count]>0){
+        return 2;
+    }
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -176,7 +180,7 @@
         [cel.viewCharm2 addSubview:[self getCharmsDisplay:cel.viewCharm2.frame.size.height withScore:80]];
         [cel.viewCharm3 addSubview:[self getCharmsDisplay:cel.viewCharm3.frame.size.height withScore:75]];
         [cel.viewCharm4 addSubview:[self getCharmsDisplay:cel.viewCharm4.frame.size.height withScore:64]];
-        [cel.viewCharm5 addSubview:[self getCharmsDisplay:cel.viewCharm5.frame.size.height withScore:73]];
+        [cel.viewCharm5 addSubview:[self getCharmsDisplay:cel.viewCharm5.frame.size.height withScore:0]];
         
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
         return cel;
@@ -289,6 +293,20 @@
             [viewToAttach addSubview:lblScore];
         }
     }
+    
+    if (score == 0) {
+        for (int i=0; i<10; i++) {
+            int multiplier = (10-i);
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, multiplier*heightPerUnit+1, 50, heightPerUnit-1)];
+            view.layer.cornerRadius = 0.07 * view.bounds.size.width;
+            view.layer.masksToBounds = YES;
+            view.layer.borderWidth = 1;
+            view.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+            
+            view.backgroundColor = [self getColor:-1];
+            [viewToAttach addSubview:view];
+        }
+    }
  
 //    if (score%10 >= 5) {
 //        int multiplier = (100-(score+(score%10)))/10+1;
@@ -347,7 +365,7 @@
             color = kColor100;
             break;
         default:
-            color = kColor10;
+            color = kColorDefault;
             break;
     }
     return color;

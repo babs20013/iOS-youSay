@@ -1098,7 +1098,7 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vpz-cM-j1B" userLabel="Charm1">
                                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="183"/>
                                                                     <animations/>
-                                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="50" id="aYL-6P-01C"/>
                                                                     </constraints>
@@ -1106,7 +1106,7 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hak-4L-ZCy" userLabel="Charm2">
                                                                     <rect key="frame" x="60" y="0.0" width="50" height="183"/>
                                                                     <animations/>
-                                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="50" id="KA1-fI-wik"/>
                                                                     </constraints>
@@ -1114,7 +1114,7 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X0c-XF-aeR" userLabel="Charm3">
                                                                     <rect key="frame" x="120" y="0.0" width="50" height="183"/>
                                                                     <animations/>
-                                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="50" id="Csm-oe-mk0"/>
                                                                     </constraints>
@@ -1122,7 +1122,7 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxW-tK-5Uv" userLabel="Charm4">
                                                                     <rect key="frame" x="180" y="0.0" width="50" height="183"/>
                                                                     <animations/>
-                                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="50" id="osn-x2-5Ib"/>
                                                                     </constraints>
@@ -1130,7 +1130,7 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mr1-sS-77Q" userLabel="Charm5">
                                                                     <rect key="frame" x="240" y="0.0" width="50" height="183"/>
                                                                     <animations/>
-                                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="50" id="tbR-2D-Ys0"/>
                                                                     </constraints>
@@ -1142,7 +1142,6 @@
                                                                 <constraint firstItem="X0c-XF-aeR" firstAttribute="leading" secondItem="hak-4L-ZCy" secondAttribute="trailing" constant="10" id="2qy-5Y-iaw"/>
                                                                 <constraint firstItem="Vpz-cM-j1B" firstAttribute="top" secondItem="X0c-XF-aeR" secondAttribute="top" id="9Bp-EI-VrA"/>
                                                                 <constraint firstItem="Vpz-cM-j1B" firstAttribute="top" secondItem="hak-4L-ZCy" secondAttribute="top" id="Ae9-vx-YeP"/>
-                                                                <constraint firstAttribute="height" constant="183" id="CxQ-Jg-8Sd"/>
                                                                 <constraint firstItem="X0c-XF-aeR" firstAttribute="height" secondItem="4a2-Hx-UY4" secondAttribute="height" id="ETh-8a-dnx"/>
                                                                 <constraint firstItem="fxW-tK-5Uv" firstAttribute="leading" secondItem="X0c-XF-aeR" secondAttribute="trailing" constant="10" id="J1l-ps-DX0"/>
                                                                 <constraint firstItem="hak-4L-ZCy" firstAttribute="leading" secondItem="Vpz-cM-j1B" secondAttribute="trailing" constant="10" id="JCj-Pe-eK9"/>
@@ -1262,7 +1261,7 @@
                                                         </label>
                                                     </subviews>
                                                     <animations/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="RN6-Lb-UVg" firstAttribute="centerY" secondItem="Uad-gD-3bx" secondAttribute="centerY" id="0LF-BC-nEt"/>
                                                         <constraint firstItem="gGj-gE-Coy" firstAttribute="top" secondItem="RN6-Lb-UVg" secondAttribute="bottom" constant="10" id="4cn-47-ZsJ"/>
