@@ -63,7 +63,7 @@
     [[UIApplication sharedApplication]
      canOpenURL:[NSURL URLWithString:@"TestA://"]];
     
-    //[SVProgressHUD show];
+//    [SVProgressHUD show];
     [SVProgressHUD setStatus:@"Loading..."];
     UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
     [SVProgressHUD setBackgroundColor:blackColor];
@@ -86,6 +86,7 @@
                 }
                 
             }
+            [SVProgressHUD dismiss];
         }
     }];
     }
@@ -129,12 +130,13 @@
                 [self requestLogin];
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                [SVProgressHUD dismiss];
+                
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error!", nil) message:NSLocalizedString(@"There is an Error While logging in! Please try Again.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil]show];
             }];
 }
 
 - (void)requestLogin {
+    [SVProgressHUD show];
     RequestModel *loginReq = [[RequestModel alloc]init];
     loginReq.request = REQUEST_LOGIN;
     loginReq.authorization_id = profileModel.FacebookID;
@@ -188,6 +190,7 @@
         else{
             
         }
+        [SVProgressHUD dismiss];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
         vc.profileDictionary = profileDict;

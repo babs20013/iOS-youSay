@@ -87,28 +87,44 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *thisView = [[UIView alloc]init];
-    thisView.backgroundColor = kColorBG;
+    thisView.backgroundColor = [UIColor whiteColor];//kColorBG;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 20)];
+    label.text = [NSString stringWithFormat:@"What people SAID about %@", profileModel.Name];
+    label.textColor = [UIColor darkGrayColor];
+    label.font = [UIFont fontWithName:@"Arial" size:14];
+    [thisView addSubview:label];
     return thisView;
 }
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-//
-//}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *thisView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
+    thisView.backgroundColor = kColorBG;
+    if (section == 1) {
+        UIButton *btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(70, -30, 60, 60)];
+        btnAddSay.titleLabel.text = @"klklkl";
+        [btnAddSay.imageView setImage:[UIImage imageNamed:@"AddButton"]];
+        [thisView addSubview:btnAddSay];
+    }
+    return thisView;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 1) {
-        return 10;
+        return 50;
     }
     return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 1) {
-        return 35;
+    if (section == 0) {
+        return 10;
     }
-    return 0;
+    return 35;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     //TODO-- Should be dynamic based on the iPhone device height
     if (indexPath.section == 0) {
+        if ((self.view.frame.size.height - 49) < 511)
+            return 511;
         return self.view.frame.size.height - 49;
     }
     else if (indexPath.section == 1) {
@@ -117,6 +133,9 @@
             return 300;
         }
         return 230;
+    }
+    else if (indexPath.section == 2) {
+        return 65;
     }
     return 0;
 }
@@ -131,14 +150,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    //TODO-- Should be dynamic based on the iPhone device height
-    if (section == 0) {
-        return 1;
-    }
-    else if (section == 1) {
-        return saysArray.count;
-    }
-    return 0;
+    if (section == 1) {
+        return saysArray.count;}
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -227,6 +241,15 @@
             [cel.hideSayView setHidden:YES];
         }
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cel;
+    }
+    else if (indexPath.section == 2) {
+        
+        static NSString *cellIdentifier = @"AddTableViewCell";
+        UITableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        UIButton *btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(tableView.bounds.origin.x, 0, 60, 60)];
+        [btnAddSay.imageView setImage:[UIImage imageNamed:@"AddButton"]];
+        [cel addSubview:btnAddSay];
         return cel;
     }
    
