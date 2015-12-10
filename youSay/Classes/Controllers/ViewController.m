@@ -73,7 +73,9 @@
             // Process error
         } else if (result.isCancelled) {
             // Handle cancellations
-        } else {
+        }
+        else if (result.s)
+        else {
             // If you ask for multiple permissions at once, you
             // should check if specific permissions missing
             if ([result.grantedPermissions containsObject:@"email"]) {
@@ -126,7 +128,16 @@
                 if([resultDic valueForKey:@"id"]&&[[resultDic valueForKey:@"id"]isKindOfClass:[NSString class]]){
                     facebook_id=[resultDic valueForKey:@"id"];
                 }
-                [self requestLogin];
+                FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
+                content.appLinkURL = [NSURL URLWithString:@"https://www.mydomain.com/myapplink"];
+                //optionally set previewImageURL
+                content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://www.mydomain.com/my_invite_image.jpg"];
+                
+                // present the dialog. Assumes self implements protocol `FBSDKAppInviteDialogDelegate`
+                [FBSDKAppInviteDialog showFromViewController:self withContent:content delegate:self];
+                //[FBSDKAppInviteDialog showWithContent:content
+                  //                           delegate:self];
+               // [self requestLogin];
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 
