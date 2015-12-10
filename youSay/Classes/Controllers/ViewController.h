@@ -11,7 +11,7 @@
 #import "ServiceConnector.h"
 #import "SlideNavigationController.h"
 
-@interface ViewController : UIViewController  <ServiceConnectorDelegate,SlideNavigationControllerDelegate>
+@interface ViewController : UIViewController  <ServiceConnectorDelegate,SlideNavigationControllerDelegate, FBSDKAppInviteDialogDelegate>
 
 
 @end

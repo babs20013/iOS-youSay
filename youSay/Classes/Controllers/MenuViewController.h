@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MenuViewController : UIViewController<UITableViewDataSource,UITableViewDataSource>
+@interface MenuViewController : UIViewController<UITableViewDataSource,UITableViewDataSource, FBSDKAppInviteDialogDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableLeadingConstraint;
-
 @end

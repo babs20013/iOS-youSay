@@ -34,6 +34,7 @@
 @optional
 - (BOOL)slideNavigationControllerShouldDisplayRightMenu;
 - (BOOL)slideNavigationControllerShouldDisplayLeftMenu;
+- (void)slideNavigationControllerDidClose;
 @end
 
 typedef  enum{

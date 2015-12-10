@@ -44,7 +44,6 @@
 
 - (IBAction)faceBookAction:(id)sender {
     
-    
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
@@ -62,12 +61,7 @@
     
     [[UIApplication sharedApplication]
      canOpenURL:[NSURL URLWithString:@"TestA://"]];
-    
-//    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
-        
+
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
         [login logInWithReadPermissions:@[@"email"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error){
         if (error) {
@@ -75,7 +69,6 @@
         } else if (result.isCancelled) {
             // Handle cancellations
         }
-        else if (result.s)
         else {
             // If you ask for multiple permissions at once, you
             // should check if specific permissions missing
@@ -92,12 +85,6 @@
         }
     }];
     }
-//    
-//    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
-//    dialog.fromViewController = self;
-//    //dialog.content = @"test";
-//    dialog.mode = FBSDKShareDialogModeShareSheet;
-//    [dialog show];
 }
 
 -(void)loadFaceBookData:(NSString*)fbURLString param:(NSDictionary*)param
@@ -129,16 +116,12 @@
                 if([resultDic valueForKey:@"id"]&&[[resultDic valueForKey:@"id"]isKindOfClass:[NSString class]]){
                     facebook_id=[resultDic valueForKey:@"id"];
                 }
-                FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
-                content.appLinkURL = [NSURL URLWithString:@"https://www.mydomain.com/myapplink"];
-                //optionally set previewImageURL
-                content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://www.mydomain.com/my_invite_image.jpg"];
-                
-                // present the dialog. Assumes self implements protocol `FBSDKAppInviteDialogDelegate`
-                [FBSDKAppInviteDialog showFromViewController:self withContent:content delegate:self];
-                //[FBSDKAppInviteDialog showWithContent:content
-                  //                           delegate:self];
-               // [self requestLogin];
+//                FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
+//                content.appLinkURL = [NSURL URLWithString:@"https://www.mydomain.com/myapplink"];
+//                //optionally set previewImageURL
+//                content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://www.mydomain.com/my_invite_image.jpg"];
+//                [FBSDKAppInviteDialog showFromViewController:self withContent:content delegate:self];
+                [self requestLogin];
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 
@@ -148,6 +131,9 @@
 
 - (void)requestLogin {
     [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
     RequestModel *loginReq = [[RequestModel alloc]init];
     loginReq.request = REQUEST_LOGIN;
     loginReq.authorization_id = profileModel.FacebookID;
@@ -230,5 +216,12 @@
     return YES;
 }
 
+#pragma mark - FBInviteDelegate
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
+    
+}
 
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
+    
+}
 @end

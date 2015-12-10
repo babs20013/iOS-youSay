@@ -53,10 +53,10 @@
 - (UIViewController *)viewPager:(ViewPagerController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index {
     
     if(index == 0 || index == 2){
-        InviteFriendsViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"InviteFriendsViewController"];
-        return cvc;
-//        UIViewController *vc= [[UIViewController alloc]init];
-//        return vc;
+//        InviteFriendsViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"InviteFriendsViewController"];
+//        return cvc;
+        UIViewController *vc= [[UIViewController alloc]init];
+        return vc;
     }
     else{
         ProfileViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];

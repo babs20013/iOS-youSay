@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProfileViewController : UIViewController <UITextViewDelegate>
+@interface ProfileViewController : UIViewController <UITextViewDelegate, FBSDKAppInviteDialogDelegate>
 
 @property (nonatomic,strong) NSDictionary * profileDictionary;
 @property (nonatomic,strong) NSDictionary * colorDictionary;

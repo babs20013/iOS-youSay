@@ -172,7 +172,7 @@
         cel.imgViewProfilePicture.layer.borderWidth = 1;
         cel.imgViewProfilePicture.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
 
-        cel.lblName.text = @"name";//profileModel.Name;
+        cel.lblName.text = profileModel.Name;
         NSInteger popularity = [[profileDictionary objectForKey:@"popularity"] integerValue];
         NSInteger wiz = [[profileDictionary objectForKey:@"rank"] integerValue];
         [cel.newbie setTitle:[NSString stringWithFormat:@"%ld", (long)wiz] forState:UIControlStateNormal];
@@ -438,6 +438,15 @@
 
 -(IBAction)btnOpenMenu:(UIButton*)sender{
     [[SlideNavigationController sharedInstance]openMenu:MenuRight withCompletion:nil];
+}
+
+#pragma mark - FBInviteDelegate
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
+
+}
+
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
+
 }
 
 

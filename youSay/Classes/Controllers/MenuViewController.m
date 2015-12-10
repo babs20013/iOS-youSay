@@ -9,6 +9,9 @@
 #import "MenuViewController.h"
 #import "SlideNavigationController.h"
 @interface MenuViewController ()
+{
+    NSArray *arrayMenu;
+}
 
 @end
 
@@ -17,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    arrayMenu = [[NSArray alloc]initWithObjects:@"Settings",@"Report", @"Logout", @"Invite Friends", nil];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -51,8 +54,30 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellId];
     }
-    [cell.textLabel setText:[NSString stringWithFormat:@"Menu %ld",(long)indexPath.row]];
+    [cell.textLabel setText:[arrayMenu objectAtIndex:indexPath.row]];
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 3) //InviteFriends
+    {
+        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
+            FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
+            content.appLinkURL = [NSURL URLWithString:@"https://www.mydomain.com/myapplink"];
+            content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://www.mydomain.com/my_invite_image.jpg"];
+            [FBSDKAppInviteDialog showFromViewController:self.parentViewController withContent:content delegate:self];
+        }];
+    }
+}
+
+#pragma mark - FBInviteDelegate
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
+    
+}
+
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
+    
+}
+
 
 @end
