@@ -32,6 +32,8 @@
 		1B17E3F01C180C6A0080A574 /* constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3ED1C180C6A0080A574 /* constant.m */; };
 		1B17E3F11C180C6A0080A574 /* url.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3EF1C180C6A0080A574 /* url.m */; };
 		1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3F21C1813C20080A574 /* RequestModel.m */; };
+		1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */; };
+		1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */; };
 		1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */; };
 		358C90891BD654AC000B17AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C90881BD654AC000B17AB /* main.m */; };
 		358C90921BD654AC000B17AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 358C90901BD654AC000B17AB /* Main.storyboard */; };
@@ -119,6 +121,10 @@
 		1B17E3EF1C180C6A0080A574 /* url.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = url.m; sourceTree = "<group>"; };
 		1B17E3F21C1813C20080A574 /* RequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestModel.m; path = youSay/Classes/Model/RequestModel.m; sourceTree = SOURCE_ROOT; };
 		1B17E3F41C1813CF0080A574 /* RequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RequestModel.h; path = youSay/Classes/Model/RequestModel.h; sourceTree = SOURCE_ROOT; };
+		1BABACFB1C19EFB000BD9EB4 /* SaysModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SaysModel.h; path = youSay/Classes/Model/SaysModel.h; sourceTree = SOURCE_ROOT; };
+		1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SaysModel.m; path = youSay/Classes/Model/SaysModel.m; sourceTree = SOURCE_ROOT; };
+		1BABAD011C1ABE6200BD9EB4 /* UIImageView+Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Networking.h"; path = "youSay/Classes/Component/UIComponent/UIImageView+Networking.h"; sourceTree = SOURCE_ROOT; };
+		1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+Networking.m"; path = "youSay/Classes/Component/UIComponent/UIImageView+Networking.m"; sourceTree = SOURCE_ROOT; };
 		1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		358C90841BD654AC000B17AB /* youSay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = youSay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		358C90881BD654AC000B17AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -450,6 +456,8 @@
 		9A1406771C1305BB006547A0 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				1BABAD011C1ABE6200BD9EB4 /* UIImageView+Networking.h */,
+				1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */,
 				9A9CB5FB1C19B8200082B3E5 /* SlideNavigation */,
 				1B17E3CA1C180BF70080A574 /* UICheckBox.h */,
 				1B17E3CB1C180BF70080A574 /* UICheckBox.m */,
@@ -470,6 +478,8 @@
 				1B17E3C71C180BE90080A574 /* ProfileOwnerModel.m */,
 				1B17E3F41C1813CF0080A574 /* RequestModel.h */,
 				1B17E3F21C1813C20080A574 /* RequestModel.m */,
+				1BABACFB1C19EFB000BD9EB4 /* SaysModel.h */,
+				1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */,
 			);
 			name = Model;
 			path = Classes/Model;
@@ -633,6 +643,7 @@
 				1B17E3BE1C180BD90080A574 /* InviteFriendsViewController.m in Sources */,
 				1B17E3D11C180BF70080A574 /* UIHelper.m in Sources */,
 				5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */,
+				1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */,
 				1B17E3C31C180BD90080A574 /* ViewController.m in Sources */,
 				1B17E3AB1C180BB30080A574 /* AppDelegate.m in Sources */,
 				9A9CB6261C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScale.m in Sources */,
@@ -654,6 +665,7 @@
 				1B17E3E71C180C120080A574 /* NSError+HumanFriendly.m in Sources */,
 				5D91F79E1BDA9D33005845BE /* Reachability.m in Sources */,
 				1B17E3DB1C180C050080A574 /* Serializable.m in Sources */,
+				1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */,
 				1B17E3D01C180BF70080A574 /* UICheckBox.m in Sources */,
 				5DBF3BB41BD8212500ACF60D /* BLKFlexibleHeightBarBehaviorDefiner.m in Sources */,
 				5DBF3BD01BD821DF00ACF60D /* SquareCashStyleBar.m in Sources */,

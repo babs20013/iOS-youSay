@@ -13,4 +13,5 @@ NSString *const APP_VERSION = @"1.0";
 NSString *const APP_NAME = @"yousay_ios";
 NSString *const REQUEST_LOGIN = @"login";
 NSString *const REQUEST_SAY_COLOR = @"getSayColors";
+NSString *const REQUEST_HIDE_SAY = @"hideSay";
 NSString *const AUTHORITY_TYPE_FB = @"2";
