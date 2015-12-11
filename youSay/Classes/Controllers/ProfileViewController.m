@@ -16,6 +16,8 @@
 #import "HTTPReq.h"
 #import "SlideNavigationController.h"
 #import "CommonHelper.h"
+#import "UIImageView+Networking.h"
+
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
 #define kColor30 [UIColor colorWithRed:186.0/255.0 green:227.0/255.0 blue:86.0/255.0 alpha:1.0]
@@ -119,14 +121,14 @@
     if (section == 0) {
         return 10;
     }
-    return 35;
+    return 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     //TODO-- Should be dynamic based on the iPhone device height
     if (indexPath.section == 0) {
-        if ((self.view.frame.size.height - 49) < 511)
-            return 511;
-        return self.view.frame.size.height - 49;
+        if ((self.view.frame.size.height - 59) < 501)
+            return 501;
+        return self.view.frame.size.height - 59;
     }
     else if (indexPath.section == 1) {
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
@@ -206,11 +208,11 @@
         cel.lblCharm5.text = [dict5 valueForKey:@"name"];
         NSInteger score5 = [[dict5 valueForKey:@"rate"] integerValue];
         
-        [cel.viewCharm1 addSubview:[self getCharmsDisplay:cel.viewCharm1.frame.size.height withScore:100]];
-        [cel.viewCharm2 addSubview:[self getCharmsDisplay:cel.viewCharm2.frame.size.height withScore:80]];
-        [cel.viewCharm3 addSubview:[self getCharmsDisplay:cel.viewCharm3.frame.size.height withScore:75]];
-        [cel.viewCharm4 addSubview:[self getCharmsDisplay:cel.viewCharm4.frame.size.height withScore:64]];
-        [cel.viewCharm5 addSubview:[self getCharmsDisplay:cel.viewCharm5.frame.size.height withScore:0]];
+        [cel.viewCharm1 addSubview:[self getCharmsDisplay:cel.viewCharm1.frame.size.height withScore:score]];
+        [cel.viewCharm2 addSubview:[self getCharmsDisplay:cel.viewCharm2.frame.size.height withScore:score2]];
+        [cel.viewCharm3 addSubview:[self getCharmsDisplay:cel.viewCharm3.frame.size.height withScore:score3]];
+        [cel.viewCharm4 addSubview:[self getCharmsDisplay:cel.viewCharm4.frame.size.height withScore:score4]];
+        [cel.viewCharm5 addSubview:[self getCharmsDisplay:cel.viewCharm5.frame.size.height withScore:score5]];
         
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
         return cel;
@@ -222,7 +224,8 @@
         PeopleSayTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.row];
         NSString *colorIndex = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
-        cel.imgViewProfilePic.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[currentSaysDict objectForKey:@"profile_image"]]]];
+
+        [cel.imgViewProfilePic setImageURL:[NSURL URLWithString:[currentSaysDict objectForKey:@"profile_image"]]];
         cel.imgViewProfilePic.layer.cornerRadius = 0.5 * cel.imgViewProfilePic.bounds.size.width;
         cel.imgViewProfilePic.layer.masksToBounds = YES;
         cel.imgViewProfilePic.layer.borderWidth = 1;
@@ -235,7 +238,7 @@
         cel.btnUndo.tag = indexPath.row;
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel.peopleSayView setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
-        [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];
+        [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];                                          
         [cel.peopleSayLabel sizeToFit];
         CGSize expectedSize = [CommonHelper expectedSizeForLabel:cel.peopleSayLabel attributes:nil];
         cel.peopleSayLabel.frame = CGRectMake(cel.peopleSayLabel.frame.origin.x, cel.peopleSayLabel.frame.origin.y, expectedSize.width, expectedSize.height);

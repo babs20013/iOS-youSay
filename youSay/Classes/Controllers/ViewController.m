@@ -21,6 +21,9 @@
 #import "constant.h"
 #import "ProfileViewController.h"
 #import "CommonHelper.h"
+#import "UIImageView+Networking.h"
+
+
 @interface ViewController ()
 {
     NSString * accessToken;

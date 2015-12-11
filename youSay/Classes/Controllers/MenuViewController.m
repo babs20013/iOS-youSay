@@ -59,6 +59,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 2) {
+        FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
+        [fb logOut];
+        [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
+    }
     if (indexPath.row == 3) //InviteFriends
     {
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{

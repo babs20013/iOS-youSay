@@ -36,14 +36,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6H-GF-LsT">
-                                <rect key="frame" x="28" y="259" width="264" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6H-GF-LsT">
+                                <rect key="frame" x="23" y="258" width="275" height="52"/>
                                 <color key="backgroundColor" red="0.14117647058823529" green="0.36470588235294116" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="r6H-GF-LsT" secondAttribute="height" multiplier="132:25" id="jxm-mf-YRc"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
-                                <state key="normal" title="Login with Facebook">
+                                <state key="normal" image="fbLogin">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -59,38 +58,27 @@
                                     <segue destination="cG3-eh-NRq" kind="modal" identifier="TabBarSegue" id="VMO-f8-U9C"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="YouSayLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ioy-Yj-634">
-                                <rect key="frame" x="53" y="112" width="213" height="90"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="YouSayLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ioy-Yj-634">
+                                <rect key="frame" x="53" y="111" width="213" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="sx1-OL-trW"/>
                                     <constraint firstAttribute="width" constant="213" id="t3a-0c-70C"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We will not publish anything without your approval" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocN-SF-Kf4">
-                                <rect key="frame" x="28" y="312" width="264" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="We will not publish anything without your approval" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocN-SF-Kf4">
+                                <rect key="frame" x="28" y="311" width="264" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SCC-WX-4I4">
-                                <rect key="frame" x="40" y="264" width="22" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="22" id="jPg-ft-3ia"/>
-                                    <constraint firstAttribute="height" constant="40" id="trC-dd-CB0"/>
-                                </constraints>
-                                <state key="normal" image="FB"/>
-                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0039215686274509803" green="0.6705882352941176" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.67843137254901964" blue="0.76470588235294112" alpha="1" colorSpace="calibratedRGB"/>
                         <rect key="contentStretch" x="0.0" y="0.050000000000000003" width="1" height="1"/>
                         <constraints>
                             <constraint firstItem="ocN-SF-Kf4" firstAttribute="top" secondItem="ioy-Yj-634" secondAttribute="bottom" constant="110" id="A33-rY-gIN"/>
                             <constraint firstItem="r6H-GF-LsT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FkM-XN-W1k"/>
                             <constraint firstItem="ocN-SF-Kf4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L2n-Kp-LE8"/>
-                            <constraint firstItem="ocN-SF-Kf4" firstAttribute="leading" secondItem="SCC-WX-4I4" secondAttribute="leading" constant="-15" id="SdF-CG-Ia7"/>
                             <constraint firstItem="r6H-GF-LsT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="XXA-qf-uAt"/>
-                            <constraint firstItem="SCC-WX-4I4" firstAttribute="centerY" secondItem="r6H-GF-LsT" secondAttribute="centerY" id="dwq-26-8Kl"/>
-                            <constraint firstItem="ocN-SF-Kf4" firstAttribute="width" secondItem="r6H-GF-LsT" secondAttribute="width" id="mCX-kh-Cnt"/>
                             <constraint firstItem="r6H-GF-LsT" firstAttribute="top" secondItem="ioy-Yj-634" secondAttribute="bottom" constant="57" id="pL5-vw-qWu"/>
                             <constraint firstItem="ioy-Yj-634" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="v6w-hf-CD7"/>
                         </constraints>
@@ -1083,7 +1071,7 @@
                                                                 <constraint firstAttribute="width" constant="63" id="w6n-2m-r2L"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                            <state key="normal" title="FB"/>
+                                                            <state key="normal" image="fbShare"/>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uad-gD-3bx">
                                                             <rect key="frame" x="241.5" y="298" width="37.5" height="16"/>
@@ -1508,7 +1496,6 @@
     <resources>
         <image name="Close" width="19" height="21"/>
         <image name="Color" width="49" height="45"/>
-        <image name="FB" width="30" height="59"/>
         <image name="Heart" width="59" height="59"/>
         <image name="Likes" width="34" height="29"/>
         <image name="ProfilePicture.png" width="162" height="158"/>
@@ -1517,6 +1504,8 @@
         <image name="Star" width="59" height="60"/>
         <image name="UpArrow" width="30" height="31"/>
         <image name="YouSayLogo" width="426" height="180"/>
+        <image name="fbLogin" width="243" height="52"/>
+        <image name="fbShare" width="59" height="22"/>
         <image name="hamburger" width="58" height="55"/>
     </resources>
 </document>
