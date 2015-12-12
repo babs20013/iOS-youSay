@@ -296,7 +296,7 @@
         
         //--Profile Box
         [cel.imgViewCover setImageURL:[NSURL URLWithString:profileModel.CoverImage]];
-        cel.imgViewCover.layer.cornerRadius = 0.1 * cel.imgViewProfilePicture.bounds.size.width;
+        cel.imgViewCover.layer.cornerRadius = 0.015 * cel.imgViewCover.bounds.size.width;
         cel.imgViewCover.layer.masksToBounds = YES;
         cel.imgViewCover.layer.borderWidth = 1;
         cel.imgViewCover.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
@@ -333,6 +333,12 @@
         }];
         cel.lblRankLevel.text = [profileDictionary objectForKey:@"rank_level"];
         cel.lblPopularityLevel.text = [profileDictionary objectForKey:@"popularity_level"];
+        
+        cel.charmView.layer.cornerRadius = 0.015 * cel.charmView.bounds.size.width;
+        cel.charmView.layer.masksToBounds = YES;
+        cel.charmView.layer.borderWidth = 1;
+        cel.charmView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+
         
         //--Charms Box
         NSArray * charmsArray = [profileDictionary valueForKey:@"charms"];
@@ -375,6 +381,13 @@
         PeopleSayTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.row];
         NSString *colorIndex = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
+        
+        cel.mainView.layer.cornerRadius = 0.015 * cel.mainView.bounds.size.width;
+        cel.mainView.layer.masksToBounds = YES;
+        cel.mainView.layer.borderWidth = 1;
+        cel.mainView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        
+        
 
         [cel.imgViewProfilePic setImageURL:[NSURL URLWithString:[currentSaysDict objectForKey:@"profile_image"]]];
         cel.imgViewProfilePic.layer.cornerRadius = 0.5 * cel.imgViewProfilePic.bounds.size.width;

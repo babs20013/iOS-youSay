@@ -1327,6 +1327,7 @@
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="charmView" destination="nE6-Cf-vUH" id="eVr-gQ-0FK"/>
                                             <outlet property="imgViewCover" destination="Zhk-b9-8Bj" id="dn7-fX-1cm"/>
                                             <outlet property="imgViewProfilePicture" destination="OWM-P9-iZl" id="NYI-dD-MPa"/>
                                             <outlet property="lblCharm1" destination="biZ-yq-aOP" id="Uiu-2o-fN1"/>

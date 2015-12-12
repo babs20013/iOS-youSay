@@ -26,4 +26,5 @@
 @property (nonatomic, strong) IBOutlet UIView *viewCharm5;
 @property (nonatomic, strong) IBOutlet UILabel *lblRankLevel;
 @property (nonatomic, strong) IBOutlet UILabel *lblPopularityLevel;
+@property (nonatomic, strong) IBOutlet UIView *charmView;
 @end
