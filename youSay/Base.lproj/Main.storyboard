@@ -1008,7 +1008,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXD-s6-lei" userLabel="CoverView">
                                                     <rect key="frame" x="0.0" y="0.0" width="310" height="100"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zhk-b9-8Bj" userLabel="CoverPicture">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zhk-b9-8Bj" userLabel="CoverPicture">
                                                             <rect key="frame" x="0.0" y="0.0" width="310" height="100"/>
                                                             <animations/>
                                                         </imageView>
@@ -1466,8 +1466,8 @@
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4QW-4M-XJK">
-                                                            <rect key="frame" x="120" y="26" width="34" height="27"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4QW-4M-XJK">
+                                                            <rect key="frame" x="120" y="25" width="34" height="28"/>
                                                             <animations/>
                                                             <state key="normal">
                                                                 <attributedString key="attributedTitle">
