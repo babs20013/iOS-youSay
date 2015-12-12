@@ -60,51 +60,46 @@
 }
 
 - (IBAction)faceBookAction:(id)sender {
-    if ([FBSDKAccessToken currentAccessToken].expirationDate < [NSDate date]) {
-        [self requestLogin];
-    }
-    else {
-        Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
-        NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-        if (networkStatus == NotReachable) {
-            NSLog(@"There is no internet connection");
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!"
-                                                            message:@"There IS NO internet connection"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        } else {
-            
-            NSLog(@"There IS internet connection");
-            
-            [[UIApplication sharedApplication]
-             canOpenURL:[NSURL URLWithString:@"TestA://"]];
-            
-            FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-            [login logInWithReadPermissions:@[@"email"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error){
-                if (error) {
-                    // Process error
-                } else if (result.isCancelled) {
-                    // Handle cancellations
-                }
-                else {
-                    // If you ask for multiple permissions at once, you
-                    // should check if specific permissions missing
-                    if ([result.grantedPermissions containsObject:@"email"]) {
-                        // Do work
-                        accessToken = [FBSDKAccessToken currentAccessToken].tokenString;
-                        if([accessToken isKindOfClass:[NSString class]]){
-                            NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
-                            [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":accessToken}];
-                        }
-                        
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There is no internet connection");
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!"
+                                                        message:@"There IS NO internet connection"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else {
+        
+        NSLog(@"There IS internet connection");
+        
+        [[UIApplication sharedApplication]
+         canOpenURL:[NSURL URLWithString:@"TestA://"]];
+        
+        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+        [login logInWithReadPermissions:@[@"email"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error){
+            if (error) {
+                // Process error
+            } else if (result.isCancelled) {
+                // Handle cancellations
+            }
+            else {
+                // If you ask for multiple permissions at once, you
+                // should check if specific permissions missing
+                if ([result.grantedPermissions containsObject:@"email"]) {
+                    // Do work
+                    accessToken = [FBSDKAccessToken currentAccessToken].tokenString;
+                    if([accessToken isKindOfClass:[NSString class]]){
+                        NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
+                        [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":accessToken}];
                     }
-                    [SVProgressHUD dismiss];
+                    
                 }
-            }];
-        }
+                [SVProgressHUD dismiss];
+            }
+        }];
     }
 }
 
