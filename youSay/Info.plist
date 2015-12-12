@@ -82,5 +82,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIApplicationExitsOnSuspend</key>
+	<false/>
 </dict>
 </plist>

@@ -8,6 +8,7 @@
 
 #import "MainPageViewController.h"
 #import "ProfileViewController.h"
+
 @interface MainPageViewController (){
     NSUInteger numberOfTabs;
 }

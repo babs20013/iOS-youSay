@@ -27,6 +27,8 @@
 @interface ViewController ()
 {
     NSString * accessToken;
+    NSString * fbID;
+    FBSDKAccessToken *currentToken;
     ProfileOwnerModel *profileModel;
     NSDictionary *profileDict;
     NSDictionary *colorDict;
@@ -35,6 +37,18 @@
 
 @implementation ViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ([[FBSDKAccessToken currentAccessToken].expirationDate compare:[NSDate date]] == NSOrderedDescending) {
+//        NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
+//        [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+        vc.profileDictionary = profileDict;
+        vc.colorDictionary = colorDict;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     accessToken = @"";
@@ -46,47 +60,51 @@
 }
 
 - (IBAction)faceBookAction:(id)sender {
-    
-    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
-    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-    if (networkStatus == NotReachable) {
-        NSLog(@"There is no internet connection");
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!"
-                                                        message:@"There IS NO internet connection"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    } else {
-        
-        NSLog(@"There IS internet connection");
-    
-    [[UIApplication sharedApplication]
-     canOpenURL:[NSURL URLWithString:@"TestA://"]];
-
-    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-        [login logInWithReadPermissions:@[@"email"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error){
-        if (error) {
-            // Process error
-        } else if (result.isCancelled) {
-            // Handle cancellations
-        }
-        else {
-            // If you ask for multiple permissions at once, you
-            // should check if specific permissions missing
-            if ([result.grantedPermissions containsObject:@"email"]) {
-                // Do work
-                 accessToken = [FBSDKAccessToken currentAccessToken].tokenString;
-                if([accessToken isKindOfClass:[NSString class]]){
-                    NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
-                    [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":accessToken}];
+    if ([FBSDKAccessToken currentAccessToken].expirationDate < [NSDate date]) {
+        [self requestLogin];
+    }
+    else {
+        Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+        NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+        if (networkStatus == NotReachable) {
+            NSLog(@"There is no internet connection");
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!"
+                                                            message:@"There IS NO internet connection"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        } else {
+            
+            NSLog(@"There IS internet connection");
+            
+            [[UIApplication sharedApplication]
+             canOpenURL:[NSURL URLWithString:@"TestA://"]];
+            
+            FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+            [login logInWithReadPermissions:@[@"email"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error){
+                if (error) {
+                    // Process error
+                } else if (result.isCancelled) {
+                    // Handle cancellations
                 }
-                
-            }
-            [SVProgressHUD dismiss];
+                else {
+                    // If you ask for multiple permissions at once, you
+                    // should check if specific permissions missing
+                    if ([result.grantedPermissions containsObject:@"email"]) {
+                        // Do work
+                        accessToken = [FBSDKAccessToken currentAccessToken].tokenString;
+                        if([accessToken isKindOfClass:[NSString class]]){
+                            NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
+                            [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":accessToken}];
+                        }
+                        
+                    }
+                    [SVProgressHUD dismiss];
+                }
+            }];
         }
-    }];
     }
 }
 
@@ -104,8 +122,14 @@
                 profileModel = [[ProfileOwnerModel alloc]init];
                 profileModel.Name = [resultDic valueForKey:@"name"];
                 profileModel.UserID = [resultDic objectForKey:@"user_id"];
-                profileModel.FacebookToken = [resultDic objectForKey:@"access_token"];
+                profileModel.FacebookToken = [FBSDKAccessToken currentAccessToken].tokenString;
                 profileModel.FacebookID = [resultDic objectForKey:@"id"];
+                fbID =  [resultDic objectForKey:@"id"];
+                
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                
+                [defaults setObject:fbID forKey:@"fbID"];
+                [defaults setObject:accessToken forKey:@"accessToken"];
                 
                 //--Get profile picture
                 NSDictionary *pictureDict = [[resultDic objectForKey:@"picture"] objectForKey:@"data"];
@@ -137,14 +161,19 @@
     [SVProgressHUD setStatus:@"Loading..."];
     UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
     [SVProgressHUD setBackgroundColor:blackColor];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults objectForKey:@"fbID"];
+    [defaults objectForKey:@"accessToken"];
+    
     RequestModel *loginReq = [[RequestModel alloc]init];
     loginReq.request = REQUEST_LOGIN;
     loginReq.authorization_id = profileModel.FacebookID;
     loginReq.authority_type = AUTHORITY_TYPE_FB;
-    loginReq.authority_access_token = accessToken;
+    loginReq.authority_access_token = profileModel.FacebookToken;
     loginReq.app_name = APP_NAME;
     loginReq.app_version = APP_VERSION;
     loginReq.device_info = @"iPhone 5";
+    
     
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:loginReq completionBlock:^(id result, NSError *error) {
@@ -154,7 +183,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 profileModel.UserID = [dictResult valueForKey:@"user_id"];
-                profileModel.token = [dictResult valueForKey:@"token"];
+                profileModel.token = [dictResult valueForKey:@"token"];\
                 [AppDelegate sharedDelegate].profileOwner = profileModel;
                 profileDict = [result objectForKey:@"profile"];
                 [self requestSayColor];

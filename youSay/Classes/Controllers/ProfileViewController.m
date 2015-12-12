@@ -17,6 +17,8 @@
 #import "SlideNavigationController.h"
 #import "CommonHelper.h"
 #import "UIImageView+Networking.h"
+#import "ProfileOwnerModel.h"
+#import "RequestModel.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -49,10 +51,127 @@
 @synthesize colorDictionary;
 @synthesize saysArray;
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+
+#pragma mark - Load Login credential
+
+-(void)loadFaceBookData:(NSString*)fbURLString param:(NSDictionary*)param
+{
+    AFHTTPClient * client = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:fbURLString]];
+    [client registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    [client setDefaultHeader:@"Accept" value:@"text/html"];
+    [client getPath:@"me"
+         parameters:param
+            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
+                NSString* facebook_id=@"";
+                
+                profileModel = [[ProfileOwnerModel alloc]init];
+                profileModel.Name = [resultDic valueForKey:@"name"];
+                profileModel.UserID = [resultDic objectForKey:@"user_id"];
+                profileModel.FacebookToken = [FBSDKAccessToken currentAccessToken].tokenString;
+                profileModel.FacebookID = [resultDic objectForKey:@"id"];
+                
+                //--Get profile picture
+                NSDictionary *pictureDict = [[resultDic objectForKey:@"picture"] objectForKey:@"data"];
+                NSString *pictureURL = [pictureDict objectForKey:@"url"];
+                profileModel.ProfileImage = pictureURL;
+                
+                //--Get cover picture
+                NSString *coverURL = [[resultDic objectForKey:@"cover"] objectForKey:@"source"];
+                profileModel.CoverImage = coverURL;
+                
+                if([resultDic valueForKey:@"id"]&&[[resultDic valueForKey:@"id"]isKindOfClass:[NSString class]]){
+                    facebook_id=[resultDic valueForKey:@"id"];
+                }
+                //                FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
+                //                content.appLinkURL = [NSURL URLWithString:@"https://www.mydomain.com/myapplink"];
+                //                //optionally set previewImageURL
+                //                content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://www.mydomain.com/my_invite_image.jpg"];
+                //                [FBSDKAppInviteDialog showFromViewController:self withContent:content delegate:self];
+                [self requestLogin];
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                
+                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error!", nil) message:NSLocalizedString(@"There is an Error While logging in! Please try Again.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil]show];
+            }];
+}
+
+- (void)requestLogin {
+    [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
+    
+    RequestModel *loginReq = [[RequestModel alloc]init];
+    loginReq.request = REQUEST_LOGIN;
+    loginReq.authorization_id = profileModel.FacebookID;
+    loginReq.authority_type = AUTHORITY_TYPE_FB;
+    loginReq.authority_access_token = profileModel.FacebookToken;
+    loginReq.app_name = APP_NAME;
+    loginReq.app_version = APP_VERSION;
+    loginReq.device_info = @"iPhone 5";
+    
+    
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:loginReq completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                profileModel.UserID = [dictResult valueForKey:@"user_id"];
+                profileModel.token = [dictResult valueForKey:@"token"];
+                [AppDelegate sharedDelegate].profileOwner = profileModel;
+                profileDictionary = [result objectForKey:@"profile"];
+                [self requestSayColor];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+    }];
+}
+
+- (void)requestSayColor {
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_SAY_COLOR forKey:@"request"];
+    [dictRequest setObject:profileModel.UserID forKey:@"user_id"];
+    [dictRequest setObject:profileModel.token forKey:@"token"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                colorDictionary = [result objectForKey:@"colors"];
+                saysArray = [[NSMutableArray alloc]init];
+                saysArray = [profileDictionary valueForKey:@"says"];
+                [self.tableView reloadData];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        [SVProgressHUD dismiss];
+    }];
     
 }
+
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
+    [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+    
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
