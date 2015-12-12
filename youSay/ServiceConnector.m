@@ -54,7 +54,7 @@
     NSData *data = [[dictionary copy] JSONValue];
     
     [request setHTTPBody:data]; //set the data as the post body
-    [request addValue:[NSString stringWithFormat:@"%d",data.length] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%lu",(unsigned long)data.length] forHTTPHeaderField:@"Content-Length"];
     
     NSLog(@"request jsonnya gini: %@", request.allHTTPHeaderFields);
     NSLog(@"request jsonnya gini: %@", request.HTTPBody);
@@ -89,14 +89,13 @@
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
     
-    NSLog(@"Request Complete,recieved %d bytes of data",receivedData.length);
+    NSLog(@"Request Complete,recieved %lu bytes of data",(unsigned long)receivedData.length);
    NSError * error = nil;
     NSDictionary* json = [NSJSONSerialization
                           JSONObjectWithData:receivedData
                           options:kNilOptions
                           error:&error];
 
-    NSString *responseString = [[[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding] mutableCopy];
     //NSLog(@"Djunaid:%@", responseString);
     NSLog(@"Adeel %@",json);
 

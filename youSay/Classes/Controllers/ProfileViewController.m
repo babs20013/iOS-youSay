@@ -15,6 +15,7 @@
 #import "url.h"
 #import "HTTPReq.h"
 #import "SlideNavigationController.h"
+#import "CommonHelper.h"
 #import "UIImageView+Networking.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
@@ -132,9 +133,12 @@
     else if (indexPath.section == 1) {
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
         if ([[dictHideSay objectForKey:index] isEqualToString:@"isHide"]) {
-            return 300;
+            return 90;
         }
-        return 230;
+        NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.row];
+        NSString *string = [currentSaysDict valueForKey:@"text"];
+        CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
+        return 70 + expectedSize.height + 30 + 20;
     }
     else if (indexPath.section == 2) {
         return 65;
@@ -167,18 +171,12 @@
         ProfileTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         //--Profile Box
-        CGRect rect = CGRectMake(0,0,310,100);
-        UIGraphicsBeginImageContext( rect.size );
-        [profileModel.CoverImage drawInRect:rect];
-        UIImage *picture1 = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        NSData *imageData = UIImagePNGRepresentation(picture1);
-        UIImage *img=[UIImage imageWithData:imageData];
-
-        cel.imgViewCover.image = img;
-        
-        cel.imgViewProfilePicture.image = profileModel.ProfileImage;
+        [cel.imgViewCover setImageURL:[NSURL URLWithString:profileModel.CoverImage]];
+        cel.imgViewCover.layer.cornerRadius = 0.1 * cel.imgViewProfilePicture.bounds.size.width;
+        cel.imgViewCover.layer.masksToBounds = YES;
+        cel.imgViewCover.layer.borderWidth = 1;
+        cel.imgViewCover.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        [cel.imgViewProfilePicture setImageURL:[NSURL URLWithString:profileModel.ProfileImage]];
         cel.imgViewProfilePicture.layer.cornerRadius = 0.5 * cel.imgViewProfilePicture.bounds.size.width;
         cel.imgViewProfilePicture.layer.masksToBounds = YES;
         cel.imgViewProfilePicture.layer.borderWidth = 1;
@@ -247,10 +245,38 @@
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel.peopleSayView setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
         [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];                                          
+        [cel.peopleSayLabel sizeToFit];
+        CGSize expectedSize = [CommonHelper expectedSizeForLabel:cel.peopleSayLabel attributes:nil];
+        cel.peopleSayLabel.frame = CGRectMake(cel.peopleSayLabel.frame.origin.x, cel.peopleSayLabel.frame.origin.y, expectedSize.width, expectedSize.height);
+        cel.peopleSayView.frame =CGRectMake(cel.peopleSayView.frame.origin.x, cel.peopleSayView.frame.origin.y, expectedSize.width, expectedSize.height);
         
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
         if ([[dictHideSay objectForKey:index] isEqualToString:@"isHide"]) {
-            [cel.hideSayView setHidden:NO];
+            UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
+            UIView *hideView = [[UIView alloc]initWithFrame:CGRectMake(15, 10, tableView.frame.size.width-30, [tableView rectForRowAtIndexPath:indexPath].size.height - 20)];
+            [hideView setBackgroundColor:[UIColor colorWithRed:205/255.f green:205/255.f blue:205/255.f alpha:1]];
+            UILabel *lblHideInfo = [[UILabel alloc]initWithFrame:CGRectMake(20, 10, hideView.frame.size.width-40, 20)];
+            [lblHideInfo setText:@"this say will be hidden from your profile"];
+            [lblHideInfo setFont:[UIFont fontWithName:@"Arial" size:12]];
+            [lblHideInfo setTextAlignment:NSTextAlignmentCenter];
+            [lblHideInfo setTextColor:[UIColor darkGrayColor]];
+            [hideView addSubview:lblHideInfo];
+            
+            UIButton *btnUndo = [[UIButton alloc]initWithFrame:CGRectMake((hideView.frame.size.width-50)/2, lblHideInfo.frame.origin.y+lblHideInfo.frame.size.height+0, 50, 25)];
+            btnUndo.tag = indexPath.row;
+            [btnUndo addTarget:self action:@selector(btnUndoClicked:) forControlEvents:UIControlEventTouchUpInside];
+            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
+            [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"Undo"
+                            attributes:
+                                            @{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+                                              NSForegroundColorAttributeName: [UIColor colorWithRed:23/255.f green:174/255.f blue:201/255.f alpha:1],
+                                              NSFontAttributeName: [UIFont fontWithName:@"Arial" size:14]}]];
+            [btnUndo setAttributedTitle:attributedString forState:UIControlStateNormal];
+            [hideView addSubview:btnUndo];
+
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.contentView addSubview:hideView];
+            return cell;
         }
         else {
             [cel.hideSayView setHidden:YES];
@@ -426,7 +452,7 @@
     NSLog(@"btnClick : %ld", (long)[sender tag]);
     NSString *index = [NSString stringWithFormat:@"%ld", (long)[sender tag]];
     [dictHideSay setObject:@"isHide" forKey:index];
-    [self.tableView reloadData];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
 
 }
 
@@ -434,7 +460,8 @@
     NSLog(@"btnUndo : %ld", (long)[sender tag]);
     NSString *index = [NSString stringWithFormat:@"%ld", (long)[sender tag]];
     [dictHideSay setObject:@"isNoHide" forKey:index];
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (IBAction)btnReportClicked:(id)sender {

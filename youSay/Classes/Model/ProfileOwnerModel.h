@@ -10,8 +10,8 @@
 
 @interface ProfileOwnerModel : NSObject
 @property (nonatomic,strong) NSString *Name;
-@property (nonatomic,strong) UIImage *CoverImage;
-@property (nonatomic,strong) UIImage *ProfileImage;
+@property (nonatomic,strong) NSString *CoverImage;
+@property (nonatomic,strong) NSString *ProfileImage;
 @property (nonatomic,assign) BOOL Selected;
 @property (nonatomic,strong) NSString *UserID;
 @property (nonatomic,strong) NSString *FacebookID;

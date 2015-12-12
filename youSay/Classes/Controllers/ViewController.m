@@ -110,11 +110,11 @@
                 //--Get profile picture
                 NSDictionary *pictureDict = [[resultDic objectForKey:@"picture"] objectForKey:@"data"];
                 NSString *pictureURL = [pictureDict objectForKey:@"url"];
-                profileModel.ProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:pictureURL]]];
+                profileModel.ProfileImage = pictureURL;
                 
                 //--Get cover picture
                 NSString *coverURL = [[resultDic objectForKey:@"cover"] objectForKey:@"source"];
-                profileModel.CoverImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverURL]]];
+                profileModel.CoverImage = coverURL;
                 
                 if([resultDic valueForKey:@"id"]&&[[resultDic valueForKey:@"id"]isKindOfClass:[NSString class]]){
                     facebook_id=[resultDic valueForKey:@"id"];
