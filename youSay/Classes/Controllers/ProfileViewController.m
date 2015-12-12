@@ -36,6 +36,8 @@
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate> {
     ProfileOwnerModel *profileModel;
     NSMutableDictionary *dictHideSay;
+    UIImageView *imgViewRank;
+    UIImageView *imgViewPopularity;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -57,6 +59,8 @@
     
     dictHideSay = [[NSMutableDictionary alloc] init];
     profileModel = [AppDelegate sharedDelegate].profileOwner;
+    imgViewRank = [[UIImageView alloc]init];
+    imgViewPopularity = [[UIImageView alloc]init];
     self.tableView.delegate = self;
     UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
     searchBar.backgroundColor = [UIColor clearColor];
@@ -91,8 +95,9 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *thisView = [[UIView alloc]init];
     thisView.backgroundColor = [UIColor whiteColor];//kColorBG;
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 20)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 30)];
     label.text = [NSString stringWithFormat:@"What people SAID about %@", profileModel.Name];
+    label.numberOfLines = 2;
     label.textColor = [UIColor darkGrayColor];
     label.font = [UIFont fontWithName:@"Arial" size:14];
     [thisView addSubview:label];
@@ -176,6 +181,8 @@
         cel.imgViewCover.layer.masksToBounds = YES;
         cel.imgViewCover.layer.borderWidth = 1;
         cel.imgViewCover.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        
+        
         [cel.imgViewProfilePicture setImageURL:[NSURL URLWithString:profileModel.ProfileImage]];
         cel.imgViewProfilePicture.layer.cornerRadius = 0.5 * cel.imgViewProfilePicture.bounds.size.width;
         cel.imgViewProfilePicture.layer.masksToBounds = YES;
@@ -187,8 +194,24 @@
         NSInteger wiz = [[profileDictionary objectForKey:@"rank"] integerValue];
         [cel.newbie setTitle:[NSString stringWithFormat:@"%ld", (long)wiz] forState:UIControlStateNormal];
         [cel.popular setTitle:[NSString stringWithFormat:@"%ld", (long)popularity] forState:UIControlStateNormal];
-        [cel.newbie setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[profileDictionary objectForKey:@"popularity_picture"]]]] forState:UIControlStateNormal];
-        [cel.popular setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[profileDictionary objectForKey:@"rank_picture"]]]] forState:UIControlStateNormal];
+        
+        [cel.newbie setBackgroundImage:imgViewRank.image forState:UIControlStateNormal];
+        [cel.popular setBackgroundImage:imgViewPopularity.image forState:UIControlStateNormal];
+        
+        [imgViewRank setImageURL:[NSURL URLWithString:[profileDictionary objectForKey:@"rank_picture"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
+            ProfileTableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
+            if (updateCell) {
+                imgViewRank.image = image;
+                [cel.newbie setBackgroundImage:image forState:UIControlStateNormal];
+            }
+        }];
+        [imgViewPopularity setImageURL:[NSURL URLWithString:[profileDictionary objectForKey:@"popularity_picture"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
+            ProfileTableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
+            if (updateCell) {
+                imgViewPopularity.image = image;
+                [cel.popular setBackgroundImage:image forState:UIControlStateNormal];
+            }
+        }];
         cel.lblRankLevel.text = [profileDictionary objectForKey:@"rank_level"];
         cel.lblPopularityLevel.text = [profileDictionary objectForKey:@"popularity_level"];
         
@@ -221,6 +244,9 @@
         [cel.viewCharm5 addSubview:[self getCharmsDisplay:cel.viewCharm5.frame.size.height withScore:score5]];
         
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
+        
         return cel;
     }
     

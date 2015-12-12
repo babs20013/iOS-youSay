@@ -1008,7 +1008,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXD-s6-lei" userLabel="CoverView">
                                                     <rect key="frame" x="0.0" y="0.0" width="310" height="100"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zhk-b9-8Bj" userLabel="CoverPicture">
+                                                        <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zhk-b9-8Bj" userLabel="CoverPicture">
                                                             <rect key="frame" x="0.0" y="0.0" width="310" height="100"/>
                                                             <animations/>
                                                         </imageView>
@@ -1035,7 +1035,7 @@
                                                                 <constraint firstAttribute="height" constant="30" id="qzy-EB-Npz"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="9"/>
-                                                            <state key="normal" title="65" backgroundImage="Heart">
+                                                            <state key="normal" title="65">
                                                                 <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             </state>
                                                         </button>
@@ -1047,7 +1047,7 @@
                                                                 <constraint firstAttribute="height" constant="30" id="dTZ-N7-hJc"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="9"/>
-                                                            <state key="normal" title="65" backgroundImage="Star">
+                                                            <state key="normal" title="65">
                                                                 <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             </state>
                                                         </button>
@@ -1642,12 +1642,10 @@
     <resources>
         <image name="Close" width="19" height="21"/>
         <image name="Color" width="49" height="45"/>
-        <image name="Heart" width="59" height="59"/>
         <image name="Likes" width="34" height="29"/>
         <image name="ProfilePicture.png" width="162" height="158"/>
         <image name="Send" width="37" height="34"/>
         <image name="Share" width="34" height="32"/>
-        <image name="Star" width="59" height="60"/>
         <image name="UpArrow" width="30" height="31"/>
         <image name="YouSayLogo" width="426" height="180"/>
         <image name="fbLogin" width="243" height="52"/>
