@@ -167,7 +167,17 @@
         ProfileTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         //--Profile Box
-        cel.imgViewCover.image = profileModel.CoverImage;
+        CGRect rect = CGRectMake(0,0,310,100);
+        UIGraphicsBeginImageContext( rect.size );
+        [profileModel.CoverImage drawInRect:rect];
+        UIImage *picture1 = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        NSData *imageData = UIImagePNGRepresentation(picture1);
+        UIImage *img=[UIImage imageWithData:imageData];
+
+        cel.imgViewCover.image = img;
+        
         cel.imgViewProfilePicture.image = profileModel.ProfileImage;
         cel.imgViewProfilePicture.layer.cornerRadius = 0.5 * cel.imgViewProfilePicture.bounds.size.width;
         cel.imgViewProfilePicture.layer.masksToBounds = YES;
@@ -179,6 +189,8 @@
         NSInteger wiz = [[profileDictionary objectForKey:@"rank"] integerValue];
         [cel.newbie setTitle:[NSString stringWithFormat:@"%ld", (long)wiz] forState:UIControlStateNormal];
         [cel.popular setTitle:[NSString stringWithFormat:@"%ld", (long)popularity] forState:UIControlStateNormal];
+        [cel.newbie setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[profileDictionary objectForKey:@"popularity_picture"]]]] forState:UIControlStateNormal];
+        [cel.popular setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[profileDictionary objectForKey:@"rank_picture"]]]] forState:UIControlStateNormal];
         cel.lblRankLevel.text = [profileDictionary objectForKey:@"rank_level"];
         cel.lblPopularityLevel.text = [profileDictionary objectForKey:@"popularity_level"];
         
@@ -313,7 +325,7 @@
     for (int i=10; i<= roundedScore;) {
         int multiplier = (100-i)/10 +1;
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, multiplier*heightPerUnit+1, 50, heightPerUnit-1)];
-        view.layer.cornerRadius = 0.07 * view.bounds.size.width;
+        view.layer.cornerRadius = 0.05 * view.bounds.size.width;
         view.layer.masksToBounds = YES;
         view.layer.borderWidth = 1;
         view.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
@@ -324,7 +336,7 @@
         
         if (i > roundedScore) {
             UILabel *lblScore = [[UILabel alloc] initWithFrame:CGRectMake(0, view.frame.origin.y - 25, 50, 30)];
-            lblScore.text = [NSString stringWithFormat:@"%i", score];
+            lblScore.text = [NSString stringWithFormat:@"%li", (long)score];
             lblScore.textColor = kColorLabel;
             lblScore.textAlignment = NSTextAlignmentCenter;
             lblScore.font = [UIFont systemFontOfSize:14.0 weight:bold];
@@ -368,6 +380,7 @@
 //    
     return viewToAttach;
 }
+
 
 - (UIColor*)getColor:(NSInteger)index {
     UIColor *color;
