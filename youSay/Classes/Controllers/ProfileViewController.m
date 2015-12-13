@@ -499,7 +499,10 @@
     CGFloat heightPerUnit = chartHeight/11.5;
     
     int roundedScore = 0;
-    if (score%10 < 5) {
+    if (score < 10) {
+        roundedScore = 10;
+    }
+    else if (score%10 < 5) {
         roundedScore = score/10*10;
     }
     else {
@@ -509,7 +512,7 @@
     for (int i=10; i<= roundedScore;) {
         int multiplier = (100-i)/10 +1;
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, multiplier*heightPerUnit+1, 50, heightPerUnit-1)];
-        view.layer.cornerRadius = 0.05 * view.bounds.size.width;
+        view.layer.cornerRadius = 0.03 * view.bounds.size.width;
         view.layer.masksToBounds = YES;
         view.layer.borderWidth = 1;
         view.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
@@ -528,19 +531,19 @@
         }
     }
     
-    if (score == 0) {
-        for (int i=0; i<10; i++) {
-            int multiplier = (10-i);
-            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, multiplier*heightPerUnit+1, 50, heightPerUnit-1)];
-            view.layer.cornerRadius = 0.07 * view.bounds.size.width;
-            view.layer.masksToBounds = YES;
-            view.layer.borderWidth = 1;
-            view.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-            
-            view.backgroundColor = [self getColor:-1];
-            [viewToAttach addSubview:view];
-        }
-    }
+//    if (score == 0) {
+//        for (int i=0; i<10; i++) {
+//            int multiplier = (10-i);
+//            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, multiplier*heightPerUnit+1, 50, heightPerUnit-1)];
+//            view.layer.cornerRadius = 0.07 * view.bounds.size.width;
+//            view.layer.masksToBounds = YES;
+//            view.layer.borderWidth = 1;
+//            view.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+//            
+//            view.backgroundColor = [self getColor:-1];
+//            [viewToAttach addSubview:view];
+//        }
+//    }
  
 //    if (score%10 >= 5) {
 //        int multiplier = (100-(score+(score%10)))/10+1;
