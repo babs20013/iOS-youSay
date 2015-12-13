@@ -214,7 +214,7 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
+        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
         vc.profileDictionary = profileDict;
