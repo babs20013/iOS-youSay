@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ViewPagerController.h"
-#import "FacebookStyleViewController.h"
 #import "InviteFriendsViewController.h"
+#import "ProfileViewController.h"
+
 @interface MainPageViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate>
 @property (nonatomic,strong) NSDictionary * profileDictionary;
 @property (nonatomic,strong) NSDictionary * colorDictionary;

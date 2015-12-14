@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1B17E3AB1C180BB30080A574 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AA1C180BB30080A574 /* AppDelegate.m */; };
 		1B17E3BC1C180BD90080A574 /* AddNewSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AD1C180BD90080A574 /* AddNewSayViewController.m */; };
-		1B17E3BD1C180BD90080A574 /* FacebookStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AF1C180BD90080A574 /* FacebookStyleViewController.m */; };
 		1B17E3BE1C180BD90080A574 /* InviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B11C180BD90080A574 /* InviteFriendsViewController.m */; };
 		1B17E3BF1C180BD90080A574 /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B31C180BD90080A574 /* MainPageViewController.m */; };
 		1B17E3C01C180BD90080A574 /* PeopleSayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B51C180BD90080A574 /* PeopleSayTableViewCell.m */; };
@@ -39,9 +38,6 @@
 		358C90921BD654AC000B17AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 358C90901BD654AC000B17AB /* Main.storyboard */; };
 		358C90941BD654AC000B17AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 358C90931BD654AC000B17AB /* Assets.xcassets */; };
 		4FB16F6028629C6BDBBA350E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1787B273D28568E85213A729 /* libPods.a */; };
-		5D047E281BD7554700D2C2FE /* square-cash-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D047E241BD7554700D2C2FE /* square-cash-icon.png */; };
-		5D047E291BD7554700D2C2FE /* facebook-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D047E251BD7554700D2C2FE /* facebook-icon.png */; };
-		5D047E2A1BD7554700D2C2FE /* ProfilePicture.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D047E261BD7554700D2C2FE /* ProfilePicture.png */; };
 		5D91F79B1BDA9C69005845BE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D91F79A1BDA9C69005845BE /* SystemConfiguration.framework */; };
 		5D91F79E1BDA9D33005845BE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D91F79D1BDA9D33005845BE /* Reachability.m */; };
 		5DBF3B971BD80AA200ACF60D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DBF3B961BD80AA200ACF60D /* Images.xcassets */; };
@@ -56,7 +52,6 @@
 		5DBF3BCB1BD8216600ACF60D /* LongPressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BC21BD8216600ACF60D /* LongPressTableViewCell.m */; };
 		5DBF3BCD1BD8216600ACF60D /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BC61BD8216600ACF60D /* MessageTableViewCell.m */; };
 		5DBF3BD01BD821DF00ACF60D /* SquareCashStyleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BCF1BD821DF00ACF60D /* SquareCashStyleBar.m */; };
-		5DBF3BD21BD8237000ACF60D /* Close.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBF3BD11BD8237000ACF60D /* Close.png */; };
 		5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BD51BD93BE800ACF60D /* ServiceConnector.m */; };
 		9A9CB60F1C19B8200082B3E5 /* SlideNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6091C19B8200082B3E5 /* SlideNavigationController.m */; };
 		9A9CB6151C19B9860082B3E5 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6141C19B9860082B3E5 /* MenuViewController.m */; };
@@ -75,8 +70,6 @@
 		1B17E3AA1C180BB30080A574 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1B17E3AC1C180BD90080A574 /* AddNewSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewSayViewController.h; path = youSay/Classes/Controllers/AddNewSayViewController.h; sourceTree = SOURCE_ROOT; };
 		1B17E3AD1C180BD90080A574 /* AddNewSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddNewSayViewController.m; path = youSay/Classes/Controllers/AddNewSayViewController.m; sourceTree = SOURCE_ROOT; };
-		1B17E3AE1C180BD90080A574 /* FacebookStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookStyleViewController.h; path = youSay/Classes/Controllers/FacebookStyleViewController.h; sourceTree = SOURCE_ROOT; };
-		1B17E3AF1C180BD90080A574 /* FacebookStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookStyleViewController.m; path = youSay/Classes/Controllers/FacebookStyleViewController.m; sourceTree = SOURCE_ROOT; };
 		1B17E3B01C180BD90080A574 /* InviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InviteFriendsViewController.h; path = youSay/Classes/Controllers/InviteFriendsViewController.h; sourceTree = SOURCE_ROOT; };
 		1B17E3B11C180BD90080A574 /* InviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteFriendsViewController.m; path = youSay/Classes/Controllers/InviteFriendsViewController.m; sourceTree = SOURCE_ROOT; };
 		1B17E3B21C180BD90080A574 /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainPageViewController.h; path = youSay/Classes/Controllers/MainPageViewController.h; sourceTree = SOURCE_ROOT; };
@@ -135,9 +128,6 @@
 		358C90A31BD654AC000B17AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		358C90AC1BD654AC000B17AB /* youSayUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = youSayUITests.m; sourceTree = "<group>"; };
 		358C90AE1BD654AD000B17AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D047E241BD7554700D2C2FE /* square-cash-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square-cash-icon.png"; sourceTree = "<group>"; };
-		5D047E251BD7554700D2C2FE /* facebook-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-icon.png"; sourceTree = "<group>"; };
-		5D047E261BD7554700D2C2FE /* ProfilePicture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProfilePicture.png; sourceTree = "<group>"; };
 		5D91F79A1BDA9C69005845BE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5D91F79C1BDA9D33005845BE /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5D91F79D1BDA9D33005845BE /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -164,7 +154,6 @@
 		5DBF3BC61BD8216600ACF60D /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		5DBF3BCE1BD821DF00ACF60D /* SquareCashStyleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareCashStyleBar.h; sourceTree = "<group>"; };
 		5DBF3BCF1BD821DF00ACF60D /* SquareCashStyleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareCashStyleBar.m; sourceTree = "<group>"; };
-		5DBF3BD11BD8237000ACF60D /* Close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Close.png; sourceTree = "<group>"; };
 		5DBF3BD41BD93BE800ACF60D /* ServiceConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConnector.h; sourceTree = "<group>"; };
 		5DBF3BD51BD93BE800ACF60D /* ServiceConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConnector.m; sourceTree = "<group>"; };
 		5DBF3BD81BD93BFC00ACF60D /* JSONDictionaryExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONDictionaryExtensions.h; sourceTree = "<group>"; };
@@ -319,10 +308,6 @@
 			isa = PBXGroup;
 			children = (
 				5DBF3BD91BD93C9000ACF60D /* PrefixHeader.pch */,
-				5D047E241BD7554700D2C2FE /* square-cash-icon.png */,
-				5D047E251BD7554700D2C2FE /* facebook-icon.png */,
-				5D047E261BD7554700D2C2FE /* ProfilePicture.png */,
-				5DBF3BD11BD8237000ACF60D /* Close.png */,
 				358C90881BD654AC000B17AB /* main.m */,
 			);
 			name = "Supporting Files";
@@ -414,8 +399,6 @@
 			children = (
 				1B17E3AC1C180BD90080A574 /* AddNewSayViewController.h */,
 				1B17E3AD1C180BD90080A574 /* AddNewSayViewController.m */,
-				1B17E3AE1C180BD90080A574 /* FacebookStyleViewController.h */,
-				1B17E3AF1C180BD90080A574 /* FacebookStyleViewController.m */,
 				1B17E3B01C180BD90080A574 /* InviteFriendsViewController.h */,
 				1B17E3B11C180BD90080A574 /* InviteFriendsViewController.m */,
 				1B17E3B21C180BD90080A574 /* MainPageViewController.h */,
@@ -574,13 +557,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DBF3BD21BD8237000ACF60D /* Close.png in Resources */,
 				358C90941BD654AC000B17AB /* Assets.xcassets in Resources */,
 				1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */,
 				5DBF3B971BD80AA200ACF60D /* Images.xcassets in Resources */,
-				5D047E2A1BD7554700D2C2FE /* ProfilePicture.png in Resources */,
-				5D047E281BD7554700D2C2FE /* square-cash-icon.png in Resources */,
-				5D047E291BD7554700D2C2FE /* facebook-icon.png in Resources */,
 				358C90921BD654AC000B17AB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -671,7 +650,6 @@
 				5DBF3BD01BD821DF00ACF60D /* SquareCashStyleBar.m in Sources */,
 				1B17E3C91C180BE90080A574 /* ProfileOwnerModel.m in Sources */,
 				1B17E3C11C180BD90080A574 /* ProfileTableViewCell.m in Sources */,
-				1B17E3BD1C180BD90080A574 /* FacebookStyleViewController.m in Sources */,
 				5DBF3BB61BD8212500ACF60D /* FacebookStyleBarBehaviorDefiner.m in Sources */,
 				9A9CB6151C19B9860082B3E5 /* MenuViewController.m in Sources */,
 			);

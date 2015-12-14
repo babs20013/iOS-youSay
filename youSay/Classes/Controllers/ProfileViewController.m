@@ -83,11 +83,6 @@
                 if([resultDic valueForKey:@"id"]&&[[resultDic valueForKey:@"id"]isKindOfClass:[NSString class]]){
                     facebook_id=[resultDic valueForKey:@"id"];
                 }
-                //                FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
-                //                content.appLinkURL = [NSURL URLWithString:@"https://www.mydomain.com/myapplink"];
-                //                //optionally set previewImageURL
-                //                content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://www.mydomain.com/my_invite_image.jpg"];
-                //                [FBSDKAppInviteDialog showFromViewController:self withContent:content delegate:self];
                 [self requestLogin];
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -338,7 +333,17 @@
         cel.charmView.layer.masksToBounds = YES;
         cel.charmView.layer.borderWidth = 1;
         cel.charmView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-
+//        
+//        CGFloat totalWidth = cel.charmView.bounds.size.width;
+//        CGFloat charmWidth = totalWidth / 110 * 100 / 5;
+//        CGFloat spaceBetweenCharm = (totalWidth - charmWidth)/4;
+//        CGFloat height = 183;
+//        
+//        cel.viewCharm1.frame = CGRectMake(0, 0, charmWidth, height);
+//        cel.viewCharm2.frame = CGRectMake(charmWidth+spaceBetweenCharm, 0, charmWidth, height);
+//        cel.viewCharm3.frame = CGRectMake(2*charmWidth+2*spaceBetweenCharm, 0, charmWidth, height);
+//        cel.viewCharm4.frame = CGRectMake(3*charmWidth+3*spaceBetweenCharm, 0, charmWidth, height);
+//        cel.viewCharm5.frame = CGRectMake(4*charmWidth+4*spaceBetweenCharm, 0, charmWidth, height);
         
         //--Charms Box
         NSArray * charmsArray = [profileDictionary valueForKey:@"charms"];
@@ -498,7 +503,7 @@
     viewToAttach.backgroundColor = [UIColor whiteColor];
     CGFloat heightPerUnit = chartHeight/11.5;
     
-    int roundedScore = 0;
+    NSInteger roundedScore = 0;
     if (score < 10) {
         roundedScore = 10;
     }

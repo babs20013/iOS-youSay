@@ -2,7 +2,7 @@
 //  UIHelper.h
 //  youSay
 //
-//  Created by muthiafirdaus on 05/12/2015.
+//  Created by Muliana on 05/12/2015.
 //  Copyright © 2015 macbokpro. All rights reserved.
 //
 

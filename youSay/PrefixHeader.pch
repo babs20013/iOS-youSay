@@ -27,7 +27,9 @@
 #import <SDWebImage/UIButton+WebCache.h>
 
 #import <TPKeyboardAvoidingScrollView.h>
-
+#import "constant.h"
+#import "url.h"
+#import "HTTPReq.h"
 
 #define ALERT_VIEW(title,msg)\
 {\

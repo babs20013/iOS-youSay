@@ -1,9 +1,9 @@
 //
 //  url.m
-//  DRB-Hicom
+//  youSay
 //
 //  Created by Muliana on 10/11/15.
-//  Copyright (c) 2015 Simplifijohan. All rights reserved.
+//  Copyright © 2015 macbokpro. All rights reserved.
 //
 
 #import "url.h"

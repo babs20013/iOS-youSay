@@ -2,7 +2,7 @@
 //  CommonHelper.m
 //  youSay
 //
-//  Created by muthiafirdaus on 10/12/2015.
+//  Created by Muliana on 10/12/2015.
 //  Copyright © 2015 macbokpro. All rights reserved.
 //
 

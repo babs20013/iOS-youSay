@@ -10,6 +10,7 @@
 #import "UICheckBox.h"
 #import "UIHelper.h"
 #import "FriendModel.h"
+
 @interface InviteFriendsViewController (){
     UITextField *txtSearchFriends;
     NSArray *arrayFriendList;
