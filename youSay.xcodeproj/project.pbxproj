@@ -61,6 +61,7 @@
 		9A9CB6271C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6201C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m */; };
 		9A9CB6281C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6221C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m */; };
 		9A9CB6291C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */; };
+		9AC66C371C1F1971002B3834 /* CharmChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC66C361C1F1971002B3834 /* CharmChart.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -175,6 +176,8 @@
 		9A9CB6221C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorSlide.m; sourceTree = "<group>"; };
 		9A9CB6231C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorSlideAndFade.h; sourceTree = "<group>"; };
 		9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorSlideAndFade.m; sourceTree = "<group>"; };
+		9AC66C351C1F1971002B3834 /* CharmChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharmChart.h; path = CharmChart/CharmChart.h; sourceTree = SOURCE_ROOT; };
+		9AC66C361C1F1971002B3834 /* CharmChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CharmChart.m; path = CharmChart/CharmChart.m; sourceTree = SOURCE_ROOT; };
 		A49055F20855DDD853D5A0A6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -439,6 +442,7 @@
 		9A1406771C1305BB006547A0 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				9AC66C341C1F1936002B3834 /* CharmChart */,
 				1BABAD011C1ABE6200BD9EB4 /* UIImageView+Networking.h */,
 				1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */,
 				9A9CB5FB1C19B8200082B3E5 /* SlideNavigation */,
@@ -495,6 +499,15 @@
 				9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */,
 			);
 			path = Animations;
+			sourceTree = "<group>";
+		};
+		9AC66C341C1F1936002B3834 /* CharmChart */ = {
+			isa = PBXGroup;
+			children = (
+				9AC66C351C1F1971002B3834 /* CharmChart.h */,
+				9AC66C361C1F1971002B3834 /* CharmChart.m */,
+			);
+			name = CharmChart;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -635,6 +648,7 @@
 				1B17E3D91C180C050080A574 /* HTTPReq.m in Sources */,
 				9A9CB6281C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m in Sources */,
 				1B17E3EA1C180C1C0080A574 /* IQURLConnection.m in Sources */,
+				9AC66C371C1F1971002B3834 /* CharmChart.m in Sources */,
 				9A9CB6291C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */,
 				1B17E3BF1C180BD90080A574 /* MainPageViewController.m in Sources */,
 				5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */,

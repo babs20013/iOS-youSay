@@ -19,6 +19,7 @@
 #import "UIImageView+Networking.h"
 #import "ProfileOwnerModel.h"
 #import "RequestModel.h"
+#import "CharmChart.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -367,11 +368,47 @@
         cel.lblCharm5.text = [dict5 valueForKey:@"name"];
         NSInteger score5 = [[dict5 valueForKey:@"rate"] integerValue];
         
-        [cel.viewCharm1 addSubview:[self getCharmsDisplay:cel.viewCharm1.frame.size.height withScore:score]];
-        [cel.viewCharm2 addSubview:[self getCharmsDisplay:cel.viewCharm2.frame.size.height withScore:score2]];
-        [cel.viewCharm3 addSubview:[self getCharmsDisplay:cel.viewCharm3.frame.size.height withScore:score3]];
-        [cel.viewCharm4 addSubview:[self getCharmsDisplay:cel.viewCharm4.frame.size.height withScore:score4]];
-        [cel.viewCharm5 addSubview:[self getCharmsDisplay:cel.viewCharm5.frame.size.height withScore:score5]];
+        CGFloat w = (tableView.frame.size.width - 40-28) / 5;
+        CGFloat h = (( w/3 )+2)*14;
+        CGRect f1 =  CGRectMake(0, 0, w,h);
+        
+        CharmChart *chart = [[CharmChart alloc]initWithFrame:f1];
+        chart.state = ChartStateDefault;
+        chart.score = score;
+        chart.title = [dict1 valueForKey:@"name"];
+        
+        CharmChart *chart1 = [[CharmChart alloc]initWithFrame:f1];
+        chart1.state = ChartStateDefault;
+        chart1.score = score2;
+        chart1.title = [dict2 valueForKey:@"name"];
+
+        
+        CharmChart *chart2 = [[CharmChart alloc]initWithFrame:f1];
+        chart2.state = ChartStateDefault;
+        chart2.score = score3;
+        chart2.title = [dict3 valueForKey:@"name"];
+        
+        CharmChart *chart3 = [[CharmChart alloc]initWithFrame:f1];
+        chart3.state = ChartStateDefault;
+        chart3.score = score4;
+        chart3.title = [dict4 valueForKey:@"name"];
+        
+        CharmChart *chart4 = [[CharmChart alloc]initWithFrame:f1];
+        chart4.state = ChartStateDefault;
+        chart4.score = score5;
+        chart4.title = [dict5 valueForKey:@"name"];
+        
+        [cel.viewCharm1 addSubview:chart];
+        [cel.viewCharm2 addSubview:chart1];
+        [cel.viewCharm3 addSubview:chart2];
+        [cel.viewCharm4 addSubview:chart3];
+        [cel.viewCharm5 addSubview:chart4];
+
+//        [cel.viewCharm1 addSubview:[self getCharmsDisplay:cel.viewCharm1.frame.size.height withScore:score]];
+//        [cel.viewCharm2 addSubview:[self getCharmsDisplay:cel.viewCharm2.frame.size.height withScore:score2]];
+//        [cel.viewCharm3 addSubview:[self getCharmsDisplay:cel.viewCharm3.frame.size.height withScore:score3]];
+//        [cel.viewCharm4 addSubview:[self getCharmsDisplay:cel.viewCharm4.frame.size.height withScore:score4]];
+//        [cel.viewCharm5 addSubview:[self getCharmsDisplay:cel.viewCharm5.frame.size.height withScore:score5]];
         
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
         
