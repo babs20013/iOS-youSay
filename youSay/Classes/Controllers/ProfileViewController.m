@@ -246,9 +246,20 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     //TODO-- Should be dynamic based on the iPhone device height
     if (indexPath.section == 0) {
-        if ((self.view.frame.size.height - 59) < 501)
-            return 501;
-        return self.view.frame.size.height - 59;
+//        if ((self.view.frame.size.height - 59) < 501)
+//            return 501;
+        if (self.view.frame.size.height >= 667) {//6+
+            return self.view.frame.size.height - 120;
+        }
+        else if (self.view.frame.size.height >= 568) {//6
+            return self.view.frame.size.height - 75;
+        }
+        else if (self.view.frame.size.height >= 480) {//5
+            return self.view.frame.size.height - 25;
+        }
+        else{//4
+            return self.view.frame.size.height + 60;
+        }
     }
     else if (indexPath.section == 1) {
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
@@ -369,7 +380,7 @@
         NSInteger score5 = [[dict5 valueForKey:@"rate"] integerValue];
         
         CGFloat w = (tableView.frame.size.width - 40-28) / 5;
-        CGFloat h = (( w/3 )+2)*14;
+        CGFloat h = (( w/3 )+2)*13;
         CGRect f1 =  CGRectMake(0, 0, w,h);
         
         CharmChart *chart = [[CharmChart alloc]initWithFrame:f1];
@@ -390,12 +401,12 @@
         
         CharmChart *chart3 = [[CharmChart alloc]initWithFrame:f1];
         chart3.state = ChartStateDefault;
-        chart3.score = score4;
+        chart3.score = 100;
         chart3.title = [dict4 valueForKey:@"name"];
         
         CharmChart *chart4 = [[CharmChart alloc]initWithFrame:f1];
         chart4.state = ChartStateDefault;
-        chart4.score = score5;
+        chart4.score = 100;
         chart4.title = [dict5 valueForKey:@"name"];
         
         [cel.viewCharm1 addSubview:chart];

@@ -887,7 +887,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="5" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="l98-eE-DHw">
                                 <rect key="frame" x="11" y="49" width="298" height="519"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" red="0.70588235294117641" green="0.72549019607843135" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -1083,7 +1083,6 @@
                                                                 <constraint firstItem="fxW-tK-5Uv" firstAttribute="top" secondItem="4a2-Hx-UY4" secondAttribute="top" id="kBG-9K-Vh4"/>
                                                                 <constraint firstItem="fxW-tK-5Uv" firstAttribute="height" secondItem="4a2-Hx-UY4" secondAttribute="height" id="kwn-9j-Ara"/>
                                                                 <constraint firstItem="mr1-sS-77Q" firstAttribute="leading" secondItem="fxW-tK-5Uv" secondAttribute="trailing" constant="10" id="pX3-Vi-eC1"/>
-                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="q5I-nZ-FOO"/>
                                                                 <constraint firstItem="Vpz-cM-j1B" firstAttribute="leading" secondItem="4a2-Hx-UY4" secondAttribute="leading" id="qYq-DD-rMY"/>
                                                                 <constraint firstItem="mr1-sS-77Q" firstAttribute="height" secondItem="4a2-Hx-UY4" secondAttribute="height" id="v54-CN-Mmm"/>
                                                             </constraints>
