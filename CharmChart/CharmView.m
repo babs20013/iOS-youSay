@@ -70,10 +70,6 @@
         longPress.delegate      =   self;
         [chart addGestureRecognizer:longPress];
     }
-    
-    if ([self.delegate performSelector:@selector(didEndEditing:) withObject:self]) {
-        [self.delegate didEndEditing:self];
-    }
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
