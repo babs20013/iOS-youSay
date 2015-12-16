@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CharmView.h"
 @interface ProfileTableViewCell : UITableViewCell
 @property (nonatomic, strong) IBOutlet UIImageView *imgViewCover;
 @property (nonatomic, strong) IBOutlet UIImageView *imgViewProfilePicture;
@@ -27,6 +27,13 @@
 @property (nonatomic, strong) IBOutlet UILabel *lblRankLevel;
 @property (nonatomic, strong) IBOutlet UILabel *lblPopularityLevel;
 @property (nonatomic, strong) IBOutlet UIView *charmView;
-@property (nonatomic, strong) IBOutlet UIView *charmChartView;
+@property (nonatomic, strong) IBOutlet CharmView *charmChartView;
+
+@property (nonatomic, strong) IBOutlet UIView *longPressInfoView;
+@property (nonatomic, strong) IBOutlet UIButton *btnShare;
+@property (nonatomic, strong) IBOutlet UILabel *lblShare;
+@property (nonatomic, strong) IBOutlet UIImageView *imgVShare;
+
+@property (nonatomic, strong) IBOutlet UIView *buttonEditView;
 
 @end

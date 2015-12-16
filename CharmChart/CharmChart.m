@@ -26,12 +26,15 @@
 
 #define kMaximumScore 10
 #define kMinVerticalGap 2
-#define kMinHorizontalGap 5
+#define kMinHorizontalGap 15
 #define kChartLabelHeight 40
 
 #define kDefaultFontArialBold @"Arial-BoldMT"
 #define kDefaultFontArial @"Arial"
-
+@interface CharmChart(){
+    NSMutableArray *boxes;
+}
+@end
 @implementation CharmChart
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -44,7 +47,7 @@
 
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
     NSInteger roundedScore = 0;
     if (_score < 10) {
@@ -56,8 +59,7 @@
     else {
         roundedScore = _score/10*10+10;
     }
-    
-//    NSInteger boxCount = _score > 0 ? _score : kMaximumScore;
+    boxes = [NSMutableArray array];
     for (int i = 0; i<kMaximumScore; i++) {
         CGFloat barValue = ((i+1) * 10);
 
@@ -65,15 +67,32 @@
         [valueBox setBackgroundColor:kColorDefault];
         [valueBox setHidden:YES];
 
-        if ((_state == ChartStateDefault && roundedScore >= 0 && roundedScore >= barValue )) {
+        if (( roundedScore >= 0 && roundedScore >= barValue )) {
             [valueBox setBackgroundColor:[self getColor:i+1]];
             [valueBox setHidden:NO];
         }
         valueBox.layer.cornerRadius = 0.03 * valueBox.bounds.size.width;
         valueBox.layer.masksToBounds = YES;
-//        valueBox.layer.borderWidth = 1;
-//        valueBox.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         [self addSubview:valueBox];
+        
+        if (_state == ChartStateEdit) {
+            CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-2.0));
+            CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(2.0));
+            
+            valueBox.transform = leftWobble;  // starting point
+            
+            [UIView beginAnimations:@"wobble" context:nil];
+            [UIView setAnimationRepeatAutoreverses:YES]; // important
+            [UIView setAnimationRepeatCount:INFINITY];
+            [UIView setAnimationDuration:0.25];
+            [UIView setAnimationDelegate:self];
+            
+            valueBox.transform = rightWobble; // end here & auto-reverse
+            
+            [UIView commitAnimations];
+        }
+
+        [boxes addObject:valueBox];
     }
     
     
@@ -85,20 +104,25 @@
     lblTitle.numberOfLines = 0;
     [self addSubview:lblTitle];
     
-    
-    
     float position = ceil(roundedScore/10)+1;
     UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
     [lblScore setText:[NSString stringWithFormat:@"%ld",(long)_score]];
-    [lblScore setFont:[UIFont fontWithName:kDefaultFontArialBold size:20]];
+    [lblScore setFont:[UIFont fontWithName:kDefaultFontArialBold size:18]];
     lblScore.textAlignment = NSTextAlignmentCenter;
     [lblScore setTextColor:kChartScoreLabelColor];
     [self addSubview:lblScore];
     
+    UIButton *btnClose = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-([self boxSize].height), lblScore.frame.origin.y + 6, ([self boxSize].height+3), ([self boxSize].height+3))];
+    [btnClose setBackgroundImage:[UIImage imageNamed:@"charm-close"] forState:UIControlStateNormal];
+    [self addSubview:btnClose];
+    [btnClose setHidden:YES];
+    if (_state == ChartStateEdit) {
+        [btnClose setHidden:NO];
+    }
 }
 
 -(CGSize)boxSize{
-    return CGSizeMake(self.frame.size.width-kMinHorizontalGap, (self.frame.size.width/3));
+    return CGSizeMake(self.frame.size.width-kMinHorizontalGap, ((self.frame.size.width-kMinHorizontalGap)/3));
 }
 
 - (UIColor*)getColor:(NSInteger)index {
@@ -141,22 +165,47 @@
     return color;
 }
 
--(void)wiggleView:(UIView*)view{
-    CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-2.0));
-    CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(2.0));
-    
-    view.transform = leftWobble;  // starting point
-    
-    [UIView beginAnimations:@"wobble" context:nil];
-    [UIView setAnimationRepeatAutoreverses:YES]; // important
-    [UIView setAnimationRepeatCount:INFINITY];
-    [UIView setAnimationDuration:0.25];
-    [UIView setAnimationDelegate:self];
-//    [UIView setAnimationDidStopSelector:@selector(wobbleEnded:finished:context:)];
-    
-    view.transform = rightWobble; // end here & auto-reverse
-    
-    [UIView commitAnimations];
+//-(void)setState:(ChartState)state{
+//    _state = state;
+//    if (_state == ChartStateEdit) {
+////        [self changeStateOfChart];
+//    }
+//    else{
+////        [self changeStateOfChart];
+//    }
+//    
+//    [self layoutSubviews];
+//    
+//}
+
+-(void)changeStateOfChart{
+    for (UIView *box in boxes) {
+        [self wiggleAnimation:box];
+    }
+}
+
+-(void)wiggleAnimation:(UIView*)v{
+    if (_state == ChartStateEdit) {
+        CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-2.0));
+        CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(2.0));
+        
+        v.transform = leftWobble;  // starting point
+        
+        [UIView beginAnimations:@"wobble" context:nil];
+        [UIView setAnimationRepeatAutoreverses:YES]; // important
+        [UIView setAnimationRepeatCount:INFINITY];
+        [UIView setAnimationDuration:0.25];
+        [UIView setAnimationDelegate:self];
+        //    [UIView setAnimationDidStopSelector:@selector(wobbleEnded:finished:context:)];
+        
+        v.transform = rightWobble; // end here & auto-reverse
+        
+        [UIView commitAnimations];
+    }
+    else{
+        //Stop Wiggling
+        v.transform = CGAffineTransformIdentity;
+    }
 }
 
 @end
