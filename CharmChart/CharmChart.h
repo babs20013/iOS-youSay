@@ -16,6 +16,7 @@ typedef enum {
     ChartStateViewing
 } ChartState;
 
+
 @property (assign,nonatomic) ChartState state;
 @property (assign,nonatomic) NSInteger score;
 @property (copy,nonatomic) NSString *title;

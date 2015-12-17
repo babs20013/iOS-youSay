@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CharmView.h"
 
-@interface ProfileViewController : UIViewController <UITextViewDelegate, FBSDKAppInviteDialogDelegate>
+@interface ProfileViewController : UIViewController <UITextViewDelegate, FBSDKAppInviteDialogDelegate, CharmChartDelegate>
 
 @property (nonatomic,strong) NSDictionary * profileDictionary;
 @property (nonatomic,strong) NSDictionary * colorDictionary;

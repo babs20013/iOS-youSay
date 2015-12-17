@@ -53,6 +53,7 @@
 		5DBF3BCD1BD8216600ACF60D /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BC61BD8216600ACF60D /* MessageTableViewCell.m */; };
 		5DBF3BD01BD821DF00ACF60D /* SquareCashStyleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BCF1BD821DF00ACF60D /* SquareCashStyleBar.m */; };
 		5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF3BD51BD93BE800ACF60D /* ServiceConnector.m */; };
+		9A4D95A31C219C78006F5FA3 /* CharmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4D95A21C219C78006F5FA3 /* CharmView.m */; };
 		9A9CB60F1C19B8200082B3E5 /* SlideNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6091C19B8200082B3E5 /* SlideNavigationController.m */; };
 		9A9CB6151C19B9860082B3E5 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6141C19B9860082B3E5 /* MenuViewController.m */; };
 		9A9CB6181C19B9D10082B3E5 /* CommonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6171C19B9D10082B3E5 /* CommonHelper.m */; };
@@ -159,6 +160,8 @@
 		5DBF3BD51BD93BE800ACF60D /* ServiceConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConnector.m; sourceTree = "<group>"; };
 		5DBF3BD81BD93BFC00ACF60D /* JSONDictionaryExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONDictionaryExtensions.h; sourceTree = "<group>"; };
 		5DBF3BD91BD93C9000ACF60D /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		9A4D95A11C219C78006F5FA3 /* CharmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharmView.h; path = CharmChart/CharmView.h; sourceTree = SOURCE_ROOT; };
+		9A4D95A21C219C78006F5FA3 /* CharmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CharmView.m; path = CharmChart/CharmView.m; sourceTree = SOURCE_ROOT; };
 		9A9CB6081C19B8200082B3E5 /* SlideNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationController.h; sourceTree = "<group>"; };
 		9A9CB6091C19B8200082B3E5 /* SlideNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationController.m; sourceTree = "<group>"; };
 		9A9CB6131C19B9860082B3E5 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuViewController.h; path = youSay/Classes/Controllers/MenuViewController.h; sourceTree = SOURCE_ROOT; };
@@ -506,6 +509,8 @@
 			children = (
 				9AC66C351C1F1971002B3834 /* CharmChart.h */,
 				9AC66C361C1F1971002B3834 /* CharmChart.m */,
+				9A4D95A11C219C78006F5FA3 /* CharmView.h */,
+				9A4D95A21C219C78006F5FA3 /* CharmView.m */,
 			);
 			name = CharmChart;
 			sourceTree = "<group>";
@@ -657,6 +662,7 @@
 				1B17E3F11C180C6A0080A574 /* url.m in Sources */,
 				1B17E3E71C180C120080A574 /* NSError+HumanFriendly.m in Sources */,
 				5D91F79E1BDA9D33005845BE /* Reachability.m in Sources */,
+				9A4D95A31C219C78006F5FA3 /* CharmView.m in Sources */,
 				1B17E3DB1C180C050080A574 /* Serializable.m in Sources */,
 				1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */,
 				1B17E3D01C180BF70080A574 /* UICheckBox.m in Sources */,

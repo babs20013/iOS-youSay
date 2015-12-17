@@ -19,7 +19,6 @@
 #import "UIImageView+Networking.h"
 #import "ProfileOwnerModel.h"
 #import "RequestModel.h"
-#import "CharmChart.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -41,6 +40,7 @@
     NSMutableDictionary *dictHideSay;
     UIImageView *imgViewRank;
     UIImageView *imgViewPopularity;
+    ChartState chartState;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -171,6 +171,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    chartState = ChartStateDefault;
     
     dictHideSay = [[NSMutableDictionary alloc] init];
     profileModel = [AppDelegate sharedDelegate].profileOwner;
@@ -246,8 +247,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     //TODO-- Should be dynamic based on the iPhone device height
     if (indexPath.section == 0) {
-//        if ((self.view.frame.size.height - 59) < 501)
-//            return 501;
         if (self.view.frame.size.height >= 667) {//6+
             return self.view.frame.size.height - 155;
         }
@@ -279,6 +278,9 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 
 {
+    if (chartState == ChartStateEdit) {
+        return 1;
+    }
     if ([saysArray count]>0){
         return 2;
     }
@@ -409,18 +411,30 @@
         chart4.score = 100;
         chart4.title = [dict5 valueForKey:@"name"];
         
-        [cel.viewCharm1 addSubview:chart];
-        [cel.viewCharm2 addSubview:chart1];
-        [cel.viewCharm3 addSubview:chart2];
-        [cel.viewCharm4 addSubview:chart3];
-        [cel.viewCharm5 addSubview:chart4];
+        [[cel.charmChartView subviews]
+         makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
-//        [cel.viewCharm1 addSubview:[self getCharmsDisplay:cel.viewCharm1.frame.size.height withScore:score]];
-//        [cel.viewCharm2 addSubview:[self getCharmsDisplay:cel.viewCharm2.frame.size.height withScore:score2]];
-//        [cel.viewCharm3 addSubview:[self getCharmsDisplay:cel.viewCharm3.frame.size.height withScore:score3]];
-//        [cel.viewCharm4 addSubview:[self getCharmsDisplay:cel.viewCharm4.frame.size.height withScore:score4]];
-//        [cel.viewCharm5 addSubview:[self getCharmsDisplay:cel.viewCharm5.frame.size.height withScore:score5]];
+        cel.charmChartView.delegate = self;
+        cel.charmChartView.chartScores  =  [NSMutableArray arrayWithObjects:[@(score) stringValue],[@(score2) stringValue],[@(score3) stringValue],@"100",@"100", nil];
+        cel.charmChartView.chartNames  =  [NSMutableArray arrayWithObjects:[dict1 valueForKey:@"name"],[dict2 valueForKey:@"name"],[dict3 valueForKey:@"name"],[dict4 valueForKey:@"name"],[dict5 valueForKey:@"name"], nil];
         
+        cel.charmChartView.state = chartState;
+        
+        if (chartState == ChartStateEdit) {
+            [cel.longPressInfoView setHidden:YES];
+            [cel.lblShare setHidden:YES];
+            [cel.btnShare setHidden:YES];
+            [cel.imgVShare setHidden:YES];
+            [cel.buttonEditView setHidden:NO];
+            
+        }
+        else{
+            [cel.longPressInfoView setHidden:NO];
+            [cel.lblShare setHidden:NO];
+            [cel.btnShare setHidden:NO];
+            [cel.imgVShare setHidden:NO];
+            [cel.buttonEditView setHidden:YES];
+        }
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
         
         
@@ -697,6 +711,18 @@
     [[SlideNavigationController sharedInstance]openMenu:MenuRight withCompletion:nil];
 }
 
+-(IBAction)btnDoneEdit:(UIButton*)sender{
+    chartState = ChartStateDefault;
+    // do some logic
+    
+    [self.tableView reloadData];
+
+}
+-(IBAction)btnCancelEdit:(UIButton*)sender{
+    chartState = ChartStateDefault;
+    [self.tableView reloadData];
+
+}
 #pragma mark - FBInviteDelegate
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
 
@@ -704,6 +730,13 @@
 
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
 
+}
+
+#pragma mark - Chart Delegate
+-(void)didBeginEditing:(CharmView *)charm{
+    chartState = charm.state;
+    [self.tableView reloadData];
+    
 }
 
 
