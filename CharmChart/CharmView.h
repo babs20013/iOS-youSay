@@ -14,7 +14,7 @@
 
 //Edit Mode
 -(void)didBeginEditing:(CharmView*)charm ;
--(void)showSelectionOfCharm;
+-(void)showSelectionOfCharm:(NSString*)charmout;
 @end
 
 @interface CharmView : UIView<UIGestureRecognizerDelegate, CharmDelegate>

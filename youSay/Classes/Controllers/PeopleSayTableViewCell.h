@@ -17,6 +17,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *likesLabel;
 @property (nonatomic, strong) IBOutlet UIButton *btnHide;
 @property (nonatomic, strong) IBOutlet UIButton *btnUndo;
+@property (nonatomic, strong) IBOutlet UIButton *btnProfile;
 @property (nonatomic, strong) IBOutlet UIView *hideSayView;
 @property (nonatomic, strong) IBOutlet UIView *mainView;
 @end

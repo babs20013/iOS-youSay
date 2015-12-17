@@ -1398,6 +1398,17 @@
                                                         <constraint firstAttribute="bottom" secondItem="4QW-4M-XJK" secondAttribute="bottom" constant="17" id="nTD-Xp-JMx"/>
                                                     </constraints>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DvR-Vm-wAp">
+                                                    <rect key="frame" x="18" y="13" width="224" height="35"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="5TQ-d9-EaL"/>
+                                                        <constraint firstAttribute="width" constant="224" id="sJu-dZ-VT7"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <action selector="btnProfileClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="qYv-KL-ZHO"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <animations/>
                                             <constraints>
@@ -1405,6 +1416,7 @@
                                                 <constraint firstItem="5Ew-02-N81" firstAttribute="leading" secondItem="oBS-I2-XQW" secondAttribute="trailing" constant="3" id="48K-gi-kRz"/>
                                                 <constraint firstItem="R2q-0d-1Zx" firstAttribute="centerY" secondItem="0xx-bF-dzz" secondAttribute="centerY" id="6Uo-Fd-oVZ"/>
                                                 <constraint firstItem="Z4q-s5-q8Y" firstAttribute="leading" secondItem="7R3-pI-fRi" secondAttribute="leading" id="72A-vj-2bZ"/>
+                                                <constraint firstItem="DvR-Vm-wAp" firstAttribute="top" secondItem="8sk-2w-GwW" secondAttribute="topMargin" constant="5" id="ITB-6c-IAZ"/>
                                                 <constraint firstItem="7R3-pI-fRi" firstAttribute="top" secondItem="8sk-2w-GwW" secondAttribute="topMargin" constant="5" id="IX6-w3-d2O"/>
                                                 <constraint firstItem="5Ew-02-N81" firstAttribute="centerY" secondItem="0xx-bF-dzz" secondAttribute="centerY" id="KnA-Qx-TZ4"/>
                                                 <constraint firstItem="7R3-pI-fRi" firstAttribute="leading" secondItem="8sk-2w-GwW" secondAttribute="leadingMargin" constant="10" id="M5c-Jz-76D"/>
@@ -1414,10 +1426,13 @@
                                                 <constraint firstItem="7R3-pI-fRi" firstAttribute="top" secondItem="8sk-2w-GwW" secondAttribute="topMargin" constant="5" id="PpX-N1-Vf6"/>
                                                 <constraint firstItem="yqZ-SI-yPN" firstAttribute="leading" secondItem="Z4q-s5-q8Y" secondAttribute="leading" id="Q9C-me-7gl"/>
                                                 <constraint firstItem="oBS-I2-XQW" firstAttribute="leading" secondItem="Kvr-KM-ifj" secondAttribute="trailing" constant="15" id="RYO-Dl-8ls"/>
+                                                <constraint firstItem="psX-QX-Q6g" firstAttribute="leading" secondItem="DvR-Vm-wAp" secondAttribute="trailing" constant="8" id="RhB-ul-bbi"/>
                                                 <constraint firstItem="Z4q-s5-q8Y" firstAttribute="top" secondItem="8sk-2w-GwW" secondAttribute="top" constant="60" id="TNn-88-Hpj"/>
+                                                <constraint firstItem="DvR-Vm-wAp" firstAttribute="leading" secondItem="8sk-2w-GwW" secondAttribute="leadingMargin" constant="10" id="Vbf-EO-w1c"/>
                                                 <constraint firstItem="Kvr-KM-ifj" firstAttribute="leading" secondItem="R2q-0d-1Zx" secondAttribute="trailing" constant="15" id="WMp-Gi-6Jv"/>
                                                 <constraint firstItem="5Ew-02-N81" firstAttribute="trailing" secondItem="Z4q-s5-q8Y" secondAttribute="trailing" id="ZDu-R4-8Sc"/>
                                                 <constraint firstItem="0xx-bF-dzz" firstAttribute="leading" secondItem="Z4q-s5-q8Y" secondAttribute="leading" id="c7c-1i-dc3"/>
+                                                <constraint firstItem="Z4q-s5-q8Y" firstAttribute="top" secondItem="DvR-Vm-wAp" secondAttribute="bottom" constant="12" id="eWj-Iz-Tvs"/>
                                                 <constraint firstItem="5Ew-02-N81" firstAttribute="top" secondItem="Z4q-s5-q8Y" secondAttribute="bottom" constant="8" symbolic="YES" id="hBf-gz-5iS"/>
                                                 <constraint firstItem="yqZ-SI-yPN" firstAttribute="trailing" secondItem="Z4q-s5-q8Y" secondAttribute="trailing" id="jHb-VJ-P5N"/>
                                                 <constraint firstItem="cVB-eN-2nf" firstAttribute="leading" secondItem="7R3-pI-fRi" secondAttribute="trailing" constant="10" id="pHI-96-Spb"/>
@@ -1435,6 +1450,7 @@
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="btnHide" destination="psX-QX-Q6g" id="gBb-Pb-9Rc"/>
+                                            <outlet property="btnProfile" destination="DvR-Vm-wAp" id="1bH-Ds-3ni"/>
                                             <outlet property="btnUndo" destination="4QW-4M-XJK" id="fYa-LL-uBC"/>
                                             <outlet property="dateLabel" destination="0xx-bF-dzz" id="3EZ-qe-wzt"/>
                                             <outlet property="hideSayView" destination="yqZ-SI-yPN" id="KEc-Jp-JM7"/>

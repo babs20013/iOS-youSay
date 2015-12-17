@@ -54,6 +54,50 @@
 @synthesize saysArray;
 
 
+- (void)viewWillAppear:(BOOL)animated {
+    NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
+    [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];    
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    chartState = ChartStateDefault;
+    
+    CharmChart *chart = [[CharmChart alloc]init];
+    chart.delegate = self;
+    
+    dictHideSay = [[NSMutableDictionary alloc] init];
+   // profileModel = [AppDelegate sharedDelegate].profileOwner;
+    imgViewRank = [[UIImageView alloc]init];
+    imgViewPopularity = [[UIImageView alloc]init];
+    self.tableView.delegate = self;
+    UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
+    searchBar.backgroundColor = [UIColor clearColor];
+    searchBar.tintColor = [UIColor clearColor];
+    //[self.view addSubview:searchBar];
+    
+    saysArray = [[NSMutableArray alloc]init];
+    saysArray = [profileDictionary valueForKey:@"says"];
+    
+    
+    UIImageView *imgMagnifyingGlass = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 15, 15)];
+    imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
+    [leftView addSubview:imgMagnifyingGlass];
+    self.txtSearch.leftView = leftView;
+    self.txtSearch.leftViewMode = UITextFieldViewModeAlways;
+    self.txtSearch.layer.cornerRadius = round(self.txtSearch.frame.size.height / 2);
+    self.txtSearch.layer.borderWidth = 1;
+    self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
 #pragma mark - Load Login credential
 
 -(void)loadFaceBookData:(NSString*)fbURLString param:(NSDictionary*)param
@@ -132,6 +176,34 @@
     }];
 }
 
+- (void)requestFriendProfile:(NSString*)requestedID {
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_GET_PROFILE forKey:@"request"];
+    [dictRequest setObject:profileModel.UserID forKey:@"user_id"];
+    [dictRequest setObject:profileModel.token forKey:@"token"];
+    [dictRequest setObject:requestedID forKey:@"requested_user_id"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                profileDictionary = [dictResult objectForKey:@"profile"];
+                saysArray = [profileDictionary valueForKey:@"says"];
+                [self.tableView reloadData];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        [SVProgressHUD dismiss];
+    }];
+}
+
 - (void)requestSayColor {
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_SAY_COLOR forKey:@"request"];
@@ -161,52 +233,6 @@
     
 }
 
-
-
-- (void)viewWillAppear:(BOOL)animated {
-    NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
-    [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
-    
-}
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    chartState = ChartStateDefault;
-    
-    CharmChart *chart = [[CharmChart alloc]init];
-    chart.delegate = self;
-    
-    dictHideSay = [[NSMutableDictionary alloc] init];
-    profileModel = [AppDelegate sharedDelegate].profileOwner;
-    imgViewRank = [[UIImageView alloc]init];
-    imgViewPopularity = [[UIImageView alloc]init];
-    self.tableView.delegate = self;
-    UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
-    searchBar.backgroundColor = [UIColor clearColor];
-    searchBar.tintColor = [UIColor clearColor];
-    //[self.view addSubview:searchBar];
-    
-    saysArray = [[NSMutableArray alloc]init];
-    saysArray = [profileDictionary valueForKey:@"says"];
-    
-    
-    UIImageView *imgMagnifyingGlass = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 15, 15)];
-    imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
-    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
-    [leftView addSubview:imgMagnifyingGlass];
-    self.txtSearch.leftView = leftView;
-    self.txtSearch.leftViewMode = UITextFieldViewModeAlways;
-    self.txtSearch.layer.cornerRadius = round(self.txtSearch.frame.size.height / 2);
-    self.txtSearch.layer.borderWidth = 1;
-    self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
-
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 
@@ -306,22 +332,32 @@
     {
         static NSString *cellIdentifier = @"ProfileTableViewCell";
         ProfileTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        ProfileOwnerModel *model = [[ProfileOwnerModel alloc]init];
         
+        if  ([profileDictionary objectForKey:@"name"] == profileModel.Name){
+            model = profileModel;
+        }
+        else {
+            model.Name = [profileDictionary objectForKey:@"name"];
+            model.ProfileImage = [profileDictionary objectForKey:@"picture"];
+            model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
+            chartState = ChartStateViewing;
+        }
         //--Profile Box
-        [cel.imgViewCover setImageURL:[NSURL URLWithString:profileModel.CoverImage]];
+        [cel.imgViewCover setImageURL:[NSURL URLWithString:model.CoverImage]];
         cel.imgViewCover.layer.cornerRadius = 0.015 * cel.imgViewCover.bounds.size.width;
         cel.imgViewCover.layer.masksToBounds = YES;
         cel.imgViewCover.layer.borderWidth = 1;
         cel.imgViewCover.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         
         
-        [cel.imgViewProfilePicture setImageURL:[NSURL URLWithString:profileModel.ProfileImage]];
+        [cel.imgViewProfilePicture setImageURL:[NSURL URLWithString:model.ProfileImage]];
         cel.imgViewProfilePicture.layer.cornerRadius = 0.5 * cel.imgViewProfilePicture.bounds.size.width;
         cel.imgViewProfilePicture.layer.masksToBounds = YES;
         cel.imgViewProfilePicture.layer.borderWidth = 1;
         cel.imgViewProfilePicture.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
 
-        cel.lblName.text = profileModel.Name;
+        cel.lblName.text = model.Name;
         NSInteger popularity = [[profileDictionary objectForKey:@"popularity"] integerValue];
         NSInteger wiz = [[profileDictionary objectForKey:@"rank"] integerValue];
         [cel.newbie setTitle:[NSString stringWithFormat:@"%ld", (long)wiz] forState:UIControlStateNormal];
@@ -432,7 +468,13 @@
             [cel.btnShare setHidden:YES];
             [cel.imgVShare setHidden:YES];
             [cel.buttonEditView setHidden:NO];
-            
+        }
+        else if (chartState == ChartStateViewing) {
+            [cel.longPressInfoView setHidden:YES];
+            [cel.lblShare setHidden:YES];
+            [cel.btnShare setHidden:YES];
+            [cel.imgVShare setHidden:YES];
+            [cel.buttonEditView setHidden:YES];
         }
         else{
             [cel.longPressInfoView setHidden:NO];
@@ -473,6 +515,7 @@
         cel.peopleSayLabel.text = [currentSaysDict objectForKey:@"text"];
         cel.btnHide.tag = indexPath.row;
         cel.btnUndo.tag = indexPath.row;
+        cel.btnProfile.tag = indexPath.row;
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel.peopleSayView setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
         [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];                                          
@@ -682,6 +725,8 @@
     return color;
 }
 
+#pragma mark - IBAction
+
 - (IBAction)btnHideClicked:(id)sender {
     NSLog(@"btnClick : %ld", (long)[sender tag]);
     NSString *index = [NSString stringWithFormat:@"%ld", (long)[sender tag]];
@@ -705,7 +750,6 @@
 
 - (IBAction)btnShareClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
-    [self showSelectionOfCharm];
     
 }
 
@@ -730,6 +774,12 @@
     [self.tableView reloadData];
 
 }
+
+-(IBAction)btnProfileClicked:(UIButton*)sender{
+    NSLog(@"btnProfile : %ld", (long)[sender tag]);
+    NSDictionary *value = [saysArray objectAtIndex:[sender tag]];
+    [self requestFriendProfile:[value objectForKey:@"user_id"]];
+}
 #pragma mark - FBInviteDelegate
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
 
@@ -746,10 +796,12 @@
     
 }
 
--(void)showSelectionOfCharm {
+-(void)showSelectionOfCharm:(NSString*)charmOut {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SelectCharmsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectCharmsViewController"];
     vc.parent = self;
+    [vc setCharmOut:charmOut];
+    //= [[NSString alloc]initWithString:charmOut];//[NSString stringWithFormat:@"%@", charmOut];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
@@ -757,7 +809,9 @@
 
 - (void)didMoveToParentViewController:(UIViewController *)parent {
     NSLog(@"masuk ke parentnnya");
-    [self.tableView reloadData];
+    if ([parent isKindOfClass:[SelectCharmsViewController class]]) {
+        [self.tableView reloadData];
+    }
 }
 
 

@@ -35,5 +35,6 @@
 @property (nonatomic, strong) IBOutlet UIImageView *imgVShare;
 
 @property (nonatomic, strong) IBOutlet UIView *buttonEditView;
+@property (nonatomic, strong) IBOutlet UIView *LongPressToRankView;
 
 @end

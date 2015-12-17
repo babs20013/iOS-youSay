@@ -19,6 +19,7 @@
 @implementation SelectCharmsViewController
 
 @synthesize parent;
+@synthesize charmOut;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,7 +68,7 @@
     }];
 }
 
-- (void)requestChangeCharm {
+- (void)requestChangeCharm:(NSString*)charmIn {
     [SVProgressHUD show];
     [SVProgressHUD setStatus:@"Loading..."];
     UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
@@ -77,8 +78,8 @@
     [dictRequest setObject:REQUEST_CHANGE_CHARM forKey:@"request"];
     [dictRequest setObject:[AppDelegate sharedDelegate].profileOwner.UserID forKey:@"user_id"];
     [dictRequest setObject:[AppDelegate sharedDelegate].profileOwner.token  forKey:@"token"];
-    [dictRequest setObject:@"athletic" forKey:@"charm_in"]; //Name of the charms that user choose
-    [dictRequest setObject:@"cuddly" forKey:@"charm_out"]; //Name of the chamrs that user wants to change(delete)
+    [dictRequest setObject:charmIn forKey:@"charm_in"]; //Name of the charms that user choose
+    [dictRequest setObject:charmOut forKey:@"charm_out"]; //Name of the chamrs that user wants to change(delete)
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         if (result)
@@ -135,11 +136,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self requestChangeCharm];
+    NSDictionary *charm = [arrayCharms objectAtIndex:indexPath.row];
+    [self requestChangeCharm:[charm objectForKey:@"name"]];
 }
 
 - (IBAction)btnCancelClicked:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [parent didMoveToParentViewController:self];
+    }];
 }
 
 

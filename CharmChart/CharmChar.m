@@ -133,7 +133,7 @@
     UIButton *btnClose = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-([self boxSize].height), lblScore.frame.origin.y + 6, ([self boxSize].height+3), ([self boxSize].height+3))];
     [btnClose setBackgroundImage:[UIImage imageNamed:@"charm-close"] forState:UIControlStateNormal];
     [btnClose addTarget:self
-                 action:@selector(btnCloseClicked:)
+                 action:@selector(btnCloseClicked: withCharm:)
        forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btnClose];
     [btnClose setHidden:YES];
@@ -231,9 +231,9 @@
     }
 }
 
-- (IBAction)btnCloseClicked:(id)sender {
-    if([self.delegate respondsToSelector:@selector(showCharmsSelection)]) {
-        [self.delegate showCharmsSelection];
+- (IBAction)btnCloseClicked:(id)sender withCharm:(NSString*)selectedCharm{
+    if([self.delegate respondsToSelector:@selector(showCharmsSelection:)]) {
+        [self.delegate showCharmsSelection:_title];
     }
 
 }

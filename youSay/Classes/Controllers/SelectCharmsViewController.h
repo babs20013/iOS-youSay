@@ -12,4 +12,5 @@
 
 @property (nonatomic, assign) id parent;
 @property (nonatomic, strong) IBOutlet UITableView *tblView;
+@property (nonatomic, strong) NSString *charmOut;
 @end
