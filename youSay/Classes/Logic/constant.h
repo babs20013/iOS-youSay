@@ -13,6 +13,10 @@ extern NSString *const APP_VERSION;
 extern NSString *const REQUEST_LOGIN;
 extern NSString *const REQUEST_SAY_COLOR;
 extern NSString *const REQUEST_HIDE_SAY;
+extern NSString *const REQUEST_GET_PROFILE;
+extern NSString *const REQUEST_GET_DEFAULT_PROFILE;
+extern NSString *const REQUEST_CHANGE_CHARM;
+extern NSString *const REQUEST_GET_ALL_CHARMS;
 extern NSString *const AUTHORITY_TYPE_FB;
 
 #pragma mark -- Error Message

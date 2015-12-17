@@ -33,6 +33,7 @@
 		1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3F21C1813C20080A574 /* RequestModel.m */; };
 		1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */; };
 		1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */; };
+		1BC5EC431C22F84B0016BFA1 /* SelectCharmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5EC421C22F84B0016BFA1 /* SelectCharmsViewController.m */; };
 		1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */; };
 		358C90891BD654AC000B17AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C90881BD654AC000B17AB /* main.m */; };
 		358C90921BD654AC000B17AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 358C90901BD654AC000B17AB /* Main.storyboard */; };
@@ -62,7 +63,7 @@
 		9A9CB6271C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6201C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m */; };
 		9A9CB6281C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6221C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m */; };
 		9A9CB6291C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */; };
-		9AC66C371C1F1971002B3834 /* CharmChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC66C361C1F1971002B3834 /* CharmChart.m */; };
+		9AC66C371C1F1971002B3834 /* CharmChar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC66C361C1F1971002B3834 /* CharmChar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +121,8 @@
 		1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SaysModel.m; path = youSay/Classes/Model/SaysModel.m; sourceTree = SOURCE_ROOT; };
 		1BABAD011C1ABE6200BD9EB4 /* UIImageView+Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Networking.h"; path = "youSay/Classes/Component/UIComponent/UIImageView+Networking.h"; sourceTree = SOURCE_ROOT; };
 		1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+Networking.m"; path = "youSay/Classes/Component/UIComponent/UIImageView+Networking.m"; sourceTree = SOURCE_ROOT; };
+		1BC5EC411C22F8330016BFA1 /* SelectCharmsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SelectCharmsViewController.h; path = youSay/Classes/Controllers/SelectCharmsViewController.h; sourceTree = SOURCE_ROOT; };
+		1BC5EC421C22F84B0016BFA1 /* SelectCharmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectCharmsViewController.m; path = youSay/Classes/Controllers/SelectCharmsViewController.m; sourceTree = SOURCE_ROOT; };
 		1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		358C90841BD654AC000B17AB /* youSay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = youSay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		358C90881BD654AC000B17AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -180,7 +183,7 @@
 		9A9CB6231C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorSlideAndFade.h; sourceTree = "<group>"; };
 		9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorSlideAndFade.m; sourceTree = "<group>"; };
 		9AC66C351C1F1971002B3834 /* CharmChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharmChart.h; path = CharmChart/CharmChart.h; sourceTree = SOURCE_ROOT; };
-		9AC66C361C1F1971002B3834 /* CharmChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CharmChart.m; path = CharmChart/CharmChart.m; sourceTree = SOURCE_ROOT; };
+		9AC66C361C1F1971002B3834 /* CharmChar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CharmChar.m; path = CharmChart/CharmChar.m; sourceTree = SOURCE_ROOT; };
 		A49055F20855DDD853D5A0A6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -419,6 +422,8 @@
 				1B17E3BB1C180BD90080A574 /* ViewController.m */,
 				9A9CB6131C19B9860082B3E5 /* MenuViewController.h */,
 				9A9CB6141C19B9860082B3E5 /* MenuViewController.m */,
+				1BC5EC411C22F8330016BFA1 /* SelectCharmsViewController.h */,
+				1BC5EC421C22F84B0016BFA1 /* SelectCharmsViewController.m */,
 			);
 			name = ViewControllers;
 			path = Classes/Controllers;
@@ -508,7 +513,7 @@
 			isa = PBXGroup;
 			children = (
 				9AC66C351C1F1971002B3834 /* CharmChart.h */,
-				9AC66C361C1F1971002B3834 /* CharmChart.m */,
+				9AC66C361C1F1971002B3834 /* CharmChar.m */,
 				9A4D95A11C219C78006F5FA3 /* CharmView.h */,
 				9A4D95A21C219C78006F5FA3 /* CharmView.m */,
 			);
@@ -636,6 +641,7 @@
 				1B17E3E41C180C120080A574 /* IQHTTPConstants.m in Sources */,
 				1B17E3DA1C180C050080A574 /* Property.m in Sources */,
 				9A9CB6181C19B9D10082B3E5 /* CommonHelper.m in Sources */,
+				1BC5EC431C22F84B0016BFA1 /* SelectCharmsViewController.m in Sources */,
 				5DBF3BA91BD8210D00ACF60D /* UIView+BLKFlexibleHeightBarSubview.m in Sources */,
 				1B17E3BE1C180BD90080A574 /* InviteFriendsViewController.m in Sources */,
 				1B17E3D11C180BF70080A574 /* UIHelper.m in Sources */,
@@ -653,7 +659,7 @@
 				1B17E3D91C180C050080A574 /* HTTPReq.m in Sources */,
 				9A9CB6281C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m in Sources */,
 				1B17E3EA1C180C1C0080A574 /* IQURLConnection.m in Sources */,
-				9AC66C371C1F1971002B3834 /* CharmChart.m in Sources */,
+				9AC66C371C1F1971002B3834 /* CharmChar.m in Sources */,
 				9A9CB6291C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */,
 				1B17E3BF1C180BD90080A574 /* MainPageViewController.m in Sources */,
 				5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */,

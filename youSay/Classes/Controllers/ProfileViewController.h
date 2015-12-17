@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "CharmView.h"
+#import "CharmChart.h"
 
-@interface ProfileViewController : UIViewController <UITextViewDelegate, FBSDKAppInviteDialogDelegate, CharmChartDelegate>
+@interface ProfileViewController : UIViewController <UITextViewDelegate, FBSDKAppInviteDialogDelegate, CharmChartDelegate, CharmDelegate>
 
 @property (nonatomic,strong) NSDictionary * profileDictionary;
 @property (nonatomic,strong) NSDictionary * colorDictionary;
 @property (nonatomic, strong) NSMutableArray * saysArray;
 @property (nonatomic, strong) IBOutlet UIButton * btnAddSay;
 @property (nonatomic, strong) IBOutlet UITextField * txtSearch;
+
+- (void)didDismissVC;
 
 @end

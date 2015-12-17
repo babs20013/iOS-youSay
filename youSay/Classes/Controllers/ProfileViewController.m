@@ -19,6 +19,7 @@
 #import "UIImageView+Networking.h"
 #import "ProfileOwnerModel.h"
 #import "RequestModel.h"
+#import "SelectCharmsViewController.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -172,6 +173,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     chartState = ChartStateDefault;
+    
+    CharmChart *chart = [[CharmChart alloc]init];
+    chart.delegate = self;
     
     dictHideSay = [[NSMutableDictionary alloc] init];
     profileModel = [AppDelegate sharedDelegate].profileOwner;
@@ -383,39 +387,41 @@
         
         CGFloat w = (tableView.frame.size.width - 40-28) / 5;
         CGFloat h = (( w/3 )+2)*13;
-        CGRect f1 =  CGRectMake(0, -35, w,h);
+        CGRect f1 =  CGRectMake(0, 0, w,h);
         
-        CharmChart *chart = [[CharmChart alloc]initWithFrame:f1];
-        chart.state = ChartStateDefault;
-        chart.score = 100;
-        chart.title = [dict1 valueForKey:@"name"];
+//        CharmChart *chart = [[CharmChart alloc]initWithFrame:f1];
+//        chart.state = ChartStateDefault;
+//        chart.score = 100;
+//        chart.title = [dict1 valueForKey:@"name"];
+//        
+//        CharmChart *chart1 = [[CharmChart alloc]initWithFrame:f1];
+//        chart1.state = ChartStateDefault;
+//        chart1.score = score2;
+//        chart1.title = [dict2 valueForKey:@"name"];
+//
+//        
+//        CharmChart *chart2 = [[CharmChart alloc]initWithFrame:f1];
+//        chart2.state = ChartStateDefault;
+//        chart2.score = score3;
+//        chart2.title = [dict3 valueForKey:@"name"];
+//        
+//        CharmChart *chart3 = [[CharmChart alloc]initWithFrame:f1];
+//        chart3.state = ChartStateDefault;
+//        chart3.score = 100;
+//        chart3.title = [dict4 valueForKey:@"name"];
+//        
+//        CharmChart *chart4 = [[CharmChart alloc]initWithFrame:f1];
+//        chart4.state = ChartStateDefault;
+//        chart4.score = 100;
+//        chart4.title = [dict5 valueForKey:@"name"];
         
-        CharmChart *chart1 = [[CharmChart alloc]initWithFrame:f1];
-        chart1.state = ChartStateDefault;
-        chart1.score = score2;
-        chart1.title = [dict2 valueForKey:@"name"];
-
         
-        CharmChart *chart2 = [[CharmChart alloc]initWithFrame:f1];
-        chart2.state = ChartStateDefault;
-        chart2.score = score3;
-        chart2.title = [dict3 valueForKey:@"name"];
-        
-        CharmChart *chart3 = [[CharmChart alloc]initWithFrame:f1];
-        chart3.state = ChartStateDefault;
-        chart3.score = 100;
-        chart3.title = [dict4 valueForKey:@"name"];
-        
-        CharmChart *chart4 = [[CharmChart alloc]initWithFrame:f1];
-        chart4.state = ChartStateDefault;
-        chart4.score = 100;
-        chart4.title = [dict5 valueForKey:@"name"];
-        
+        //[cel.charmChartView setBackgroundColor:[UIColor blackColor]];
         [[cel.charmChartView subviews]
          makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
         cel.charmChartView.delegate = self;
-        cel.charmChartView.chartScores  =  [NSMutableArray arrayWithObjects:[@(score) stringValue],[@(score2) stringValue],[@(score3) stringValue],@"100",@"100", nil];
+        cel.charmChartView.chartScores  =  [NSMutableArray arrayWithObjects:@"100",[@(score2) stringValue],[@(score3) stringValue],@"90",@"100", nil];
         cel.charmChartView.chartNames  =  [NSMutableArray arrayWithObjects:[dict1 valueForKey:@"name"],[dict2 valueForKey:@"name"],[dict3 valueForKey:@"name"],[dict4 valueForKey:@"name"],[dict5 valueForKey:@"name"], nil];
         
         cel.charmChartView.state = chartState;
@@ -699,6 +705,7 @@
 
 - (IBAction)btnShareClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
+    [self showSelectionOfCharm];
     
 }
 
@@ -737,6 +744,20 @@
     chartState = charm.state;
     [self.tableView reloadData];
     
+}
+
+-(void)showSelectionOfCharm {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SelectCharmsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectCharmsViewController"];
+    vc.parent = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [nav setNavigationBarHidden:YES];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+    NSLog(@"masuk ke parentnnya");
+    [self.tableView reloadData];
 }
 
 

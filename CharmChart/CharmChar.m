@@ -108,13 +108,13 @@
     [lblTitle setTextColor:kChartTitleLabelColor];
     lblTitle.numberOfLines = 0;
     
+
+    CGRect frame = lblTitle.frame;
+    [lblTitle sizeToFit];
+    frame.size.height = lblTitle.frame.size.height;
+    lblTitle.frame = CGRectMake(0, self.frame.size.height-kChartLabelHeight+5, self.frame.size.width, lblTitle.frame.size.height);
+    [self addSubview:lblTitle];
 //
-//    CGRect frame = lblTitle.frame;
-//    [lblTitle sizeToFit];
-//    frame.size.height = lblTitle.frame.size.height;
-//    lblTitle.frame = CGRectMake(0, self.frame.size.height-kChartLabelHeight+5, self.frame.size.width, lblTitle.frame.size.height);
-//    [self addSubview:lblTitle];
-//    
 //    
 //    float position = ceil(roundedScore/10)+1;
 //    UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
@@ -124,7 +124,7 @@
     float position = ceil(roundedScore/10)+1;
     UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
     [lblScore setText:[NSString stringWithFormat:@"%ld",(long)_score]];
-    [lblScore setFont:[UIFont fontWithName:kDefaultFontArialBold size:18]];
+    [lblScore setFont:[UIFont fontWithName:kDefaultFontArialBold size:13]];
 
     lblScore.textAlignment = NSTextAlignmentCenter;
     [lblScore setTextColor:kChartScoreLabelColor];
@@ -132,6 +132,9 @@
     
     UIButton *btnClose = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-([self boxSize].height), lblScore.frame.origin.y + 6, ([self boxSize].height+3), ([self boxSize].height+3))];
     [btnClose setBackgroundImage:[UIImage imageNamed:@"charm-close"] forState:UIControlStateNormal];
+    [btnClose addTarget:self
+                 action:@selector(btnCloseClicked:)
+       forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btnClose];
     [btnClose setHidden:YES];
     if (_state == ChartStateEdit) {
@@ -214,7 +217,7 @@
         [UIView beginAnimations:@"wobble" context:nil];
         [UIView setAnimationRepeatAutoreverses:YES]; // important
         [UIView setAnimationRepeatCount:INFINITY];
-        [UIView setAnimationDuration:0.25];
+        [UIView setAnimationDuration:0.1];
         [UIView setAnimationDelegate:self];
         //    [UIView setAnimationDidStopSelector:@selector(wobbleEnded:finished:context:)];
         
@@ -226,6 +229,13 @@
         //Stop Wiggling
         v.transform = CGAffineTransformIdentity;
     }
+}
+
+- (IBAction)btnCloseClicked:(id)sender {
+    if([self.delegate respondsToSelector:@selector(showCharmsSelection)]) {
+        [self.delegate showCharmsSelection];
+    }
+
 }
 
 @end

@@ -13,7 +13,12 @@ NSString *const APP_NAME = @"yousay_ios";
 NSString *const REQUEST_LOGIN = @"login";
 NSString *const REQUEST_SAY_COLOR = @"getSayColors";
 NSString *const REQUEST_HIDE_SAY = @"hideSay";
+NSString *const REQUEST_GET_PROFILE = @"getProfile";
+NSString *const REQUEST_GET_DEFAULT_PROFILE = @"createProfile";
+NSString *const REQUEST_CHANGE_CHARM = @"changeCharm";
+NSString *const REQUEST_GET_ALL_CHARMS = @"getAllCharms";
 NSString *const AUTHORITY_TYPE_FB = @"2";
+
 
 #pragma mark -- Error Message
 NSString *const ERR_MSG_NO_INTERNET = @"There Is NO internet connection";

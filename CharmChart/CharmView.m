@@ -8,6 +8,8 @@
 
 #import "CharmView.h"
 #import "CharmChart.h"
+#import "SelectCharmsViewController.h"
+
 @interface CharmView(){
     NSMutableArray *charts;
 }
@@ -26,6 +28,7 @@
         CGRect chartFrame =  CGRectMake(i*w, 0, w,h);
 
         CharmChart *chart = [[CharmChart alloc]initWithFrame:chartFrame];
+        chart.delegate = self;
         chart.state = _state;
         chart.score = [[_chartScores objectAtIndex:i] integerValue];
         if ([_chartNames count] > i) {
@@ -74,5 +77,12 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
     return YES;
+}
+
+- (void) showCharmsSelection {
+    NSLog(@"masuk charmView");
+    if ([self.delegate performSelector:@selector(showSelectionOfCharm) withObject:self]) {
+        [self.delegate showSelectionOfCharm];
+    }
 }
 @end

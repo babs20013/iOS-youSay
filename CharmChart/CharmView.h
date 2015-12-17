@@ -14,10 +14,10 @@
 
 //Edit Mode
 -(void)didBeginEditing:(CharmView*)charm ;
-
+-(void)showSelectionOfCharm;
 @end
 
-@interface CharmView : UIView<UIGestureRecognizerDelegate>
+@interface CharmView : UIView<UIGestureRecognizerDelegate, CharmDelegate>
 
 @property (assign,nonatomic) ChartState state;
 @property (assign,nonatomic) id<CharmChartDelegate> delegate;

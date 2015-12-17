@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class CharmChart;
+@protocol CharmDelegate <NSObject>
+- (void) showCharmsSelection;
+@end //end protocol
+
+
 @interface CharmChart : UIView
 typedef enum {
     ChartStateDefault,
@@ -20,5 +26,6 @@ typedef enum {
 @property (assign,nonatomic) ChartState state;
 @property (assign,nonatomic) NSInteger score;
 @property (copy,nonatomic) NSString *title;
+@property (nonatomic, weak) id <CharmDelegate> delegate;
 
 @end
