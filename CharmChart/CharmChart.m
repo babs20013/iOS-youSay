@@ -25,9 +25,9 @@
 #define RADIANS(degrees) ((degrees * M_PI) / 180.0)
 
 #define kMaximumScore 10
-#define kMinVerticalGap 2
+#define kMinVerticalGap 1
 #define kMinHorizontalGap 5
-#define kChartLabelHeight 40
+#define kChartLabelHeight 29
 
 #define kDefaultFontArialBold @"Arial-BoldMT"
 #define kDefaultFontArial @"Arial"
@@ -77,20 +77,24 @@
     }
     
     
-    UILabel *lblTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, self.frame.size.height-kChartLabelHeight, self.frame.size.width, kChartLabelHeight)];
+    UILabel *lblTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, self.frame.size.height-kChartLabelHeight+5, self.frame.size.width, kChartLabelHeight)];
     [lblTitle setText:_title];
     [lblTitle setFont:[UIFont fontWithName:kDefaultFontArial size:10]];
     [lblTitle setTextAlignment:NSTextAlignmentCenter];
     [lblTitle setTextColor:kChartTitleLabelColor];
     lblTitle.numberOfLines = 0;
-    [self addSubview:lblTitle];
     
+    CGRect frame = lblTitle.frame;
+    [lblTitle sizeToFit];
+    frame.size.height = lblTitle.frame.size.height;
+    lblTitle.frame = CGRectMake(0, self.frame.size.height-kChartLabelHeight+5, self.frame.size.width, lblTitle.frame.size.height);
+    [self addSubview:lblTitle];
     
     
     float position = ceil(roundedScore/10)+1;
     UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
     [lblScore setText:[NSString stringWithFormat:@"%ld",(long)_score]];
-    [lblScore setFont:[UIFont fontWithName:kDefaultFontArialBold size:20]];
+    [lblScore setFont:[UIFont fontWithName:kDefaultFontArialBold size:13]];
     lblScore.textAlignment = NSTextAlignmentCenter;
     [lblScore setTextColor:kChartScoreLabelColor];
     [self addSubview:lblScore];
@@ -98,7 +102,7 @@
 }
 
 -(CGSize)boxSize{
-    return CGSizeMake(self.frame.size.width-kMinHorizontalGap, (self.frame.size.width/3));
+    return CGSizeMake(self.frame.size.width-kMinHorizontalGap, (self.frame.size.width/3.5));
 }
 
 - (UIColor*)getColor:(NSInteger)index {

@@ -249,16 +249,16 @@
 //        if ((self.view.frame.size.height - 59) < 501)
 //            return 501;
         if (self.view.frame.size.height >= 667) {//6+
-            return self.view.frame.size.height - 120;
+            return self.view.frame.size.height - 155;
         }
         else if (self.view.frame.size.height >= 568) {//6
-            return self.view.frame.size.height - 75;
+            return self.view.frame.size.height - 110;
         }
         else if (self.view.frame.size.height >= 480) {//5
-            return self.view.frame.size.height - 25;
+            return self.view.frame.size.height - 60;
         }
         else{//4
-            return self.view.frame.size.height + 60;
+            return self.view.frame.size.height + 25;
         }
     }
     else if (indexPath.section == 1) {
@@ -381,11 +381,11 @@
         
         CGFloat w = (tableView.frame.size.width - 40-28) / 5;
         CGFloat h = (( w/3 )+2)*13;
-        CGRect f1 =  CGRectMake(0, 0, w,h);
+        CGRect f1 =  CGRectMake(0, -35, w,h);
         
         CharmChart *chart = [[CharmChart alloc]initWithFrame:f1];
         chart.state = ChartStateDefault;
-        chart.score = score;
+        chart.score = 100;
         chart.title = [dict1 valueForKey:@"name"];
         
         CharmChart *chart1 = [[CharmChart alloc]initWithFrame:f1];
