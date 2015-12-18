@@ -784,7 +784,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
 				GCC_PREFIX_HEADER = youSay/PrefixHeader.pch;
 				INFOPLIST_FILE = youSay/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.novatore.youSay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -801,7 +801,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
 				GCC_PREFIX_HEADER = youSay/PrefixHeader.pch;
 				INFOPLIST_FILE = youSay/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.novatore.youSay;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -42,6 +42,7 @@
     UIImageView *imgViewRank;
     UIImageView *imgViewPopularity;
     ChartState chartState;
+    BOOL isFriendProfile;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -62,12 +63,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     chartState = ChartStateDefault;
+    isFriendProfile = NO;
     
     CharmChart *chart = [[CharmChart alloc]init];
     chart.delegate = self;
     
     dictHideSay = [[NSMutableDictionary alloc] init];
-   // profileModel = [AppDelegate sharedDelegate].profileOwner;
+    profileModel = [AppDelegate sharedDelegate].profileOwner;
     imgViewRank = [[UIImageView alloc]init];
     imgViewPopularity = [[UIImageView alloc]init];
     self.tableView.delegate = self;
@@ -191,6 +193,10 @@
             {
                 profileDictionary = [dictResult objectForKey:@"profile"];
                 saysArray = [profileDictionary valueForKey:@"says"];
+                isFriendProfile = YES;
+                if ([[AppDelegate sharedDelegate].profileOwner UserID] == [dictResult objectForKey:@"user_id"]) {
+                    isFriendProfile = NO;
+                }
                 [self.tableView reloadData];
             }
         }
@@ -334,14 +340,15 @@
         ProfileTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         ProfileOwnerModel *model = [[ProfileOwnerModel alloc]init];
         
-        if  ([profileDictionary objectForKey:@"name"] == profileModel.Name){
+        if  ([[AppDelegate sharedDelegate].profileOwner UserID] == profileModel.UserID &&
+             isFriendProfile == NO){
             model = profileModel;
         }
         else {
             model.Name = [profileDictionary objectForKey:@"name"];
             model.ProfileImage = [profileDictionary objectForKey:@"picture"];
             model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
-            chartState = ChartStateViewing;
+           // chartState = ChartStateViewing;
         }
         //--Profile Box
         [cel.imgViewCover setImageURL:[NSURL URLWithString:model.CoverImage]];
@@ -457,7 +464,7 @@
          makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
         cel.charmChartView.delegate = self;
-        cel.charmChartView.chartScores  =  [NSMutableArray arrayWithObjects:@"100",[@(score2) stringValue],[@(score3) stringValue],@"90",@"100", nil];
+        cel.charmChartView.chartScores  =  [NSMutableArray arrayWithObjects:[@(score) stringValue],[@(score2) stringValue],[@(score3) stringValue],[@(score4) stringValue],[@(score5) stringValue], nil];
         cel.charmChartView.chartNames  =  [NSMutableArray arrayWithObjects:[dict1 valueForKey:@"name"],[dict2 valueForKey:@"name"],[dict3 valueForKey:@"name"],[dict4 valueForKey:@"name"],[dict5 valueForKey:@"name"], nil];
         
         cel.charmChartView.state = chartState;
@@ -469,7 +476,7 @@
             [cel.imgVShare setHidden:YES];
             [cel.buttonEditView setHidden:NO];
         }
-        else if (chartState == ChartStateViewing) {
+        else if (isFriendProfile == YES) {
             [cel.longPressInfoView setHidden:YES];
             [cel.lblShare setHidden:YES];
             [cel.btnShare setHidden:YES];
