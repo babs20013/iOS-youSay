@@ -77,7 +77,6 @@
 }
 
 -(void)endEditing{
-//    _state = ChartStateDefault;
     for (CharmChart *chart in charts) {
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tapAndHoldChart:)];
         longPress.delegate      =   self;

@@ -284,18 +284,20 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     //TODO-- Should be dynamic based on the iPhone device height
     if (indexPath.section == 0) {
+        CGFloat height=0;
         if (self.view.frame.size.height >= 667) {//6+
-            return self.view.frame.size.height - 155;
+            height= self.view.frame.size.height - 155;
         }
         else if (self.view.frame.size.height >= 568) {//6
-            return self.view.frame.size.height - 110;
+            height= self.view.frame.size.height - 110;
         }
         else if (self.view.frame.size.height >= 480) {//5
-            return self.view.frame.size.height - 60;
+            height= self.view.frame.size.height - 20;
         }
         else{//4
-            return self.view.frame.size.height + 25;
+            height= self.view.frame.size.height + 50;
         }
+        return height;
     }
     else if (indexPath.section == 1) {
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
