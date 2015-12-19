@@ -286,7 +286,7 @@
     if (indexPath.section == 0) {
         CGFloat height=0;
         if (self.view.frame.size.height >= 667) {//6+
-            height= self.view.frame.size.height - 155;
+            height= self.view.frame.size.height - 145;
         }
         else if (self.view.frame.size.height >= 568) {//6
             height= self.view.frame.size.height - 110;

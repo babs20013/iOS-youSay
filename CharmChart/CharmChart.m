@@ -108,6 +108,7 @@
                 
             }
             else{
+                _score = 0;//
                 //if not rated change val to 0 so able to rate
                 [valueBox setHidden:NO];
                 [valueBox setBackgroundColor:[self getColor:0]];
@@ -261,7 +262,7 @@
 
 - (void)onTouchAndPanChart:(UIPanGestureRecognizer*)sender {
     CGPoint touchPoint = [sender locationInView: self];
-    self.score = 0;//begin editing reset score to 0
+
     for (UIView *box in boxes) {
         if(CGRectContainsPoint(box.frame, touchPoint)){
             self.score = box.tag *10;
