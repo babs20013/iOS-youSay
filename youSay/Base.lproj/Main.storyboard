@@ -1015,9 +1015,10 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lI-QT-wVx" userLabel="newB">
-                                                            <rect key="frame" x="83" y="53" width="36" height="28"/>
+                                                            <rect key="frame" x="83" y="53" width="28" height="28"/>
                                                             <animations/>
                                                             <constraints>
+                                                                <constraint firstAttribute="width" constant="28" id="Lg8-sk-N4x"/>
                                                                 <constraint firstAttribute="height" constant="28" id="qzy-EB-Npz"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="9"/>
@@ -1026,7 +1027,7 @@
                                                             </state>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKL-km-99h" userLabel="popular">
-                                                            <rect key="frame" x="129" y="53" width="28" height="28"/>
+                                                            <rect key="frame" x="121" y="53" width="28" height="28"/>
                                                             <animations/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="28" id="cQa-xq-eu0"/>
@@ -1038,10 +1039,9 @@
                                                             </state>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NewB" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJw-sY-AUf">
-                                                            <rect key="frame" x="83" y="82" width="36" height="12"/>
+                                                            <rect key="frame" x="83" y="82" width="28" height="12"/>
                                                             <animations/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="36" id="PAp-BC-iC1"/>
                                                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="21" id="Tbm-Ip-crL"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
@@ -1049,7 +1049,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Most Popular" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZo-kp-9Dy">
-                                                            <rect key="frame" x="129" y="82" width="36" height="21"/>
+                                                            <rect key="frame" x="121" y="82" width="36" height="21"/>
                                                             <animations/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="Q5a-Cr-O6Y"/>

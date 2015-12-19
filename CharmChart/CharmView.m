@@ -11,11 +11,11 @@
 #import "SelectCharmsViewController.h"
 
 @interface CharmView(){
-    NSMutableArray *charts;
 }
 @end
 
 @implementation CharmView
+@synthesize charts;
 
 -(void)layoutSubviews{
     charts = [NSMutableArray array];

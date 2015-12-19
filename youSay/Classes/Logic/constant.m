@@ -17,7 +17,9 @@ NSString *const REQUEST_GET_PROFILE = @"getProfile";
 NSString *const REQUEST_GET_DEFAULT_PROFILE = @"createProfile";
 NSString *const REQUEST_CHANGE_CHARM = @"changeCharm";
 NSString *const REQUEST_GET_ALL_CHARMS = @"getAllCharms";
+NSString *const REQUEST_RATE_USER_CHARMS = @"rateUserCharms";
 NSString *const AUTHORITY_TYPE_FB = @"2";
+
 
 
 #pragma mark -- Error Message

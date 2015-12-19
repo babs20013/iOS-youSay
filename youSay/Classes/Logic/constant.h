@@ -17,6 +17,7 @@ extern NSString *const REQUEST_GET_PROFILE;
 extern NSString *const REQUEST_GET_DEFAULT_PROFILE;
 extern NSString *const REQUEST_CHANGE_CHARM;
 extern NSString *const REQUEST_GET_ALL_CHARMS;
+extern NSString *const REQUEST_RATE_USER_CHARMS;
 extern NSString *const AUTHORITY_TYPE_FB;
 
 #pragma mark -- Error Message

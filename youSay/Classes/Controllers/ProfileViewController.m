@@ -20,6 +20,7 @@
 #import "ProfileOwnerModel.h"
 #import "RequestModel.h"
 #import "SelectCharmsViewController.h"
+#import "CharmChart.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -44,6 +45,7 @@
     ChartState chartState;
     BOOL isFriendProfile;
     CharmView *charmView;
+    NSString *requestedID;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -54,6 +56,7 @@
 @synthesize profileDictionary;
 @synthesize colorDictionary;
 @synthesize saysArray;
+@synthesize charmsArray;
 
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -81,6 +84,8 @@
     
     saysArray = [[NSMutableArray alloc]init];
     saysArray = [profileDictionary valueForKey:@"says"];
+    charmsArray = [[NSMutableArray alloc]init];
+    charmsArray = [profileDictionary valueForKey:@"charms"];
     
     
     UIImageView *imgMagnifyingGlass = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 15, 15)];
@@ -195,7 +200,7 @@
                 profileDictionary = [dictResult objectForKey:@"profile"];
                 saysArray = [profileDictionary valueForKey:@"says"];
                 isFriendProfile = YES;
-                if ([[AppDelegate sharedDelegate].profileOwner UserID] == [dictResult objectForKey:@"user_id"]) {
+                if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:requestedID]) {
                     isFriendProfile = NO;
                 }
                 [self.tableView reloadData];
@@ -240,6 +245,48 @@
     
 }
 
+- (void)requestEditCharm:(CharmView*)charm{
+    [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
+    
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_RATE_USER_CHARMS forKey:@"request"];
+    [dictRequest setObject:profileModel.UserID forKey:@"user_id"];
+    [dictRequest setObject:profileModel.token forKey:@"token"];
+    [dictRequest setObject:requestedID forKey:@"profile_id_to_rate"];
+    NSMutableArray *arrayRating = [[NSMutableArray alloc]init];
+    for (CharmChart *charts in charm.charts ) {
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+        [dict setObject:charts.title forKey:@"charm"];
+        [dict setObject:[NSString stringWithFormat:@"%i",charts.score] forKey:@"rate"];
+        [arrayRating addObject:dict];
+    }
+    
+    [dictRequest setObject:arrayRating forKey:@"rating"];
+
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                charmsArray = [dictResult objectForKey:@"charms"];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        [SVProgressHUD dismiss];
+    }];
+}
 
 
 
@@ -341,8 +388,7 @@
         ProfileTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         ProfileOwnerModel *model = [[ProfileOwnerModel alloc]init];
         
-        if  ([[AppDelegate sharedDelegate].profileOwner UserID] == profileModel.UserID &&
-             isFriendProfile == NO){
+        if  (isFriendProfile == NO){
             model = profileModel;
         }
         else {
@@ -406,7 +452,10 @@
 //        cel.viewCharm5.frame = CGRectMake(4*charmWidth+4*spaceBetweenCharm, 0, charmWidth, height);
         
         //--Charms Box
-        NSArray * charmsArray = [profileDictionary valueForKey:@"charms"];
+        if (!isFriendProfile) {
+            charmsArray = [profileDictionary valueForKey:@"charms"];
+        }
+                
         NSDictionary * dict1 = [charmsArray objectAtIndex:0];
         cel.lblCharm1.text = [dict1 valueForKey:@"name"];
         NSInteger score = [[dict1 valueForKey:@"rate"] integerValue];
@@ -758,6 +807,7 @@
 -(IBAction)btnProfileClicked:(UIButton*)sender{
     NSLog(@"btnProfile : %ld", (long)[sender tag]);
     NSDictionary *value = [saysArray objectAtIndex:[sender tag]];
+    requestedID = [value objectForKey:@"user_id"];
     [self requestFriendProfile:[value objectForKey:@"user_id"]];
 }
 #pragma mark - FBInviteDelegate
@@ -782,7 +832,9 @@
 }
 
 -(void)didEndEditing:(CharmView *)charm{
-    
+   if (charm.state == ChartStateRate) {
+       [self requestEditCharm:charm];
+    }
 }
 
 -(void)showSelectionOfCharm:(NSString*)charmOut {
@@ -790,7 +842,6 @@
     SelectCharmsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectCharmsViewController"];
     vc.parent = self;
     [vc setCharmOut:charmOut];
-    //= [[NSString alloc]initWithString:charmOut];//[NSString stringWithFormat:@"%@", charmOut];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
