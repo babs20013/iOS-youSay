@@ -34,6 +34,13 @@
         if ([_chartNames count] > i) {
             chart.title = [_chartNames objectAtIndex:i];
         }
+        if ([[_chartScores objectAtIndex:i] isEqualToString:@"true"]) {
+            chart.rated = YES;
+        }
+        else{
+            chart.rated = NO;
+        }
+        
         chart.tag = i;
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tapAndHoldChart:)];
         longPress.delegate      =   self;
@@ -55,7 +62,7 @@
 
 #pragma mark - Editing Methods
 -(void)beginEditing{
-    _state = ChartStateEdit;
+//    _state = ChartStateEdit;
     for (CharmChart *chart in charts) {
         for (UIGestureRecognizer *recognizer in chart.gestureRecognizers) {
             if([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
@@ -64,17 +71,21 @@
         }
     }
     
-    if ([self.delegate performSelector:@selector(didBeginEditing:) withObject:self]) {
-        [self.delegate didBeginEditing:self];
+    if ([self.delegate respondsToSelector:@selector(didBeginEditing:)]) {
+        [self.delegate performSelector:@selector(didBeginEditing:) withObject:self];
     }
 }
 
 -(void)endEditing{
-    _state = ChartStateDefault;
+//    _state = ChartStateDefault;
     for (CharmChart *chart in charts) {
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tapAndHoldChart:)];
         longPress.delegate      =   self;
         [chart addGestureRecognizer:longPress];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(didEndEditing:)]) {
+        [self.delegate performSelector:@selector(didEndEditing:) withObject:self];
     }
 }
 

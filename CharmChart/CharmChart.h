@@ -14,16 +14,18 @@
 @end //end protocol
 
 
-@interface CharmChart : UIView
+@interface CharmChart : UIView<UIGestureRecognizerDelegate>
 typedef enum {
     ChartStateDefault,
     ChartStateEdit,
-    ChartStateLock,
+    //    ChartStateLock,
+    ChartStateRate,
     ChartStateViewing
 } ChartState;
 
 
 @property (assign,nonatomic) ChartState state;
+@property (assign,nonatomic) BOOL rated;
 @property (assign,nonatomic) NSInteger score;
 @property (copy,nonatomic) NSString *title;
 @property (nonatomic, weak) id <CharmDelegate> delegate;

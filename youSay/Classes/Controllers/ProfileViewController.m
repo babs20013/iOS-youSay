@@ -43,6 +43,7 @@
     UIImageView *imgViewPopularity;
     ChartState chartState;
     BOOL isFriendProfile;
+    CharmView *charmView;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -348,7 +349,7 @@
             model.Name = [profileDictionary objectForKey:@"name"];
             model.ProfileImage = [profileDictionary objectForKey:@"picture"];
             model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
-           // chartState = ChartStateViewing;
+            chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
         }
         //--Profile Box
         [cel.imgViewCover setImageURL:[NSURL URLWithString:model.CoverImage]];
@@ -430,44 +431,18 @@
         CGFloat h = (( w/3 )+2)*13;
         CGRect f1 =  CGRectMake(0, 0, w,h);
         
-//        CharmChart *chart = [[CharmChart alloc]initWithFrame:f1];
-//        chart.state = ChartStateDefault;
-//        chart.score = 100;
-//        chart.title = [dict1 valueForKey:@"name"];
-//        
-//        CharmChart *chart1 = [[CharmChart alloc]initWithFrame:f1];
-//        chart1.state = ChartStateDefault;
-//        chart1.score = score2;
-//        chart1.title = [dict2 valueForKey:@"name"];
-//
-//        
-//        CharmChart *chart2 = [[CharmChart alloc]initWithFrame:f1];
-//        chart2.state = ChartStateDefault;
-//        chart2.score = score3;
-//        chart2.title = [dict3 valueForKey:@"name"];
-//        
-//        CharmChart *chart3 = [[CharmChart alloc]initWithFrame:f1];
-//        chart3.state = ChartStateDefault;
-//        chart3.score = 100;
-//        chart3.title = [dict4 valueForKey:@"name"];
-//        
-//        CharmChart *chart4 = [[CharmChart alloc]initWithFrame:f1];
-//        chart4.state = ChartStateDefault;
-//        chart4.score = 100;
-//        chart4.title = [dict5 valueForKey:@"name"];
-        
-        
-        //[cel.charmChartView setBackgroundColor:[UIColor blackColor]];
         [[cel.charmChartView subviews]
          makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
+        
         cel.charmChartView.delegate = self;
         cel.charmChartView.chartScores  =  [NSMutableArray arrayWithObjects:[@(score) stringValue],[@(score2) stringValue],[@(score3) stringValue],[@(score4) stringValue],[@(score5) stringValue], nil];
         cel.charmChartView.chartNames  =  [NSMutableArray arrayWithObjects:[dict1 valueForKey:@"name"],[dict2 valueForKey:@"name"],[dict3 valueForKey:@"name"],[dict4 valueForKey:@"name"],[dict5 valueForKey:@"name"], nil];
-        
+        cel.charmChartView.chartLocked  =  [NSMutableArray arrayWithObjects:[dict1 valueForKey:@"rated"],[dict2 valueForKey:@"rated"],[dict3 valueForKey:@"rated"],[dict4 valueForKey:@"rated"],[dict5 valueForKey:@"rated"], nil];
+
         cel.charmChartView.state = chartState;
-        
-        if (chartState == ChartStateEdit) {
+        charmView = cel.charmChartView;
+
+        if (chartState == ChartStateEdit || chartState == ChartStateRate) {
             [cel.longPressInfoView setHidden:YES];
             [cel.lblShare setHidden:YES];
             [cel.btnShare setHidden:YES];
@@ -770,7 +745,7 @@
 -(IBAction)btnDoneEdit:(UIButton*)sender{
     chartState = ChartStateDefault;
     // do some logic
-    
+    [charmView endEditing];
     [self.tableView reloadData];
 
 }
@@ -796,8 +771,17 @@
 
 #pragma mark - Chart Delegate
 -(void)didBeginEditing:(CharmView *)charm{
-    chartState = charm.state;
+    if (isFriendProfile) {
+        chartState = ChartStateRate;
+    }
+    else{
+        chartState = ChartStateEdit;
+    }
     [self.tableView reloadData];
+    
+}
+
+-(void)didEndEditing:(CharmView *)charm{
     
 }
 

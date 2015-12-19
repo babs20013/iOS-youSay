@@ -14,6 +14,8 @@
 
 //Edit Mode
 -(void)didBeginEditing:(CharmView*)charm ;
+-(void)didEndEditing:(CharmView*)charm ;
+
 -(void)showSelectionOfCharm:(NSString*)charmout;
 @end
 
@@ -23,6 +25,7 @@
 @property (assign,nonatomic) id<CharmChartDelegate> delegate;
 @property (strong,nonatomic) NSMutableArray *chartScores;
 @property (strong,nonatomic) NSMutableArray *chartNames;
+@property (strong,nonatomic) NSMutableArray *chartLocked;
 
 -(void)beginEditing;
 -(void)endEditing;
