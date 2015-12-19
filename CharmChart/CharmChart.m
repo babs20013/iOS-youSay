@@ -38,6 +38,7 @@
 #define kDefaultFontArial @"Arial"
 @interface CharmChart(){
     NSMutableArray *boxes;
+    UILabel *lblScore;
 }
 @end
 @implementation CharmChart
@@ -71,7 +72,7 @@
         UIView *valueBox = [[UIView alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (i*([self boxSize].height+kMinVerticalGap) + [self boxSize].height)-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
         [valueBox setBackgroundColor:kColorDefault];
         [valueBox setHidden:YES];
-
+        valueBox.tag = i+1;
         if (( roundedScore >= 0 && roundedScore >= barValue )) {
             [valueBox setBackgroundColor:[self getColor:i+1]];
             [valueBox setHidden:NO];
@@ -96,10 +97,33 @@
             
             [UIView commitAnimations];
         }
+        else if (_state == ChartStateViewing ){
+            if ( _score == 0 ) {
+                [valueBox setBackgroundColor:[self getColor:0]];
+                [valueBox setHidden:NO];
+            }
+        }
+        else if ( _state == ChartStateRate){
+            if (_rated) {
+                
+            }
+            else{
+                //if not rated change val to 0 so able to rate
+                [valueBox setHidden:NO];
+                [valueBox setBackgroundColor:[self getColor:0]];
+
+            }
+        }
 
         [boxes addObject:valueBox];
     }
     
+    if (_state == ChartStateRate && _rated == YES) {
+        //TODO: Already rated should display lock
+        UIImageView *imgLocked = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lock"]];
+        imgLocked.frame = CGRectMake((self.frame.size.width-imgLocked.frame.size.width)/2, self.frame.size.height-40-imgLocked.frame.size.height,imgLocked.frame.size.width,imgLocked.frame.size.height );
+        [self addSubview:imgLocked];
+    }
     
     UILabel *lblTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, self.frame.size.height-kChartLabelHeight+5, self.frame.size.width, kChartLabelHeight)];
     [lblTitle setText:_title];
@@ -114,18 +138,17 @@
     frame.size.height = lblTitle.frame.size.height;
     lblTitle.frame = CGRectMake(0, self.frame.size.height-kChartLabelHeight+5, self.frame.size.width, lblTitle.frame.size.height);
     [self addSubview:lblTitle];
-//
-//    
-//    float position = ceil(roundedScore/10)+1;
-//    UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
-//    [lblScore setText:[NSString stringWithFormat:@"%ld",(long)_score]];
-//    [lblScore setFont:[UIFont fontWithName:kDefaultFontArialBold size:13]];
-
+    
     float position = ceil(roundedScore/10)+1;
-    UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
-    [lblScore setText:[NSString stringWithFormat:@"%ld",(long)_score]];
+    if ((_state == ChartStateViewing && _score == 0 ) || (_state ==  ChartStateRate && !_rated) ){
+        position = 11;
+    }
+    lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
+    [lblScore setText:_state ==  ChartStateRate ? @"0" : [NSString stringWithFormat:@"%ld",(long)_score]];
     [lblScore setFont:[UIFont fontWithName:kDefaultFontArialBold size:13]];
-
+    if (position > 10 && _state !=  ChartStateRate) {
+        [lblScore setHidden:YES];
+    }
     lblScore.textAlignment = NSTextAlignmentCenter;
     [lblScore setTextColor:kChartScoreLabelColor];
     [self addSubview:lblScore];
@@ -140,11 +163,22 @@
     if (_state == ChartStateEdit) {
         [btnClose setHidden:NO];
     }
+    
+    if (_state == ChartStateRate && !_rated) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTouchAndPanChart:)];
+        tap.delegate      =   self;
+        [self addGestureRecognizer:tap];
+        tap = nil;
+        
+        UIPanGestureRecognizer *longPress = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onTouchAndPanChart:)];
+        longPress.delegate      =   self;
+        [self addGestureRecognizer:longPress];
+        longPress = nil;
+
+    }
 }
 
 -(CGSize)boxSize{
-//    return CGSizeMake(self.frame.size.width-kMinHorizontalGap, (self.frame.size.width/3.5));
-
     return CGSizeMake(self.frame.size.width-kMinHorizontalGap, ((self.frame.size.width-kMinHorizontalGap)/3));
 }
 
@@ -188,19 +222,6 @@
     return color;
 }
 
-//-(void)setState:(ChartState)state{
-//    _state = state;
-//    if (_state == ChartStateEdit) {
-////        [self changeStateOfChart];
-//    }
-//    else{
-////        [self changeStateOfChart];
-//    }
-//    
-//    [self layoutSubviews];
-//    
-//}
-
 -(void)changeStateOfChart{
     for (UIView *box in boxes) {
         [self wiggleAnimation:box];
@@ -236,6 +257,30 @@
         [self.delegate showCharmsSelection:_title];
     }
 
+}
+
+- (void)onTouchAndPanChart:(UIPanGestureRecognizer*)sender {
+    CGPoint touchPoint = [sender locationInView: self];
+    for (UIView *box in boxes) {
+        if(CGRectContainsPoint(box.frame, touchPoint)){
+            self.score = box.tag *10;
+            [lblScore setText:[NSString stringWithFormat:@"%ld",(long)_score]];
+            break;
+        }
+    }
+    
+    if (touchPoint.y > self.frame.size.height - 40) {
+        self.score = 0;//out of bounds minimal point
+    }
+    
+    for (UIView *box in boxes) {
+        if ( box.tag *10 > self.score) {
+            [box setBackgroundColor:[self getColor:0]];
+        }
+        else{
+            [box setBackgroundColor:[self getColor:box.tag]];
+        }
+    }
 }
 
 @end
