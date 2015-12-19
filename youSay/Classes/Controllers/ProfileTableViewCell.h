@@ -31,6 +31,7 @@
 
 @property (nonatomic, strong) IBOutlet UIView *longPressInfoView;
 @property (nonatomic, strong) IBOutlet UIButton *btnShare;
+@property (nonatomic, strong) IBOutlet UIButton *rankButton;
 @property (nonatomic, strong) IBOutlet UILabel *lblShare;
 @property (nonatomic, strong) IBOutlet UIImageView *imgVShare;
 

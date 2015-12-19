@@ -174,9 +174,15 @@
                 profileDictionary = [result objectForKey:@"profile"];
                 [self requestSayColor];
             }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
         }
         else if (error)
         {
+            
+            
         }
         else{
             
@@ -184,7 +190,12 @@
     }];
 }
 
-- (void)requestFriendProfile:(NSString*)requestedID {
+- (void)requestFriendProfile:(NSString*)IDrequested {
+    [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
+    
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_GET_PROFILE forKey:@"request"];
     [dictRequest setObject:profileModel.UserID forKey:@"user_id"];
@@ -204,6 +215,11 @@
                     isFriendProfile = NO;
                 }
                 [self.tableView reloadData];
+                [self.tableView scrollsToTop];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
             }
         }
         else if (error)
@@ -232,6 +248,10 @@
                 saysArray = [[NSMutableArray alloc]init];
                 saysArray = [profileDictionary valueForKey:@"says"];
                 [self.tableView reloadData];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
             }
         }
         else if (error)
@@ -277,6 +297,10 @@
                 [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
 
             }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
         }
         else if (error)
         {
@@ -296,7 +320,7 @@
     UIView *thisView = [[UIView alloc]init];
     thisView.backgroundColor = [UIColor whiteColor];//kColorBG;
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 30)];
-    label.text = [NSString stringWithFormat:@"What people SAID about %@", profileModel.Name];
+    label.text = [NSString stringWithFormat:@"What people SAID about %@", [profileDictionary objectForKey:@"name"]];
     label.numberOfLines = 2;
     label.textColor = [UIColor darkGrayColor];
     label.font = [UIFont fontWithName:@"Arial" size:14];
@@ -364,9 +388,9 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 
 {
-    if (chartState == ChartStateEdit) {
-        return 1;
-    }
+//    if (chartState == ChartStateEdit) {
+//        return 1;
+//    }
     if ([saysArray count]>0){
         return 2;
     }
@@ -392,6 +416,8 @@
         
         if  (isFriendProfile == NO){
             model = profileModel;
+            
+            chartState = chartState == ChartStateViewing ? ChartStateDefault : chartState;
         }
         else {
             model.Name = [profileDictionary objectForKey:@"name"];
@@ -441,18 +467,7 @@
         cel.charmView.layer.masksToBounds = YES;
         cel.charmView.layer.borderWidth = 1;
         cel.charmView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-//        
-//        CGFloat totalWidth = cel.charmView.bounds.size.width;
-//        CGFloat charmWidth = totalWidth / 110 * 100 / 5;
-//        CGFloat spaceBetweenCharm = (totalWidth - charmWidth)/4;
-//        CGFloat height = 183;
-//        
-//        cel.viewCharm1.frame = CGRectMake(0, 0, charmWidth, height);
-//        cel.viewCharm2.frame = CGRectMake(charmWidth+spaceBetweenCharm, 0, charmWidth, height);
-//        cel.viewCharm3.frame = CGRectMake(2*charmWidth+2*spaceBetweenCharm, 0, charmWidth, height);
-//        cel.viewCharm4.frame = CGRectMake(3*charmWidth+3*spaceBetweenCharm, 0, charmWidth, height);
-//        cel.viewCharm5.frame = CGRectMake(4*charmWidth+4*spaceBetweenCharm, 0, charmWidth, height);
-        
+
         //--Charms Box
         if (!isFriendProfile) {
             charmsArray = [profileDictionary valueForKey:@"charms"];
@@ -499,15 +514,18 @@
             [cel.btnShare setHidden:YES];
             [cel.imgVShare setHidden:YES];
             [cel.buttonEditView setHidden:NO];
+            [cel.rankButton setHidden:YES];
         }
         else if (isFriendProfile == YES) {
             [cel.longPressInfoView setHidden:YES];
+            [cel.rankButton setHidden:NO];
             [cel.lblShare setHidden:YES];
             [cel.btnShare setHidden:YES];
             [cel.imgVShare setHidden:YES];
             [cel.buttonEditView setHidden:YES];
         }
         else{
+            [cel.rankButton setHidden:YES];
             [cel.longPressInfoView setHidden:NO];
             [cel.lblShare setHidden:NO];
             [cel.btnShare setHidden:NO];
@@ -677,41 +695,6 @@
             [viewToAttach addSubview:lblScore];
         }
     }
-    
-//    if (score == 0) {
-//        for (int i=0; i<10; i++) {
-//            int multiplier = (10-i);
-//            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, multiplier*heightPerUnit+1, 50, heightPerUnit-1)];
-//            view.layer.cornerRadius = 0.07 * view.bounds.size.width;
-//            view.layer.masksToBounds = YES;
-//            view.layer.borderWidth = 1;
-//            view.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-//            
-//            view.backgroundColor = [self getColor:-1];
-//            [viewToAttach addSubview:view];
-//        }
-//    }
- 
-//    if (score%10 >= 5) {
-//        int multiplier = (100-(score+(score%10)))/10+1;
-//       // int fractionHeight = (heightPerUnit/10)*(score%10)-1;
-//        
-//        UIView *viewHalf = [[UIView alloc]initWithFrame:CGRectMake(0, (multiplier+1)*heightPerUnit+1, 50, heightPerUnit-1)];
-//        viewHalf.layer.cornerRadius = 0.07 * viewHalf.bounds.size.width;
-//        viewHalf.layer.masksToBounds = YES;
-//        viewHalf.layer.borderWidth = 1;
-//        viewHalf.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-//        viewHalf.backgroundColor = [self getColor:score+10-(score%10)];
-//        [viewToAttach addSubview:viewHalf];
-//        
-//        UILabel *lblScore = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHalf.frame.origin.y - 25, 50, 30)];
-//        lblScore.text = [NSString stringWithFormat:@"%i", score];
-//        lblScore.textColor = kColorLabel;
-//        lblScore.textAlignment = NSTextAlignmentCenter;
-//        lblScore.font = [UIFont systemFontOfSize:14.0 weight:bold];
-//        [viewToAttach addSubview:lblScore];
-//    }
-//    
     return viewToAttach;
 }
 

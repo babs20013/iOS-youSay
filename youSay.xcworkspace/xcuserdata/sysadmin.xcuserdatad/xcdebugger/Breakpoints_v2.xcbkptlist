@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "472223965.323072"
+            timestampString = "472228123.140323"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "835"
-            endingLineNumber = "835"
+            startingLineNumber = "818"
+            endingLineNumber = "818"
             landmarkName = "-didEndEditing:"
             landmarkType = "5">
          </BreakpointContent>
