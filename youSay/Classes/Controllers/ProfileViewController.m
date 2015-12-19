@@ -60,14 +60,24 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    dictHideSay = [[NSMutableDictionary alloc] init];
+    isFriendProfile = NO;
+   
     NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
-    [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];    
+    [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+    chartState = ChartStateDefault;
+    
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    if ([dictHideSay allKeys].count >0) {
+        [self requestHideSay];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    chartState = ChartStateDefault;
-    isFriendProfile = NO;
+    
     
     CharmChart *chart = [[CharmChart alloc]init];
     chart.delegate = self;
@@ -137,12 +147,63 @@
                 if([resultDic valueForKey:@"id"]&&[[resultDic valueForKey:@"id"]isKindOfClass:[NSString class]]){
                     facebook_id=[resultDic valueForKey:@"id"];
                 }
+                [AppDelegate sharedDelegate].profileOwner = profileModel;
                 [self requestLogin];
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error!", nil) message:NSLocalizedString(@"There is an Error While logging in! Please try Again.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil]show];
             }];
+}
+
+- (void)requestHideSay {
+    NSArray *keys = [dictHideSay allKeys];
+    NSString *saysID = @"";
+    for (int i = 0; i < keys.count; i++) {
+        NSDictionary *dict = [saysArray objectAtIndex:i];
+        if (i < keys.count-1) {
+            saysID = [saysID stringByAppendingString:[NSString stringWithFormat:@"%@,",[dict objectForKey:@"say_id"]]];
+        }
+        else {
+            saysID = [saysID stringByAppendingString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"say_id"]]];
+        }
+        
+    }
+    
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_HIDE_SAY forKey:@"request"];
+    [dictRequest setObject:profileModel.UserID forKey:@"user_id"];
+    [dictRequest setObject:profileModel.token forKey:@"token"];
+    [dictRequest setObject:saysID forKey:@"say_id"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                profileDictionary = [dictResult objectForKey:@"profile"];
+                saysArray = [profileDictionary valueForKey:@"says"];
+                isFriendProfile = YES;
+                if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:requestedID]) {
+                    isFriendProfile = NO;
+                }
+                [self.tableView reloadData];
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        [SVProgressHUD dismiss];
+    }];
 }
 
 - (void)requestLogin {
@@ -153,9 +214,9 @@
     
     RequestModel *loginReq = [[RequestModel alloc]init];
     loginReq.request = REQUEST_LOGIN;
-    loginReq.authorization_id = profileModel.FacebookID;
+    loginReq.authorization_id = [[AppDelegate sharedDelegate].profileOwner FacebookID];
     loginReq.authority_type = AUTHORITY_TYPE_FB;
-    loginReq.authority_access_token = profileModel.FacebookToken;
+    loginReq.authority_access_token = [FBSDKAccessToken currentAccessToken].tokenString;
     loginReq.app_name = APP_NAME;
     loginReq.app_version = APP_VERSION;
     loginReq.device_info = @"iPhone 5";
@@ -215,7 +276,7 @@
                     isFriendProfile = NO;
                 }
                 [self.tableView reloadData];
-                [self.tableView scrollsToTop];
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -416,7 +477,6 @@
         
         if  (isFriendProfile == NO){
             model = profileModel;
-            
             chartState = chartState == ChartStateViewing ? ChartStateDefault : chartState;
         }
         else {
@@ -603,6 +663,9 @@
         }
         else {
             [cel.hideSayView setHidden:YES];
+        }
+        if (isFriendProfile) {
+            [cel.btnHide setHidden:YES];
         }
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
         return cel;
@@ -838,6 +901,17 @@
         [self.tableView reloadData];
     }
 }
+
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    BOOL isScrolled = NO;
+//    if (scrollView.contentOffset.y < -50 && !isScrolled) {
+//        isScrolled = YES;
+//         NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
+//        [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+//        chartState = ChartStateDefault;
+//       // [self requestLogin];
+//    }
+//}
 
 
 @end

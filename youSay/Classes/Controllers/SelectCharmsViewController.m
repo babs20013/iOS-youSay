@@ -26,13 +26,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor greenColor]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     // Do any additional setup after loading the view.
     isFiltered = NO;
     [_searchTextField addTarget:self
                   action:@selector(textFieldDidChange:)
         forControlEvents:UIControlEventEditingChanged];
+    UIImageView *imgMagnifyingGlass = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 15, 15)];
+    imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
+    [leftView addSubview:imgMagnifyingGlass];
+    self.searchTextField.leftView = leftView;
+    self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
+    self.searchTextField.layer.cornerRadius = round(self.searchTextField.frame.size.height / 2);
+    self.searchTextField.layer.borderWidth = 1;
+    self.searchTextField.layer.borderColor = [UIColor whiteColor].CGColor;
     [self getAllCharms];
+    
     
 }
 -(void)viewWillAppear:(BOOL)animated{
