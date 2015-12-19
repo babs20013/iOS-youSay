@@ -376,14 +376,12 @@
         [imgViewRank setImageURL:[NSURL URLWithString:[profileDictionary objectForKey:@"rank_picture"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
             ProfileTableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
             if (updateCell) {
-                imgViewRank.image = image;
                 [cel.newbie setBackgroundImage:image forState:UIControlStateNormal];
             }
         }];
         [imgViewPopularity setImageURL:[NSURL URLWithString:[profileDictionary objectForKey:@"popularity_picture"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
             ProfileTableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
             if (updateCell) {
-                imgViewPopularity.image = image;
                 [cel.popular setBackgroundImage:image forState:UIControlStateNormal];
             }
         }];

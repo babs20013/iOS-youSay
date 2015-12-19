@@ -1021,8 +1021,8 @@
                                                                 <constraint firstAttribute="height" constant="28" id="qzy-EB-Npz"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="9"/>
-                                                            <state key="normal" title="65">
-                                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <state key="normal" title="65" backgroundImage="Heart">
+                                                                <color key="titleColor" red="0.0039215686269999999" green="0.6705882353" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKL-km-99h" userLabel="popular">
@@ -1033,8 +1033,8 @@
                                                                 <constraint firstAttribute="height" constant="28" id="dTZ-N7-hJc"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="9"/>
-                                                            <state key="normal" title="65">
-                                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <state key="normal" title="65" backgroundImage="Star">
+                                                                <color key="titleColor" red="0.37254901959999998" green="0.74509803919999995" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NewB" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJw-sY-AUf">
@@ -1648,10 +1648,12 @@
         <image name="Close" width="19" height="21"/>
         <image name="Color" width="49" height="45"/>
         <image name="DoneBtn" width="468" height="75"/>
+        <image name="Heart" width="59" height="59"/>
         <image name="Likes" width="34" height="29"/>
         <image name="ProfilePicture.png" width="162" height="158"/>
         <image name="Send" width="37" height="34"/>
         <image name="Share" width="34" height="32"/>
+        <image name="Star" width="59" height="60"/>
         <image name="UpArrow" width="30" height="31"/>
         <image name="YouSayLogo" width="426" height="180"/>
         <image name="fbLogin" width="271" height="58"/>
