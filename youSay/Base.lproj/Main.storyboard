@@ -1175,7 +1175,7 @@
                                                                     <rect key="frame" x="213" y="0.0" width="57" height="50"/>
                                                                     <animations/>
                                                                     <state key="normal" title="Cancel">
-                                                                        <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="titleColor" red="0.1019607843" green="0.67843137249999996" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="btnCancelEdit:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="doT-Ti-d27"/>
