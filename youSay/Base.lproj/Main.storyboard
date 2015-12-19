@@ -1574,6 +1574,9 @@
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="mRG-6b-8v0" id="iEX-lF-Q6z"/>
+                                                </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Dx-dx-azs">
                                                 <rect key="frame" x="269" y="7" width="48" height="30"/>
@@ -1632,6 +1635,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="searchTextField" destination="9ep-7O-wmX" id="sC7-YG-kcs"/>
                         <outlet property="tblView" destination="Cd2-cF-jcG" id="0fP-1l-n1u"/>
                     </connections>
                 </viewController>

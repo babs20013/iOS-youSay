@@ -12,6 +12,8 @@
 @interface SelectCharmsViewController ()
 {
     NSArray *arrayCharms;
+    BOOL isFiltered;
+    NSMutableArray *arrayFilteredCharm;
 }
 
 @end
@@ -21,10 +23,15 @@
 @synthesize parent;
 @synthesize charmOut;
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor greenColor]];
     // Do any additional setup after loading the view.
+    isFiltered = NO;
+    [_searchTextField addTarget:self
+                  action:@selector(textFieldDidChange:)
+        forControlEvents:UIControlEventEditingChanged];
     [self getAllCharms];
     
 }
@@ -116,7 +123,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
+    if (isFiltered) {
+        return [arrayFilteredCharm count];
+    }
     return [arrayCharms count];
 }
 
@@ -128,16 +137,26 @@
         
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: SimpleTableIdentifier];
     }
-    NSDictionary *charm = [arrayCharms objectAtIndex:indexPath.row];
-    cell.textLabel.text = [charm objectForKey:@"name"];
-    
-    
+    if (isFiltered) {
+        NSDictionary *charm = [arrayFilteredCharm objectAtIndex:indexPath.row];
+        cell.textLabel.text = [charm objectForKey:@"name"];
+    }
+    else {
+        NSDictionary *charm = [arrayCharms objectAtIndex:indexPath.row];
+        cell.textLabel.text = [charm objectForKey:@"name"];
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *charm = [arrayCharms objectAtIndex:indexPath.row];
-    [self requestChangeCharm:[charm objectForKey:@"name"]];
+    if (isFiltered) {
+        NSDictionary *charm = [arrayFilteredCharm objectAtIndex:indexPath.row];
+        [self requestChangeCharm:[charm objectForKey:@"name"]];
+    }
+    else {
+        NSDictionary *charm = [arrayCharms objectAtIndex:indexPath.row];
+        [self requestChangeCharm:[charm objectForKey:@"name"]];
+    }
 }
 
 - (IBAction)btnCancelClicked:(id)sender {
@@ -146,5 +165,59 @@
     }];
 }
 
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+   
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    return YES;
+}
+
+- (void)textFieldDidChange:(UITextField*)textField {
+    if(textField.text.length == 0)
+    {
+        isFiltered = NO;
+    }
+    else
+    {
+        isFiltered = YES;
+        arrayFilteredCharm = [[NSMutableArray alloc] init];
+        
+        for (NSDictionary *dictCharm in arrayCharms)
+        {
+            
+            NSRange nameRange = [[dictCharm objectForKey:@"name"] rangeOfString:textField.text options:NSCaseInsensitiveSearch];
+            if(nameRange.location != NSNotFound)
+            {
+                [arrayFilteredCharm addObject:dictCharm];
+            }
+        }
+    }
+    [self.tblView reloadData];
+}
 
 @end;

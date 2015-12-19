@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SelectCharmsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface SelectCharmsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, assign) id parent;
 @property (nonatomic, strong) IBOutlet UITableView *tblView;
+@property (nonatomic, strong) IBOutlet UITextField *searchTextField;
 @property (nonatomic, strong) NSString *charmOut;
 @end
