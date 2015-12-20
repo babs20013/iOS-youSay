@@ -19,7 +19,6 @@
 #import "UIImageView+Networking.h"
 #import "ProfileOwnerModel.h"
 #import "RequestModel.h"
-#import "SelectCharmsViewController.h"
 #import "CharmChart.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
@@ -667,6 +666,9 @@
         if (isFriendProfile) {
             [cel.btnHide setHidden:YES];
         }
+        else {
+            [cel.btnHide setHidden:NO];
+        }
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
         return cel;
     }
@@ -889,18 +891,26 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SelectCharmsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectCharmsViewController"];
     vc.parent = self;
+    vc.delegate = self;
     [vc setCharmOut:charmOut];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)didMoveToParentViewController:(UIViewController *)parent {
-    NSLog(@"masuk ke parentnnya");
-    if ([parent isKindOfClass:[SelectCharmsViewController class]]) {
-        [self.tableView reloadData];
-    }
+#pragma mark - CharmSelectionDelegate
+
+- (void) SelectCharmDidDismissed {
+    chartState = ChartStateEdit;
+    [self.tableView reloadData];
 }
+
+//- (void)didMoveToParentViewController:(UIViewController *)parent {
+//    NSLog(@"masuk ke parentnnya");
+//    if ([parent isKindOfClass:[SelectCharmsViewController class]]) {
+//        [self.tableView reloadData];
+//    }
+//}
 
 //-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
 //    BOOL isScrolled = NO;

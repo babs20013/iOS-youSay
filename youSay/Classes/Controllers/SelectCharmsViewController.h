@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SelectCharmsViewController;
+@protocol CharmSelectionDelegate <NSObject>
+- (void) SelectCharmDidDismissed;
+@end
 
 @interface SelectCharmsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate>
 
@@ -14,4 +18,5 @@
 @property (nonatomic, strong) IBOutlet UITableView *tblView;
 @property (nonatomic, strong) IBOutlet UITextField *searchTextField;
 @property (nonatomic, strong) NSString *charmOut;
+@property (nonatomic, weak) id <CharmSelectionDelegate> delegate;
 @end

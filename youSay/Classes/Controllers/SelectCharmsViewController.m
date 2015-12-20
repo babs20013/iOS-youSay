@@ -74,7 +74,10 @@
                 arrayCharms = [result objectForKey:@"charms"];
                 [self.tblView reloadData];
             }
-            [SVProgressHUD dismiss];
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
         }
         else if (error)
         {
@@ -82,6 +85,7 @@
         else{
             
         }
+        [SVProgressHUD dismiss];
     }];
 }
 
@@ -105,8 +109,14 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 [self dismissViewControllerAnimated:YES completion:^{
-                    [parent didMoveToParentViewController:parent];
+                    if ([self.delegate performSelector:@selector(SelectCharmDidDismissed) withObject:charmOut]) {
+                        [self.delegate SelectCharmDidDismissed];
+                    }
                 }];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
             }
         }
         else if (error)
@@ -115,7 +125,7 @@
         else{
             
         }
-        [SVProgressHUD show];
+        [SVProgressHUD dismiss];
     }];
     
 }
@@ -171,7 +181,9 @@
 
 - (IBAction)btnCancelClicked:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        [parent didMoveToParentViewController:self];
+        if ([self.delegate performSelector:@selector(SelectCharmDidDismissed) withObject:charmOut]) {
+            [self.delegate SelectCharmDidDismissed];
+        }
     }];
 }
 
