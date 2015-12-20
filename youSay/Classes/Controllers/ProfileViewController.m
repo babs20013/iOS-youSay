@@ -171,8 +171,8 @@
     
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_HIDE_SAY forKey:@"request"];
-    [dictRequest setObject:profileModel.UserID forKey:@"user_id"];
-    [dictRequest setObject:profileModel.token forKey:@"token"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token]  forKey:@"token"];
     [dictRequest setObject:saysID forKey:@"say_id"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
@@ -181,14 +181,7 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                profileDictionary = [dictResult objectForKey:@"profile"];
-                saysArray = [profileDictionary valueForKey:@"says"];
-                isFriendProfile = YES;
-                if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:requestedID]) {
-                    isFriendProfile = NO;
-                }
-                [self.tableView reloadData];
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                [dictHideSay removeAllObjects];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -856,6 +849,10 @@
 
 -(IBAction)btnProfileClicked:(UIButton*)sender{
     NSLog(@"btnProfile : %ld", (long)[sender tag]);
+    if  (!isFriendProfile) {
+        [self requestHideSay];
+    }
+    
     NSDictionary *value = [saysArray objectAtIndex:[sender tag]];
     requestedID = [value objectForKey:@"user_id"];
     [self requestFriendProfile:[value objectForKey:@"user_id"]];
