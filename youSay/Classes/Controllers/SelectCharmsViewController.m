@@ -36,6 +36,7 @@
     imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
     [leftView addSubview:imgMagnifyingGlass];
+    [self.tblView setSeparatorInset:UIEdgeInsetsMake(0, -100, 0, 0)];
     self.searchTextField.leftView = leftView;
     self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
     self.searchTextField.layer.cornerRadius = round(self.searchTextField.frame.size.height / 2);
@@ -132,6 +133,24 @@
 
 #pragma mark TableView
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     return 40;
@@ -165,6 +184,11 @@
         NSDictionary *charm = [arrayCharms objectAtIndex:indexPath.row];
         cell.textLabel.text = [charm objectForKey:@"name"];
     }
+    cell.textLabel.textColor = [UIColor darkGrayColor];
+    cell.textLabel.font = [UIFont fontWithName:@"Arial" size:13];
+    UIView *lineSeparator = [[UIView alloc]initWithFrame:CGRectMake(0, cell.frame.size.height-1, cell.frame.size.width, 1)];
+    lineSeparator.backgroundColor = [UIColor lightGrayColor];
+    //[cell addSubview:lineSeparator];
     return cell;
 }
 

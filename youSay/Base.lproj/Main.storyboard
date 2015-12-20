@@ -1623,7 +1623,7 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cd2-cF-jcG">
-                                        <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                        <rect key="frame" x="7" y="51" width="306" height="510"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
@@ -1633,18 +1633,16 @@
                                     </tableView>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.70980392156862748" green="0.72549019607843135" blue="0.73725490196078436" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Cd2-cF-jcG" firstAttribute="top" secondItem="Dwt-bW-zFm" secondAttribute="bottom" id="BtD-mf-701"/>
+                                    <constraint firstItem="Cd2-cF-jcG" firstAttribute="top" secondItem="Dwt-bW-zFm" secondAttribute="bottom" constant="7" id="BtD-mf-701"/>
                                     <constraint firstAttribute="trailing" secondItem="Dwt-bW-zFm" secondAttribute="trailing" id="E6o-R2-9WC"/>
-                                    <constraint firstItem="Cd2-cF-jcG" firstAttribute="leading" secondItem="IRy-9e-mUQ" secondAttribute="leading" id="GUW-lt-zCg"/>
+                                    <constraint firstItem="Cd2-cF-jcG" firstAttribute="leading" secondItem="IRy-9e-mUQ" secondAttribute="leading" constant="7" id="GUW-lt-zCg"/>
                                     <constraint firstItem="Dwt-bW-zFm" firstAttribute="width" secondItem="IRy-9e-mUQ" secondAttribute="width" id="HXp-Qs-NUe"/>
-                                    <constraint firstAttribute="bottom" secondItem="Cd2-cF-jcG" secondAttribute="bottom" id="ee7-FO-9KP"/>
-                                    <constraint firstItem="Cd2-cF-jcG" firstAttribute="width" secondItem="IRy-9e-mUQ" secondAttribute="width" id="gnV-od-VQi"/>
-                                    <constraint firstAttribute="trailing" secondItem="Cd2-cF-jcG" secondAttribute="trailing" id="mrK-2x-PAB"/>
+                                    <constraint firstAttribute="bottom" secondItem="Cd2-cF-jcG" secondAttribute="bottom" constant="7" id="ee7-FO-9KP"/>
+                                    <constraint firstAttribute="trailing" secondItem="Cd2-cF-jcG" secondAttribute="trailing" constant="7" id="mrK-2x-PAB"/>
                                     <constraint firstItem="Dwt-bW-zFm" firstAttribute="leading" secondItem="IRy-9e-mUQ" secondAttribute="leading" id="pjh-8a-dfo"/>
                                     <constraint firstItem="Dwt-bW-zFm" firstAttribute="top" secondItem="IRy-9e-mUQ" secondAttribute="top" id="rRf-VX-wci"/>
-                                    <constraint firstItem="Cd2-cF-jcG" firstAttribute="top" secondItem="Dwt-bW-zFm" secondAttribute="bottom" id="zZ9-6u-gdU"/>
                                 </constraints>
                             </view>
                         </subviews>
