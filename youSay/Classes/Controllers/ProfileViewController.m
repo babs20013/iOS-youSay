@@ -347,7 +347,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 charmsArray = [dictResult objectForKey:@"charms"];
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView reloadData];
 
             }
             else {
