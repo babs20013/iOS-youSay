@@ -7,6 +7,9 @@
 //
 
 #import "AddNewSayViewController.h"
+#import "UIImageView+Networking.h"
+#import "AppDelegate.h"
+#import "AddSayRequest.h"
 
 @interface AddNewSayViewController ()
 @end
@@ -18,10 +21,16 @@
 @synthesize profileView;
 @synthesize chooseBGView;
 @synthesize colorContainer;
+@synthesize profileImg;
+@synthesize coverImg;
+@synthesize profileLabel;
+@synthesize model;
+@synthesize placeholderLabel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     addSayTextView.delegate = self;
+    [self InitializeUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,16 +38,80 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)InitializeUI {
+    [coverImg setImageURL:[NSURL URLWithString:model.CoverImage]];
+    coverImg.frame = CGRectMake(0, 0, self.view.bounds.size.width, 70);
+    profileView.frame = CGRectMake(0, 43, self.view.bounds.size.width, 70);
+    profileLabel.text = model.Name;
+    
+    UIImage *image = coverImg.image;
+    // Create rectangle from middle of current image
+    CGRect croprect = CGRectMake(0, (image.size.height-70)/2 ,
+                                 image.size.width, 70);
+    // Draw new image in current graphics context
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], croprect);
+    // Create new cropped UIImage
+    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    coverImg.image = croppedImage;
+    
+    [profileImg setImageURL:[NSURL URLWithString:model.ProfileImage]];
+    profileImg.layer.cornerRadius = 0.5 * profileImg.bounds.size.width;
+    profileImg.layer.masksToBounds = YES;
+    profileImg.layer.borderWidth = 1;
+    profileImg.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    [self.view bringSubviewToFront:_headerView];
+}
+
+#pragma mark - Request
+
+- (void)requestAddSay {
+    [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
+    
+    AddSayRequest *request = [[AddSayRequest alloc]init];
+    request.request = REQUEST_ADD_SAY;
+    request.user_id = [[AppDelegate sharedDelegate].profileOwner UserID] ;
+    request.token = [[AppDelegate sharedDelegate].profileOwner token];
+    request.profile_id_to_add_to = model.UserID;
+    request.text = addSayTextView.text;
+    request.color = 1;
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:request completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        [SVProgressHUD dismiss];
+    }];
+}
+
+
 #pragma mark IBAction
 
 - (IBAction)btnCloseClicked:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)btnSendClicked:(id)sender {
     NSLog(@"Sending the message");
-    
+    [self requestAddSay];
 }
 
 - (IBAction)btnColorlicked:(id)sender {
@@ -111,14 +184,13 @@
 #pragma mark UITextViewDelegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-//    CGRect textViewFrame = CGRectMake(textViewBG.frame.origin.x, textViewBG.frame.origin.y, textViewBG.frame.size.width, textViewBG.frame.size.height-256);
-//    textViewBG.frame = textViewFrame;
-//    textView.frame = textViewFrame;
-    
+    [placeholderLabel setHidden:YES];
+    [textView becomeFirstResponder];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-
+    
 }
+
 
 @end

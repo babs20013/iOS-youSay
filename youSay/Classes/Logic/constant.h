@@ -19,6 +19,7 @@ extern NSString *const REQUEST_CHANGE_CHARM;
 extern NSString *const REQUEST_GET_ALL_CHARMS;
 extern NSString *const REQUEST_RATE_USER_CHARMS;
 extern NSString *const AUTHORITY_TYPE_FB;
+extern NSString *const REQUEST_ADD_SAY;
 
 #pragma mark -- Error Message
 extern NSString *const ERR_MSG_NO_INTERNET;

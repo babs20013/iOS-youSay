@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0CF1901C270DF000E20D6E /* AddSayRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CF18F1C270DF000E20D6E /* AddSayRequest.m */; };
 		1B17E3AB1C180BB30080A574 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AA1C180BB30080A574 /* AppDelegate.m */; };
 		1B17E3BC1C180BD90080A574 /* AddNewSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AD1C180BD90080A574 /* AddNewSayViewController.m */; };
 		1B17E3BE1C180BD90080A574 /* InviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B11C180BD90080A574 /* InviteFriendsViewController.m */; };
@@ -69,6 +70,8 @@
 /* Begin PBXFileReference section */
 		0C0E040A22DA4EB705AB3C5B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		1787B273D28568E85213A729 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B0CF18E1C270DDB00E20D6E /* AddSayRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AddSayRequest.h; path = youSay/Classes/Model/AddSayRequest.h; sourceTree = SOURCE_ROOT; };
+		1B0CF18F1C270DF000E20D6E /* AddSayRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddSayRequest.m; path = youSay/Classes/Model/AddSayRequest.m; sourceTree = SOURCE_ROOT; };
 		1B17E3A91C180BB30080A574 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1B17E3AA1C180BB30080A574 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1B17E3AC1C180BD90080A574 /* AddNewSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewSayViewController.h; path = youSay/Classes/Controllers/AddNewSayViewController.h; sourceTree = SOURCE_ROOT; };
@@ -475,6 +478,8 @@
 				1B17E3F21C1813C20080A574 /* RequestModel.m */,
 				1BABACFB1C19EFB000BD9EB4 /* SaysModel.h */,
 				1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */,
+				1B0CF18E1C270DDB00E20D6E /* AddSayRequest.h */,
+				1B0CF18F1C270DF000E20D6E /* AddSayRequest.m */,
 			);
 			name = Model;
 			path = Classes/Model;
@@ -668,6 +673,7 @@
 				1B17E3F11C180C6A0080A574 /* url.m in Sources */,
 				1B17E3E71C180C120080A574 /* NSError+HumanFriendly.m in Sources */,
 				5D91F79E1BDA9D33005845BE /* Reachability.m in Sources */,
+				1B0CF1901C270DF000E20D6E /* AddSayRequest.m in Sources */,
 				9A4D95A31C219C78006F5FA3 /* CharmView.m in Sources */,
 				1B17E3DB1C180C050080A574 /* Serializable.m in Sources */,
 				1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */,

@@ -20,6 +20,7 @@
 #import "ProfileOwnerModel.h"
 #import "RequestModel.h"
 #import "CharmChart.h"
+#import "AddNewSayViewController.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -38,6 +39,7 @@
 
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate> {
     ProfileOwnerModel *profileModel;
+    ProfileOwnerModel *friendsProfileModel;
     NSMutableDictionary *dictHideSay;
     UIImageView *imgViewRank;
     UIImageView *imgViewPopularity;
@@ -475,6 +477,8 @@
             model.Name = [profileDictionary objectForKey:@"name"];
             model.ProfileImage = [profileDictionary objectForKey:@"picture"];
             model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
+            model.UserID = requestedID;
+            friendsProfileModel = model;
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
         }
         //--Profile Box
@@ -819,7 +823,13 @@
 
 - (IBAction)btnReportClicked:(id)sender {
     NSLog(@"btnReport : %ld", (long)[sender tag]);
-    
+    //--Testing for AddSay
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    AddNewSayViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddNewSayViewController"];
+//    vc.model = friendsProfileModel;
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+//    [nav setNavigationBarHidden:YES];
+//    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (IBAction)btnShareClicked:(id)sender {

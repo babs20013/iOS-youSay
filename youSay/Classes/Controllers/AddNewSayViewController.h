@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProfileOwnerModel.h"
 
 @interface AddNewSayViewController : UIViewController <UITextViewDelegate>
 
@@ -15,5 +16,10 @@
 @property (nonatomic, strong) IBOutlet UIView *profileView;
 @property (nonatomic, strong) IBOutlet UIView *chooseBGView;
 @property (nonatomic, strong) IBOutlet UIView *colorContainer;
-
+@property (nonatomic, strong) IBOutlet UIView *headerView;
+@property (nonatomic, strong) IBOutlet UIImageView *profileImg;
+@property (nonatomic, strong) IBOutlet UIImageView *coverImg;
+@property (nonatomic, strong) IBOutlet UILabel *profileLabel;
+@property (nonatomic, strong) IBOutlet UILabel *placeholderLabel;
+@property (nonatomic, strong) ProfileOwnerModel *model;
 @end
