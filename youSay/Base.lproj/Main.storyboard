@@ -1100,7 +1100,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6e-SR-w8q">
-                                                            <rect key="frame" x="149" y="297" width="63" height="20"/>
+                                                            <rect key="frame" x="149" y="292" width="63" height="20"/>
                                                             <animations/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -1110,14 +1110,14 @@
                                                             <state key="normal" image="fbShare"/>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uad-gD-3bx">
-                                                            <rect key="frame" x="222" y="299" width="38" height="16"/>
+                                                            <rect key="frame" x="222" y="294" width="38" height="16"/>
                                                             <animations/>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Share" translatesAutoresizingMaskIntoConstraints="NO" id="RN6-Lb-UVg">
-                                                            <rect key="frame" x="263" y="297" width="20" height="20"/>
+                                                            <rect key="frame" x="263" y="292" width="20" height="20"/>
                                                             <animations/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="R8Z-ec-5cg"/>
@@ -1125,10 +1125,10 @@
                                                             </constraints>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGj-gE-Coy" userLabel="LongPressView">
-                                                            <rect key="frame" x="0.0" y="327" width="298" height="55"/>
+                                                            <rect key="frame" x="0.0" y="322" width="298" height="60"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long press on charm to edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8VA-lO-RaK">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="298" height="54"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="298" height="59"/>
                                                                     <animations/>
                                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1205,7 +1205,7 @@
                                                         <constraint firstItem="cx6-CX-QoI" firstAttribute="trailing" secondItem="4a2-Hx-UY4" secondAttribute="trailing" id="7pP-9l-gmm"/>
                                                         <constraint firstItem="cvO-jw-9VG" firstAttribute="trailing" secondItem="4a2-Hx-UY4" secondAttribute="trailing" id="A3i-gY-JCB"/>
                                                         <constraint firstItem="RN6-Lb-UVg" firstAttribute="leading" secondItem="Uad-gD-3bx" secondAttribute="trailing" constant="3" id="BHN-Jp-rGJ"/>
-                                                        <constraint firstItem="RN6-Lb-UVg" firstAttribute="top" relation="lessThanOrEqual" secondItem="4a2-Hx-UY4" secondAttribute="bottom" constant="5" id="E2R-av-eQC"/>
+                                                        <constraint firstItem="RN6-Lb-UVg" firstAttribute="top" secondItem="4a2-Hx-UY4" secondAttribute="bottom" id="E2R-av-eQC"/>
                                                         <constraint firstAttribute="trailing" secondItem="4a2-Hx-UY4" secondAttribute="trailing" constant="14" id="FK5-zE-YVh"/>
                                                         <constraint firstItem="Uad-gD-3bx" firstAttribute="leading" secondItem="M6e-SR-w8q" secondAttribute="trailing" constant="10" id="JVj-Oe-2Mp"/>
                                                         <constraint firstItem="cx6-CX-QoI" firstAttribute="top" secondItem="4a2-Hx-UY4" secondAttribute="bottom" constant="13" id="JoX-Av-UUh"/>
@@ -1224,7 +1224,7 @@
                                                         <constraint firstItem="gGj-gE-Coy" firstAttribute="leading" secondItem="nE6-Cf-vUH" secondAttribute="leading" id="iQu-HF-qPs"/>
                                                         <constraint firstAttribute="trailing" secondItem="RN6-Lb-UVg" secondAttribute="trailing" constant="15" id="rw3-hJ-jDr"/>
                                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cvO-jw-9VG" secondAttribute="bottom" constant="20" id="uSZ-Ql-a4v"/>
-                                                        <constraint firstItem="M6e-SR-w8q" firstAttribute="top" secondItem="4a2-Hx-UY4" secondAttribute="bottom" constant="5" id="x30-pb-w4F"/>
+                                                        <constraint firstItem="M6e-SR-w8q" firstAttribute="top" secondItem="4a2-Hx-UY4" secondAttribute="bottom" id="x30-pb-w4F"/>
                                                         <constraint firstItem="4a2-Hx-UY4" firstAttribute="leading" secondItem="nE6-Cf-vUH" secondAttribute="leading" constant="14" id="zAc-e7-M47"/>
                                                     </constraints>
                                                 </view>

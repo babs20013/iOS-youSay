@@ -559,7 +559,9 @@
 
         cel.charmChartView.state = chartState;
         charmView = cel.charmChartView;
-
+        
+        cell.btnShare.frame = CGRectMake(cell.btnShare.frame.origin.x, charmView.frame.size.height, cell.btnShare.frame.size.width, cell.btnShare.frame.size.height);
+        
         if (chartState == ChartStateEdit || chartState == ChartStateRate) {
             [cel.longPressInfoView setHidden:YES];
             [cel.lblShare setHidden:YES];
@@ -849,7 +851,7 @@
 
 -(IBAction)btnProfileClicked:(UIButton*)sender{
     NSLog(@"btnProfile : %ld", (long)[sender tag]);
-    if  (!isFriendProfile) {
+    if  (!isFriendProfile && [dictHideSay allKeys].count >0) {
         [self requestHideSay];
     }
     
