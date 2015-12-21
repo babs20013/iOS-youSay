@@ -9,6 +9,7 @@
 #import "CharmView.h"
 #import "CharmChart.h"
 #import "SelectCharmsViewController.h"
+#define RADIANS(degrees) ((degrees * M_PI) / 180.0)
 
 @interface CharmView(){
 }
@@ -51,6 +52,24 @@
         
         [charts addObject:chart];
         [self addSubview:chart];
+        
+        if (_state == ChartStateEdit) {
+            CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-1.0));
+            CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(1.0));
+            
+            chart.transform = leftWobble;  // starting point
+            
+            [UIView beginAnimations:@"wobble" context:nil];
+            [UIView setAnimationRepeatAutoreverses:YES]; // important
+            [UIView setAnimationRepeatCount:INFINITY];
+            [UIView setAnimationDuration:0.1];
+            [UIView setAnimationDelegate:self];
+            
+            chart.transform = rightWobble; // end here & auto-reverse
+            
+            [UIView commitAnimations];
+        }
+
     }
 }
 

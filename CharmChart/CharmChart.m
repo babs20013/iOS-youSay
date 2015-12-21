@@ -36,6 +36,8 @@
 
 #define kDefaultFontArialBold @"Arial-BoldMT"
 #define kDefaultFontArial @"Arial"
+
+
 @interface CharmChart(){
     NSMutableArray *boxes;
     UILabel *lblScore;
@@ -54,7 +56,6 @@
 
 -(void)layoutSubviews{
     [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
     NSInteger roundedScore = 0;
     if (_score < 10) {
         roundedScore = 10;
@@ -82,20 +83,20 @@
         [self addSubview:valueBox];
         
         if (_state == ChartStateEdit) {
-            CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-2.0));
-            CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(2.0));
-            
-            valueBox.transform = leftWobble;  // starting point
-            
-            [UIView beginAnimations:@"wobble" context:nil];
-            [UIView setAnimationRepeatAutoreverses:YES]; // important
-            [UIView setAnimationRepeatCount:INFINITY];
-            [UIView setAnimationDuration:0.25];
-            [UIView setAnimationDelegate:self];
-            
-            valueBox.transform = rightWobble; // end here & auto-reverse
-            
-            [UIView commitAnimations];
+//            CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-1.0));
+//            CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(1.0));
+//            
+//            container.transform = leftWobble;  // starting point
+//            
+//            [UIView beginAnimations:@"wobble" context:nil];
+//            [UIView setAnimationRepeatAutoreverses:YES]; // important
+//            [UIView setAnimationRepeatCount:INFINITY];
+//            [UIView setAnimationDuration:0.1];
+//            [UIView setAnimationDelegate:self];
+//            
+//            container.transform = rightWobble; // end here & auto-reverse
+//            
+//            [UIView commitAnimations];
         }
         else if (_state == ChartStateViewing ){
             if ( _score == 0 ) {
@@ -223,35 +224,37 @@
     return color;
 }
 
--(void)changeStateOfChart{
-    for (UIView *box in boxes) {
-        [self wiggleAnimation:box];
-    }
-}
-
--(void)wiggleAnimation:(UIView*)v{
-    if (_state == ChartStateEdit) {
-        CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-2.0));
-        CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(2.0));
-        
-        v.transform = leftWobble;  // starting point
-        
-        [UIView beginAnimations:@"wobble" context:nil];
-        [UIView setAnimationRepeatAutoreverses:YES]; // important
-        [UIView setAnimationRepeatCount:INFINITY];
-        [UIView setAnimationDuration:0.1];
-        [UIView setAnimationDelegate:self];
-        //    [UIView setAnimationDidStopSelector:@selector(wobbleEnded:finished:context:)];
-        
-        v.transform = rightWobble; // end here & auto-reverse
-        
-        [UIView commitAnimations];
-    }
-    else{
-        //Stop Wiggling
-        v.transform = CGAffineTransformIdentity;
-    }
-}
+//-(void)changeStateOfChart{
+//    for (UIView *box in boxes) {
+//        [self wiggleAnimation:box];
+//    }
+//}
+//
+//-(void)wiggleAnimation:(UIView*)v{
+//    if (_state == ChartStateEdit) {
+//        CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-2.0));
+//        CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(2.0));
+//        
+//        v.transform = leftWobble;  // starting point
+//        
+//        [UIView beginAnimations:@"wobble" context:nil];
+//        [UIView setAnimationRepeatAutoreverses:YES]; // important
+//        [UIView setAnimationRepeatCount:INFINITY];
+//        [UIView setAnimationDuration:0.1];
+//        [UIView setAnimationDelegate:self];
+//        v.layer.speed = 0.1;
+//
+//        //    [UIView setAnimationDidStopSelector:@selector(wobbleEnded:finished:context:)];
+//        
+//        v.transform = rightWobble; // end here & auto-reverse
+//        
+//        [UIView commitAnimations];
+//    }
+//    else{
+//        //Stop Wiggling
+//        v.transform = CGAffineTransformIdentity;
+//    }
+//}
 
 -(void)updateRateOnPoint:(CGPoint)point{
 //    NSLog(@"Touch & Pan - %@",NSStringFromCGPoint(point));
@@ -283,8 +286,6 @@
     }
     
     float position = ceil(roundedScore/10)+1;
-        NSLog(@"Post: %@",[NSString stringWithFormat:@"%f",position]);
-
     if (position <= 1) {
         position = 2;
     }
