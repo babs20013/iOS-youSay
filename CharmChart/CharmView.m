@@ -42,10 +42,13 @@
         }
         
         chart.tag = i;
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tapAndHoldChart:)];
-        longPress.delegate      =   self;
-        [chart addGestureRecognizer:longPress];
-        longPress = nil;
+        if (_state != ChartStateEdit && _state != ChartStateRate) {
+            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tapAndHoldChart:)];
+            longPress.delegate      =   self;
+            [chart addGestureRecognizer:longPress];
+            longPress = nil;
+        }
+        
         [charts addObject:chart];
         [self addSubview:chart];
     }
@@ -62,7 +65,6 @@
 
 #pragma mark - Editing Methods
 -(void)beginEditing{
-//    _state = ChartStateEdit;
     for (CharmChart *chart in charts) {
         for (UIGestureRecognizer *recognizer in chart.gestureRecognizers) {
             if([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {

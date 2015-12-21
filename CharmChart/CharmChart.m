@@ -147,7 +147,7 @@
     lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
     [lblScore setText:_state ==  ChartStateRate ? @"0" : [NSString stringWithFormat:@"%ld",(long)_score]];
     [lblScore setFont:[UIFont fontWithName:kDefaultFontArialBold size:13]];
-    if (position > 10 && _state !=  ChartStateRate) {
+    if (position > 10 && _state ==  ChartStateRate) {
         [lblScore setHidden:YES];
     }
     lblScore.textAlignment = NSTextAlignmentCenter;
@@ -166,7 +166,7 @@
     }
     
     if (_state == ChartStateRate && !_rated) {
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTouchAndPanChart:)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTouchChart:)];
         tap.delegate      =   self;
         [self addGestureRecognizer:tap];
         tap = nil;
@@ -263,26 +263,53 @@
 - (void)onTouchAndPanChart:(UIPanGestureRecognizer*)sender {
     CGPoint touchPoint = [sender locationInView: self];
 
-    for (UIView *box in boxes) {
-        if(CGRectContainsPoint(box.frame, touchPoint)){
-            self.score = box.tag *10;
-            [lblScore setText:[NSString stringWithFormat:@"%ld",(long)_score]];
-            break;
-        }
+    NSLog(@"Touch & Pan - %@",NSStringFromCGPoint(touchPoint));
+    UIView *bottomBox = [boxes objectAtIndex:0];
+    CGFloat bottomY = bottomBox.frame.origin.y + (bottomBox.frame.size.height+kMinVerticalGap);
+    CGFloat perPoint = (((bottomY-((UIView*)[boxes lastObject]).frame.origin.y ) / kMaximumScore)/10);
+    CGFloat increase = (bottomY - touchPoint.y)/perPoint;
+    NSLog(@"Increase: %@",[NSString stringWithFormat:@"%f",increase]);
+    
+    if (increase < 0) {
+        self.score = 0;
     }
+    else if (increase > 100){
+        self.score = 100;//max
+    }
+    else{
+        self.score = ceilf(increase);
+    }
+    float position = ceil(increase/10)+1;
+    if (position < 1) {
+        position = 1;
+    }
+    else if (position > 10){
+        position= 11;//max
+    }
+    [lblScore setHidden:NO];
+    lblScore.frame = CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height);
+    [lblScore setText:[NSString stringWithFormat:@"%ld",(long)self.score]];
+
     
     if (touchPoint.y > self.frame.size.height - 40) {
         self.score = 0;//out of bounds minimal point
     }
     
     for (UIView *box in boxes) {
-        if ( box.tag *10 > self.score) {
+        if ((((box.tag-1) *10) < self.score )  && self.score > 0) {
+            [box setHidden:NO];
+            [box setBackgroundColor:[self getColor:box.tag]];
+        }else{
+            [box setHidden:YES];
             [box setBackgroundColor:[self getColor:0]];
         }
-        else{
-            [box setBackgroundColor:[self getColor:box.tag]];
-        }
     }
+}
+
+- (void)onTouchChart:(UITapGestureRecognizer*)sender {
+    CGPoint touchPoint = [sender locationInView: self];
+    
+    NSLog(@"Touch - %@",NSStringFromCGPoint(touchPoint));
 }
 
 @end
