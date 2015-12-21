@@ -31,7 +31,7 @@
 //#define kChartLabelHeight 29
 
 #define kMinVerticalGap 2
-#define kMinHorizontalGap 15
+#define kMinHorizontalGap 20
 #define kChartLabelHeight 40
 
 #define kDefaultFontArialBold @"Arial-BoldMT"
@@ -56,16 +56,8 @@
 
 -(void)layoutSubviews{
     [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    NSInteger roundedScore = 0;
-    if (_score < 10) {
-        roundedScore = 10;
-    }
-    else if (_score%10 < 5) {
-        roundedScore = _score/10*10;
-    }
-    else {
-        roundedScore = _score/10*10+10;
-    }
+    NSInteger roundedScore = [self roundedScore];
+    
     boxes = [NSMutableArray array];
     for (int i = 0; i<kMaximumScore; i++) {
         CGFloat barValue = ((i+1) * 10);
@@ -82,22 +74,7 @@
         valueBox.layer.masksToBounds = YES;
         [self addSubview:valueBox];
         
-        if (_state == ChartStateEdit) {
-//            CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-1.0));
-//            CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(1.0));
-//            
-//            container.transform = leftWobble;  // starting point
-//            
-//            [UIView beginAnimations:@"wobble" context:nil];
-//            [UIView setAnimationRepeatAutoreverses:YES]; // important
-//            [UIView setAnimationRepeatCount:INFINITY];
-//            [UIView setAnimationDuration:0.1];
-//            [UIView setAnimationDelegate:self];
-//            
-//            container.transform = rightWobble; // end here & auto-reverse
-//            
-//            [UIView commitAnimations];
-        }
+        if (_state == ChartStateEdit) {        }
         else if (_state == ChartStateViewing ){
             if ( _score == 0 ) {
                 [valueBox setBackgroundColor:[self getColor:0]];
@@ -164,8 +141,8 @@
     lblScore.textAlignment = NSTextAlignmentCenter;
     [lblScore setTextColor:kChartScoreLabelColor];
     [self addSubview:lblScore];
-    
-    UIButton *btnClose = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-([self boxSize].height), lblScore.frame.origin.y + 6, ([self boxSize].height+3), ([self boxSize].height+3))];
+
+    UIButton *btnClose = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-([self boxSize].height+3)-4, lblScore.frame.origin.y + 6, ([self boxSize].height+3), ([self boxSize].height+3))];
     [btnClose setBackgroundImage:[UIImage imageNamed:@"charm-close"] forState:UIControlStateNormal];
     [btnClose setImage:[UIImage imageNamed:@"charm-close"] forState:UIControlStateNormal];
     [btnClose addTarget:self
@@ -193,6 +170,20 @@
 
 -(CGSize)boxSize{
     return CGSizeMake(self.frame.size.width-kMinHorizontalGap, ((self.frame.size.width-kMinHorizontalGap)/3));
+}
+
+-(NSInteger)roundedScore{
+    NSInteger roundedScore = 0;
+    if (_score < 10) {
+        roundedScore = 10;
+    }
+    else if (_score%10 < 5) {
+        roundedScore = _score/10*10;
+    }
+    else {
+        roundedScore = _score/10*10+10;
+    }
+    return roundedScore;
 }
 
 - (UIColor*)getColor:(NSInteger)index {
