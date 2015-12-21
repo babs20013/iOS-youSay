@@ -99,10 +99,10 @@
     
     if (_state == ChartStateRate && _rated == YES) {
         CGFloat widthHeightLock = [self boxSize].height*2-3;
-        CGFloat originalY = 10*([self boxSize].height+kMinVerticalGap) + [self boxSize].height-kChartLabelHeight;
+        CGFloat originalY = 11*([self boxSize].height+kMinVerticalGap) + [self boxSize].height-kChartLabelHeight;
         UIImageView *imgLocked = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lock"]];
         imgLocked.frame = CGRectMake((self.frame.size.width-widthHeightLock)/2,
-                                     originalY+(2*[self boxSize].height-widthHeightLock)/2+2,
+                                     originalY+(2*[self boxSize].height-widthHeightLock)/2+6,
                                      widthHeightLock,
                                      widthHeightLock);
         [self addSubview:imgLocked];

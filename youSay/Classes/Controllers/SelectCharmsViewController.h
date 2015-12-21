@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class SelectCharmsViewController;
 @protocol CharmSelectionDelegate <NSObject>
-- (void) SelectCharmDidDismissed;
+- (void) SelectCharmDidDismissed:(NSString*)charmIn;
 @end
 
 @interface SelectCharmsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate>

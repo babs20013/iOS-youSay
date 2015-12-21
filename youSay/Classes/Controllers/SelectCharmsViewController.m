@@ -110,8 +110,8 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 [self dismissViewControllerAnimated:YES completion:^{
-                    if ([self.delegate performSelector:@selector(SelectCharmDidDismissed) withObject:charmOut]) {
-                        [self.delegate SelectCharmDidDismissed];
+                    if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:charmOut]) {
+                        [self.delegate SelectCharmDidDismissed:charmIn];
                     }
                 }];
             }
@@ -195,18 +195,28 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (isFiltered) {
         NSDictionary *charm = [arrayFilteredCharm objectAtIndex:indexPath.row];
-        [self requestChangeCharm:[charm objectForKey:@"name"]];
+        //[self requestChangeCharm:[charm objectForKey:@"name"]];
+        [self dismissViewControllerAnimated:YES completion:^{
+            if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:charmOut]) {
+                [self.delegate SelectCharmDidDismissed:[charm objectForKey:@"name"]];
+            }
+        }];
     }
     else {
         NSDictionary *charm = [arrayCharms objectAtIndex:indexPath.row];
-        [self requestChangeCharm:[charm objectForKey:@"name"]];
+        //[self requestChangeCharm:[charm objectForKey:@"name"]];
+        [self dismissViewControllerAnimated:YES completion:^{
+            if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:charmOut]) {
+                [self.delegate SelectCharmDidDismissed:[charm objectForKey:@"name"]];
+            }
+        }];
     }
 }
 
 - (IBAction)btnCancelClicked:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        if ([self.delegate performSelector:@selector(SelectCharmDidDismissed) withObject:charmOut]) {
-            [self.delegate SelectCharmDidDismissed];
+        if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:charmOut]) {
+            [self.delegate SelectCharmDidDismissed:nil];
         }
     }];
 }
