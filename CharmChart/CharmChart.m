@@ -270,9 +270,23 @@
     else{
         self.score = ceilf(increase);
     }
-    float position = ceil(increase/10)+1;
-    if (position < 1) {
-        position = 1;
+    
+    NSInteger roundedScore = 0;
+    if (self.score < 10) {
+        roundedScore = 10;
+    }
+    else if (self.score%10 < 5) {
+        roundedScore = self.score/10*10;
+    }
+    else {
+        roundedScore = self.score/10*10+10;
+    }
+    
+    float position = ceil(roundedScore/10)+1;
+        NSLog(@"Post: %@",[NSString stringWithFormat:@"%f",position]);
+
+    if (position <= 1) {
+        position = 2;
     }
     else if (position > 10){
         position= 11;//max
@@ -281,13 +295,8 @@
     lblScore.frame = CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height);
     [lblScore setText:[NSString stringWithFormat:@"%ld",(long)self.score]];
     
-    
-    if (point.y > self.frame.size.height - 40) {
-        self.score = 0;//out of bounds minimal point
-    }
-    
     for (UIView *box in boxes) {
-        if ((((box.tag-1) *10) < self.score )  && self.score > 0) {
+        if (box.tag < position ) {
             [box setHidden:NO];
             [box setBackgroundColor:[self getColor:box.tag]];
         }else{
