@@ -265,6 +265,7 @@
             {
                 profileDictionary = [dictResult objectForKey:@"profile"];
                 saysArray = [profileDictionary valueForKey:@"says"];
+                charmsArray = [profileDictionary valueForKey:@"charms"];
                 isFriendProfile = YES;
                 if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:requestedID]) {
                     isFriendProfile = NO;
@@ -528,26 +529,15 @@
         if (!isFriendProfile) {
             charmsArray = [profileDictionary valueForKey:@"charms"];
         }
-                
-        NSDictionary * dict1 = [charmsArray objectAtIndex:0];
-        cel.lblCharm1.text = [dict1 valueForKey:@"name"];
-        NSInteger score = [[dict1 valueForKey:@"rate"] integerValue];
         
-        NSDictionary * dict2 = [charmsArray objectAtIndex:1];
-        cel.lblCharm2.text = [dict2 valueForKey:@"name"];
-        NSInteger score2 = [[dict2 valueForKey:@"rate"] integerValue];
+        NSMutableArray *arrayFilteredCharm = [[NSMutableArray alloc]init];
+        for (int i=0; i<charmsArray.count; i++) {
+            NSDictionary *dict = [charmsArray objectAtIndex:i];
+            if ([[dict objectForKey:@"active"] isEqualToString:@"true"]) {
+                [arrayFilteredCharm addObject:dict];
+            }
+        }
         
-        NSDictionary * dict3 = [charmsArray objectAtIndex:2];
-        cel.lblCharm3.text = [dict3 valueForKey:@"name"];
-        NSInteger score3 = [[dict3 valueForKey:@"rate"] integerValue];
-        
-        NSDictionary * dict4 = [charmsArray objectAtIndex:3];
-        cel.lblCharm4.text = [dict4 valueForKey:@"name"];
-        NSInteger score4 = [[dict4 valueForKey:@"rate"] integerValue];
-        
-        NSDictionary * dict5 = [charmsArray objectAtIndex:4];
-        cel.lblCharm5.text = [dict5 valueForKey:@"name"];
-        NSInteger score5 = [[dict5 valueForKey:@"rate"] integerValue];
         
         CGFloat w = (tableView.frame.size.width - 40-28) / 5;
         CGFloat h = (( w/3 )+2)*13;
@@ -555,11 +545,19 @@
         
         [[cel.charmChartView subviews]
          makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        
+
         cel.charmChartView.delegate = self;
-        cel.charmChartView.chartScores  =  [NSMutableArray arrayWithObjects:[@(score) stringValue],[@(score2) stringValue],[@(score3) stringValue],[@(score4) stringValue],[@(score5) stringValue], nil];
-        cel.charmChartView.chartNames  =  [NSMutableArray arrayWithObjects:[dict1 valueForKey:@"name"],[dict2 valueForKey:@"name"],[dict3 valueForKey:@"name"],[dict4 valueForKey:@"name"],[dict5 valueForKey:@"name"], nil];
-        cel.charmChartView.chartLocked  =  [NSMutableArray arrayWithObjects:[dict1 valueForKey:@"rated"],[dict2 valueForKey:@"rated"],[dict3 valueForKey:@"rated"],[dict4 valueForKey:@"rated"],[dict5 valueForKey:@"rated"], nil];
+        NSMutableArray *arrScore = [[NSMutableArray alloc]init];
+        NSMutableArray *arrNames = [[NSMutableArray alloc]init];
+        NSMutableArray *arrLocked = [[NSMutableArray alloc]init];
+        for (NSDictionary *dict in arrayFilteredCharm) {
+            [arrScore addObject:[dict valueForKey:@"rate"]];
+            [arrNames addObject:[dict valueForKey:@"name"]];
+            [arrLocked addObject:[dict valueForKey:@"rated"]];
+        }
+        cel.charmChartView.chartScores  =  arrScore;
+        cel.charmChartView.chartNames  =  arrNames;
+        cel.charmChartView.chartLocked  =  arrLocked;
 
         cel.charmChartView.state = chartState;
         charmView = cel.charmChartView;

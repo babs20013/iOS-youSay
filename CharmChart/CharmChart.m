@@ -120,9 +120,13 @@
     }
     
     if (_state == ChartStateRate && _rated == YES) {
-        //TODO: Already rated should display lock
+        CGFloat widthHeightLock = [self boxSize].height*2-3;
+        CGFloat originalY = 10*([self boxSize].height+kMinVerticalGap) + [self boxSize].height-kChartLabelHeight;
         UIImageView *imgLocked = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lock"]];
-        imgLocked.frame = CGRectMake((self.frame.size.width-imgLocked.frame.size.width)/2, self.frame.size.height-40-imgLocked.frame.size.height,imgLocked.frame.size.width,imgLocked.frame.size.height );
+        imgLocked.frame = CGRectMake((self.frame.size.width-widthHeightLock)/2,
+                                     originalY+(2*[self boxSize].height-widthHeightLock)/2+2,
+                                     widthHeightLock,
+                                     widthHeightLock);
         [self addSubview:imgLocked];
     }
     
@@ -145,7 +149,13 @@
         position = 11;
     }
     lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
-    [lblScore setText:_state ==  ChartStateRate ? @"0" : [NSString stringWithFormat:@"%ld",(long)_score]];
+    if (_rated){
+        [lblScore setText:[NSString stringWithFormat:@"%ld",(long)_score]];
+    }
+    else {
+        [lblScore setText:_state ==  ChartStateRate ? @"0" : [NSString stringWithFormat:@"%ld",(long)_score]];
+    }
+    
     [lblScore setFont:[UIFont fontWithName:kDefaultFontArialBold size:13]];
     if (position > 10 && _state ==  ChartStateRate) {
         [lblScore setHidden:YES];
