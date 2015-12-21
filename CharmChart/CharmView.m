@@ -35,7 +35,7 @@
         if ([_chartNames count] > i) {
             chart.title = [_chartNames objectAtIndex:i];
         }
-        if ([[_chartScores objectAtIndex:i] isEqualToString:@"true"]) {
+        if ([[_chartLocked objectAtIndex:i] isEqualToString:@"true"]) {
             chart.rated = YES;
         }
         else{
