@@ -253,22 +253,13 @@
     }
 }
 
-- (IBAction)btnCloseClicked:(id)sender withCharm:(NSString*)selectedCharm{
-    if([self.delegate respondsToSelector:@selector(showCharmsSelection:)]) {
-        [self.delegate showCharmsSelection:_title];
-    }
-
-}
-
-- (void)onTouchAndPanChart:(UIPanGestureRecognizer*)sender {
-    CGPoint touchPoint = [sender locationInView: self];
-
-    NSLog(@"Touch & Pan - %@",NSStringFromCGPoint(touchPoint));
+-(void)updateRateOnPoint:(CGPoint)point{
+//    NSLog(@"Touch & Pan - %@",NSStringFromCGPoint(point));
     UIView *bottomBox = [boxes objectAtIndex:0];
     CGFloat bottomY = bottomBox.frame.origin.y + (bottomBox.frame.size.height+kMinVerticalGap);
     CGFloat perPoint = (((bottomY-((UIView*)[boxes lastObject]).frame.origin.y ) / kMaximumScore)/10);
-    CGFloat increase = (bottomY - touchPoint.y)/perPoint;
-    NSLog(@"Increase: %@",[NSString stringWithFormat:@"%f",increase]);
+    CGFloat increase = (bottomY - point.y)/perPoint;
+//    NSLog(@"Increase: %@",[NSString stringWithFormat:@"%f",increase]);
     
     if (increase < 0) {
         self.score = 0;
@@ -289,9 +280,9 @@
     [lblScore setHidden:NO];
     lblScore.frame = CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height);
     [lblScore setText:[NSString stringWithFormat:@"%ld",(long)self.score]];
-
     
-    if (touchPoint.y > self.frame.size.height - 40) {
+    
+    if (point.y > self.frame.size.height - 40) {
         self.score = 0;//out of bounds minimal point
     }
     
@@ -304,12 +295,25 @@
             [box setBackgroundColor:[self getColor:0]];
         }
     }
+
+}
+- (IBAction)btnCloseClicked:(id)sender withCharm:(NSString*)selectedCharm{
+    if([self.delegate respondsToSelector:@selector(showCharmsSelection:)]) {
+        [self.delegate showCharmsSelection:_title];
+    }
+
+}
+
+- (void)onTouchAndPanChart:(UIPanGestureRecognizer*)sender {
+    CGPoint touchPoint = [sender locationInView: self];
+    [self updateRateOnPoint:touchPoint];
 }
 
 - (void)onTouchChart:(UITapGestureRecognizer*)sender {
     CGPoint touchPoint = [sender locationInView: self];
-    
-    NSLog(@"Touch - %@",NSStringFromCGPoint(touchPoint));
+     [self updateRateOnPoint:touchPoint];
 }
+
+
 
 @end
