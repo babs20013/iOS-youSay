@@ -51,6 +51,8 @@
     NSMutableArray *arrayFilteredCharm;
     NSMutableArray *arrayOriginalCharm;
     BOOL isAfterChangeCharm;
+    BOOL isScrollBounce;
+    SelectCharmsViewController *charmsSelection;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -67,11 +69,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     dictHideSay = [[NSMutableDictionary alloc] init];
     isFriendProfile = NO;
-   
-    NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
-    [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
     chartState = ChartStateDefault;
-    
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -82,6 +80,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
+    [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
     
     isAfterChangeCharm = NO;
     CharmChart *chart = [[CharmChart alloc]init];
@@ -127,6 +127,15 @@
 
 -(void)loadFaceBookData:(NSString*)fbURLString param:(NSDictionary*)param
 {
+//    NSArray *permissions = [[NSArray alloc] initWithObjects:
+//                            @"user_likes",
+//                            @"read_stream",
+//                            @"publish_actions",
+//                            nil];
+//    FBSDK *session = [[FBSession alloc] initWithPermissions:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+//    [FBSession setActiveSession:session];
+//    
+    
     AFHTTPClient * client = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:fbURLString]];
     [client registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [client setDefaultHeader:@"Accept" value:@"text/html"];
@@ -162,6 +171,7 @@
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error!", nil) message:NSLocalizedString(@"There is an Error While logging in! Please try Again.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil]show];
             }];
 }
+
 
 - (void)requestHideSay {
     NSArray *keys = [dictHideSay allKeys];
@@ -233,6 +243,7 @@
                 profileModel.token = [dictResult valueForKey:@"token"];
                 [AppDelegate sharedDelegate].profileOwner = profileModel;
                 profileDictionary = [result objectForKey:@"profile"];
+                isFriendProfile = NO;
                 [self requestSayColor];
             }
             else {
@@ -251,7 +262,7 @@
     }];
 }
 
-- (void)requestFriendProfile:(NSString*)IDrequested {
+- (void)requestProfile:(NSString*)IDrequested {
     [SVProgressHUD show];
     [SVProgressHUD setStatus:@"Loading..."];
     UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
@@ -261,7 +272,7 @@
     [dictRequest setObject:REQUEST_GET_PROFILE forKey:@"request"];
     [dictRequest setObject:profileModel.UserID forKey:@"user_id"];
     [dictRequest setObject:profileModel.token forKey:@"token"];
-    [dictRequest setObject:requestedID forKey:@"requested_user_id"];
+    [dictRequest setObject:IDrequested forKey:@"requested_user_id"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         if (result)
@@ -273,7 +284,7 @@
                 saysArray = [profileDictionary valueForKey:@"says"];
                 charmsArray = [profileDictionary valueForKey:@"charms"];
                 isFriendProfile = YES;
-                if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:requestedID]) {
+                if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:IDrequested]) {
                     isFriendProfile = NO;
                 }
                 isAfterChangeCharm = NO;
@@ -400,7 +411,7 @@
                 chartState = ChartStateDefault;
                 charmsArray = [dictResult objectForKey:@"charms"];
                 isAfterChangeCharm = YES;
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -580,6 +591,7 @@
         
         if (chartState != ChartStateEdit && !isAfterChangeCharm) {
             arrayFilteredCharm = [[NSMutableArray alloc]init];
+            arrayOriginalCharm = [[NSMutableArray alloc]init];
             for (int i=0; i<charmsArray.count; i++) {
                 NSDictionary *dict = [charmsArray objectAtIndex:i];
                 if ([[dict objectForKey:@"active"] isEqualToString:@"true"]) {
@@ -920,7 +932,7 @@
     
     NSDictionary *value = [saysArray objectAtIndex:[sender tag]];
     requestedID = [value objectForKey:@"user_id"];
-    [self requestFriendProfile:[value objectForKey:@"user_id"]];
+    [self requestProfile:[value objectForKey:@"user_id"]];
 }
 
 - (void)EnableCharmRateMode {
@@ -959,6 +971,7 @@
     }
    else if (charm.state == ChartStateEdit) {
        chartState = ChartStateEdit;
+       int counter = 0;
        for (int i= 0; i<5; i++) {
            NSDictionary *dict = [arrayOriginalCharm objectAtIndex:i];
            NSDictionary *dict2 = [arrayFilteredCharm objectAtIndex:i];
@@ -966,18 +979,27 @@
            if (![[dict objectForKey:@"name"] isEqualToString: [dict2 objectForKey:@"name"]]) {
                [self requestChangeCharm:[dict2 objectForKey:@"name"] andCharmOut:[dict objectForKey:@"name"]];
            }
+           else {
+               counter = counter+1;
+           }
+       }
+       if (counter==5) {
+           chartState = ChartStateDefault;
+           [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
        }
    }
+
 }
 
 -(void)showSelectionOfCharm:(NSArray*)charmNameAndIndex {
     charmIndexRow =  [[charmNameAndIndex objectAtIndex:1] integerValue];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    SelectCharmsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectCharmsViewController"];
-    vc.parent = self;
-    vc.delegate = self;
-    [vc setCharmOut:[charmNameAndIndex objectAtIndex:0]];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    charmsSelection = [storyboard instantiateViewControllerWithIdentifier:@"SelectCharmsViewController"];
+    charmsSelection.parent = self;
+    charmsSelection.delegate = self;
+    [charmsSelection setCharmOut:[charmNameAndIndex objectAtIndex:0]];
+    [charmsSelection setActiveCharm:arrayFilteredCharm];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:charmsSelection];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -985,12 +1007,13 @@
 #pragma mark - CharmSelectionDelegate
 
 - (void) SelectCharmDidDismissed:(NSString*)charmIn {
+
     chartState = ChartStateEdit;
     if (charmIn) {
         for (NSDictionary *dict in charmsArray) {
             if ([[dict objectForKey:@"name"] isEqualToString:charmIn]) {
                 [arrayFilteredCharm replaceObjectAtIndex:charmIndexRow withObject:dict];
-                return;
+                continue;
             }
             else {
                 NSMutableDictionary *addNewDict = [[NSMutableDictionary alloc] init];
@@ -999,9 +1022,28 @@
                 [addNewDict setObject:@"true" forKey:@"active"];
                 [addNewDict setObject:@"false" forKey:@"rated"];
                 [arrayFilteredCharm replaceObjectAtIndex:charmIndexRow withObject:addNewDict];
+                [charmsSelection setActiveCharm:arrayFilteredCharm];
             }
         }
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadData];
+        //[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+#pragma mark - ScrollViewDelegate
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y < -50) isScrollBounce = YES;
+    
+    if (fabs(scrollView.contentOffset.y) < 1 && isScrollBounce) {
+        isScrollBounce = NO;
+        if (requestedID) {
+            [self requestProfile:requestedID];
+        }
+        else {
+            [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+        }
+        
     }
 }
 

@@ -18,5 +18,6 @@
 @property (nonatomic, strong) IBOutlet UITableView *tblView;
 @property (nonatomic, strong) IBOutlet UITextField *searchTextField;
 @property (nonatomic, strong) NSString *charmOut;
+@property (nonatomic, strong) NSArray *activeCharm;
 @property (nonatomic, weak) id <CharmSelectionDelegate> delegate;
 @end

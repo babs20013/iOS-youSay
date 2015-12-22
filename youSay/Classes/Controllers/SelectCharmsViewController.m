@@ -22,7 +22,7 @@
 
 @synthesize parent;
 @synthesize charmOut;
-
+@synthesize activeCharm;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -193,21 +193,38 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
     if (isFiltered) {
         NSDictionary *charm = [arrayFilteredCharm objectAtIndex:indexPath.row];
+        NSString *charmIn = [charm objectForKey:@"name"];
+        for (NSDictionary *dict in activeCharm) {
+            if ([[dict objectForKey:@"name"] isEqualToString:charmIn]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YouSay" message:@"This charm has been already in your active charm" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+        }
         //[self requestChangeCharm:[charm objectForKey:@"name"]];
         [self dismissViewControllerAnimated:YES completion:^{
-            if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:charmOut]) {
-                [self.delegate SelectCharmDidDismissed:[charm objectForKey:@"name"]];
+            if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:charmIn]) {
+                [self.delegate SelectCharmDidDismissed:charmIn];
             }
         }];
     }
     else {
         NSDictionary *charm = [arrayCharms objectAtIndex:indexPath.row];
+        NSString *charmIn = [charm objectForKey:@"name"];
+        for (NSDictionary *dict in activeCharm) {
+            if ([[dict objectForKey:@"name"] isEqualToString:charmIn]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YouSay" message:@"This charm has already been in your active charm" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+        }
         //[self requestChangeCharm:[charm objectForKey:@"name"]];
         [self dismissViewControllerAnimated:YES completion:^{
-            if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:charmOut]) {
-                [self.delegate SelectCharmDidDismissed:[charm objectForKey:@"name"]];
+            if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:charmIn]) {
+                [self.delegate SelectCharmDidDismissed:charmIn];
             }
         }];
     }
@@ -215,7 +232,7 @@
 
 - (IBAction)btnCancelClicked:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:charmOut]) {
+        if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:nil]) {
             [self.delegate SelectCharmDidDismissed:nil];
         }
     }];
