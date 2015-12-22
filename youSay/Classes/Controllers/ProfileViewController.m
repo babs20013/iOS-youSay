@@ -21,7 +21,6 @@
 #import "RequestModel.h"
 #import "CharmChart.h"
 #import "AddNewSayViewController.h"
-#import "UIButton+Extension.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -48,6 +47,10 @@
     BOOL isFriendProfile;
     CharmView *charmView;
     NSString *requestedID;
+    NSInteger charmIndexRow;
+    NSMutableArray *arrayFilteredCharm;
+    NSMutableArray *arrayOriginalCharm;
+    BOOL isAfterChangeCharm;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -80,9 +83,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    isAfterChangeCharm = NO;
     CharmChart *chart = [[CharmChart alloc]init];
     chart.delegate = self;
+    
+    arrayOriginalCharm = [[NSMutableArray alloc]init];
     
     dictHideSay = [[NSMutableDictionary alloc] init];
     profileModel = [AppDelegate sharedDelegate].profileOwner;
@@ -271,6 +276,7 @@
                 if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:requestedID]) {
                     isFriendProfile = NO;
                 }
+                isAfterChangeCharm = NO;
                 [self.tableView reloadData];
                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
@@ -338,7 +344,9 @@
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
         [dict setObject:charts.title forKey:@"charm"];
         [dict setObject:[NSString stringWithFormat:@"%i",charts.score] forKey:@"rate"];
-        [arrayRating addObject:dict];
+        if (charts.score > 0) {
+            [arrayRating addObject:dict];
+        }
     }
     
     [dictRequest setObject:arrayRating forKey:@"rating"];
@@ -351,6 +359,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 charmsArray = [dictResult objectForKey:@"charms"];
+                isAfterChangeCharm = NO;
                 [self.tableView reloadData];
 
             }
@@ -369,7 +378,45 @@
     }];
 }
 
-
+- (void)requestChangeCharm:(NSString*)charmIn andCharmOut:(NSString*)charmOut{
+    [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
+    
+    NSMutableDictionary *dictRequest = [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_CHANGE_CHARM forKey:@"request"];
+    [dictRequest setObject:[AppDelegate sharedDelegate].profileOwner.UserID forKey:@"user_id"];
+    [dictRequest setObject:[AppDelegate sharedDelegate].profileOwner.token  forKey:@"token"];
+    [dictRequest setObject:charmIn forKey:@"charm_in"]; //Name of the charms that user choose
+    [dictRequest setObject:charmOut forKey:@"charm_out"]; //Name of the chamrs that user wants to change(delete)
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                chartState = ChartStateDefault;
+                charmsArray = [dictResult objectForKey:@"charms"];
+                isAfterChangeCharm = YES;
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        [SVProgressHUD dismiss];
+    }];
+    
+}
 
 #pragma mark TableView
 
@@ -474,16 +521,6 @@
         if  (isFriendProfile == NO){
             model = profileModel;
             chartState = chartState == ChartStateViewing ? ChartStateDefault : chartState;
-            for (UIGestureRecognizer *recognizer in cel.longPressInfoView.gestureRecognizers) {
-                if([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
-                    [cel.longPressInfoView removeGestureRecognizer:recognizer];
-                }
-            }
-            
-            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(holdToBeginRankChart:)];
-            [cel.longPressInfoView addGestureRecognizer:longPress];
-            longPress = nil;
-            
         }
         else {
             model.Name = [profileDictionary objectForKey:@"name"];
@@ -492,18 +529,7 @@
             model.UserID = requestedID;
             friendsProfileModel = model;
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
-            
-            for (UIGestureRecognizer *recognizer in cel.rankButton.gestureRecognizers) {
-                if([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
-                    [cel.rankButton removeGestureRecognizer:recognizer];
-                }
-            }
-            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(holdToBeginRankChart:)];
-            [cel.rankButton addGestureRecognizer:longPress];
-            longPress = nil;
-                        
         }
-    
         //--Profile Box
         [cel.imgViewCover setImageURL:[NSURL URLWithString:model.CoverImage]];
         cel.imgViewCover.layer.cornerRadius = 0.015 * cel.imgViewCover.bounds.size.width;
@@ -552,18 +578,20 @@
             charmsArray = [profileDictionary valueForKey:@"charms"];
         }
         
-        NSMutableArray *arrayFilteredCharm = [[NSMutableArray alloc]init];
-        for (int i=0; i<charmsArray.count; i++) {
-            NSDictionary *dict = [charmsArray objectAtIndex:i];
-            if ([[dict objectForKey:@"active"] isEqualToString:@"true"]) {
-                [arrayFilteredCharm addObject:dict];
+        if (chartState != ChartStateEdit && !isAfterChangeCharm) {
+            arrayFilteredCharm = [[NSMutableArray alloc]init];
+            for (int i=0; i<charmsArray.count; i++) {
+                NSDictionary *dict = [charmsArray objectAtIndex:i];
+                if ([[dict objectForKey:@"active"] isEqualToString:@"true"]) {
+                    [arrayFilteredCharm addObject:dict];
+                    [arrayOriginalCharm addObject:dict];
+                }
             }
         }
         
-        
-//        CGFloat w = (tableView.frame.size.width - 40-28) / 5;
-//        CGFloat h = (( w/3 )+2)*13;
-//        CGRect f1 =  CGRectMake(0, 0, w,h);
+        CGFloat w = (tableView.frame.size.width - 40-28) / 5;
+        CGFloat h = (( w/3 )+2)*13;
+        CGRect f1 =  CGRectMake(0, 0, w,h);
         
         [[cel.charmChartView subviews]
          makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -610,9 +638,12 @@
             [cel.imgVShare setHidden:NO];
             [cel.buttonEditView setHidden:YES];
         }
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(EnableCharmRateMode)];
+        longPress.delegate =  self;
+        [cel addGestureRecognizer:longPress];
+        longPress = nil;
+        
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        
         
         return cel;
     }
@@ -867,10 +898,10 @@
 }
 
 -(IBAction)btnDoneEdit:(UIButton*)sender{
-    chartState = ChartStateDefault;
     // do some logic
     [charmView endEditing];
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
+    chartState = ChartStateDefault;
 
 }
 -(IBAction)btnCancelEdit:(UIButton*)sender{
@@ -889,6 +920,16 @@
     requestedID = [value objectForKey:@"user_id"];
     [self requestFriendProfile:[value objectForKey:@"user_id"]];
 }
+
+- (void)EnableCharmRateMode {
+    [charmView beginEditing];
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    return YES;
+}
+
+
 #pragma mark - FBInviteDelegate
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
 
@@ -914,14 +955,26 @@
    if (charm.state == ChartStateRate) {
        [self requestEditCharm:charm];
     }
+   else if (charm.state == ChartStateEdit) {
+       chartState = ChartStateEdit;
+       for (int i= 0; i<5; i++) {
+           NSDictionary *dict = [arrayOriginalCharm objectAtIndex:i];
+           NSDictionary *dict2 = [arrayFilteredCharm objectAtIndex:i];
+           
+           if (![[dict objectForKey:@"name"] isEqualToString: [dict2 objectForKey:@"name"]]) {
+               [self requestChangeCharm:[dict2 objectForKey:@"name"] andCharmOut:[dict objectForKey:@"name"]];
+           }
+       }
+   }
 }
 
--(void)showSelectionOfCharm:(NSString*)charmOut {
+-(void)showSelectionOfCharm:(NSArray*)charmNameAndIndex {
+    charmIndexRow =  [[charmNameAndIndex objectAtIndex:1] integerValue];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SelectCharmsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectCharmsViewController"];
     vc.parent = self;
     vc.delegate = self;
-    [vc setCharmOut:charmOut];
+    [vc setCharmOut:[charmNameAndIndex objectAtIndex:0]];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
@@ -929,14 +982,27 @@
 
 #pragma mark - CharmSelectionDelegate
 
-- (void) SelectCharmDidDismissed {
+- (void) SelectCharmDidDismissed:(NSString*)charmIn {
     chartState = ChartStateEdit;
-    [self.tableView reloadData];
-}
-
-- (void)holdToBeginRankChart:(id)sender {
-    [charmView beginEditing];
+    if (charmIn) {
+        for (NSDictionary *dict in charmsArray) {
+            if ([[dict objectForKey:@"name"] isEqualToString:charmIn]) {
+                [arrayFilteredCharm replaceObjectAtIndex:charmIndexRow withObject:dict];
+                return;
+            }
+            else {
+                NSMutableDictionary *addNewDict = [[NSMutableDictionary alloc] init];
+                [addNewDict setObject:charmIn forKey:@"name"];
+                [addNewDict setObject:@"0" forKey:@"rate"];
+                [addNewDict setObject:@"true" forKey:@"active"];
+                [addNewDict setObject:@"false" forKey:@"rated"];
+                [arrayFilteredCharm replaceObjectAtIndex:charmIndexRow withObject:addNewDict];
+            }
+        }
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
 
 @end
+
