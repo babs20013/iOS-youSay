@@ -150,6 +150,7 @@
 
     UIButton *btnClose = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-([self boxSize].height+3)-4, lblScore.frame.origin.y + 6, ([self boxSize].height+3), ([self boxSize].height+3))];
     [btnClose setBackgroundImage:[UIImage imageNamed:@"charm-close"] forState:UIControlStateNormal];
+    [btnClose setImage:[UIImage imageNamed:@"charm-close"] forState:UIControlStateNormal];
     [btnClose addTarget:self
                  action:@selector(btnCloseClicked: withCharm:)
        forControlEvents:UIControlEventTouchUpInside];
@@ -315,8 +316,8 @@
 
 }
 - (IBAction)btnCloseClicked:(id)sender withCharm:(NSString*)selectedCharm{
-    if([self.delegate respondsToSelector:@selector(showCharmsSelection:)]) {
-        [self.delegate showCharmsSelection:_title];
+    if([self.delegate respondsToSelector:@selector(showCharmsSelection: withIndex:)]) {
+        [self.delegate showCharmsSelection:_title withIndex:[NSString stringWithFormat:@"%i", _index]];
     }
 
 }
@@ -330,7 +331,5 @@
     CGPoint touchPoint = [sender locationInView: self];
      [self updateRateOnPoint:touchPoint];
 }
-
-
 
 @end

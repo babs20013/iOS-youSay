@@ -10,7 +10,7 @@
 
 @class CharmChart;
 @protocol CharmDelegate <NSObject>
-- (void) showCharmsSelection:(NSString*)charmOut;
+- (void) showCharmsSelection:(NSString*)charmOut withIndex:(NSString*)index;
 @end //end protocol
 
 
@@ -27,6 +27,7 @@ typedef enum {
 @property (assign,nonatomic) ChartState state;
 @property (assign,nonatomic) BOOL rated;
 @property (assign,nonatomic) NSInteger score;
+@property (assign,nonatomic) NSInteger index;
 @property (copy,nonatomic) NSString *title;
 @property (nonatomic, weak) id <CharmDelegate> delegate;
 

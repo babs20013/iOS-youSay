@@ -32,6 +32,7 @@
         chart.delegate = self;
         chart.state = _state;
         chart.score = [[_chartScores objectAtIndex:i] integerValue];
+        chart.index = i;
         if ([_chartNames count] > i) {
             chart.title = [_chartNames objectAtIndex:i];
         }
@@ -112,10 +113,11 @@
     return YES;
 }
 
-- (void) showCharmsSelection:(NSString*)charmOut {
+- (void) showCharmsSelection:(NSString*)charmOut withIndex:(NSString*)index{
     NSLog(@"masuk charmView");
-    if ([self.delegate performSelector:@selector(showSelectionOfCharm:) withObject:charmOut]) {
-        [self.delegate showSelectionOfCharm:charmOut];
+    NSArray * arrayOfObjects = [NSArray arrayWithObjects: charmOut, index, nil];
+    if ([self.delegate performSelector:@selector(showSelectionOfCharm:) withObject:arrayOfObjects]) {
+        [self.delegate showSelectionOfCharm:arrayOfObjects];
     }
 }
 
