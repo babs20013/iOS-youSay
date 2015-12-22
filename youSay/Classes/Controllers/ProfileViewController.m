@@ -21,6 +21,7 @@
 #import "RequestModel.h"
 #import "CharmChart.h"
 #import "AddNewSayViewController.h"
+#import "UIButton+Extension.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -473,6 +474,16 @@
         if  (isFriendProfile == NO){
             model = profileModel;
             chartState = chartState == ChartStateViewing ? ChartStateDefault : chartState;
+            for (UIGestureRecognizer *recognizer in cel.longPressInfoView.gestureRecognizers) {
+                if([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
+                    [cel.longPressInfoView removeGestureRecognizer:recognizer];
+                }
+            }
+            
+            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(holdToBeginRankChart:)];
+            [cel.longPressInfoView addGestureRecognizer:longPress];
+            longPress = nil;
+            
         }
         else {
             model.Name = [profileDictionary objectForKey:@"name"];
@@ -481,7 +492,18 @@
             model.UserID = requestedID;
             friendsProfileModel = model;
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
+            
+            for (UIGestureRecognizer *recognizer in cel.rankButton.gestureRecognizers) {
+                if([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
+                    [cel.rankButton removeGestureRecognizer:recognizer];
+                }
+            }
+            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(holdToBeginRankChart:)];
+            [cel.rankButton addGestureRecognizer:longPress];
+            longPress = nil;
+                        
         }
+    
         //--Profile Box
         [cel.imgViewCover setImageURL:[NSURL URLWithString:model.CoverImage]];
         cel.imgViewCover.layer.cornerRadius = 0.015 * cel.imgViewCover.bounds.size.width;
@@ -539,9 +561,9 @@
         }
         
         
-        CGFloat w = (tableView.frame.size.width - 40-28) / 5;
-        CGFloat h = (( w/3 )+2)*13;
-        CGRect f1 =  CGRectMake(0, 0, w,h);
+//        CGFloat w = (tableView.frame.size.width - 40-28) / 5;
+//        CGFloat h = (( w/3 )+2)*13;
+//        CGRect f1 =  CGRectMake(0, 0, w,h);
         
         [[cel.charmChartView subviews]
          makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -912,23 +934,9 @@
     [self.tableView reloadData];
 }
 
-//- (void)didMoveToParentViewController:(UIViewController *)parent {
-//    NSLog(@"masuk ke parentnnya");
-//    if ([parent isKindOfClass:[SelectCharmsViewController class]]) {
-//        [self.tableView reloadData];
-//    }
-//}
-
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    BOOL isScrolled = NO;
-//    if (scrollView.contentOffset.y < -50 && !isScrolled) {
-//        isScrolled = YES;
-//         NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
-//        [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
-//        chartState = ChartStateDefault;
-//       // [self requestLogin];
-//    }
-//}
+- (void)holdToBeginRankChart:(id)sender {
+    [charmView beginEditing];
+}
 
 
 @end

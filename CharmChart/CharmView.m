@@ -54,8 +54,8 @@
         [self addSubview:chart];
         
         if (_state == ChartStateEdit) {
-            CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-1.0));
-            CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(1.0));
+            CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-1.5));
+            CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(0.5));
             
             chart.transform = leftWobble;  // starting point
             
@@ -64,7 +64,6 @@
             [UIView setAnimationRepeatCount:INFINITY];
             [UIView setAnimationDuration:0.1];
             [UIView setAnimationDelegate:self];
-            
             chart.transform = rightWobble; // end here & auto-reverse
             
             [UIView commitAnimations];

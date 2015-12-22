@@ -22,7 +22,6 @@
 #define kChartTitleLabelColor [UIColor colorWithRed:90.0/255.0 green:90.0/255.0 blue:90.0/255.0 alpha:1.0]
 #define kChartScoreLabelColor [UIColor colorWithRed:0.0/255.0 green:172.0/255.0 blue:196.0/255.0 alpha:1.0]
 
-#define RADIANS(degrees) ((degrees * M_PI) / 180.0)
 
 #define kMaximumScore 10
 
@@ -76,9 +75,16 @@
         
         if (_state == ChartStateEdit) {        }
         else if (_state == ChartStateViewing ){
-            if ( _score == 0 ) {
+            if ( _score == 0 && !_rated) {
                 [valueBox setBackgroundColor:[self getColor:0]];
                 [valueBox setHidden:NO];
+            }
+            else if(!_rated){
+                //on viewing mode if its not yet rated user can see the actual score before set rating
+                _score = 0;//
+                //if not rated change val to 0 so able to rate
+                [valueBox setHidden:NO];
+                [valueBox setBackgroundColor:[self getColor:0]];
             }
         }
         else if ( _state == ChartStateRate){
@@ -99,10 +105,10 @@
     
     if (_state == ChartStateRate && _rated == YES) {
         CGFloat widthHeightLock = [self boxSize].height*2-3;
-        CGFloat originalY = 10*([self boxSize].height+kMinVerticalGap) + [self boxSize].height-kChartLabelHeight;
+//        CGFloat originalY = 11*([self boxSize].height+kMinVerticalGap) + [self boxSize].height-kChartLabelHeight;
         UIImageView *imgLocked = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lock"]];
         imgLocked.frame = CGRectMake((self.frame.size.width-widthHeightLock)/2,
-                                     originalY+(2*[self boxSize].height-widthHeightLock)/2+2,
+                                     (self.frame.size.height - widthHeightLock)-kChartLabelHeight-3,
                                      widthHeightLock,
                                      widthHeightLock);
         [self addSubview:imgLocked];
@@ -123,7 +129,7 @@
     [self addSubview:lblTitle];
     
     float position = ceil(roundedScore/10)+1;
-    if ((_state == ChartStateViewing && _score == 0 ) || (_state ==  ChartStateRate && !_rated) ){
+    if ((_state == ChartStateViewing && _score == 0 && !_rated) || (_state ==  ChartStateRate && !_rated) ){
         position = 11;
     }
     lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
