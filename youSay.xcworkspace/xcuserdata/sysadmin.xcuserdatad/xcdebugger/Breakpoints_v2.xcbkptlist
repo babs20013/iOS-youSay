@@ -106,28 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CharmChart/CharmChart.m"
-            timestampString = "472404990.522306"
+            timestampString = "472488315.603329"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "249"
             endingLineNumber = "249"
             landmarkName = "@implementation CharmChart"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "472413556.341912"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "982"
-            endingLineNumber = "982"
-            landmarkName = "@implementation ProfileViewController"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
@@ -186,13 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "472413556.341912"
+            timestampString = "472488794.980265"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1019"
-            endingLineNumber = "1019"
-            landmarkName = "@implementation ProfileViewController"
-            landmarkType = "3">
+            startingLineNumber = "1021"
+            endingLineNumber = "1021">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -233,28 +215,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "youSay/Classes/Controllers/MainPageViewController.m"
-            timestampString = "472402670.391765"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "-viewPager:contentViewControllerForTabAtIndex:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "472413556.341912"
+            timestampString = "472488794.980265"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "955"
-            endingLineNumber = "955"
+            startingLineNumber = "957"
+            endingLineNumber = "957"
             landmarkName = "-didEndEditing:"
             landmarkType = "5">
          </BreakpointContent>
@@ -266,45 +232,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "472413556.341912"
+            timestampString = "472488794.980265"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "988"
             endingLineNumber = "988"
             landmarkName = "-SelectCharmDidDismissed:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ProfileViewController SelectCharmDidDismissed:]"
-                  moduleName = "youSay"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sysadmin/Documents/PartTime/you-say/youSay/Classes/Controllers/ProfileViewController.m"
-                  timestampString = "472412231.50891"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "989"
-                  endingLineNumber = "989"
-                  offsetFromSymbolStart = "128">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ProfileViewController SelectCharmDidDismissed:]"
-                  moduleName = "youSay"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sysadmin/Documents/PartTime/you-say/youSay/Classes/Controllers/ProfileViewController.m"
-                  timestampString = "472412231.509168"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "989"
-                  endingLineNumber = "989"
-                  offsetFromSymbolStart = "148">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -314,12 +248,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "472413556.341912"
+            timestampString = "472488794.980265"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "512"
-            endingLineNumber = "512"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "974"
+            endingLineNumber = "974"
+            landmarkName = "-showSelectionOfCharm:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CharmChart/CharmChart.m"
+            timestampString = "472488315.603329"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
+            landmarkName = "-updateRateOnPoint:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

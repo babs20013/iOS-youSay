@@ -912,8 +912,10 @@
 
 -(IBAction)btnProfileClicked:(UIButton*)sender{
     NSLog(@"btnProfile : %ld", (long)[sender tag]);
+    chartState = ChartStateViewing;
     if  (!isFriendProfile && [dictHideSay allKeys].count >0) {
         [self requestHideSay];
+        chartState = ChartStateViewing;
     }
     
     NSDictionary *value = [saysArray objectAtIndex:[sender tag]];

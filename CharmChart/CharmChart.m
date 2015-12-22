@@ -29,7 +29,7 @@
 //#define kMinHorizontalGap 5
 //#define kChartLabelHeight 29
 
-#define kMinVerticalGap 2
+#define kMinVerticalGap 1
 #define kMinHorizontalGap 20
 #define kChartLabelHeight 40
 
@@ -56,13 +56,12 @@
 -(void)layoutSubviews{
     [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     NSInteger roundedScore = [self roundedScore];
-    
     boxes = [NSMutableArray array];
     for (int i = 0; i<kMaximumScore; i++) {
         CGFloat barValue = ((i+1) * 10);
 
         UIView *valueBox = [[UIView alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (i*([self boxSize].height+kMinVerticalGap) + [self boxSize].height)-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
-        [valueBox setBackgroundColor:kColorDefault];
+        [valueBox setBackgroundColor:kColor80];
         [valueBox setHidden:YES];
         valueBox.tag = i+1;
         if (( roundedScore >= 0 && roundedScore >= barValue )) {
@@ -104,11 +103,11 @@
     }
     
     if (_state == ChartStateRate && _rated == YES) {
-        CGFloat widthHeightLock = [self boxSize].height*2-3;
+        CGFloat widthHeightLock = [self boxSize].height*2-4;
 //        CGFloat originalY = 11*([self boxSize].height+kMinVerticalGap) + [self boxSize].height-kChartLabelHeight;
         UIImageView *imgLocked = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lock"]];
         imgLocked.frame = CGRectMake((self.frame.size.width-widthHeightLock)/2,
-                                     (self.frame.size.height - widthHeightLock)-kChartLabelHeight-3,
+                                     (self.frame.size.height - widthHeightLock)-kChartLabelHeight-2,
                                      widthHeightLock,
                                      widthHeightLock);
         [self addSubview:imgLocked];
@@ -148,8 +147,7 @@
     [lblScore setTextColor:kChartScoreLabelColor];
     [self addSubview:lblScore];
 
-    UIButton *btnClose = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-([self boxSize].height+3)-4, lblScore.frame.origin.y + 6, ([self boxSize].height+3), ([self boxSize].height+3))];
-    [btnClose setBackgroundImage:[UIImage imageNamed:@"charm-close"] forState:UIControlStateNormal];
+    UIButton *btnClose = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-([self boxSize].height+6)-2, lblScore.frame.origin.y + 6, ([self boxSize].height+7), ([self boxSize].height+7))];
     [btnClose setImage:[UIImage imageNamed:@"charm-close"] forState:UIControlStateNormal];
     [btnClose addTarget:self
                  action:@selector(btnCloseClicked: withCharm:)
@@ -158,6 +156,9 @@
     [btnClose setHidden:YES];
     if (_state == ChartStateEdit) {
         [btnClose setHidden:NO];
+    }
+    else if (_state == ChartStateViewing && !_rated){
+        [lblScore setHidden:YES];
     }
     
     if (_state == ChartStateRate && !_rated) {
@@ -170,7 +171,6 @@
         longPress.delegate      =   self;
         [self addGestureRecognizer:longPress];
         longPress = nil;
-
     }
 }
 
