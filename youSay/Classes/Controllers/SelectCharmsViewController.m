@@ -110,7 +110,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 [self dismissViewControllerAnimated:YES completion:^{
-                    if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:charmOut]) {
+                    if ([self.delegate performSelector:@selector(SelectCharmDidDismissed:) withObject:charmIn]) {
                         [self.delegate SelectCharmDidDismissed:charmIn];
                     }
                 }];

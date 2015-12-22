@@ -968,13 +968,13 @@
    }
 }
 
--(void)showSelectionOfCharm:(NSString*)charmOut withIndex:(NSInteger)index {
-    charmIndexRow = index;
+-(void)showSelectionOfCharm:(NSArray*)charmNameAndIndex {
+    charmIndexRow =  [[charmNameAndIndex objectAtIndex:1] integerValue];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SelectCharmsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectCharmsViewController"];
     vc.parent = self;
     vc.delegate = self;
-    [vc setCharmOut:charmOut];
+    [vc setCharmOut:[charmNameAndIndex objectAtIndex:0]];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];

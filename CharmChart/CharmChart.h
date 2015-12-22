@@ -10,7 +10,7 @@
 
 @class CharmChart;
 @protocol CharmDelegate <NSObject>
-- (void) showCharmsSelection:(NSString*)charmOut withIndex:(NSInteger)index;
+- (void) showCharmsSelection:(NSString*)charmOut withIndex:(NSString*)index;
 @end //end protocol
 
 

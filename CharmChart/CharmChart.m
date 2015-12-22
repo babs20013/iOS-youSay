@@ -311,7 +311,7 @@
 }
 - (IBAction)btnCloseClicked:(id)sender withCharm:(NSString*)selectedCharm{
     if([self.delegate respondsToSelector:@selector(showCharmsSelection: withIndex:)]) {
-        [self.delegate showCharmsSelection:_title withIndex:_index];
+        [self.delegate showCharmsSelection:_title withIndex:[NSString stringWithFormat:@"%i", _index]];
     }
 
 }

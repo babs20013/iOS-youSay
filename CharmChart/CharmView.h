@@ -16,7 +16,7 @@
 -(void)didBeginEditing:(CharmView*)charm ;
 -(void)didEndEditing:(CharmView*)charm ;
 
--(void)showSelectionOfCharm:(NSString*)charmout withIndex:(NSInteger)index;
+-(void)showSelectionOfCharm:(NSArray*)charmNameAndIndex;
 @end
 
 @interface CharmView : UIView<UIGestureRecognizerDelegate, CharmDelegate>
