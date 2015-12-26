@@ -115,6 +115,10 @@
     self.txtSearch.layer.borderWidth = 1;
     self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
     
+    UIButton *btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(self.tableView.bounds.origin.x, self.tableView.bounds.size.height, 60, 60)];
+    [btnAddSay.imageView setImage:[UIImage imageNamed:@"AddButton"]];
+    [self.view addSubview:btnAddSay];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -201,6 +205,60 @@
             {
                 [dictHideSay removeAllObjects];
             }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        [SVProgressHUD dismiss];
+    }];
+}
+
+- (void)requestAddSay {
+    NSArray *keys = [dictHideSay allKeys];
+    NSString *saysID = @"";
+    for (int i = 0; i < keys.count; i++) {
+        NSDictionary *dict = [saysArray objectAtIndex:i];
+        if (i < keys.count-1) {
+            saysID = [saysID stringByAppendingString:[NSString stringWithFormat:@"%@,",[dict objectForKey:@"say_id"]]];
+        }
+        else {
+            saysID = [saysID stringByAppendingString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"say_id"]]];
+        }
+        
+    }
+    
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_ADD_SAY forKey:@"request"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token]  forKey:@"token"];
+    [dictRequest setObject:requestedID forKey:@"profile_id_to_add_to"];
+    [dictRequest setObject:@"test add say" forKey:@"text"];
+    [dictRequest setObject:@"1" forKey:@"color"];
+    
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                [dictHideSay removeAllObjects];
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
@@ -245,6 +303,10 @@
                 profileDictionary = [result objectForKey:@"profile"];
                 isFriendProfile = NO;
                 [self requestSayColor];
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -291,6 +353,10 @@
                 [self.tableView reloadData];
                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
@@ -322,6 +388,10 @@
                 saysArray = [[NSMutableArray alloc]init];
                 saysArray = [profileDictionary valueForKey:@"says"];
                 [self.tableView reloadData];
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -374,6 +444,10 @@
                 [self.tableView reloadData];
 
             }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
@@ -412,6 +486,10 @@
                 charmsArray = [dictResult objectForKey:@"charms"];
                 isAfterChangeCharm = YES;
                 [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -741,7 +819,6 @@
         UIButton *btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(tableView.bounds.origin.x, 0, 60, 60)];
         [btnAddSay.imageView setImage:[UIImage imageNamed:@"AddButton"]];
         [cel addSubview:btnAddSay];
-        return cel;
     }
    
     return cell;
@@ -887,12 +964,12 @@
 - (IBAction)btnReportClicked:(id)sender {
     NSLog(@"btnReport : %ld", (long)[sender tag]);
     //--Testing for AddSay
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    AddNewSayViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddNewSayViewController"];
-//    vc.model = friendsProfileModel;
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-//    [nav setNavigationBarHidden:YES];
-//    [self presentViewController:nav animated:YES completion:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddNewSayViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddNewSayViewController"];
+    vc.model = friendsProfileModel;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [nav setNavigationBarHidden:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (IBAction)btnShareClicked:(id)sender {
@@ -941,6 +1018,12 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
     return YES;
+}
+
+- (void)logout {
+    FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
+    [fb logOut];
+    [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
 }
 
 
