@@ -22,4 +22,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *profileLabel;
 @property (nonatomic, strong) IBOutlet UILabel *placeholderLabel;
 @property (nonatomic, strong) ProfileOwnerModel *model;
+@property (nonatomic, strong) NSDictionary *colorDict;
 @end

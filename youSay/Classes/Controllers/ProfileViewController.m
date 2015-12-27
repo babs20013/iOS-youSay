@@ -966,7 +966,13 @@
     //--Testing for AddSay
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AddNewSayViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddNewSayViewController"];
-    vc.model = friendsProfileModel;
+    ProfileOwnerModel *model = [[ProfileOwnerModel alloc]init];
+    model.Name = [profileDictionary objectForKey:@"name"];
+    model.ProfileImage = [profileDictionary objectForKey:@"picture"];
+    model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
+    model.UserID = requestedID;
+    vc.model = model;
+    vc.colorDict = colorDictionary;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];

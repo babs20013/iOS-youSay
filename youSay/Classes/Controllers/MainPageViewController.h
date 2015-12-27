@@ -10,6 +10,7 @@
 #import "ViewPagerController.h"
 #import "InviteFriendsViewController.h"
 #import "ProfileViewController.h"
+#import "FeedViewController.h"
 
 @interface MainPageViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate>
 @property (nonatomic,strong) NSDictionary * profileDictionary;

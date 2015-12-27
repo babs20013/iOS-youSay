@@ -36,6 +36,8 @@
 		1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */; };
 		1BC5EC431C22F84B0016BFA1 /* SelectCharmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5EC421C22F84B0016BFA1 /* SelectCharmsViewController.m */; };
 		1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */; };
+		1BEECEFE1C2EAAAB00615C9F /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEECEFD1C2EAAAB00615C9F /* FeedViewController.m */; };
+		1BEECF001C2EAE9200615C9F /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEECEFF1C2EAE9200615C9F /* FeedTableViewCell.m */; };
 		358C90891BD654AC000B17AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C90881BD654AC000B17AB /* main.m */; };
 		358C90921BD654AC000B17AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 358C90901BD654AC000B17AB /* Main.storyboard */; };
 		358C90941BD654AC000B17AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 358C90931BD654AC000B17AB /* Assets.xcassets */; };
@@ -128,6 +130,10 @@
 		1BC5EC411C22F8330016BFA1 /* SelectCharmsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SelectCharmsViewController.h; path = youSay/Classes/Controllers/SelectCharmsViewController.h; sourceTree = SOURCE_ROOT; };
 		1BC5EC421C22F84B0016BFA1 /* SelectCharmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectCharmsViewController.m; path = youSay/Classes/Controllers/SelectCharmsViewController.m; sourceTree = SOURCE_ROOT; };
 		1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		1BEECEFC1C2EAA9900615C9F /* FeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedViewController.h; path = youSay/Classes/Controllers/FeedViewController.h; sourceTree = SOURCE_ROOT; };
+		1BEECEFD1C2EAAAB00615C9F /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedViewController.m; path = youSay/Classes/Controllers/FeedViewController.m; sourceTree = SOURCE_ROOT; };
+		1BEECEFF1C2EAE9200615C9F /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = youSay/Classes/Controllers/FeedTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		1BEECF011C2EAE9D00615C9F /* FeedTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = youSay/Classes/Controllers/FeedTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		358C90841BD654AC000B17AB /* youSay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = youSay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		358C90881BD654AC000B17AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		358C90911BD654AC000B17AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -430,6 +436,10 @@
 				9A9CB6141C19B9860082B3E5 /* MenuViewController.m */,
 				1BC5EC411C22F8330016BFA1 /* SelectCharmsViewController.h */,
 				1BC5EC421C22F84B0016BFA1 /* SelectCharmsViewController.m */,
+				1BEECEFC1C2EAA9900615C9F /* FeedViewController.h */,
+				1BEECEFD1C2EAAAB00615C9F /* FeedViewController.m */,
+				1BEECF011C2EAE9D00615C9F /* FeedTableViewCell.h */,
+				1BEECEFF1C2EAE9200615C9F /* FeedTableViewCell.m */,
 			);
 			name = ViewControllers;
 			path = Classes/Controllers;
@@ -653,6 +663,7 @@
 				9A9CB6181C19B9D10082B3E5 /* CommonHelper.m in Sources */,
 				1BC5EC431C22F84B0016BFA1 /* SelectCharmsViewController.m in Sources */,
 				5DBF3BA91BD8210D00ACF60D /* UIView+BLKFlexibleHeightBarSubview.m in Sources */,
+				1BEECEFE1C2EAAAB00615C9F /* FeedViewController.m in Sources */,
 				9A906B4D1C294D0600C3327C /* UIButton+Extension.m in Sources */,
 				1B17E3BE1C180BD90080A574 /* InviteFriendsViewController.m in Sources */,
 				1B17E3D11C180BF70080A574 /* UIHelper.m in Sources */,
@@ -681,6 +692,7 @@
 				5D91F79E1BDA9D33005845BE /* Reachability.m in Sources */,
 				1B0CF1901C270DF000E20D6E /* AddSayRequest.m in Sources */,
 				9A4D95A31C219C78006F5FA3 /* CharmView.m in Sources */,
+				1BEECF001C2EAE9200615C9F /* FeedTableViewCell.m in Sources */,
 				1B17E3DB1C180C050080A574 /* Serializable.m in Sources */,
 				1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */,
 				1B17E3D01C180BF70080A574 /* UICheckBox.m in Sources */,

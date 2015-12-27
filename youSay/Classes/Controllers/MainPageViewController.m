@@ -53,18 +53,25 @@
 
 - (UIViewController *)viewPager:(ViewPagerController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index {
     
-    if(index == 0 || index == 2){
-//        InviteFriendsViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"InviteFriendsViewController"];
-//        return cvc;
-        UIViewController *vc= [[UIViewController alloc]init];
-        return vc;
+    if(index == 0){
+        FeedViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
+       return cvc;
+        
     }
-    else{
+    else if (index == 1){
         ProfileViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
         
         cvc.profileDictionary = self.profileDictionary;
         cvc.colorDictionary = self.colorDictionary;
         return cvc;
+    }
+    else if (index == 2){
+        UIViewController *vc= [[UIViewController alloc]init];
+        return vc;
+    }
+    else {
+        UIViewController *vc= [[UIViewController alloc]init];
+        return vc;
     }
 }
 
