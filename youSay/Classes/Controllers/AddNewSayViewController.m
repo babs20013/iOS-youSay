@@ -11,7 +11,10 @@
 #import "AppDelegate.h"
 #import "AddSayRequest.h"
 
-@interface AddNewSayViewController ()
+@interface AddNewSayViewController (){
+    CGFloat textViewOriginalHeight;
+    CGFloat _currentKeyboardHeight;
+}
 @end
 
 @implementation AddNewSayViewController
@@ -31,6 +34,22 @@
     [super viewDidLoad];
     addSayTextView.delegate = self;
     [self InitializeUI];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
+    _currentKeyboardHeight = 0.0f;
+    self.textViewBG.layer.cornerRadius = 3;
+
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    textViewOriginalHeight = addSayTextView.frame.size.height;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -115,6 +134,7 @@
 }
 
 - (IBAction)btnColorlicked:(id)sender {
+    [self.view endEditing:YES];
     [chooseBGView setHidden:NO];
     [self addColorButton];
 }
@@ -199,6 +219,21 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     
+}
+
+- (void)keyboardDidShow:(NSNotification*)notification {
+    NSDictionary* keyboardInfo = [notification userInfo];
+    NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
+
+    _currentKeyboardHeight = keyboardFrameBeginRect.size.height;
+    self.textConstraint.constant = _currentKeyboardHeight+10;
+}
+
+- (void)keyboardDidHide:(NSNotification*)notification {
+    _currentKeyboardHeight = 0.0;
+    self.textConstraint.constant = 10;
+
 }
 
 

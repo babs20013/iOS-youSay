@@ -23,4 +23,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *placeholderLabel;
 @property (nonatomic, strong) ProfileOwnerModel *model;
 @property (nonatomic, strong) NSDictionary *colorDict;
+
+@property (nonatomic,strong) IBOutlet NSLayoutConstraint *textConstraint;
 @end
