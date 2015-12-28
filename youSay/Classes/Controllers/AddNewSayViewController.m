@@ -15,6 +15,8 @@
     CGFloat textViewOriginalHeight;
     CGFloat _currentKeyboardHeight;
     UIButton *btnSelectedColor;
+    NSMutableArray *arrayColorKey;
+    NSInteger idColor;
 }
 @end
 
@@ -85,7 +87,7 @@
 
 #pragma mark - Request
 
-- (void)requestAddSay {
+- (void)requestAddSay:(NSInteger)colorID {
     [SVProgressHUD show];
     [SVProgressHUD setStatus:@"Loading..."];
     UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
@@ -97,7 +99,7 @@
     request.token = [[AppDelegate sharedDelegate].profileOwner token];
     request.profile_id_to_add_to = model.UserID;
     request.text = addSayTextView.text;
-    request.color = 1;
+    request.color = [[arrayColorKey objectAtIndex:colorID] integerValue];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:request completionBlock:^(id result, NSError *error) {
         if (result)
@@ -105,7 +107,11 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    if ([self.delegate performSelector:@selector(AddNewSayDidDismissed) withObject:nil]) {
+                        [self.delegate AddNewSayDidDismissed];
+                    }
+                }];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -126,12 +132,16 @@
 #pragma mark IBAction
 
 - (IBAction)btnCloseClicked:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        if ([self.delegate performSelector:@selector(AddNewSayDidDismissed) withObject:nil]) {
+            [self.delegate AddNewSayDidDismissed];
+        }
+    }];
 }
 
 - (IBAction)btnSendClicked:(id)sender {
     NSLog(@"Sending the message");
-    [self requestAddSay];
+    [self requestAddSay:[btnSelectedColor tag]];
 }
 
 - (IBAction)btnColorlicked:(id)sender {
@@ -157,10 +167,14 @@
 
 - (void)addColorButton {
     NSMutableArray *arrayColor = [[NSMutableArray alloc] init];
-    for (int i= 0; i <[_colorDict allKeys].count; i++) {
+    arrayColorKey = [[NSMutableArray alloc]init];
+    for (int i= 1; i <[_colorDict allKeys].count+1; i++) {
         NSString *colorIndex = [NSString stringWithFormat:@"%i",i];
         NSDictionary *indexDict = [_colorDict objectForKey:colorIndex];
-        [arrayColor addObject:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
+        if (indexDict) {
+            [arrayColorKey addObject:colorIndex];
+            [arrayColor addObject:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
+        }
     }
     
     for (int i = 0; i < arrayColor.count; i++) {
@@ -175,6 +189,7 @@
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(x, y, 50, 50);
+        button.tag = i;
         button.layer.cornerRadius = 0.5 * button.bounds.size.width;
         [button setBackgroundColor:[arrayColor objectAtIndex:i]];
         [button addTarget:self action:@selector(selectColor:) forControlEvents:UIControlEventTouchUpInside];

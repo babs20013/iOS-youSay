@@ -53,6 +53,7 @@
     BOOL isAfterChangeCharm;
     BOOL isScrollBounce;
     SelectCharmsViewController *charmsSelection;
+    UIButton *btnAddSay;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -115,12 +116,12 @@
     self.txtSearch.layer.borderWidth = 1;
     self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
     
-    UIButton *btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake((self.view.frame.size.width-60)/2, self.view.frame.size.height - 140, 60, 60)];
+    btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake((self.view.frame.size.width-60)/2, self.view.frame.size.height - 140, 60, 60)];
     [btnAddSay setImage:[UIImage imageNamed:@"AddButton"] forState:UIControlStateNormal];
     [btnAddSay setTitle:@"Add" forState:UIControlStateNormal];
     [btnAddSay addTarget:self action:@selector(btnAddSayTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnAddSay];
-
+    [btnAddSay setHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -545,6 +546,9 @@
     if (section == 0) {
         return 10;
     }
+    if (section == 1) {
+        return 40;
+    }
     return 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -612,6 +616,7 @@
         if  (isFriendProfile == NO){
             model = profileModel;
             chartState = chartState == ChartStateViewing ? ChartStateDefault : chartState;
+            [btnAddSay setHidden:YES];
         }
         else {
             model.Name = [profileDictionary objectForKey:@"name"];
@@ -620,6 +625,7 @@
             model.UserID = requestedID;
             friendsProfileModel = model;
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
+            [btnAddSay setHidden:NO];
         }
         //--Profile Box
         [cel.imgViewCover setImageURL:[NSURL URLWithString:model.CoverImage]];
@@ -820,7 +826,9 @@
         UITableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         UIButton *btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(tableView.bounds.origin.x, 0, 60, 60)];
         [btnAddSay.imageView setImage:[UIImage imageNamed:@"AddButton"]];
-        [cel addSubview:btnAddSay];
+        if (isFriendProfile) {
+            [cel addSubview:btnAddSay];
+        }
     }
    
     return cell;
@@ -965,6 +973,7 @@
 
 - (void)btnAddSayTapped:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    chartState = ChartStateViewing;
     AddNewSayViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddNewSayViewController"];
     ProfileOwnerModel *model = [[ProfileOwnerModel alloc]init];
     model.Name = [profileDictionary objectForKey:@"name"];
@@ -972,6 +981,7 @@
     model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
     model.UserID = requestedID;
     vc.model = model;
+    vc.delegate = self;
     vc.colorDict = colorDictionary;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
@@ -1136,11 +1146,19 @@
         else {
             [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
         }
-        
     }
 }
 
+#pragma mark - AddNewSayDelegate
 
+- (void)AddNewSayDidDismissed {
+    if (requestedID) {
+        [self requestProfile:requestedID];
+    }
+    else {
+        [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+    }
+}
 
 
 @end

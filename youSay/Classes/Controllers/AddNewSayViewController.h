@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "ProfileOwnerModel.h"
 
+@class AddNewSayViewController;
+@protocol AddNewSayDelegate <NSObject>
+- (void) AddNewSayDidDismissed;
+@end
+
+
 @interface AddNewSayViewController : UIViewController <UITextViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextView *addSayTextView;
@@ -23,6 +29,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *placeholderLabel;
 @property (nonatomic, strong) ProfileOwnerModel *model;
 @property (nonatomic, strong) NSDictionary *colorDict;
+@property (nonatomic, weak) id <AddNewSayDelegate> delegate;
 
 @property (nonatomic,strong) IBOutlet NSLayoutConstraint *textConstraint;
 @end
