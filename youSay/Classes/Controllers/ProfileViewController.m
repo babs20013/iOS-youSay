@@ -115,10 +115,12 @@
     self.txtSearch.layer.borderWidth = 1;
     self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
     
-    UIButton *btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(self.tableView.bounds.origin.x, self.tableView.bounds.size.height, 60, 60)];
-    [btnAddSay.imageView setImage:[UIImage imageNamed:@"AddButton"]];
+    UIButton *btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake((self.view.frame.size.width-60)/2, self.view.frame.size.height - 140, 60, 60)];
+    [btnAddSay setImage:[UIImage imageNamed:@"AddButton"] forState:UIControlStateNormal];
+    [btnAddSay setTitle:@"Add" forState:UIControlStateNormal];
+    [btnAddSay addTarget:self action:@selector(btnAddSayTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnAddSay];
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -961,9 +963,7 @@
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-- (IBAction)btnReportClicked:(id)sender {
-    NSLog(@"btnReport : %ld", (long)[sender tag]);
-    //--Testing for AddSay
+- (void)btnAddSayTapped:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AddNewSayViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddNewSayViewController"];
     ProfileOwnerModel *model = [[ProfileOwnerModel alloc]init];
@@ -976,6 +976,10 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (IBAction)btnReportClicked:(id)sender {
+    NSLog(@"btnReport : %ld", (long)[sender tag]);
 }
 
 - (IBAction)btnShareClicked:(id)sender {
@@ -1135,6 +1139,8 @@
         
     }
 }
+
+
 
 
 @end
