@@ -14,6 +14,7 @@
 @interface AddNewSayViewController (){
     CGFloat textViewOriginalHeight;
     CGFloat _currentKeyboardHeight;
+    UIButton *btnSelectedColor;
 }
 @end
 
@@ -144,7 +145,11 @@
 }
 
 - (IBAction)selectColor:(id)sender {
+    btnSelectedColor.selected = NO;
+    
     UIButton *btn = (UIButton*)sender;
+    btn.selected = YES;
+    btnSelectedColor = btn;
     [addSayTextView setBackgroundColor:btn.backgroundColor];
 }
 
@@ -159,14 +164,24 @@
     }
     
     for (int i = 0; i < arrayColor.count; i++) {
-        int x = (i%4)*60+25;
+        CGFloat containerWidth = colorContainer.frame.size.width - 30;
+        CGFloat gridWidth = containerWidth / 4;
+
+        
+//        int x = (i%4)*60+25;
+        int x = (i%4)*gridWidth+((gridWidth-50)/2) + 15;
         int y = i/4*60+65;
+        
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(x, y, 50, 50);
         button.layer.cornerRadius = 0.5 * button.bounds.size.width;
         [button setBackgroundColor:[arrayColor objectAtIndex:i]];
         [button addTarget:self action:@selector(selectColor:) forControlEvents:UIControlEventTouchUpInside];
+        [button setImage:[UIImage imageNamed:@"Tick"] forState:UIControlStateSelected];
+        [button setImage:[UIImage imageNamed:@"Tick"] forState:UIControlStateHighlighted];
+        button.imageEdgeInsets = UIEdgeInsetsMake(15, 13, 15, 13);
+
         [chooseBGView bringSubviewToFront:colorContainer];
         [colorContainer addSubview:button];
         
