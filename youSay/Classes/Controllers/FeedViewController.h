@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FeedViewController.h"
 
-@interface FeedViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate>
+@interface FeedViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField * txtSearch;
 

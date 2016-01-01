@@ -11,10 +11,14 @@
 #import "UIImageView+Networking.h"
 #import "AppDelegate.h"
 #import "CommonHelper.h"
+#import "SlideNavigationController.h"
 
 @interface FeedViewController ()
 {
-    NSArray *arrayFeed;
+    NSMutableArray *arrayFeed;
+    BOOL isScrollBounce;
+    int index;
+    BOOL isNoMoreFeed;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -24,11 +28,23 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    arrayFeed = [[NSMutableArray alloc]init];
+    index = 1;
+    isScrollBounce = YES;
+    [self requestFeed:[NSString stringWithFormat:@"%i", index]];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self requestFeed:@"1"];
+    UIImageView *imgMagnifyingGlass = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 15, 15)];
+    imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
+    [leftView addSubview:imgMagnifyingGlass];
+    self.txtSearch.leftView = leftView;
+    self.txtSearch.leftViewMode = UITextFieldViewModeAlways;
+    self.txtSearch.layer.cornerRadius = round(self.txtSearch.frame.size.height / 2);
+    self.txtSearch.layer.borderWidth = 1;
+    self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,6 +54,10 @@
 #pragma mark - Request
 
 - (void)requestFeed:(NSString*)startFrom {
+    [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
     
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_FEED forKey:@"request"];
@@ -52,11 +72,17 @@
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         if (result)
         {
+            isScrollBounce = YES;
             NSDictionary *dictResult = result;
             
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                arrayFeed = [dictResult objectForKey:@"items"];
+                index = index+10;
+                NSArray *arrResult = [dictResult objectForKey:@"items"];
+                if (arrResult.count == 0) {
+                    isNoMoreFeed = YES;
+                }
+                [arrayFeed addObjectsFromArray:arrResult];
                 [self.tableView reloadData];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
@@ -80,9 +106,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:indexPath.row];
+    NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:indexPath.section];
     NSString *string = [currentSaysDict valueForKey:@"feed_message"];
     CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
+    NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
+    if (arrProfiles.count == 1) {
+        return 105;
+    }
     return expectedSize.height+115;
 }
 
@@ -116,32 +146,124 @@
         cell = [[FeedTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
     NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:indexPath.section];
-    
-    CGFloat xAxis = 10;
-    [cell.imgViewProfile1 setImageURL:[NSURL URLWithString:@"http://imgs.sfgate.com/blogs/images/sfgate/sfmoms/2009/12/09/shutterstock_14501131625x416.jpg"]];
-    cell.imgViewProfile1.layer.cornerRadius = 0.5 * cell.imgViewProfile1.bounds.size.width;
-    cell.imgViewProfile1.layer.masksToBounds = YES;
-    cell.imgViewProfile1.layer.borderWidth = 1;
-    cell.imgViewProfile1.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-    [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:@"http://imgs.sfgate.com/blogs/images/sfgate/sfmoms/2009/12/09/shutterstock_14501131625x416.jpg"]];
-    cell.imgViewProfile2.layer.cornerRadius = 0.5 * cell.imgViewProfile2.bounds.size.width;
-    cell.imgViewProfile2.layer.masksToBounds = YES;
-    cell.imgViewProfile2.layer.borderWidth = 1;
-    cell.imgViewProfile2.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-    
-    cell.lblSaidAbout.text = [currentSaysDict valueForKey:@"feed_title"];
-    
+    NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     NSString *string = [currentSaysDict valueForKey:@"feed_message"];
-    CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
+     CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
+    
+    if (arrProfiles.count>0) {
+        NSDictionary *profile1 = [arrProfiles objectAtIndex:0];
+        [cell.imgViewProfile1 setImageURL:[NSURL URLWithString:[profile1 objectForKey:@"avatar"]]];
+        cell.imgViewProfile1.layer.cornerRadius = 0.5 * cell.imgViewProfile1.bounds.size.width;
+        cell.imgViewProfile1.layer.masksToBounds = YES;
+        cell.imgViewProfile1.layer.borderWidth = 1;
+        cell.imgViewProfile1.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        cell.lblSaidAbout.text = [[currentSaysDict valueForKey:@"feed_title"] stringByReplacingOccurrencesOfString:@"%1" withString:[profile1 objectForKey:@"name"]];
+    }
+    
+    if (arrProfiles.count == 1) {
+        [cell.imgViewProfile2 setHidden:YES];
+        [cell.lblSaidAbout2 setHidden:YES];
+        [cell.viewSays setHidden:YES];
+//        [cell.lblSaidAbout setFrame:CGRectMake(cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.size.width+200, cell.lblSaidAbout.frame.size.height)];
+    }
+    else if (arrProfiles.count == 2){
+        [cell.imgViewProfile2 setHidden:NO];
+        [cell.lblSaidAbout2 setHidden:NO];
+        [cell.viewSays setHidden:NO];
+        [cell.viewSays setFrame:CGRectMake(cell.viewSays.frame.origin.x, cell.viewSays.frame.origin.y, cell.viewSays.frame.size.width, expectedSize.height)];
+        
+        NSDictionary *profile2 = [arrProfiles objectAtIndex:1];
+        string = [string stringByReplacingOccurrencesOfString:@"%2"
+                                                   withString:@""];
 
-    [cell.viewSays setFrame:CGRectMake(cell.viewSays.frame.origin.x, cell.viewSays.frame.origin.y, cell.viewSays.frame.size.width, expectedSize.height)];
-    [cell.viewSays setBackgroundColor:[UIColor redColor]];
+        [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:[profile2 objectForKey:@"avatar"]]];
+        cell.imgViewProfile2.layer.cornerRadius = 0.5 * cell.imgViewProfile2.bounds.size.width;
+        cell.imgViewProfile2.layer.masksToBounds = YES;
+        cell.imgViewProfile2.layer.borderWidth = 1;
+        cell.imgViewProfile2.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        [cell.lblSaidAbout2 setText:[profile2 objectForKey:@"name"]];
+        [cell.lblSaidAbout2 setNumberOfLines:0];
+        
+        cell.lblSaidAbout.text = [cell.lblSaidAbout.text stringByReplacingOccurrencesOfString:@"%2" withString:@""];
+    }
+    NSDictionary *indexDict = [[AppDelegate sharedDelegate].colorDict objectForKey:[currentSaysDict objectForKey:@"say_color"]];
+    [cell.viewSays setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
     
     [cell.lblSays setFrame:CGRectMake(cell.lblSays.frame.origin.x, cell.lblSays.frame.origin.y, cell.lblSays.frame.size.width, expectedSize.height)];
+    [cell.lblSays setTextColor:[self colorWithHexString:[indexDict objectForKey:@"fore"]]];
     cell.lblSays.text = string;
     cell.lblDate.text = [currentSaysDict valueForKey:@"time_ago"];
     cell.lblLikes.text = [NSString stringWithFormat:@"%@", [currentSaysDict valueForKey:@"like_count"]];
+    //TODO -- change button to red
+    if ([[currentSaysDict objectForKey:@"like_status"] isEqualToString:@"yes"]) {
+        //[cell.btnLikes setBackgroundColor:[UIColor redColor]];
+    }
+    cell.layer.cornerRadius = 0.005 * cell.bounds.size.width;
+    cell.layer.masksToBounds = YES;
+    cell.layer.borderWidth = 1;
+    cell.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    
     return cell;
+}
+
+-(UIColor*)colorWithHexString:(NSString*)hex
+{
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    cString = [cString stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
+
+-(IBAction)btnOpenMenu:(UIButton*)sender{
+    [[SlideNavigationController sharedInstance]openMenu:MenuRight withCompletion:nil];
+}
+
+#pragma mark - ScrollViewDelegate
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if(self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height) && isScrollBounce) {
+        if (!isNoMoreFeed) {
+            isScrollBounce = NO;
+            [self requestFeed:[NSString stringWithFormat:@"%i", index]];
+        }
+    }
+//    if (scrollView.height <= self.frame.size.height && self.contentOffset.y > 50) isScrollBounce = YES;
+//    
+//    if (fabs(self.contentSize.height <= self.frame.size.height && self.contentOffset.y) > 50 && isScrollBounce) {
+//        isScrollBounce = NO;
+//        if (!isNoMoreFeed) {
+//            [self requestFeed:[NSString stringWithFormat:@"%i", index]];
+//        }
+//    }
 }
 
 @end

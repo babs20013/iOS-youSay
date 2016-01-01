@@ -388,6 +388,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 colorDictionary = [result objectForKey:@"colors"];
+                [AppDelegate sharedDelegate].colorDict = colorDictionary;
                 saysArray = [[NSMutableArray alloc]init];
                 saysArray = [profileDictionary valueForKey:@"says"];
                 [self.tableView reloadData];
