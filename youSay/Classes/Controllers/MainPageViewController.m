@@ -54,10 +54,10 @@
 - (UIViewController *)viewPager:(ViewPagerController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index {
     
     if(index == 0){
-        UIViewController *vc= [[UIViewController alloc]init];
-        return vc;
-//        FeedViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
-//       return cvc;
+//        UIViewController *vc= [[UIViewController alloc]init];
+//        return vc;
+        FeedViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
+       return cvc;
         
     }
     else if (index == 1){
