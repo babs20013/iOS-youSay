@@ -32,4 +32,6 @@
 @property (nonatomic, weak) id <AddNewSayDelegate> delegate;
 
 @property (nonatomic,strong) IBOutlet NSLayoutConstraint *textConstraint;
+@property (nonatomic,strong) IBOutlet NSLayoutConstraint *containerHeightCosntraint;
+
 @end

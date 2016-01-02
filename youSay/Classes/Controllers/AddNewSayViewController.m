@@ -144,9 +144,9 @@
 }
 
 - (IBAction)btnColorlicked:(id)sender {
+    [chooseBGView setHidden:NO];
     [self.view endEditing:YES];
     [self addColorButton];
-    [chooseBGView setHidden:NO];
 }
 
 - (IBAction)backgroundClicked:(id)sender {
@@ -201,13 +201,21 @@
         }
     }
     if  (arrayColor.count < 5) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 150)];}
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 150)];
+        self.containerHeightCosntraint.constant = 150;
+    }
     else if  (arrayColor.count < 9) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 200)];}
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 200)];
+        self.containerHeightCosntraint.constant = 200;
+    }
     else if  (arrayColor.count < 13) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 250)];}
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 250)];
+        self.containerHeightCosntraint.constant = 250;
+    }
     else if  (arrayColor.count > 12) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 300)];}
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 300)];
+        self.containerHeightCosntraint.constant = 300;
+    }
     
     colorContainer.layer.cornerRadius = 0.01 * colorContainer.bounds.size.width;
     colorContainer.layer.masksToBounds = YES;
@@ -226,8 +234,6 @@
         CGFloat containerWidth = colorContainer.frame.size.width - 30;
         CGFloat gridWidth = containerWidth / 4;
 
-        
-//        int x = (i%4)*60+25;
         int x = (i%4)*gridWidth+((gridWidth-50)/2) + 15;
         int y = i/4*60+65;
         
