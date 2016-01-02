@@ -10,7 +10,7 @@
 #import "SlideNavigationController.h"
 #import "MenuViewController.h"
 #import "CommonHelper.h"
-@interface AppDelegate ()
+@interface AppDelegate () 
 
 @end
 
@@ -73,6 +73,13 @@
     NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
     NSString *newToken = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
     self.deviceToken =  [newToken stringByReplacingOccurrencesOfString:@">" withString:@""];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![[defaults objectForKey:@"token"] isEqualToString:self.deviceToken]) {
+        [defaults setObject:deviceToken forKey:self.deviceToken];
+        _isNewToken = YES;
+    }
+    
+    [defaults synchronize];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error

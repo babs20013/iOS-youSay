@@ -16,6 +16,7 @@
 @property (strong, nonatomic) ProfileOwnerModel *profileOwner;
 @property (strong, nonatomic) NSDictionary *colorDict;
 @property (strong, nonatomic) NSString *deviceToken;
+@property (nonatomic, readwrite) BOOL isNewToken;
 
 + (AppDelegate *)sharedDelegate;
 
