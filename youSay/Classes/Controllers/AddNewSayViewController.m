@@ -17,6 +17,7 @@
     UIButton *btnSelectedColor;
     NSMutableArray *arrayColorKey;
     NSInteger idColor;
+    NSMutableArray *arrayColor;
 }
 @end
 
@@ -83,6 +84,8 @@
     profileImg.layer.borderWidth = 1;
     profileImg.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
     [self.view bringSubviewToFront:_headerView];
+    [placeholderLabel setHidden:YES];
+    [addSayTextView becomeFirstResponder];
 }
 
 #pragma mark - Request
@@ -132,11 +135,7 @@
 #pragma mark IBAction
 
 - (IBAction)btnCloseClicked:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        if ([self.delegate performSelector:@selector(AddNewSayDidDismissed) withObject:nil]) {
-            [self.delegate AddNewSayDidDismissed];
-        }
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)btnSendClicked:(id)sender {
@@ -146,8 +145,8 @@
 
 - (IBAction)btnColorlicked:(id)sender {
     [self.view endEditing:YES];
-    [chooseBGView setHidden:NO];
     [self addColorButton];
+    [chooseBGView setHidden:NO];
 }
 
 - (IBAction)backgroundClicked:(id)sender {
@@ -161,20 +160,66 @@
     btn.selected = YES;
     btnSelectedColor = btn;
     [addSayTextView setBackgroundColor:btn.backgroundColor];
+    NSDictionary *dict = [arrayColor objectAtIndex:btn.tag];
+    [addSayTextView setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
+    
+    
+    CGFloat containerWidth = colorContainer.frame.size.width - 30;
+    CGFloat gridWidth = containerWidth / 4;
+    
+    
+    //        int x = (i%4)*60+25;
+    int x = ([sender tag]%4)*gridWidth+((gridWidth-53)/2) + 15;
+    int y = [sender tag]/4*60+65;
+    
+    
+    UIView *viewButtonBackground = [[UIView alloc]initWithFrame:CGRectMake(x, y, 53, 53)];
+    viewButtonBackground.layer.cornerRadius = 0.5 * viewButtonBackground.bounds.size.width;
+    [viewButtonBackground setBackgroundColor:[UIColor redColor]];
+    
+    [colorContainer addSubview:viewButtonBackground];
+    [colorContainer sendSubviewToBack:viewButtonBackground];
+    
+    [chooseBGView setHidden:YES];
+    [viewButtonBackground setHidden:YES];
+    [addSayTextView becomeFirstResponder];
+   
 }
 
 #pragma mark Method
 
 - (void)addColorButton {
-    NSMutableArray *arrayColor = [[NSMutableArray alloc] init];
+    arrayColor = [[NSMutableArray alloc] init];
     arrayColorKey = [[NSMutableArray alloc]init];
+    
     for (int i= 1; i <[_colorDict allKeys].count+1; i++) {
         NSString *colorIndex = [NSString stringWithFormat:@"%i",i];
         NSDictionary *indexDict = [_colorDict objectForKey:colorIndex];
         if (indexDict) {
             [arrayColorKey addObject:colorIndex];
-            [arrayColor addObject:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
+            [arrayColor addObject:indexDict];
         }
+    }
+    if  (arrayColor.count < 5) {
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 150)];}
+    else if  (arrayColor.count < 9) {
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 200)];}
+    else if  (arrayColor.count < 13) {
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 250)];}
+    else if  (arrayColor.count > 12) {
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 300)];}
+    
+    colorContainer.layer.cornerRadius = 0.01 * colorContainer.bounds.size.width;
+    colorContainer.layer.masksToBounds = YES;
+    colorContainer.layer.borderWidth = 1;
+    colorContainer.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    
+    //Randomize the array
+    NSUInteger count = [arrayColor count];
+    for (NSUInteger i = 0; i < count; ++i) {
+        int nElements = count - i;
+        int n = (arc4random() % nElements) + i;
+        [arrayColor exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
     
     for (int i = 0; i < arrayColor.count; i++) {
@@ -186,20 +231,18 @@
         int x = (i%4)*gridWidth+((gridWidth-50)/2) + 15;
         int y = i/4*60+65;
         
-        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(x, y, 50, 50);
         button.tag = i;
         button.layer.cornerRadius = 0.5 * button.bounds.size.width;
-        [button setBackgroundColor:[arrayColor objectAtIndex:i]];
+        [button setBackgroundColor:[self colorWithHexString: [[arrayColor objectAtIndex:i] objectForKey:@"back"]]];
         [button addTarget:self action:@selector(selectColor:) forControlEvents:UIControlEventTouchUpInside];
         [button setImage:[UIImage imageNamed:@"Tick"] forState:UIControlStateSelected];
         [button setImage:[UIImage imageNamed:@"Tick"] forState:UIControlStateHighlighted];
-        button.imageEdgeInsets = UIEdgeInsetsMake(15, 13, 15, 13);
+        button.imageEdgeInsets = UIEdgeInsetsMake(17, 15, 17, 15);
 
         [chooseBGView bringSubviewToFront:colorContainer];
         [colorContainer addSubview:button];
-        
     }
 }
 
