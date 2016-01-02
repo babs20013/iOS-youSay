@@ -13,11 +13,16 @@
 
 @interface ProfileViewController : UIViewController <UITextViewDelegate, FBSDKAppInviteDialogDelegate, CharmChartDelegate, UIScrollViewDelegate, CharmSelectionDelegate, UIGestureRecognizerDelegate, AddNewSayDelegate>
 
+@property (nonatomic,strong) ProfileOwnerModel *profileModel;
 @property (nonatomic,strong) NSDictionary * profileDictionary;
 @property (nonatomic,strong) NSDictionary * colorDictionary;
 @property (nonatomic, strong) NSMutableArray * saysArray;
 @property (nonatomic, strong) NSMutableArray * charmsArray;
 @property (nonatomic, strong) IBOutlet UIButton * btnAddSay;
 @property (nonatomic, strong) IBOutlet UITextField * txtSearch;
+@property (nonatomic, readwrite) BOOL isFriendProfile;
+@property (nonatomic, strong) NSString *requestedID;
+
+- (void)requestProfile:(NSString*)IDrequested;
 
 @end

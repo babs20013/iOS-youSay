@@ -38,15 +38,13 @@
 #define kColorBG [UIColor colorWithRed:180.0/255.0 green:185.0/255.0 blue:187.0/255.0 alpha:1.0]
 
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate> {
-    ProfileOwnerModel *profileModel;
     ProfileOwnerModel *friendsProfileModel;
     NSMutableDictionary *dictHideSay;
     UIImageView *imgViewRank;
     UIImageView *imgViewPopularity;
     ChartState chartState;
-    BOOL isFriendProfile;
     CharmView *charmView;
-    NSString *requestedID;
+    
     NSInteger charmIndexRow;
     NSMutableArray *arrayFilteredCharm;
     NSMutableArray *arrayOriginalCharm;
@@ -61,11 +59,13 @@
 
 @implementation ProfileViewController
 
+@synthesize requestedID;
+@synthesize profileModel;
 @synthesize profileDictionary;
 @synthesize colorDictionary;
 @synthesize saysArray;
 @synthesize charmsArray;
-
+@synthesize isFriendProfile;
 
 - (void)viewWillAppear:(BOOL)animated {
     dictHideSay = [[NSMutableDictionary alloc] init];
@@ -82,7 +82,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
-    [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+    if (!isFriendProfile) {
+        [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+    }
+    else {
+        [self requestProfile:requestedID];
+    }
+    
     
     isAfterChangeCharm = NO;
     CharmChart *chart = [[CharmChart alloc]init];
@@ -306,6 +312,7 @@
                 profileDictionary = [result objectForKey:@"profile"];
                 isFriendProfile = NO;
                 [self requestSayColor];
+               // [self requestAddUserDevice];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -508,7 +515,41 @@
         }
         [SVProgressHUD dismiss];
     }];
+}
+
+- (void)requestAddUserDevice {
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_ADD_USER_DEVICE forKey:@"request"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token]  forKey:@"token"];
+    [dictRequest setObject:[AppDelegate sharedDelegate].deviceToken forKey:@"device_id"];
+    [dictRequest setObject:[AppDelegate sharedDelegate].deviceToken forKey:@"registration_id"];
+    [dictRequest setObject:@"ios" forKey:@"device_type"];
+    [dictRequest setObject:@"iPhone" forKey:@"device_info"];
     
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            //
+            //            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            //            {
+            //            }
+            //            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+            //                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            //                [alert show];
+            //            }
+            //            else {
+            //                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            //                [alert show];
+            //            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+    }];
 }
 
 #pragma mark TableView

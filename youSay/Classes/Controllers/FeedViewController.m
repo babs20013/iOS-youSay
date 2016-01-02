@@ -12,6 +12,9 @@
 #import "AppDelegate.h"
 #import "CommonHelper.h"
 #import "SlideNavigationController.h"
+#import "ProfileViewController.h"
+#import "MainPageViewController.h"
+#import "ViewPagerController.h"
 
 @interface FeedViewController ()
 {
@@ -158,6 +161,7 @@
         cell.imgViewProfile1.layer.borderWidth = 1;
         cell.imgViewProfile1.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         cell.lblSaidAbout.text = [[currentSaysDict valueForKey:@"feed_title"] stringByReplacingOccurrencesOfString:@"%1" withString:[profile1 objectForKey:@"name"]];
+        [cell.btnProfile1 setTag:indexPath.section];
     }
     
     if (arrProfiles.count == 1) {
@@ -185,6 +189,7 @@
         [cell.lblSaidAbout2 setNumberOfLines:0];
         
         cell.lblSaidAbout.text = [cell.lblSaidAbout.text stringByReplacingOccurrencesOfString:@"%2" withString:@""];
+        [cell.btnProfile2 setTag:indexPath.section];
     }
     NSDictionary *indexDict = [[AppDelegate sharedDelegate].colorDict objectForKey:[currentSaysDict objectForKey:@"say_color"]];
     [cell.viewSays setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
@@ -256,14 +261,39 @@
             [self requestFeed:[NSString stringWithFormat:@"%i", index]];
         }
     }
-//    if (scrollView.height <= self.frame.size.height && self.contentOffset.y > 50) isScrollBounce = YES;
-//    
-//    if (fabs(self.contentSize.height <= self.frame.size.height && self.contentOffset.y) > 50 && isScrollBounce) {
-//        isScrollBounce = NO;
-//        if (!isNoMoreFeed) {
-//            [self requestFeed:[NSString stringWithFormat:@"%i", index]];
-//        }
-//    }
 }
+
+-(IBAction)btnProfile1Clicked:(UIButton*)sender{
+    NSLog(@"btnProfile : %ld", (long)[sender tag]);
+
+    NSDictionary *value = [arrayFeed objectAtIndex:[sender tag]];
+    NSArray *arrayProfile = [value objectForKey:@"profiles"];
+    NSDictionary *requestedProfile = [arrayProfile objectAtIndex:0];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+    vc.isFriendProfile = YES;
+    vc.requestedID = [requestedProfile objectForKey:@"profile_id"];
+    vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
+    vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc selectTabAtIndex:1];
+}
+
+-(IBAction)btnProfile2Clicked:(UIButton*)sender{
+    NSLog(@"btnProfile : %ld", (long)[sender tag]);
+    
+    NSDictionary *value = [arrayFeed objectAtIndex:[sender tag]];
+    NSArray *arrayProfile = [value objectForKey:@"profiles"];
+    NSDictionary *requestedProfile = [arrayProfile objectAtIndex:1];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+    vc.isFriendProfile = YES;
+    vc.requestedID = [requestedProfile objectForKey:@"profile_id"];
+    vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
+    vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc selectTabAtIndex:1];
+}
+
 
 @end

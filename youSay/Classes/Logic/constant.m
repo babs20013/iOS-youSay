@@ -20,6 +20,7 @@ NSString *const REQUEST_GET_ALL_CHARMS = @"getAllCharms";
 NSString *const REQUEST_RATE_USER_CHARMS = @"rateUserCharms";
 NSString *const REQUEST_ADD_SAY = @"addSay";
 NSString *const REQUEST_FEED = @"getFeed";
+NSString *const REQUEST_ADD_USER_DEVICE = @"addUserDevice";
 NSString *const AUTHORITY_TYPE_FB = @"2";
 
 

@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) ProfileOwnerModel *profileOwner;
 @property (strong, nonatomic) NSDictionary *colorDict;
+@property (strong, nonatomic) NSString *deviceToken;
 
 + (AppDelegate *)sharedDelegate;
 

@@ -25,6 +25,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    //--For push notification
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
     MenuViewController *rightMenu = (MenuViewController*)[CommonHelper instantiateViewControllerWithIdentifier:@"MenuViewController" storyboard:@"Main" bundle:nil];
     [SlideNavigationController sharedInstance].rightMenu = rightMenu;
     
@@ -61,6 +65,19 @@
                                                           openURL:url
                                                 sourceApplication:sourceApplication
                                                        annotation:annotation];
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    NSLog(@"My token is: %@", deviceToken);
+    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+    NSString *newToken = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    self.deviceToken =  [newToken stringByReplacingOccurrencesOfString:@">" withString:@""];
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+    NSLog(@"Failed to get token, error: %@", error);
 }
 
 @end
