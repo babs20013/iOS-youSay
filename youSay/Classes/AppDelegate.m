@@ -10,6 +10,8 @@
 #import "SlideNavigationController.h"
 #import "MenuViewController.h"
 #import "CommonHelper.h"
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 @interface AppDelegate () 
 
 @end
@@ -26,9 +28,17 @@
     // Override point for customization after application launch.
     
     //--For push notification
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        UIUserNotificationSettings *notificationSetting = [UIUserNotificationSettings settingsForTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
+        
+        [[UIApplication sharedApplication]  registerForRemoteNotifications];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSetting];
+    }
+    else{
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
+
     MenuViewController *rightMenu = (MenuViewController*)[CommonHelper instantiateViewControllerWithIdentifier:@"MenuViewController" storyboard:@"Main" bundle:nil];
     [SlideNavigationController sharedInstance].rightMenu = rightMenu;
     
@@ -72,7 +82,9 @@
     NSLog(@"My token is: %@", deviceToken);
     NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
     NSString *newToken = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
-    self.deviceToken =  [newToken stringByReplacingOccurrencesOfString:@">" withString:@""];
+    newToken =  [newToken stringByReplacingOccurrencesOfString:@">" withString:@""];
+    self.deviceToken =  [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![[defaults objectForKey:@"token"] isEqualToString:self.deviceToken]) {
         [defaults setObject:deviceToken forKey:self.deviceToken];
