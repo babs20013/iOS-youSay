@@ -191,7 +191,10 @@
         cell.lblSaidAbout.text = [cell.lblSaidAbout.text stringByReplacingOccurrencesOfString:@"%2" withString:@""];
         [cell.btnProfile2 setTag:indexPath.section];
     }
-    NSDictionary *indexDict = [[AppDelegate sharedDelegate].colorDict objectForKey:[currentSaysDict objectForKey:@"say_color"]];
+    NSString *key = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
+    NSDictionary *dicColor = [AppDelegate sharedDelegate].colorDict;
+    NSDictionary *indexDict = [dicColor objectForKey:key];
+   
     [cell.viewSays setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
     
     [cell.lblSays setFrame:CGRectMake(cell.lblSays.frame.origin.x, cell.lblSays.frame.origin.y, cell.lblSays.frame.size.width, expectedSize.height)];
