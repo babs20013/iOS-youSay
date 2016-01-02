@@ -68,6 +68,8 @@
 		9A9CB6281C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6221C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m */; };
 		9A9CB6291C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */; };
 		9AC66C371C1F1971002B3834 /* CharmChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC66C361C1F1971002B3834 /* CharmChart.m */; };
+		9AF52B7C1C3790660078E568 /* BFPaperButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF52B7B1C3790660078E568 /* BFPaperButton.m */; };
+		9AF52B841C3790F80078E568 /* UIColor+BFPaperColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF52B831C3790F80078E568 /* UIColor+BFPaperColors.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -196,6 +198,10 @@
 		9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorSlideAndFade.m; sourceTree = "<group>"; };
 		9AC66C351C1F1971002B3834 /* CharmChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharmChart.h; path = CharmChart/CharmChart.h; sourceTree = SOURCE_ROOT; };
 		9AC66C361C1F1971002B3834 /* CharmChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CharmChart.m; path = CharmChart/CharmChart.m; sourceTree = SOURCE_ROOT; };
+		9AF52B7A1C3790660078E568 /* BFPaperButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BFPaperButton.h; path = youSay/Classes/Component/UIComponent/BFPaperButton.h; sourceTree = SOURCE_ROOT; };
+		9AF52B7B1C3790660078E568 /* BFPaperButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BFPaperButton.m; path = youSay/Classes/Component/UIComponent/BFPaperButton.m; sourceTree = SOURCE_ROOT; };
+		9AF52B821C3790F80078E568 /* UIColor+BFPaperColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BFPaperColors.h"; sourceTree = "<group>"; };
+		9AF52B831C3790F80078E568 /* UIColor+BFPaperColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BFPaperColors.m"; sourceTree = "<group>"; };
 		A49055F20855DDD853D5A0A6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -466,6 +472,9 @@
 		9A1406771C1305BB006547A0 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				9AF52B811C3790F80078E568 /* UIColor+BFPaperColors */,
+				9AF52B7A1C3790660078E568 /* BFPaperButton.h */,
+				9AF52B7B1C3790660078E568 /* BFPaperButton.m */,
 				9AC66C341C1F1936002B3834 /* CharmChart */,
 				1BABAD011C1ABE6200BD9EB4 /* UIImageView+Networking.h */,
 				1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */,
@@ -539,6 +548,16 @@
 			);
 			name = CharmChart;
 			sourceTree = "<group>";
+		};
+		9AF52B811C3790F80078E568 /* UIColor+BFPaperColors */ = {
+			isa = PBXGroup;
+			children = (
+				9AF52B821C3790F80078E568 /* UIColor+BFPaperColors.h */,
+				9AF52B831C3790F80078E568 /* UIColor+BFPaperColors.m */,
+			);
+			name = "UIColor+BFPaperColors";
+			path = "youSay/Classes/Component/UIComponent/UIColor+BFPaperColors";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -665,10 +684,12 @@
 				5DBF3BA91BD8210D00ACF60D /* UIView+BLKFlexibleHeightBarSubview.m in Sources */,
 				1BEECEFE1C2EAAAB00615C9F /* FeedViewController.m in Sources */,
 				9A906B4D1C294D0600C3327C /* UIButton+Extension.m in Sources */,
+				9AF52B841C3790F80078E568 /* UIColor+BFPaperColors.m in Sources */,
 				1B17E3BE1C180BD90080A574 /* InviteFriendsViewController.m in Sources */,
 				1B17E3D11C180BF70080A574 /* UIHelper.m in Sources */,
 				5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */,
 				1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */,
+				9AF52B7C1C3790660078E568 /* BFPaperButton.m in Sources */,
 				1B17E3C31C180BD90080A574 /* ViewController.m in Sources */,
 				1B17E3AB1C180BB30080A574 /* AppDelegate.m in Sources */,
 				9A9CB6261C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScale.m in Sources */,

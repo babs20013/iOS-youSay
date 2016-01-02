@@ -10,6 +10,7 @@
 #import "UIImageView+Networking.h"
 #import "AppDelegate.h"
 #import "AddSayRequest.h"
+#import "BFPaperButton.h"
 
 @interface AddNewSayViewController (){
     CGFloat textViewOriginalHeight;
@@ -153,12 +154,15 @@
     [chooseBGView setHidden:YES];
 }
 
+
 - (IBAction)selectColor:(id)sender {
+    
     btnSelectedColor.selected = NO;
     
     UIButton *btn = (UIButton*)sender;
     btn.selected = YES;
     btnSelectedColor = btn;
+    
     [addSayTextView setBackgroundColor:btn.backgroundColor];
     NSDictionary *dict = [arrayColor objectAtIndex:btn.tag];
     [addSayTextView setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
@@ -237,8 +241,9 @@
         int x = (i%4)*gridWidth+((gridWidth-50)/2) + 15;
         int y = i/4*60+65;
         
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        BFPaperButton *button = [BFPaperButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(x, y, 50, 50);
+        button.isRaised = NO;
         button.tag = i;
         button.layer.cornerRadius = 0.5 * button.bounds.size.width;
         [button setBackgroundColor:[self colorWithHexString: [[arrayColor objectAtIndex:i] objectForKey:@"back"]]];
@@ -247,6 +252,13 @@
         [button setImage:[UIImage imageNamed:@"Tick"] forState:UIControlStateHighlighted];
         button.imageEdgeInsets = UIEdgeInsetsMake(17, 15, 17, 15);
 
+        button.tapCircleColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
+        button.cornerRadius = button.frame.size.width / 2;
+        button.rippleFromTapLocation = NO;
+        button.rippleBeyondBounds = YES;
+        button.tapCircleBurstAmount = 0;
+        button.tapCircleDiameter = MAX(button.frame.size.width, button.frame.size.height) * 1.3;
+        
         [chooseBGView bringSubviewToFront:colorContainer];
         [colorContainer addSubview:button];
     }
