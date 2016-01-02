@@ -810,12 +810,14 @@
         cel.imgViewProfilePic.layer.borderWidth = 1;
         cel.imgViewProfilePic.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         cel.peopleSayTitleLabel.text = [NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]];
+        [cel.peopleSayTitleLabel setTextColor:[UIColor darkGrayColor]];
         cel.dateLabel.text = [currentSaysDict objectForKey:@"date"];
         cel.likesLabel.text = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"like_count"]];
         cel.peopleSayLabel.text = [currentSaysDict objectForKey:@"text"];
         cel.btnHide.tag = indexPath.row;
         cel.btnUndo.tag = indexPath.row;
         cel.btnProfile.tag = indexPath.row;
+        //[cel.btnProfile.titleLabel setText:[NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]]];
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel.peopleSayView setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
         [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];                                          
@@ -1070,7 +1072,10 @@
         [self requestHideSay];
         chartState = ChartStateViewing;
     }
-    
+    UIButton *button = (UIButton*)sender;
+    UIView *view = button.superview; //Cell contentView
+    PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+    [cell.peopleSayTitleLabel setTextColor:[UIColor lightGrayColor]];
     NSDictionary *value = [saysArray objectAtIndex:[sender tag]];
     requestedID = [value objectForKey:@"user_id"];
     [self requestProfile:[value objectForKey:@"user_id"]];

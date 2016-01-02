@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "473387371.761572"
+            timestampString = "473405574.178229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1124"
-            endingLineNumber = "1124"
+            startingLineNumber = "1129"
+            endingLineNumber = "1129"
             landmarkName = "-didEndEditing:"
             landmarkType = "5">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "473387371.761572"
+            timestampString = "473405574.178229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1096"
-            endingLineNumber = "1096"
+            startingLineNumber = "1101"
+            endingLineNumber = "1101"
             landmarkName = "-appInviteDialog:didCompleteWithResults:"
             landmarkType = "5">
          </BreakpointContent>
@@ -351,8 +351,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "193"
             endingLineNumber = "193"
-            landmarkName = "-addColorButton"
-            landmarkType = "5">
+            landmarkName = "@implementation AddNewSayViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
