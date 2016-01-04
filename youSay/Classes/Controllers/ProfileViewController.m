@@ -554,6 +554,117 @@
     }];
 }
 
+- (void)requesLikeSay:(id)sender{
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_LIKE_SAY forKey:@"request"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token]  forKey:@"token"];
+    [dictRequest setObject:[NSString stringWithFormat:@"%li", (long)[sender tag]] forKey:@"say_id"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                //do nothing
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                UIButton *button = (UIButton*)sender;
+                UIView *view = button.superview; //Cell contentView
+                PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+                [cell.likeButton setSelected:NO];
+                NSInteger likeCount = [[cell.likesLabel text]integerValue] - 1;
+                [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                UIButton *button = (UIButton*)sender;
+                UIView *view = button.superview; //Cell contentView
+                PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+                [cell.likeButton setSelected:NO];
+                NSInteger likeCount = [[cell.likesLabel text]integerValue] - 1;
+                [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+            }
+        }
+        else if (error)
+        {
+            UIButton *button = (UIButton*)sender;
+            UIView *view = button.superview; //Cell contentView
+            PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+            [cell.likeButton setSelected:NO];
+            NSInteger likeCount = [[cell.likesLabel text]integerValue] - 1;
+            [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+        }
+        else{
+            UIButton *button = (UIButton*)sender;
+            UIView *view = button.superview; //Cell contentView
+            PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+            [cell.likeButton setSelected:NO];
+            NSInteger likeCount = [[cell.likesLabel text]integerValue] - 1;
+            [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+        }
+    }];
+}
+
+- (void)requesUnlikeSay:(id)sender{
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_UNLIKE_SAY forKey:@"request"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token]  forKey:@"token"];
+    [dictRequest setObject:[NSString stringWithFormat:@"%li", (long)[sender tag]] forKey:@"say_id"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                //do nothing
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                UIButton *button = (UIButton*)sender;
+                UIView *view = button.superview; //Cell contentView
+                PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+                [cell.likeButton setSelected:YES];
+                NSInteger likeCount = [[cell.likesLabel text]integerValue] + 1;
+                [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                UIButton *button = (UIButton*)sender;
+                UIView *view = button.superview; //Cell contentView
+                PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+                [cell.likeButton setSelected:YES];
+                NSInteger likeCount = [[cell.likesLabel text]integerValue] + 1;
+                [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+            }        }
+        else if (error)
+        {
+            UIButton *button = (UIButton*)sender;
+            UIView *view = button.superview; //Cell contentView
+            PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+            [cell.likeButton setSelected:YES];
+            NSInteger likeCount = [[cell.likesLabel text]integerValue] + 1;
+            [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+        }
+        else{
+            UIButton *button = (UIButton*)sender;
+            UIView *view = button.superview; //Cell contentView
+            PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+            [cell.likeButton setSelected:YES];
+            NSInteger likeCount = [[cell.likesLabel text]integerValue] + 1;
+            [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+        }
+    }];
+}
+
 #pragma mark TableView
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -826,6 +937,15 @@
         cel.peopleSayLabel.frame = CGRectMake(cel.peopleSayLabel.frame.origin.x, cel.peopleSayLabel.frame.origin.y, expectedSize.width, expectedSize.height);
         cel.peopleSayView.frame =CGRectMake(cel.peopleSayView.frame.origin.x, cel.peopleSayView.frame.origin.y, expectedSize.width, expectedSize.height);
         
+        [cel.likeButton setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
+        
+        if ([[currentSaysDict objectForKey:@"liked"] isEqualToString:@"true"]) {
+            [cel.likeButton setSelected:YES];
+        }
+        else {
+             [cel.likeButton setSelected:NO];
+        }
+        
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
         if ([[dictHideSay objectForKey:index] isEqualToString:@"isHide"]) {
             UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
@@ -1045,7 +1165,30 @@
 
 - (IBAction)btnLikesClicked:(id)sender {
     NSLog(@"btnLikes : %ld", (long)[sender tag]);
-    //TODO Change the button to liked or no-liked
+    UIButton *button = (UIButton*)sender;
+    button.selected = !button.selected;
+    
+    if ([button isSelected]) {
+        UIView *view = button.superview; //Cell contentView
+        PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+        NSInteger likeCount = [[cell.likesLabel text] integerValue] + 1;
+        [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+        [self requesLikeSay:sender];
+    }
+   else {
+        UIView *view = button.superview; //Cell contentView
+        PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+        NSInteger likeCount = [[cell.likesLabel text] integerValue] - 1;
+        [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+        [self requesUnlikeSay:sender];
+    }
+    
+//    if ([button isSelected]) {
+//
+//    }
+//    else {
+//
+//    }
 }
 
 -(IBAction)btnOpenMenu:(UIButton*)sender{

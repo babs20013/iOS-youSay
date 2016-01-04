@@ -21,6 +21,8 @@ NSString *const REQUEST_RATE_USER_CHARMS = @"rateUserCharms";
 NSString *const REQUEST_ADD_SAY = @"addSay";
 NSString *const REQUEST_FEED = @"getFeed";
 NSString *const REQUEST_ADD_USER_DEVICE = @"addUserDevice";
+NSString *const REQUEST_LIKE_SAY = @"likeSay";
+NSString *const REQUEST_UNLIKE_SAY = @"unlikeSay";
 NSString *const AUTHORITY_TYPE_FB = @"2";
 
 

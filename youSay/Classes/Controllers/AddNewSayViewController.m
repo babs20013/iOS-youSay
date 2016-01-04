@@ -50,6 +50,8 @@
                                                object:nil];
     _currentKeyboardHeight = 0.0f;
     self.textViewBG.layer.cornerRadius = 3;
+    
+    [self addColorButton];
 
 }
 
@@ -147,7 +149,6 @@
 - (IBAction)btnColorlicked:(id)sender {
     [chooseBGView setHidden:NO];
     [self.view endEditing:YES];
-    [self addColorButton];
 }
 
 - (IBAction)backgroundClicked:(id)sender {
@@ -262,6 +263,14 @@
         [chooseBGView bringSubviewToFront:colorContainer];
         [colorContainer addSubview:button];
     }
+    
+    //Randomly select color
+    int nElements = [arrayColor count] - 1;
+    int n = (arc4random() % nElements) + 1;
+    
+    NSDictionary *dict = [arrayColor objectAtIndex:n];
+    [addSayTextView setBackgroundColor:[self colorWithHexString:[dict objectForKey:@"back"]]];
+    [addSayTextView setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
 }
 
 -(UIColor*)colorWithHexString:(NSString*)hex
