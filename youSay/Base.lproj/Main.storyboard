@@ -1161,8 +1161,8 @@
                                                         <constraint firstItem="Zhk-b9-8Bj" firstAttribute="centerY" secondItem="OWM-P9-iZl" secondAttribute="centerY" id="yi8-Yo-Fwk"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nE6-Cf-vUH" userLabel="ContentView">
-                                                    <rect key="frame" x="0.0" y="117" width="298" height="353"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nE6-Cf-vUH" userLabel="ContentView">
+                                                    <rect key="frame" x="0.0" y="117" width="298" height="343"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Charms" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRz-RT-nLR">
                                                             <rect key="frame" x="14" y="13" width="87" height="18"/>
@@ -1199,8 +1199,8 @@
                                                                 <constraint firstAttribute="height" constant="20" id="y3C-5b-QwR"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gGj-gE-Coy" userLabel="LongPressView">
-                                                            <rect key="frame" x="0.0" y="313" width="298" height="40"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGj-gE-Coy" userLabel="LongPressView">
+                                                            <rect key="frame" x="0.0" y="303" width="298" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long press on charm to edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8VA-lO-RaK">
                                                                     <rect key="frame" x="0.0" y="0.0" width="298" height="39"/>
@@ -1220,7 +1220,7 @@
                                                             </constraints>
                                                         </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cx6-CX-QoI">
-                                                            <rect key="frame" x="14" y="316" width="270" height="50"/>
+                                                            <rect key="frame" x="14" y="293" width="270" height="50"/>
                                                             <animations/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="aac-dD-cow"/>
@@ -1236,8 +1236,8 @@
                                                                 <constraint firstAttribute="height" constant="262" id="mQV-Nj-iWh"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cvO-jw-9VG" userLabel="Button Edit View">
-                                                            <rect key="frame" x="14" y="283" width="270" height="50"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cvO-jw-9VG" userLabel="Button Edit View">
+                                                            <rect key="frame" x="14" y="293" width="270" height="50"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="evF-gl-1E0">
                                                                     <rect key="frame" x="0.0" y="0.0" width="203" height="50"/>
@@ -1284,15 +1284,15 @@
                                                         <constraint firstItem="cvO-jw-9VG" firstAttribute="trailing" secondItem="4a2-Hx-UY4" secondAttribute="trailing" id="A3i-gY-JCB"/>
                                                         <constraint firstItem="RN6-Lb-UVg" firstAttribute="leading" secondItem="Uad-gD-3bx" secondAttribute="trailing" constant="3" id="BHN-Jp-rGJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="4a2-Hx-UY4" secondAttribute="trailing" constant="14" id="FK5-zE-YVh"/>
-                                                        <constraint firstItem="cx6-CX-QoI" firstAttribute="top" secondItem="4a2-Hx-UY4" secondAttribute="bottom" constant="13" id="Hi6-Or-zeu"/>
                                                         <constraint firstItem="RN6-Lb-UVg" firstAttribute="centerY" secondItem="VRz-RT-nLR" secondAttribute="centerY" id="ILv-5r-AT7"/>
                                                         <constraint firstItem="4a2-Hx-UY4" firstAttribute="centerX" secondItem="nE6-Cf-vUH" secondAttribute="centerX" id="MFB-pn-rh2"/>
                                                         <constraint firstAttribute="bottom" secondItem="gGj-gE-Coy" secondAttribute="bottom" id="S0z-2L-lCL"/>
                                                         <constraint firstItem="VRz-RT-nLR" firstAttribute="top" secondItem="nE6-Cf-vUH" secondAttribute="top" constant="13" id="S9a-O9-e4i"/>
+                                                        <constraint firstItem="cx6-CX-QoI" firstAttribute="top" secondItem="4a2-Hx-UY4" secondAttribute="bottom" constant="-10" id="XFI-22-DpU"/>
                                                         <constraint firstItem="VRz-RT-nLR" firstAttribute="leading" secondItem="nE6-Cf-vUH" secondAttribute="leading" constant="14" id="XPT-Zn-laf"/>
-                                                        <constraint firstAttribute="bottom" secondItem="cvO-jw-9VG" secondAttribute="bottom" constant="20" id="XXa-RZ-EC9"/>
                                                         <constraint firstItem="cx6-CX-QoI" firstAttribute="width" secondItem="4a2-Hx-UY4" secondAttribute="width" id="Zz7-cL-91z"/>
                                                         <constraint firstAttribute="trailing" secondItem="gGj-gE-Coy" secondAttribute="trailing" id="a47-0b-I2B"/>
+                                                        <constraint firstItem="cvO-jw-9VG" firstAttribute="top" secondItem="4a2-Hx-UY4" secondAttribute="bottom" constant="-10" id="cD0-Jt-gXz"/>
                                                         <constraint firstItem="Uad-gD-3bx" firstAttribute="centerY" secondItem="VRz-RT-nLR" secondAttribute="centerY" id="dMu-Mo-B30"/>
                                                         <constraint firstItem="4a2-Hx-UY4" firstAttribute="top" secondItem="VRz-RT-nLR" secondAttribute="bottom" constant="10" id="ddE-yh-mzZ"/>
                                                         <constraint firstItem="cx6-CX-QoI" firstAttribute="leading" secondItem="4a2-Hx-UY4" secondAttribute="leading" id="fDo-bU-6IF"/>
@@ -1301,7 +1301,6 @@
                                                         <constraint firstAttribute="trailing" secondItem="RN6-Lb-UVg" secondAttribute="trailing" constant="15" id="rw3-hJ-jDr"/>
                                                         <constraint firstItem="gGj-gE-Coy" firstAttribute="top" secondItem="4a2-Hx-UY4" secondAttribute="bottom" id="sRj-LU-Wm3"/>
                                                         <constraint firstItem="M6e-SR-w8q" firstAttribute="top" secondItem="RN6-Lb-UVg" secondAttribute="top" id="uJ3-dF-ahG"/>
-                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cvO-jw-9VG" secondAttribute="bottom" constant="20" id="uSZ-Ql-a4v"/>
                                                         <constraint firstItem="4a2-Hx-UY4" firstAttribute="leading" secondItem="nE6-Cf-vUH" secondAttribute="leading" constant="14" id="zAc-e7-M47"/>
                                                         <constraint firstItem="RN6-Lb-UVg" firstAttribute="centerY" secondItem="M6e-SR-w8q" secondAttribute="centerY" id="zeD-mB-oDV"/>
                                                     </constraints>
