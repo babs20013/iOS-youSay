@@ -1545,6 +1545,8 @@
                                         <connections>
                                             <outlet property="btnHide" destination="psX-QX-Q6g" id="gBb-Pb-9Rc"/>
                                             <outlet property="btnProfile" destination="DvR-Vm-wAp" id="1bH-Ds-3ni"/>
+                                            <outlet property="btnReport" destination="R2q-0d-1Zx" id="Te3-hf-mYT"/>
+                                            <outlet property="btnShare" destination="Kvr-KM-ifj" id="VRS-qU-G1W"/>
                                             <outlet property="btnUndo" destination="4QW-4M-XJK" id="fYa-LL-uBC"/>
                                             <outlet property="dateLabel" destination="0xx-bF-dzz" id="3EZ-qe-wzt"/>
                                             <outlet property="hideSayView" destination="yqZ-SI-yPN" id="KEc-Jp-JM7"/>

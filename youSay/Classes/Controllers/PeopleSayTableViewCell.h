@@ -21,5 +21,7 @@
 @property (nonatomic, strong) IBOutlet UIView *hideSayView;
 @property (nonatomic, strong) IBOutlet UIView *mainView;
 @property (nonatomic, strong) IBOutlet UIButton *likeButton;
+@property (nonatomic, strong) IBOutlet UIButton *btnShare;
+@property (nonatomic, strong) IBOutlet UIButton *btnReport;
 @end
 

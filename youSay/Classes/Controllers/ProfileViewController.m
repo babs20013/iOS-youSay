@@ -874,6 +874,8 @@
             [cel.imgVShare setHidden:YES];
             [cel.buttonEditView setHidden:NO];
             [cel.rankButton setHidden:YES];
+            [btnAddSay setHidden:YES];
+            
         }
         else if (isFriendProfile == YES) {
             [cel.longPressInfoView setHidden:YES];

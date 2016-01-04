@@ -168,12 +168,21 @@
         [cell.imgViewProfile2 setHidden:YES];
         [cell.lblSaidAbout2 setHidden:YES];
         [cell.viewSays setHidden:YES];
+        [cell.btnReport setHidden:YES];
+        [cell.btnShare setHidden:YES];
+        [cell.btnLikes setHidden:YES];
+        [cell.lblLikes setHidden:YES];
 //        [cell.lblSaidAbout setFrame:CGRectMake(cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.size.width+200, cell.lblSaidAbout.frame.size.height)];
     }
     else if (arrProfiles.count == 2){
         [cell.imgViewProfile2 setHidden:NO];
         [cell.lblSaidAbout2 setHidden:NO];
         [cell.viewSays setHidden:NO];
+        [cell.btnReport setHidden:NO];
+        [cell.btnShare setHidden:NO];
+        [cell.btnLikes setHidden:NO];
+        [cell.lblLikes setHidden:NO];
+
         [cell.viewSays setFrame:CGRectMake(cell.viewSays.frame.origin.x, cell.viewSays.frame.origin.y, cell.viewSays.frame.size.width, expectedSize.height)];
         
         NSDictionary *profile2 = [arrProfiles objectAtIndex:1];
