@@ -88,7 +88,7 @@
     profileImg.layer.borderWidth = 1;
     profileImg.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
     [self.view bringSubviewToFront:_headerView];
-    [placeholderLabel setHidden:YES];
+   // [placeholderLabel setHidden:YES];
     [addSayTextView becomeFirstResponder];
 }
 
@@ -277,6 +277,7 @@
     NSDictionary *dict = [arrayColor objectAtIndex:n];
     [addSayTextView setBackgroundColor:[self colorWithHexString:[dict objectForKey:@"back"]]];
     [addSayTextView setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
+    [placeholderLabel setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
 }
 
 -(UIColor*)colorWithHexString:(NSString*)hex
@@ -326,12 +327,21 @@
 #pragma mark UITextViewDelegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    [placeholderLabel setHidden:YES];
+    
     [textView becomeFirstResponder];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    if ([textView.text length] >0){
+        [placeholderLabel setHidden:YES];
+    }
+    else {
+        [placeholderLabel setHidden:NO];
+    }
 }
 
 - (void)keyboardDidShow:(NSNotification*)notification {

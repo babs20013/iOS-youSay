@@ -703,6 +703,17 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rcH-Dt-yJJ" userLabel="Content">
                                         <rect key="frame" x="10" y="123" width="300" height="435"/>
                                         <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zeh-Sv-2s1">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="435"/>
+                                                <animations/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Q0R-md-BV2" id="PgL-WL-k4C"/>
+                                                </connections>
+                                            </textView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oh3-QL-syn">
                                                 <rect key="frame" x="270" y="5" width="25" height="25"/>
                                                 <animations/>
@@ -716,36 +727,25 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your say here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpj-YL-6qi">
-                                                <rect key="frame" x="20" y="43" width="212" height="30"/>
+                                                <rect key="frame" x="5" y="8" width="114" height="16"/>
                                                 <animations/>
-                                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="26"/>
+                                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zeh-Sv-2s1">
-                                                <rect key="frame" x="10" y="33" width="280" height="392"/>
-                                                <animations/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="Q0R-md-BV2" id="PgL-WL-k4C"/>
-                                                </connections>
-                                            </textView>
                                         </subviews>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="Zeh-Sv-2s1" firstAttribute="top" secondItem="rcH-Dt-yJJ" secondAttribute="top" id="4ve-vR-iLP"/>
                                             <constraint firstItem="Oh3-QL-syn" firstAttribute="top" secondItem="rcH-Dt-yJJ" secondAttribute="top" constant="5" id="PBb-sp-x1G"/>
                                             <constraint firstAttribute="trailing" secondItem="Oh3-QL-syn" secondAttribute="trailing" constant="5" id="YKB-OZ-3cH"/>
                                             <constraint firstAttribute="trailing" secondItem="Oh3-QL-syn" secondAttribute="trailing" constant="5" id="Z60-6l-CLI"/>
-                                            <constraint firstItem="Zeh-Sv-2s1" firstAttribute="leading" secondItem="rcH-Dt-yJJ" secondAttribute="leading" constant="10" id="ZbP-zc-xzk"/>
+                                            <constraint firstItem="Zeh-Sv-2s1" firstAttribute="leading" secondItem="rcH-Dt-yJJ" secondAttribute="leading" id="ZbP-zc-xzk"/>
                                             <constraint firstItem="Zeh-Sv-2s1" firstAttribute="centerX" secondItem="rcH-Dt-yJJ" secondAttribute="centerX" id="bXt-2O-QVo"/>
-                                            <constraint firstItem="Zeh-Sv-2s1" firstAttribute="top" secondItem="Oh3-QL-syn" secondAttribute="bottom" constant="3" id="ob9-8z-Czd"/>
-                                            <constraint firstAttribute="bottom" secondItem="Zeh-Sv-2s1" secondAttribute="bottom" constant="10" id="tyw-Bg-wSo"/>
-                                            <constraint firstItem="tpj-YL-6qi" firstAttribute="top" secondItem="rcH-Dt-yJJ" secondAttribute="top" constant="43" id="v92-5R-8Zn"/>
-                                            <constraint firstItem="tpj-YL-6qi" firstAttribute="leading" secondItem="rcH-Dt-yJJ" secondAttribute="leading" constant="20" id="wfJ-xj-Qj9"/>
+                                            <constraint firstAttribute="bottom" secondItem="Zeh-Sv-2s1" secondAttribute="bottom" id="tyw-Bg-wSo"/>
+                                            <constraint firstItem="tpj-YL-6qi" firstAttribute="top" secondItem="rcH-Dt-yJJ" secondAttribute="top" constant="8" id="v92-5R-8Zn"/>
+                                            <constraint firstItem="tpj-YL-6qi" firstAttribute="leading" secondItem="rcH-Dt-yJJ" secondAttribute="leading" constant="5" id="wfJ-xj-Qj9"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1861,7 +1861,7 @@
                                                     <rect key="frame" x="18" y="63" width="268" height="204"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Dd-NN-tIW">
-                                                            <rect key="frame" x="5" y="5" width="35" height="194"/>
+                                                            <rect key="frame" x="5" y="5" width="258" height="194"/>
                                                             <animations/>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1872,8 +1872,9 @@
                                                     <color key="backgroundColor" red="0.37254901959999998" green="0.74509803919999995" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="9Dd-NN-tIW" secondAttribute="bottom" constant="5" id="4d0-Ub-ZEN"/>
+                                                        <constraint firstAttribute="trailing" secondItem="9Dd-NN-tIW" secondAttribute="trailing" constant="5" id="CB2-Vv-crL"/>
+                                                        <constraint firstItem="9Dd-NN-tIW" firstAttribute="leading" secondItem="5yj-wd-w5K" secondAttribute="leading" constant="5" id="X11-WK-dG0"/>
                                                         <constraint firstItem="9Dd-NN-tIW" firstAttribute="top" secondItem="5yj-wd-w5K" secondAttribute="top" constant="5" id="sh5-6Y-5cZ"/>
-                                                        <constraint firstItem="9Dd-NN-tIW" firstAttribute="leading" secondItem="5yj-wd-w5K" secondAttribute="leading" constant="5" id="z6Y-4q-dNY"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Nb-ae-D3E">
