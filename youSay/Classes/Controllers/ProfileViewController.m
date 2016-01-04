@@ -708,16 +708,16 @@
     if (indexPath.section == 0) {
         CGFloat height=0;
         if (self.view.frame.size.height >= 667) {//6+
-            height= self.view.frame.size.height - 145;
+            height= self.view.frame.size.height - 195;
         }
         else if (self.view.frame.size.height >= 568) {//6
-            height= self.view.frame.size.height - 110;
+            height= self.view.frame.size.height - 160;
         }
         else if (self.view.frame.size.height >= 480) {//5
-            height= self.view.frame.size.height - 20;
+            height= self.view.frame.size.height - 70;
         }
         else{//4
-            height= self.view.frame.size.height + 50;
+            height= self.view.frame.size.height;
         }
         return height;
     }
