@@ -23,6 +23,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *btnLikes;
 @property (nonatomic, strong) IBOutlet UIButton *btnProfile1;
 @property (nonatomic, strong) IBOutlet UIButton *btnProfile2;
+@property (nonatomic, strong) IBOutlet UIButton *btnLblProfile1;
+@property (nonatomic, strong) IBOutlet UIButton *btnLblProfile2;
 
 
 @end

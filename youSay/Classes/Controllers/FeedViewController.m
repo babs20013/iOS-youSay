@@ -262,8 +262,10 @@
         cell.imgViewProfile1.layer.masksToBounds = YES;
         cell.imgViewProfile1.layer.borderWidth = 1;
         cell.imgViewProfile1.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-        cell.lblSaidAbout.text = [[currentSaysDict valueForKey:@"feed_title"] stringByReplacingOccurrencesOfString:@"%1" withString:[profile1 objectForKey:@"name"]];
+        NSAttributedString *attributedText = [[NSAttributedString alloc]initWithString:[[currentSaysDict valueForKey:@"feed_title"] stringByReplacingOccurrencesOfString:@"%1" withString:[profile1 objectForKey:@"name"]]];
+        cell.lblSaidAbout.attributedText = attributedText;
         [cell.btnProfile1 setTag:indexPath.section];
+        [cell.btnLblProfile1 setTag:indexPath.section];
     }
     
     if (arrProfiles.count == 1) {
@@ -307,6 +309,7 @@
         
         cell.lblSaidAbout.text = [cell.lblSaidAbout.text stringByReplacingOccurrencesOfString:@"%2" withString:@""];
         [cell.btnProfile2 setTag:indexPath.section];
+        [cell.btnLblProfile2 setTag:indexPath.section];
     }
     NSString *key = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
     NSDictionary *dicColor = [AppDelegate sharedDelegate].colorDict;
@@ -405,11 +408,41 @@
 }
 
 -(IBAction)btnProfile1Clicked:(UIButton*)sender{
-    NSLog(@"btnProfile : %ld", (long)[sender tag]);
+    [self highlightProfileName1:sender];
+}
 
+-(IBAction)btnProfile2Clicked:(UIButton*)sender{
+    [self highlightProfileName2:sender];
+}
+
+-(IBAction)btnLblProfile1Clicked:(UIButton*)sender{
+    [self highlightProfileName1:sender];
+}
+
+-(IBAction)btnLblProfile2Clicked:(UIButton*)sender{
+    [self highlightProfileName2:sender];
+}
+
+- (void)highlightProfileName1:(UIButton*)sender {
+    UIButton *button = (UIButton*)sender;
+    
     NSDictionary *value = [arrayFeed objectAtIndex:[sender tag]];
     NSArray *arrayProfile = [value objectForKey:@"profiles"];
     NSDictionary *requestedProfile = [arrayProfile objectAtIndex:0];
+    
+    UIView *view = button.superview; //Cell contentView
+    FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+    
+    NSMutableAttributedString *text =
+    [[NSMutableAttributedString alloc]
+     initWithString:cell.lblSaidAbout.text];
+    NSString *name =  [requestedProfile objectForKey:@"name"];
+    
+    [text addAttribute:NSForegroundColorAttributeName
+                 value:[UIColor lightGrayColor]
+                 range:NSMakeRange(0,name.length)];
+    [cell.lblSaidAbout setAttributedText: text];
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
     vc.isFriendProfile = YES;
@@ -420,8 +453,12 @@
     [vc selectTabAtIndex:1];
 }
 
--(IBAction)btnProfile2Clicked:(UIButton*)sender{
-    NSLog(@"btnProfile : %ld", (long)[sender tag]);
+- (void)highlightProfileName2:(UIButton*)sender {
+    UIButton *button = (UIButton*)sender;
+    UIView *view = button.superview; //Cell contentView
+    FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+    [cell.lblSaidAbout2 setTextColor:[UIColor lightGrayColor]];
+    [cell.lblSaidAbout2 setHighlighted:YES];
     
     NSDictionary *value = [arrayFeed objectAtIndex:[sender tag]];
     NSArray *arrayProfile = [value objectForKey:@"profiles"];
