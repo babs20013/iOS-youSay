@@ -776,6 +776,7 @@
             model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
             model.UserID = requestedID;
             friendsProfileModel = model;
+            [cel.lblYourCharm setText:[NSString stringWithFormat:@"%@ Charm", model.Name]];
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
             [btnAddSay setHidden:NO];
         }
