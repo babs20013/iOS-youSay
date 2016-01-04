@@ -91,6 +91,7 @@
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
+                [self logout];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -305,6 +306,12 @@
     vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
     [self.navigationController pushViewController:vc animated:YES];
     [vc selectTabAtIndex:1];
+}
+
+- (void)logout {
+    FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
+    [fb logOut];
+    [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
 }
 
 

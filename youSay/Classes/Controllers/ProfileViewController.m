@@ -217,6 +217,7 @@
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
+                [self logout];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -267,6 +268,7 @@
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
+                [self logout];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -319,6 +321,7 @@
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
+                [self logout];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -368,6 +371,7 @@
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
+                [self logout];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -405,6 +409,7 @@
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
+                [self logout];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -460,6 +465,7 @@
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
+                [self logout];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -503,6 +509,7 @@
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
+                [self logout];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -572,12 +579,7 @@
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
-                UIButton *button = (UIButton*)sender;
-                UIView *view = button.superview; //Cell contentView
-                PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
-                [cell.likeButton setSelected:NO];
-                NSInteger likeCount = [[cell.likesLabel text]integerValue] - 1;
-                [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+                [self logout];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -628,12 +630,7 @@
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
-                UIButton *button = (UIButton*)sender;
-                UIView *view = button.superview; //Cell contentView
-                PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
-                [cell.likeButton setSelected:YES];
-                NSInteger likeCount = [[cell.likesLabel text]integerValue] + 1;
-                [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
+                [self logout];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

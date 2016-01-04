@@ -193,7 +193,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ProfilePicture.png" translatesAutoresizingMaskIntoConstraints="NO" id="L6h-E8-IVI">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L6h-E8-IVI">
                                                     <rect key="frame" x="23" y="14" width="62" height="62"/>
                                                     <animations/>
                                                 </imageView>
@@ -1344,7 +1344,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="298" height="299"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="ProfilePicture.png" translatesAutoresizingMaskIntoConstraints="NO" id="7R3-pI-fRi">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="7R3-pI-fRi">
                                                     <rect key="frame" x="18" y="13" width="35" height="35"/>
                                                     <animations/>
                                                     <constraints>
@@ -2035,7 +2035,6 @@
         <image name="DoneBtn" width="468" height="75"/>
         <image name="Heart" width="59" height="59"/>
         <image name="Likes" width="34" height="29"/>
-        <image name="ProfilePicture.png" width="162" height="158"/>
         <image name="Send" width="37" height="34"/>
         <image name="Share" width="34" height="32"/>
         <image name="Star" width="59" height="60"/>

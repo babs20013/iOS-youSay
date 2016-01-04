@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "AddSayRequest.h"
 #import "BFPaperButton.h"
+#import "SlideNavigationController.h"
 
 @interface AddNewSayViewController (){
     CGFloat textViewOriginalHeight;
@@ -118,6 +119,11 @@
                         [self.delegate AddNewSayDidDismissed];
                     }
                 }];
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self logout];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -309,6 +315,13 @@
                             blue:((float) b / 255.0f)
                            alpha:1.0f];
 }
+
+- (void)logout {
+    FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
+    [fb logOut];
+    [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
+}
+
 
 #pragma mark UITextViewDelegate
 
