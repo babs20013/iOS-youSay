@@ -238,10 +238,12 @@
     __block NSUInteger index = [self.tabs indexOfObject:tabView];
     
     //if Tap is not selected Tab(new Tab)
-    if (self.activeTabIndex != index) {
-        // Select the tab
-        [self selectTabAtIndex:index didSwipe:NO];
-    }
+//    if (self.activeTabIndex != index) {
+//        // Select the tab
+//        [self selectTabAtIndex:index didSwipe:NO];
+//    }
+    
+    [self selectTabAtIndex:index didSwipe:NO];
 }
 
 #pragma mark - Interface rotation

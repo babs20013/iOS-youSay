@@ -73,6 +73,10 @@
     chartState = ChartStateDefault;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"testting");
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     if ([dictHideSay allKeys].count >0) {
         [self requestHideSay];
@@ -100,14 +104,12 @@
     profileModel = [AppDelegate sharedDelegate].profileOwner;
     imgViewRank = [[UIImageView alloc]init];
     imgViewPopularity = [[UIImageView alloc]init];
-    self.tableView.delegate = self;
     UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
     searchBar.backgroundColor = [UIColor clearColor];
     searchBar.tintColor = [UIColor clearColor];
     //[self.view addSubview:searchBar];
     
-    saysArray = [[NSMutableArray alloc]init];
-    saysArray = [profileDictionary valueForKey:@"says"];
+    saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
     charmsArray = [[NSMutableArray alloc]init];
     charmsArray = [profileDictionary valueForKey:@"charms"];
     
@@ -344,6 +346,12 @@
     [SVProgressHUD setStatus:@"Loading..."];
     UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
     [SVProgressHUD setBackgroundColor:blackColor];
+    if (profileModel == nil) {
+        profileModel = [AppDelegate sharedDelegate].profileOwner;
+    }
+    if (IDrequested == nil) {
+        IDrequested = profileModel.UserID;
+    }
     
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_GET_PROFILE forKey:@"request"];
@@ -358,7 +366,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 profileDictionary = [dictResult objectForKey:@"profile"];
-                saysArray = [profileDictionary valueForKey:@"says"];
+                saysArray = saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
                 charmsArray = [profileDictionary valueForKey:@"charms"];
                 isFriendProfile = YES;
                 if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:IDrequested]) {
@@ -402,8 +410,7 @@
             {
                 colorDictionary = [result objectForKey:@"colors"];
                 [AppDelegate sharedDelegate].colorDict = colorDictionary;
-                saysArray = [[NSMutableArray alloc]init];
-                saysArray = [profileDictionary valueForKey:@"says"];
+                saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
                 [self.tableView reloadData];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
@@ -562,11 +569,14 @@
 }
 
 - (void)requesLikeSay:(id)sender{
+    NSMutableDictionary *feedDict = [[saysArray objectAtIndex:[sender tag]] mutableCopy];
+    
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_LIKE_SAY forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token]  forKey:@"token"];
-    [dictRequest setObject:[NSString stringWithFormat:@"%li", (long)[sender tag]] forKey:@"say_id"];
+    [dictRequest setObject:[feedDict objectForKey:@"say_id"] forKey:@"say_id"];
+
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         if (result)
@@ -574,7 +584,12 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                //do nothing
+                NSInteger count = [[feedDict objectForKey:@"like_count"] integerValue]+1;
+                [feedDict setObject:@"true" forKey:@"liked"];
+                [feedDict setObject:[NSNumber numberWithInteger:count] forKey:@"like_count"];
+                [saysArray replaceObjectAtIndex:[sender tag] withObject:feedDict];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -613,11 +628,13 @@
 }
 
 - (void)requesUnlikeSay:(id)sender{
+    NSMutableDictionary *feedDict = [[saysArray objectAtIndex:[sender tag]] mutableCopy];
+    
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_UNLIKE_SAY forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token]  forKey:@"token"];
-    [dictRequest setObject:[NSString stringWithFormat:@"%li", (long)[sender tag]] forKey:@"say_id"];
+    [dictRequest setObject:[feedDict objectForKey:@"say_id"] forKey:@"say_id"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         if (result)
@@ -625,7 +642,11 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                //do nothing
+                NSInteger count = [[feedDict objectForKey:@"like_count"] integerValue]-1;
+                [feedDict setObject:@"false" forKey:@"liked"];
+                [feedDict setObject:[NSNumber numberWithInteger:count] forKey:@"like_count"];
+                [saysArray replaceObjectAtIndex:[sender tag] withObject:feedDict];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -667,9 +688,9 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *thisView = [[UIView alloc]init];
     thisView.backgroundColor = [UIColor whiteColor];//kColorBG;
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 30)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, self.view.bounds.size.width-40, 37)];
     label.text = [NSString stringWithFormat:@"What people SAID about %@", [profileDictionary objectForKey:@"name"]];
-    label.numberOfLines = 2;
+    label.numberOfLines = 0;
     label.textColor = [UIColor darkGrayColor];
     label.font = [UIFont fontWithName:@"Arial" size:14];
     [thisView addSubview:label];
@@ -714,7 +735,7 @@
             height= self.view.frame.size.height - 160;
         }
         else if (self.view.frame.size.height >= 480) {//5
-            height= self.view.frame.size.height - 70;
+            height= self.view.frame.size.height - 80;
         }
         else{//4
             height= self.view.frame.size.height;
@@ -937,7 +958,7 @@
         cel.peopleSayLabel.frame = CGRectMake(cel.peopleSayLabel.frame.origin.x, cel.peopleSayLabel.frame.origin.y, expectedSize.width, expectedSize.height);
         cel.peopleSayView.frame =CGRectMake(cel.peopleSayView.frame.origin.x, cel.peopleSayView.frame.origin.y, expectedSize.width, expectedSize.height);
         
-        [cel.likeButton setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
+        [cel.likeButton setTag:indexPath.row];
         
         if ([[currentSaysDict objectForKey:@"liked"] isEqualToString:@"true"]) {
             [cel.likeButton setSelected:YES];
@@ -1350,6 +1371,11 @@
     else {
         [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
     }
+}
+
+- (void) AddNewSayDidDismissedWithCancel {
+    isFriendProfile = YES;
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 

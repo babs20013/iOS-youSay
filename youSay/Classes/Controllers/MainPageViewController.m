@@ -7,6 +7,7 @@
 //
 
 #import "MainPageViewController.h"
+#import "AppDelegate.h"
 
 
 @interface MainPageViewController (){
@@ -67,6 +68,10 @@
         cvc.isFriendProfile = _isFriendProfile;
         cvc.requestedID = _requestedID;
         cvc.profileModel = _profileModel;
+//        if ([AppDelegate sharedDelegate].profileOwner != nil) {
+//            [cvc requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+//        }
+//        
         return cvc;
     }
     else if (index == 2){
@@ -116,6 +121,11 @@
         default:
             return color;
     }
+}
+
+- (void)viewPager:(ViewPagerController *)viewPager didChangeTabToIndex:(NSUInteger)index {
+    //[self viewPager:viewPager contentViewControllerForTabAtIndex:index];
+    NSLog(@"index %i", index);
 }
 
 @end

@@ -144,7 +144,11 @@
 #pragma mark IBAction
 
 - (IBAction)btnCloseClicked:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        if ([self.delegate performSelector:@selector(AddNewSayDidDismissedWithCancel) withObject:nil]) {
+            [self.delegate AddNewSayDidDismissedWithCancel];
+        }
+    }];
 }
 
 - (IBAction)btnSendClicked:(id)sender {

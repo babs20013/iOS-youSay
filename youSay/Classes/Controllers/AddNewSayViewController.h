@@ -12,6 +12,7 @@
 @class AddNewSayViewController;
 @protocol AddNewSayDelegate <NSObject>
 - (void) AddNewSayDidDismissed;
+- (void) AddNewSayDidDismissedWithCancel;
 @end
 
 

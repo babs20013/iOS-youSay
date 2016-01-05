@@ -109,11 +109,14 @@
 }
 
 - (void)requesLikeSay:(id)sender{
+    NSMutableDictionary *feedDict = [[NSMutableDictionary alloc]init];
+    feedDict = [[arrayFeed objectAtIndex:[sender tag]] mutableCopy];
+    
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_LIKE_SAY forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token]  forKey:@"token"];
-    [dictRequest setObject:[NSString stringWithFormat:@"%li", (long)[sender tag]] forKey:@"say_id"];
+    [dictRequest setObject:[feedDict objectForKey:@"say_id"] forKey:@"say_id"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         if (result)
@@ -121,7 +124,11 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                //do nothing
+                NSInteger count = [[feedDict objectForKey:@"like_count"] integerValue]+1;
+                [feedDict setObject:@"yes" forKey:@"like_status"];
+                [feedDict setObject:[NSNumber numberWithInteger:count] forKey:@"like_count"];
+                [arrayFeed replaceObjectAtIndex:[sender tag] withObject:feedDict];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:[sender tag]]] withRowAnimation:UITableViewRowAnimationFade];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -160,11 +167,15 @@
 }
 
 - (void)requesUnlikeSay:(id)sender{
+    NSMutableDictionary *feedDict = [[NSMutableDictionary alloc]init];
+    feedDict = [[arrayFeed objectAtIndex:[sender tag]] mutableCopy];
+    
+    
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_UNLIKE_SAY forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token]  forKey:@"token"];
-    [dictRequest setObject:[NSString stringWithFormat:@"%li", (long)[sender tag]] forKey:@"say_id"];
+    [dictRequest setObject:[feedDict objectForKey:@"say_id"] forKey:@"say_id"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         if (result)
@@ -172,7 +183,11 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                //do nothing
+                NSInteger count = [[feedDict objectForKey:@"like_count"] integerValue]-1;
+                [feedDict setObject:@"no" forKey:@"like_status"];
+                [feedDict setObject:[NSNumber numberWithInteger:count] forKey:@"like_count"];
+                [arrayFeed replaceObjectAtIndex:[sender tag] withObject:feedDict];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:[sender tag]]] withRowAnimation:UITableViewRowAnimationFade];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -286,7 +301,7 @@
         [cell.btnShare setHidden:NO];
         [cell.btnLikes setHidden:NO];
         [cell.lblLikes setHidden:NO];
-        [cell.btnLikes setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
+        [cell.btnLikes setTag:indexPath.section];
         if ([[currentSaysDict objectForKey:@"like_status"] isEqualToString:@"yes"]) {
             [cell.btnLikes setSelected:YES];
         }
