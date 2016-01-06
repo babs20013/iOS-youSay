@@ -35,6 +35,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    accessToken = @"";
     if ([[FBSDKAccessToken currentAccessToken].expirationDate compare:[NSDate date]] == NSOrderedDescending) {
         [self goToMainPage];
     }
@@ -45,10 +50,7 @@
             }
         }];
     }
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    accessToken = @"";
+
 }
 
 - (void)didReceiveMemoryWarning {

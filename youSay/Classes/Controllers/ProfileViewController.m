@@ -546,18 +546,6 @@
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         if (result)
         {
-            //
-            //            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
-            //            {
-            //            }
-            //            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
-            //                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            //                [alert show];
-            //            }
-            //            else {
-            //                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            //                [alert show];
-            //            }
         }
         else if (error)
         {
