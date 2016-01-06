@@ -21,6 +21,7 @@
 #import "RequestModel.h"
 #import "CharmChart.h"
 #import "AddNewSayViewController.h"
+#import "ReportSayViewController.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -1176,6 +1177,12 @@
 
 - (IBAction)btnReportClicked:(id)sender {
     NSLog(@"btnReport : %ld", (long)[sender tag]);
+    ReportSayViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ReportSayViewController"];
+    NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
+    vc.say_id = [dict objectForKey:@"say_id"];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    [nav setNavigationBarHidden:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (IBAction)btnShareClicked:(id)sender {

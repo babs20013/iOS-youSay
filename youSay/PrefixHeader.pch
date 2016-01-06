@@ -30,6 +30,8 @@
 #import "constant.h"
 #import "url.h"
 #import "HTTPReq.h"
+#import "AppDelegate.h"
+#import "SlideNavigationController.h"
 
 #define ALERT_VIEW(title,msg)\
 {\

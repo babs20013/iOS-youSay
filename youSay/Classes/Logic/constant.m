@@ -23,6 +23,7 @@ NSString *const REQUEST_FEED = @"getFeed";
 NSString *const REQUEST_ADD_USER_DEVICE = @"addUserDevice";
 NSString *const REQUEST_LIKE_SAY = @"likeSay";
 NSString *const REQUEST_UNLIKE_SAY = @"unlikeSay";
+NSString *const REQUEST_REPORT_SAY = @"reportSay";
 NSString *const AUTHORITY_TYPE_FB = @"2";
 
 
@@ -30,3 +31,6 @@ NSString *const AUTHORITY_TYPE_FB = @"2";
 #pragma mark -- Error Message
 NSString *const ERR_MSG_NO_INTERNET = @"There Is NO internet connection";
 NSString *const ERR_MSG_TITLE_SORRY = @"Sorry!";
+
+#pragma mark -- Message
+NSString *const MSG_REPORT_SENT = @"Thank you. Your report has been sent.";

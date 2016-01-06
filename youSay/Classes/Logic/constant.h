@@ -24,7 +24,11 @@ extern NSString *const REQUEST_FEED;
 extern NSString *const REQUEST_ADD_USER_DEVICE;
 extern NSString *const REQUEST_LIKE_SAY;
 extern NSString *const REQUEST_UNLIKE_SAY;
+extern NSString *const REQUEST_REPORT_SAY;
 
 #pragma mark -- Error Message
 extern NSString *const ERR_MSG_NO_INTERNET;
 extern NSString *const ERR_MSG_TITLE_SORRY;
+
+#pragma mark -- Message
+extern NSString *const MSG_REPORT_SENT;
