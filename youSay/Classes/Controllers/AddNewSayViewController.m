@@ -239,27 +239,26 @@
         }
     }
     if  (arrayColor.count < 5) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 150)];
-        self.containerHeightCosntraint.constant = 150;
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, chooseBGView.frame.size.width-80, 160)];
+        self.containerHeightCosntraint.constant = 160;
     }
     else if  (arrayColor.count < 9) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 200)];
-        self.containerHeightCosntraint.constant = 200;
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, self.view.frame.size.width-80, 210)];
+        self.containerHeightCosntraint.constant = 210;
     }
     else if  (arrayColor.count < 13) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 250)];
-        self.containerHeightCosntraint.constant = 250;
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, self.view.frame.size.width-80, 260)];
+        self.containerHeightCosntraint.constant = 260;
     }
     else if  (arrayColor.count > 12) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, colorContainer.frame.size.width, 300)];
-        self.containerHeightCosntraint.constant = 300;
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, self.view.frame.size.width-80, 310)];
+        self.containerHeightCosntraint.constant = 310;
     }
     
     colorContainer.layer.cornerRadius = 0.01 * colorContainer.bounds.size.width;
     colorContainer.layer.masksToBounds = YES;
     colorContainer.layer.borderWidth = 1;
     colorContainer.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-    
     //Randomize the array
     NSUInteger count = [arrayColor count];
     for (NSUInteger i = 0; i < count; ++i) {
@@ -272,8 +271,8 @@
         CGFloat containerWidth = colorContainer.frame.size.width;
         CGFloat gridWidth = containerWidth / 4;
 
-        int x = (i%4)*gridWidth+((gridWidth-55)/2) + 25;
-        int y = i/4*60+65;
+        CGFloat x = (i%4)*gridWidth+((gridWidth-55)/2);
+        CGFloat y = i/4*65+60;
 //        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(x, y, 55, 55);
