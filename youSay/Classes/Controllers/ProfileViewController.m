@@ -588,7 +588,7 @@
                 [feedDict setObject:@"true" forKey:@"liked"];
                 [feedDict setObject:[NSNumber numberWithInteger:count] forKey:@"like_count"];
                 [saysArray replaceObjectAtIndex:[sender tag] withObject:feedDict];
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
 
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
@@ -646,7 +646,7 @@
                 [feedDict setObject:@"false" forKey:@"liked"];
                 [feedDict setObject:[NSNumber numberWithInteger:count] forKey:@"like_count"];
                 [saysArray replaceObjectAtIndex:[sender tag] withObject:feedDict];
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -699,12 +699,6 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *thisView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
     thisView.backgroundColor = kColorBG;
-    if (section == 1) {
-        UIButton *btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(70, -30, 60, 60)];
-        btnAddSay.titleLabel.text = @"klklkl";
-        [btnAddSay.imageView setImage:[UIImage imageNamed:@"AddButton"]];
-        [thisView addSubview:btnAddSay];
-    }
     return thisView;
 }
 
@@ -797,7 +791,7 @@
             model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
             model.UserID = requestedID;
             friendsProfileModel = model;
-            [cel.lblYourCharm setText:[NSString stringWithFormat:@"%@ Charm", model.Name]];
+            [cel.lblYourCharm setText:[NSString stringWithFormat:@"%@ Charms", model.Name]];
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
             [btnAddSay setHidden:NO];
         }
@@ -1377,7 +1371,5 @@
     isFriendProfile = YES;
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
-
-
 @end
 

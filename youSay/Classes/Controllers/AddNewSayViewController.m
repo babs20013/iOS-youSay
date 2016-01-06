@@ -20,6 +20,7 @@
     NSMutableArray *arrayColorKey;
     NSInteger idColor;
     NSMutableArray *arrayColor;
+    UIButton *previousButton;
 }
 @end
 
@@ -167,24 +168,46 @@
 
 
 - (IBAction)selectColor:(id)sender {
+    CGFloat containerWidth = colorContainer.frame.size.width;
+    CGFloat gridWidth = containerWidth / 4;
+    if (previousButton != nil) {
+        for (UIView *i in colorContainer.subviews){
+            if([i isKindOfClass:[UIButton class]]){
+                UIButton *oldButton = (UIButton *)i;
+                if(oldButton.tag == previousButton.tag){
+                    oldButton.frame = previousButton.frame;
+                    oldButton.layer.cornerRadius = 0.5 * oldButton.bounds.size.width;
+                    //[oldButton.layer setBorderWidth:0.0];
+                    [oldButton.layer setBorderColor: [UIColor clearColor].CGColor];
+                    //oldButton.imageEdgeInsets = UIEdgeInsetsMake(24, 22, 24, 22);
+                }
+            }
+        }
+    }
     
+
     btnSelectedColor.selected = NO;
     
     UIButton *btn = (UIButton*)sender;
     btn.selected = YES;
+    previousButton = [[UIButton alloc]init];
+    previousButton.frame = btn.frame;
+    previousButton.tag = btn.tag;
     btnSelectedColor = btn;
+    btn.frame = CGRectMake(btn.frame.origin.x-8, btn.frame.origin.y-8, 70, 70);
+    btn.layer.cornerRadius = 0.5 * btn.bounds.size.width;
+    [btn.layer setBorderWidth:8.0];
+    [btn.layer setBorderColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.85].CGColor];
+    
+    
     
     [addSayTextView setBackgroundColor:btn.backgroundColor];
     NSDictionary *dict = [arrayColor objectAtIndex:btn.tag];
     [addSayTextView setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
-    
-    
-    CGFloat containerWidth = colorContainer.frame.size.width - 30;
-    CGFloat gridWidth = containerWidth / 4;
-    
+    [placeholderLabel setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
     
     //        int x = (i%4)*60+25;
-    int x = ([sender tag]%4)*gridWidth+((gridWidth-53)/2) + 15;
+    int x = ([sender tag]%4)*gridWidth+((gridWidth-53)/2)+10;
     int y = [sender tag]/4*60+65;
     
     
@@ -246,29 +269,20 @@
     }
     
     for (int i = 0; i < arrayColor.count; i++) {
-        CGFloat containerWidth = colorContainer.frame.size.width - 30;
+        CGFloat containerWidth = colorContainer.frame.size.width;
         CGFloat gridWidth = containerWidth / 4;
 
-        int x = (i%4)*gridWidth+((gridWidth-50)/2) + 15;
+        int x = (i%4)*gridWidth+((gridWidth-55)/2) + 25;
         int y = i/4*60+65;
-        
-        BFPaperButton *button = [BFPaperButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(x, y, 50, 50);
-        button.isRaised = NO;
+//        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(x, y, 55, 55);
         button.tag = i;
         button.layer.cornerRadius = 0.5 * button.bounds.size.width;
         [button setBackgroundColor:[self colorWithHexString: [[arrayColor objectAtIndex:i] objectForKey:@"back"]]];
         [button addTarget:self action:@selector(selectColor:) forControlEvents:UIControlEventTouchUpInside];
         [button setImage:[UIImage imageNamed:@"Tick"] forState:UIControlStateSelected];
         [button setImage:[UIImage imageNamed:@"Tick"] forState:UIControlStateHighlighted];
-        button.imageEdgeInsets = UIEdgeInsetsMake(17, 15, 17, 15);
-
-        button.tapCircleColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
-        button.cornerRadius = button.frame.size.width / 2;
-        button.rippleFromTapLocation = NO;
-        button.rippleBeyondBounds = YES;
-        button.tapCircleBurstAmount = 0;
-        button.tapCircleDiameter = MAX(button.frame.size.width, button.frame.size.height) * 1.3;
         
         [chooseBGView bringSubviewToFront:colorContainer];
         [colorContainer addSubview:button];
@@ -278,10 +292,7 @@
     int nElements = [arrayColor count] - 1;
     int n = (arc4random() % nElements) + 1;
     
-    NSDictionary *dict = [arrayColor objectAtIndex:n];
-    [addSayTextView setBackgroundColor:[self colorWithHexString:[dict objectForKey:@"back"]]];
-    [addSayTextView setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
-    [placeholderLabel setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
+    [self selectColor:[colorContainer.subviews objectAtIndex:n]];
 }
 
 -(UIColor*)colorWithHexString:(NSString*)hex

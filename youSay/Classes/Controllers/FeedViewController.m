@@ -128,7 +128,7 @@
                 [feedDict setObject:@"yes" forKey:@"like_status"];
                 [feedDict setObject:[NSNumber numberWithInteger:count] forKey:@"like_count"];
                 [arrayFeed replaceObjectAtIndex:[sender tag] withObject:feedDict];
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:[sender tag]]] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:[sender tag]]] withRowAnimation:UITableViewRowAnimationNone];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -187,7 +187,7 @@
                 [feedDict setObject:@"no" forKey:@"like_status"];
                 [feedDict setObject:[NSNumber numberWithInteger:count] forKey:@"like_count"];
                 [arrayFeed replaceObjectAtIndex:[sender tag] withObject:feedDict];
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:[sender tag]]] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:[sender tag]]] withRowAnimation:UITableViewRowAnimationNone];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
