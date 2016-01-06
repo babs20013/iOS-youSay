@@ -24,5 +24,6 @@
 @property (nonatomic, strong) NSString *requestedID;
 
 - (void)requestProfile:(NSString*)IDrequested;
+- (void) refreshPage:(NSNotification *)notif;
 
 @end

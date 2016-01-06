@@ -67,11 +67,27 @@
 @synthesize charmsArray;
 @synthesize isFriendProfile;
 
+- (id) init
+{
+    self = [super init];
+    if (!self) return nil;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshPage:)
+                                                 name:@"notification"
+                                               object:nil];
+    
+    return self;
+}
 - (void)viewWillAppear:(BOOL)animated {
     dictHideSay = [[NSMutableDictionary alloc] init];
     isFriendProfile = NO;
     chartState = ChartStateDefault;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshPage:)
+                                                 name:@"notification"
+                                               object:nil];
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     NSLog(@"testting");
@@ -92,7 +108,6 @@
     else {
         [self requestProfile:requestedID];
     }
-    
     
     isAfterChangeCharm = NO;
     CharmChart *chart = [[CharmChart alloc]init];
@@ -351,6 +366,7 @@
     }
     if (IDrequested == nil) {
         IDrequested = profileModel.UserID;
+        requestedID = profileModel.UserID;
     }
     
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
@@ -373,6 +389,7 @@
                     isFriendProfile = NO;
                 }
                 isAfterChangeCharm = NO;
+                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
                 [self.tableView reloadData];
                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
@@ -1359,5 +1376,18 @@
     isFriendProfile = YES;
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
+
+- (void) refreshPage:(NSNotification *)notif {
+    requestedID = [[AppDelegate sharedDelegate].profileOwner UserID];
+    if (requestedID) {
+        [self requestProfile:requestedID];
+    }
+}
+
+- (void)dealloc {
+    //[super dealloc];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end
 
