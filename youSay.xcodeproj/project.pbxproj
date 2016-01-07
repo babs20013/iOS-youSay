@@ -10,6 +10,7 @@
 		1B0CF1901C270DF000E20D6E /* AddSayRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CF18F1C270DF000E20D6E /* AddSayRequest.m */; };
 		1B0DED451C3D215600F3B907 /* ReportSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DED441C3D215600F3B907 /* ReportSayViewController.m */; };
 		1B0DED471C3D6C5A00F3B907 /* ReportList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B0DED461C3D6C5A00F3B907 /* ReportList.plist */; };
+		1B0DED4A1C3D7F3800F3B907 /* WhoLikeThisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DED491C3D7F3800F3B907 /* WhoLikeThisViewController.m */; };
 		1B17E3AB1C180BB30080A574 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AA1C180BB30080A574 /* AppDelegate.m */; };
 		1B17E3BC1C180BD90080A574 /* AddNewSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AD1C180BD90080A574 /* AddNewSayViewController.m */; };
 		1B17E3BE1C180BD90080A574 /* InviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B11C180BD90080A574 /* InviteFriendsViewController.m */; };
@@ -34,6 +35,7 @@
 		1B17E3F01C180C6A0080A574 /* constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3ED1C180C6A0080A574 /* constant.m */; };
 		1B17E3F11C180C6A0080A574 /* url.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3EF1C180C6A0080A574 /* url.m */; };
 		1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3F21C1813C20080A574 /* RequestModel.m */; };
+		1B7C26C51C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */; };
 		1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */; };
 		1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */; };
 		1BC5EC431C22F84B0016BFA1 /* SelectCharmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5EC421C22F84B0016BFA1 /* SelectCharmsViewController.m */; };
@@ -82,6 +84,8 @@
 		1B0DED431C3D214800F3B907 /* ReportSayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReportSayViewController.h; path = youSay/Classes/Controllers/ReportSayViewController.h; sourceTree = SOURCE_ROOT; };
 		1B0DED441C3D215600F3B907 /* ReportSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReportSayViewController.m; path = youSay/Classes/Controllers/ReportSayViewController.m; sourceTree = SOURCE_ROOT; };
 		1B0DED461C3D6C5A00F3B907 /* ReportList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ReportList.plist; sourceTree = "<group>"; };
+		1B0DED481C3D7F2200F3B907 /* WhoLikeThisViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WhoLikeThisViewController.h; path = youSay/Classes/Controllers/WhoLikeThisViewController.h; sourceTree = SOURCE_ROOT; };
+		1B0DED491C3D7F3800F3B907 /* WhoLikeThisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhoLikeThisViewController.m; path = youSay/Classes/Controllers/WhoLikeThisViewController.m; sourceTree = SOURCE_ROOT; };
 		1B17E3A91C180BB30080A574 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1B17E3AA1C180BB30080A574 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1B17E3AC1C180BD90080A574 /* AddNewSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewSayViewController.h; path = youSay/Classes/Controllers/AddNewSayViewController.h; sourceTree = SOURCE_ROOT; };
@@ -130,6 +134,8 @@
 		1B17E3EF1C180C6A0080A574 /* url.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = url.m; sourceTree = "<group>"; };
 		1B17E3F21C1813C20080A574 /* RequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestModel.m; path = youSay/Classes/Model/RequestModel.m; sourceTree = SOURCE_ROOT; };
 		1B17E3F41C1813CF0080A574 /* RequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RequestModel.h; path = youSay/Classes/Model/RequestModel.h; sourceTree = SOURCE_ROOT; };
+		1B7C26C31C3EBC6F00DDEC2A /* WhoLikeListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WhoLikeListTableViewCell.h; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhoLikeListTableViewCell.m; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		1BABACFB1C19EFB000BD9EB4 /* SaysModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SaysModel.h; path = youSay/Classes/Model/SaysModel.h; sourceTree = SOURCE_ROOT; };
 		1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SaysModel.m; path = youSay/Classes/Model/SaysModel.m; sourceTree = SOURCE_ROOT; };
 		1BABAD011C1ABE6200BD9EB4 /* UIImageView+Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Networking.h"; path = "youSay/Classes/Component/UIComponent/UIImageView+Networking.h"; sourceTree = SOURCE_ROOT; };
@@ -454,6 +460,10 @@
 				1BEECEFF1C2EAE9200615C9F /* FeedTableViewCell.m */,
 				1B0DED431C3D214800F3B907 /* ReportSayViewController.h */,
 				1B0DED441C3D215600F3B907 /* ReportSayViewController.m */,
+				1B0DED481C3D7F2200F3B907 /* WhoLikeThisViewController.h */,
+				1B0DED491C3D7F3800F3B907 /* WhoLikeThisViewController.m */,
+				1B7C26C31C3EBC6F00DDEC2A /* WhoLikeListTableViewCell.h */,
+				1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */,
 			);
 			name = ViewControllers;
 			path = Classes/Controllers;
@@ -731,8 +741,10 @@
 				5DBF3BD01BD821DF00ACF60D /* SquareCashStyleBar.m in Sources */,
 				1B17E3C91C180BE90080A574 /* ProfileOwnerModel.m in Sources */,
 				1B17E3C11C180BD90080A574 /* ProfileTableViewCell.m in Sources */,
+				1B0DED4A1C3D7F3800F3B907 /* WhoLikeThisViewController.m in Sources */,
 				5DBF3BB61BD8212500ACF60D /* FacebookStyleBarBehaviorDefiner.m in Sources */,
 				9A9CB6151C19B9860082B3E5 /* MenuViewController.m in Sources */,
+				1B7C26C51C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

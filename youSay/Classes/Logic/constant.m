@@ -24,6 +24,7 @@ NSString *const REQUEST_ADD_USER_DEVICE = @"addUserDevice";
 NSString *const REQUEST_LIKE_SAY = @"likeSay";
 NSString *const REQUEST_UNLIKE_SAY = @"unlikeSay";
 NSString *const REQUEST_REPORT_SAY = @"reportSay";
+NSString *const REQUEST_GET_LIKE_LIST = @"getLikeList";
 NSString *const AUTHORITY_TYPE_FB = @"2";
 
 

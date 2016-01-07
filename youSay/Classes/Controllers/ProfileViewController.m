@@ -22,6 +22,7 @@
 #import "CharmChart.h"
 #import "AddNewSayViewController.h"
 #import "ReportSayViewController.h"
+#import "WhoLikeThisViewController.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -1209,13 +1210,15 @@
         [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         [self requesUnlikeSay:sender];
     }
-    
-//    if ([button isSelected]) {
-//
-//    }
-//    else {
-//
-//    }
+}
+
+- (IBAction)btnLikesCountClicked:(id)sender {
+    NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
+    WhoLikeThisViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
+    vc.say_id = [dict objectForKey:@"say_id"];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    [nav setNavigationBarHidden:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 -(IBAction)btnOpenMenu:(UIButton*)sender{

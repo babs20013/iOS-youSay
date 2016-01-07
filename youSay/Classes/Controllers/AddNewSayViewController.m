@@ -198,7 +198,7 @@
     btn.layer.cornerRadius = 0.5 * btn.bounds.size.width;
     [btn.layer setBorderWidth:8.0];
     [btn.layer setBorderColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.85].CGColor];
-    
+    //[btn.layer setBorderColor:[UIColor colorWithWhite:0.9 alpha:0.9].CGColor];
     
     
     [addSayTextView setBackgroundColor:btn.backgroundColor];
