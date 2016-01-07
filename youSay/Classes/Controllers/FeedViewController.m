@@ -15,6 +15,8 @@
 #import "ProfileViewController.h"
 #import "MainPageViewController.h"
 #import "ViewPagerController.h"
+#import "ReportSayViewController.h"
+#import "WhoLikeThisViewController.h"
 
 @interface FeedViewController ()
 {
@@ -31,13 +33,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    arrayFeed = [[NSMutableArray alloc]init];
-    index = 1;
+    
+    
     isScrollBounce = YES;
-    [self requestFeed:[NSString stringWithFormat:@"%i", index]];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    arrayFeed = [[NSMutableArray alloc]init];
+    index = 1;
+    [self requestFeed:[NSString stringWithFormat:@"%i", index]];
     UIImageView *imgMagnifyingGlass = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 15, 15)];
     imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
@@ -337,10 +342,14 @@
     cell.lblSays.text = string;
     cell.lblDate.text = [currentSaysDict valueForKey:@"time_ago"];
     cell.lblLikes.text = [NSString stringWithFormat:@"%@", [currentSaysDict valueForKey:@"like_count"]];
-    //TODO -- change button to red
-    if ([[currentSaysDict objectForKey:@"like_status"] isEqualToString:@"yes"]) {
-        //[cell.btnLikes setBackgroundColor:[UIColor redColor]];
+
+    if ([cell.lblLikes.text integerValue] < 1) {
+        [cell.btnLikeCount setEnabled:NO];
     }
+    else {
+        [cell.btnLikeCount setEnabled:YES];
+    }
+    
     cell.layer.cornerRadius = 0.005 * cell.bounds.size.width;
     cell.layer.masksToBounds = YES;
     cell.layer.borderWidth = 1;
@@ -409,6 +418,24 @@
         [cell.lblLikes setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         [self requesUnlikeSay:sender];
     }
+}
+
+- (IBAction)btnReportClicked:(id)sender {
+    ReportSayViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ReportSayViewController"];
+    NSDictionary *dict = [arrayFeed objectAtIndex:[sender tag]];
+    vc.say_id = [dict objectForKey:@"say_id"];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    [nav setNavigationBarHidden:YES];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (IBAction)btnLikeCountClicked:(id)sender {
+    WhoLikeThisViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
+    NSDictionary *dict = [arrayFeed objectAtIndex:[sender tag]];
+    vc.say_id = [dict objectForKey:@"say_id"];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    [nav setNavigationBarHidden:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - ScrollViewDelegate

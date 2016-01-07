@@ -25,7 +25,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *btnProfile2;
 @property (nonatomic, strong) IBOutlet UIButton *btnLblProfile1;
 @property (nonatomic, strong) IBOutlet UIButton *btnLblProfile2;
-
+@property (nonatomic, strong) IBOutlet UIButton *btnLikeCount;
 
 @end
 

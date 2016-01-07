@@ -1005,6 +1005,12 @@
         else {
             [cel.btnHide setHidden:NO];
         }
+        if ([cel.likesLabel.text integerValue] < 1) {
+            [cel.btnLikeCount setEnabled:NO];
+        }
+        else {
+            [cel.btnLikeCount setEnabled:YES];
+        }
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
         return cel;
     }
