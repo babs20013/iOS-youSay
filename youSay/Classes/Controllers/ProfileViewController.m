@@ -1021,10 +1021,11 @@
         }
         if ([cel.likesLabel.text integerValue] < 1) {
             [cel.btnLikeCount setEnabled:NO];
-            [cel.btnLikeCount setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
+           // [cel.btnLikeCount setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
         }
         else {
             [cel.btnLikeCount setEnabled:YES];
+            [cel.btnLikeCount setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
         }
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
         return cel;
