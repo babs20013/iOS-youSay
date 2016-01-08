@@ -22,7 +22,6 @@
 #import "CharmChart.h"
 #import "AddNewSayViewController.h"
 #import "ReportSayViewController.h"
-#import "WhoLikeThisViewController.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -69,17 +68,6 @@
 @synthesize charmsArray;
 @synthesize isFriendProfile;
 
-- (id) init
-{
-    self = [super init];
-    if (!self) return nil;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshPage:)
-                                                 name:@"notification"
-                                               object:nil];
-    
-    return self;
-}
 - (void)viewWillAppear:(BOOL)animated {
     dictHideSay = [[NSMutableDictionary alloc] init];
     isFriendProfile = NO;
@@ -92,7 +80,6 @@
 
 
 - (void)viewDidAppear:(BOOL)animated {
-    NSLog(@"testting");
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -391,7 +378,7 @@
                     isFriendProfile = NO;
                 }
                 isAfterChangeCharm = NO;
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                //[self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
                 [self.tableView reloadData];
                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
@@ -786,9 +773,12 @@
         static NSString *cellIdentifier = @"ProfileTableViewCell";
         ProfileTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         ProfileOwnerModel *model = [[ProfileOwnerModel alloc]init];
-        
+        model.Name = [profileDictionary objectForKey:@"name"];
+        model.ProfileImage = [profileDictionary objectForKey:@"picture"];
+        model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
+        model.UserID = requestedID;
         if  (isFriendProfile == NO){
-            model = profileModel;
+            //model = profileModel;
             chartState = chartState == ChartStateViewing ? ChartStateDefault : chartState;
             [btnAddSay setHidden:YES];
         }
@@ -822,9 +812,6 @@
         [cel.newbie setTitle:[NSString stringWithFormat:@"%ld", (long)wiz] forState:UIControlStateNormal];
         [cel.popular setTitle:[NSString stringWithFormat:@"%ld", (long)popularity] forState:UIControlStateNormal];
         
-        [cel.newbie setBackgroundImage:imgViewRank.image forState:UIControlStateNormal];
-        [cel.popular setBackgroundImage:imgViewPopularity.image forState:UIControlStateNormal];
-        
         [imgViewRank setImageURL:[NSURL URLWithString:[profileDictionary objectForKey:@"rank_picture"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
             ProfileTableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
             if (updateCell) {
@@ -837,6 +824,9 @@
                 [cel.popular setBackgroundImage:image forState:UIControlStateNormal];
             }
         }];
+        [cel.newbie setBackgroundImage:imgViewRank.image forState:UIControlStateNormal];
+        [cel.popular setBackgroundImage:imgViewPopularity.image forState:UIControlStateNormal];
+        
         cel.lblRankLevel.text = [profileDictionary objectForKey:@"rank_level"];
         cel.lblPopularityLevel.text = [profileDictionary objectForKey:@"popularity_level"];
         
@@ -900,9 +890,9 @@
         else if (isFriendProfile == YES) {
             [cel.longPressInfoView setHidden:YES];
             [cel.rankButton setHidden:NO];
-            [cel.lblShare setHidden:YES];
-            [cel.btnShare setHidden:YES];
-            [cel.imgVShare setHidden:YES];
+//            [cel.lblShare setHidden:YES];
+//            [cel.btnShare setHidden:YES];
+//            [cel.imgVShare setHidden:YES];
             [cel.buttonEditView setHidden:YES];
         }
         else{
@@ -1221,6 +1211,7 @@
 - (IBAction)btnLikesCountClicked:(id)sender {
     NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
     WhoLikeThisViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
+    vc.delegate = self;
     vc.say_id = [dict objectForKey:@"say_id"];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
@@ -1394,10 +1385,16 @@
 }
 
 - (void) refreshPage:(NSNotification *)notif {
-    requestedID = [[AppDelegate sharedDelegate].profileOwner UserID];
-    if (requestedID) {
-        [self requestProfile:requestedID];
+    if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
+        [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
     }
+}
+
+
+#pragma mark LikeListDelegate
+
+- (void) ListDismissedAfterClickProfile:(NSString*)userID {
+    [self requestProfile:userID];
 }
 
 - (void)dealloc {

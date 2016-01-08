@@ -24,6 +24,7 @@
     BOOL isScrollBounce;
     int index;
     BOOL isNoMoreFeed;
+    BOOL isLikeListReleased;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -31,15 +32,20 @@
 
 @implementation FeedViewController
 
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshFeed:)
+                                                 name:@"refreshpage"
+                                               object:nil];
     
     isScrollBounce = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isLikeListReleased = NO;
     arrayFeed = [[NSMutableArray alloc]init];
     index = 1;
     [self requestFeed:[NSString stringWithFormat:@"%i", index]];
@@ -92,6 +98,9 @@
                 }
                 [arrayFeed addObjectsFromArray:arrResult];
                 [self.tableView reloadData];
+                if ([startFrom integerValue] == 1 && arrResult.count > 0) {
+                    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                }
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -348,6 +357,7 @@
     }
     else {
         [cell.btnLikeCount setEnabled:YES];
+        [cell.btnLikeCount setTag:[[currentSaysDict valueForKey:@"say_id"] integerValue]];
     }
     
     cell.layer.cornerRadius = 0.005 * cell.bounds.size.width;
@@ -431,11 +441,18 @@
 
 - (IBAction)btnLikeCountClicked:(id)sender {
     WhoLikeThisViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
-    NSDictionary *dict = [arrayFeed objectAtIndex:[sender tag]];
-    vc.say_id = [dict objectForKey:@"say_id"];
+    vc.delegate = self;
+    vc.say_id = [NSString stringWithFormat:@"%li", (long)[sender tag]];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void) refreshFeed:(NSNotification *)notif {
+    arrayFeed = [[NSMutableArray alloc]init];
+    index = 1;
+    isNoMoreFeed = NO;
+    [self requestFeed:[NSString stringWithFormat:@"%i", index]];
 }
 
 #pragma mark - ScrollViewDelegate
@@ -488,11 +505,11 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
     vc.isFriendProfile = YES;
+    vc.isFromFeed = YES;
     vc.requestedID = [requestedProfile objectForKey:@"profile_id"];
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
     vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
     [self.navigationController pushViewController:vc animated:YES];
-    [vc selectTabAtIndex:1];
 }
 
 - (void)highlightProfileName2:(UIButton*)sender {
@@ -508,17 +525,37 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
     vc.isFriendProfile = YES;
+    vc.isFromFeed = YES;
     vc.requestedID = [requestedProfile objectForKey:@"profile_id"];
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
     vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
     [self.navigationController pushViewController:vc animated:YES];
-    [vc selectTabAtIndex:1];
 }
 
 - (void)logout {
     FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
     [fb logOut];
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
+}
+
+#pragma mark LikeListDelegate
+
+- (void) ListDismissedAfterClickProfile:(NSString*)userID {
+    if (!isLikeListReleased) {
+        isLikeListReleased = !isLikeListReleased;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+        vc.isFriendProfile = YES;
+        vc.isFromFeed = YES;
+        vc.requestedID = userID;
+        vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+- (void)dealloc {
+    //[super dealloc];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

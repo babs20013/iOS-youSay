@@ -56,20 +56,20 @@
     
     if(index == 0){
         FeedViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"refreshpage" object:nil];
        return cvc;
         
     }
     else if (index == 1){
         ProfileViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
-        cvc.profileDictionary = self.profileDictionary;
         cvc.colorDictionary = self.colorDictionary;
         cvc.isFriendProfile = _isFriendProfile;
         cvc.requestedID = _requestedID;
-        cvc.profileModel = _profileModel;
-        
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"notification" object:nil];
-
+        if  (_isFromFeed == NO) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"notification" object:nil];
+        }
         return cvc;
     }
     else if (index == 2){

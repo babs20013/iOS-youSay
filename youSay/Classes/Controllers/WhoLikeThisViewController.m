@@ -90,6 +90,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *dict = [arrLikeList objectAtIndex:indexPath.row];
+    [self dismissViewControllerAnimated:YES completion:^{
+        if ([self.delegate performSelector:@selector(ListDismissedAfterClickProfile:) withObject:[dict objectForKey:@"user_id"]]) {
+            [self.delegate ListDismissedAfterClickProfile:[dict objectForKey:@"user_id"]];
+        }
+    }];
 }
 
 #pragma mark Request

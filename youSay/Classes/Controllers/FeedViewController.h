@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "FeedViewController.h"
+#import "WhoLikeThisViewController.h"
 
-@interface FeedViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
+@interface FeedViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, LikeListDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField * txtSearch;
+
+- (void) refreshFeed:(NSNotification *)notif;
 
 
 @end

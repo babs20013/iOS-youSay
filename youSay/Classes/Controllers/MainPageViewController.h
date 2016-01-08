@@ -17,6 +17,7 @@
 @property (nonatomic,strong) NSDictionary * colorDictionary;
 @property (nonatomic, strong) NSMutableArray * saysArray;
 @property (nonatomic, readwrite) BOOL isFriendProfile;
+@property (nonatomic, readwrite) BOOL isFromFeed;
 @property (nonatomic, strong) NSString *requestedID;
 @property (nonatomic, strong) ProfileOwnerModel *profileModel;
 @end

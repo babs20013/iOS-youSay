@@ -10,8 +10,9 @@
 #import "CharmView.h"
 #import "SelectCharmsViewController.h"
 #import "AddNewSayViewController.h"
+#import "WhoLikeThisViewController.h"
 
-@interface ProfileViewController : UIViewController <UITextViewDelegate, FBSDKAppInviteDialogDelegate, CharmChartDelegate, UIScrollViewDelegate, CharmSelectionDelegate, UIGestureRecognizerDelegate, AddNewSayDelegate>
+@interface ProfileViewController : UIViewController <UITextViewDelegate, FBSDKAppInviteDialogDelegate, CharmChartDelegate, UIScrollViewDelegate, CharmSelectionDelegate, UIGestureRecognizerDelegate, AddNewSayDelegate, LikeListDelegate>
 
 @property (nonatomic,strong) ProfileOwnerModel *profileModel;
 @property (nonatomic,strong) NSDictionary * profileDictionary;

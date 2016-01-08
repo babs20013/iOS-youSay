@@ -7,12 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class WhoLikeThisViewController;
+@protocol LikeListDelegate <NSObject>
+- (void) ListDismissedAfterClickProfile:(NSString*)userID;
+@end
 
 @interface WhoLikeThisViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tblView;
 @property (nonatomic, strong) NSString *say_id;
 @property (weak,nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
+@property (nonatomic, weak) id <LikeListDelegate> delegate;
 
 
 @end
