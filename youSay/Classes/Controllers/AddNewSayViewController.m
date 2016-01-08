@@ -194,9 +194,9 @@
     previousButton.frame = btn.frame;
     previousButton.tag = btn.tag;
     btnSelectedColor = btn;
-    btn.frame = CGRectMake(btn.frame.origin.x-8, btn.frame.origin.y-8, 70, 70);
+    btn.frame = CGRectMake(btn.frame.origin.x-8, btn.frame.origin.y-6, 60, 60);
     btn.layer.cornerRadius = 0.5 * btn.bounds.size.width;
-    [btn.layer setBorderWidth:8.0];
+    [btn.layer setBorderWidth:7.0];
     [btn.layer setBorderColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.85].CGColor];
     //[btn.layer setBorderColor:[UIColor colorWithWhite:0.9 alpha:0.9].CGColor];
     
@@ -206,20 +206,7 @@
     [addSayTextView setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
     [placeholderLabel setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
     
-    //        int x = (i%4)*60+25;
-    int x = ([sender tag]%4)*gridWidth+((gridWidth-53)/2)+10;
-    int y = [sender tag]/4*60+65;
-    
-    
-    UIView *viewButtonBackground = [[UIView alloc]initWithFrame:CGRectMake(x, y, 53, 53)];
-    viewButtonBackground.layer.cornerRadius = 0.5 * viewButtonBackground.bounds.size.width;
-    [viewButtonBackground setBackgroundColor:[UIColor redColor]];
-    
-    [colorContainer addSubview:viewButtonBackground];
-    [colorContainer sendSubviewToBack:viewButtonBackground];
-    
     [chooseBGView setHidden:YES];
-    [viewButtonBackground setHidden:YES];
     [addSayTextView becomeFirstResponder];
    
 }
@@ -239,19 +226,19 @@
         }
     }
     if  (arrayColor.count < 5) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, chooseBGView.frame.size.width-80, 160)];
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, chooseBGView.frame.size.width-60, 160)];
         self.containerHeightCosntraint.constant = 160;
     }
     else if  (arrayColor.count < 9) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, self.view.frame.size.width-80, 210)];
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, self.view.frame.size.width-60, 210)];
         self.containerHeightCosntraint.constant = 210;
     }
     else if  (arrayColor.count < 13) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, self.view.frame.size.width-80, 260)];
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, self.view.frame.size.width-60, 260)];
         self.containerHeightCosntraint.constant = 260;
     }
     else if  (arrayColor.count > 12) {
-        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, self.view.frame.size.width-80, 310)];
+        [colorContainer setFrame:CGRectMake(colorContainer.frame.origin.x, colorContainer.frame.origin.y, self.view.frame.size.width-60, 310)];
         self.containerHeightCosntraint.constant = 310;
     }
     
@@ -268,14 +255,14 @@
     }
     
     for (int i = 0; i < arrayColor.count; i++) {
-        CGFloat containerWidth = colorContainer.frame.size.width;
+        CGFloat containerWidth = colorContainer.frame.size.width-10;
         CGFloat gridWidth = containerWidth / 4;
 
-        CGFloat x = (i%4)*gridWidth+((gridWidth-55)/2);
+        CGFloat x = (i%4)*gridWidth+((gridWidth-50)/2)+5;
         CGFloat y = i/4*65+60;
 //        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(x, y, 55, 55);
+        button.frame = CGRectMake(x, y, 50, 50);
         button.tag = i;
         button.layer.cornerRadius = 0.5 * button.bounds.size.width;
         [button setBackgroundColor:[self colorWithHexString: [[arrayColor objectAtIndex:i] objectForKey:@"back"]]];
