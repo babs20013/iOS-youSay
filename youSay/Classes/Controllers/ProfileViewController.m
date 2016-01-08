@@ -1417,7 +1417,11 @@
 
 - (void) refreshPage:(NSNotification *)notif {
     chartState = ChartStateDefault;
-    if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
+    if (_isFromFeed==YES && requestedID) {
+        _isFromFeed = NO;
+        [self requestProfile:requestedID];
+    }
+    else if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
         [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
     }
 }

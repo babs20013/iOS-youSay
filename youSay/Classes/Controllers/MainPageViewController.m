@@ -66,10 +66,9 @@
         cvc.colorDictionary = self.colorDictionary;
         cvc.isFriendProfile = _isFriendProfile;
         cvc.requestedID = _requestedID;
-        if  (_isFromFeed == NO) {
-            [[NSNotificationCenter defaultCenter]
+        cvc.isFromFeed = _isFromFeed;
+        [[NSNotificationCenter defaultCenter]
              postNotificationName:@"notification" object:nil];
-        }
         return cvc;
     }
     else if (index == 2){

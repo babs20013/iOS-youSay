@@ -22,6 +22,7 @@
 @property (nonatomic, strong) IBOutlet UIButton * btnAddSay;
 @property (nonatomic, strong) IBOutlet UITextField * txtSearch;
 @property (nonatomic, readwrite) BOOL isFriendProfile;
+@property (nonatomic, readwrite) BOOL isFromFeed;
 @property (nonatomic, strong) NSString *requestedID;
 
 - (void)requestProfile:(NSString*)IDrequested;
