@@ -198,7 +198,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sMm-ag-KP4" userLabel="Profile">
                                         <rect key="frame" x="0.0" y="43" width="320" height="70"/>
                                         <subviews>
-                                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mCQ-2f-gWk">
+                                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mCQ-2f-gWk">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                                 <animations/>
                                                 <constraints>

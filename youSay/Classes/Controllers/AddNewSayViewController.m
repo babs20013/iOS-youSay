@@ -39,8 +39,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [self InitializeUI];
-    [self.view bringSubviewToFront:textViewBG];
-    [self.view bringSubviewToFront:_headerView];
 }
 
 
