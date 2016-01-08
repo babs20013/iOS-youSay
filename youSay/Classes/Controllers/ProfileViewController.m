@@ -49,10 +49,12 @@
     NSInteger charmIndexRow;
     NSMutableArray *arrayFilteredCharm;
     NSMutableArray *arrayOriginalCharm;
+    NSMutableArray *arrActiveCharm;
     BOOL isAfterChangeCharm;
     BOOL isScrollBounce;
     SelectCharmsViewController *charmsSelection;
     UIButton *btnAddSay;
+    BOOL isAfterCharm;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -70,6 +72,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     dictHideSay = [[NSMutableDictionary alloc] init];
+    isAfterCharm = NO;
     isFriendProfile = NO;
     chartState = ChartStateDefault;
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -517,6 +520,7 @@
                 chartState = ChartStateDefault;
                 charmsArray = [dictResult objectForKey:@"charms"];
                 isAfterChangeCharm = YES;
+                isAfterCharm = YES;
                 [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
@@ -839,6 +843,9 @@
         if (!isFriendProfile) {
             charmsArray = [profileDictionary valueForKey:@"charms"];
         }
+        if (chartState != ChartStateEdit && isAfterCharm == NO) {
+            arrActiveCharm = [arrayFilteredCharm mutableCopy];
+        }
         
         if (chartState != ChartStateEdit && !isAfterChangeCharm) {
             arrayFilteredCharm = [[NSMutableArray alloc]init];
@@ -848,6 +855,16 @@
                 if ([[dict objectForKey:@"active"] isEqualToString:@"true"]) {
                     [arrayFilteredCharm addObject:dict];
                     [arrayOriginalCharm addObject:dict];
+                }
+            }
+        }
+        
+        for (int i = 0; i < arrActiveCharm.count; i++) {
+            NSDictionary *dic = [arrActiveCharm objectAtIndex:i];
+            for (int j=0; j<arrayFilteredCharm.count; j++) {
+                NSDictionary *dic2 = [arrayFilteredCharm objectAtIndex:j];
+                if ([[dic objectForKey:@"name"] isEqualToString:[dic2 objectForKey:@"name"]]) {
+                    [arrActiveCharm replaceObjectAtIndex:i withObject:dic2];
                 }
             }
         }
@@ -863,7 +880,13 @@
         NSMutableArray *arrScore = [[NSMutableArray alloc]init];
         NSMutableArray *arrNames = [[NSMutableArray alloc]init];
         NSMutableArray *arrLocked = [[NSMutableArray alloc]init];
-        for (NSDictionary *dict in arrayFilteredCharm) {
+        if (arrActiveCharm.count == 0) {
+            arrActiveCharm = arrayFilteredCharm;
+        }
+        if (chartState != ChartStateEdit && isAfterCharm == NO) {
+            arrActiveCharm = arrayFilteredCharm;
+        }
+        for (NSDictionary *dict in arrActiveCharm) {
             [arrScore addObject:[dict valueForKey:@"rate"]];
             [arrNames addObject:[dict valueForKey:@"name"]];
             [arrLocked addObject:[dict valueForKey:@"rated"]];
@@ -876,6 +899,7 @@
         charmView = cel.charmChartView;
         
         cell.btnShare.frame = CGRectMake(cell.btnShare.frame.origin.x, charmView.frame.size.height, cell.btnShare.frame.size.width, cell.btnShare.frame.size.height);
+        
         
         if (chartState == ChartStateEdit || chartState == ChartStateRate) {
             [cel.longPressInfoView setHidden:YES];
@@ -997,6 +1021,7 @@
         }
         if ([cel.likesLabel.text integerValue] < 1) {
             [cel.btnLikeCount setEnabled:NO];
+            [cel.btnLikeCount setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
         }
         else {
             [cel.btnLikeCount setEnabled:YES];
@@ -1209,10 +1234,9 @@
 }
 
 - (IBAction)btnLikesCountClicked:(id)sender {
-    NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
     WhoLikeThisViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
     vc.delegate = self;
-    vc.say_id = [dict objectForKey:@"say_id"];
+    vc.say_id = [NSString stringWithFormat:@"%li", (long)[sender tag]];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
@@ -1236,6 +1260,7 @@
 }
 
 -(IBAction)btnProfileClicked:(UIButton*)sender{
+    isAfterCharm = NO;
     NSLog(@"btnProfile : %ld", (long)[sender tag]);
     chartState = ChartStateViewing;
     if  (!isFriendProfile && [dictHideSay allKeys].count >0) {
@@ -1334,6 +1359,9 @@
     if (charmIn) {
         for (NSDictionary *dict in charmsArray) {
             if ([[dict objectForKey:@"name"] isEqualToString:charmIn]) {
+                if (arrActiveCharm.count > 0) {
+                    [arrActiveCharm replaceObjectAtIndex:charmIndexRow withObject:dict];
+                }
                 [arrayFilteredCharm replaceObjectAtIndex:charmIndexRow withObject:dict];
                 continue;
             }
@@ -1343,8 +1371,11 @@
                 [addNewDict setObject:@"0" forKey:@"rate"];
                 [addNewDict setObject:@"true" forKey:@"active"];
                 [addNewDict setObject:@"false" forKey:@"rated"];
+                if (arrActiveCharm.count > 0) {
+                    [arrActiveCharm replaceObjectAtIndex:charmIndexRow withObject:addNewDict];
+                }
                 [arrayFilteredCharm replaceObjectAtIndex:charmIndexRow withObject:addNewDict];
-                [charmsSelection setActiveCharm:arrayFilteredCharm];
+                [charmsSelection setActiveCharm:arrActiveCharm];
             }
         }
         [self.tableView reloadData];
@@ -1385,6 +1416,7 @@
 }
 
 - (void) refreshPage:(NSNotification *)notif {
+    chartState = ChartStateDefault;
     if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
         [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
     }
