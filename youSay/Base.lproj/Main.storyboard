@@ -386,7 +386,7 @@
                         <outlet property="chooseBGView" destination="OFW-8F-wsd" id="Xtk-bf-eo4"/>
                         <outlet property="colorContainer" destination="KXc-NU-ZYe" id="jrU-q6-KDe"/>
                         <outlet property="containerHeightCosntraint" destination="1tb-ii-PKv" id="S9l-ha-D43"/>
-                        <outlet property="coverImg" destination="mCQ-2f-gWk" id="AO9-kw-pB8"/>
+                        <outlet property="coverImg" destination="mCQ-2f-gWk" id="DJ8-sE-VtY"/>
                         <outlet property="headerView" destination="mwn-Ty-Yad" id="CVi-PJ-R83"/>
                         <outlet property="placeholderLabel" destination="tpj-YL-6qi" id="5re-KY-fEU"/>
                         <outlet property="profileImg" destination="dDy-SD-8BY" id="SjY-Ur-KQd"/>

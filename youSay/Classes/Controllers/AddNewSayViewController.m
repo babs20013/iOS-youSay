@@ -37,10 +37,17 @@
 @synthesize model;
 @synthesize placeholderLabel;
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self InitializeUI];
+    [self.view bringSubviewToFront:textViewBG];
+    [self.view bringSubviewToFront:_headerView];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     addSayTextView.delegate = self;
-    [self InitializeUI];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification
@@ -59,6 +66,8 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     textViewOriginalHeight = addSayTextView.frame.size.height;
+    [self.view bringSubviewToFront:textViewBG];
+    [self.view bringSubviewToFront:_headerView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,17 +80,7 @@
     coverImg.frame = CGRectMake(0, 0, self.view.bounds.size.width, 70);
     profileView.frame = CGRectMake(0, 43, self.view.bounds.size.width, 70);
     profileLabel.text = model.Name;
-    
-    UIImage *image = coverImg.image;
-    // Create rectangle from middle of current image
-    CGRect croprect = CGRectMake(0, (image.size.height-70)/2 ,
-                                 image.size.width, 70);
-    // Draw new image in current graphics context
-    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], croprect);
-    // Create new cropped UIImage
-    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    coverImg.image = croppedImage;
+    coverImg.clipsToBounds = YES;
     
     [profileImg setImageURL:[NSURL URLWithString:model.ProfileImage]];
     profileImg.layer.cornerRadius = 0.5 * profileImg.bounds.size.width;
@@ -89,7 +88,6 @@
     profileImg.layer.borderWidth = 1;
     profileImg.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
     [self.view bringSubviewToFront:_headerView];
-   // [placeholderLabel setHidden:YES];
     [addSayTextView becomeFirstResponder];
 }
 
