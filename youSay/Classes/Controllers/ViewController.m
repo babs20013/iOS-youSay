@@ -40,7 +40,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     accessToken = @"";
-    [AppDelegate sharedDelegate].isFirstLoad = YES;
     if ([[FBSDKAccessToken currentAccessToken].expirationDate compare:[NSDate date]] == NSOrderedDescending) {
         [self goToMainPage];
     }
@@ -68,6 +67,7 @@
 }
 
 - (IBAction)faceBookAction:(id)sender {
+    [AppDelegate sharedDelegate].isFirstLoad = YES;
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
