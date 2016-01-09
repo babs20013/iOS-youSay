@@ -55,11 +55,12 @@
     BOOL isAfterChangeCharm;
     BOOL isScrollBounce;
     SelectCharmsViewController *charmsSelection;
-    UIButton *btnAddSay;
+    
     BOOL isAfterCharm;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UITableView *searchTableView;
+@property (nonatomic, weak) IBOutlet UIButton *btnClear;
 
 @end
 
@@ -72,13 +73,10 @@
 @synthesize saysArray;
 @synthesize charmsArray;
 @synthesize isFriendProfile;
+@synthesize btnAddSay;
 
 - (void)viewWillAppear:(BOOL)animated {
     dictHideSay = [[NSMutableDictionary alloc] init];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshPage:)
-                                                 name:@"notification"
-                                               object:nil];
 }
 
 
@@ -93,8 +91,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshPage:)
+                                                 name:@"notification"
+                                               object:nil];
     isAfterCharm = NO;
-    isFriendProfile = NO;
     chartState = ChartStateDefault;
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
@@ -861,8 +862,6 @@
     }
 }
 
-
-
 -(UIColor*)colorWithHexString:(NSString*)hex
 {
     NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
@@ -945,6 +944,10 @@
             model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
             model.UserID = requestedID;
             friendsProfileModel = model;
+            //--To not show (null) Charms
+            if (model.Name == nil) {
+                model.Name = @"";
+            }
             [cel.lblYourCharm setText:[NSString stringWithFormat:@"%@ Charms", model.Name]];
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
             [btnAddSay setHidden:NO];
@@ -1383,7 +1386,8 @@
 }
 
 - (IBAction)btnClearSearchClicked:(id)sender {
-    
+    [self.txtSearch setText:@""];
+    [self textFieldDidChange:self.txtSearch];
 }
 
 - (void)EnableCharmRateMode {
@@ -1526,15 +1530,14 @@
 }
 
 - (void) refreshPage:(NSNotification *)notif {
-    
-    chartState = ChartStateDefault;
-    if (_isFromFeed==YES && requestedID) {
-        _isFromFeed = NO;
-        [self requestProfile:requestedID];
-    }
-    else if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
-        [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
-    }
+   chartState = ChartStateDefault;
+   if (_isFromFeed==YES && requestedID) {
+       _isFromFeed = NO;
+       [self requestProfile:requestedID];
+   }
+   else if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
+       [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+   }
 }
 
 
@@ -1552,6 +1555,7 @@
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [_btnClear setHidden:YES];
     return YES;
 }
 
@@ -1564,6 +1568,8 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [_btnClear setHidden:NO];
     return YES;
 }
 

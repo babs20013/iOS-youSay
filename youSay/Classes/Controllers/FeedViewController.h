@@ -12,8 +12,6 @@
 
 @interface FeedViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, LikeListDelegate>
 
-@property (nonatomic, strong) IBOutlet UITextField * txtSearch;
-
 - (void) refreshFeed:(NSNotification *)notif;
 
 

@@ -17,10 +17,12 @@
 #import "ViewPagerController.h"
 #import "ReportSayViewController.h"
 #import "WhoLikeThisViewController.h"
+#import "WhoLikeListTableViewCell.h"
 
 @interface FeedViewController ()
 {
     NSMutableArray *arrayFeed;
+    NSArray *arraySearch;
     BOOL isScrollBounce;
     int index;
     BOOL isNoMoreFeed;
@@ -28,6 +30,11 @@
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UITableView *searchUserTableView;
+@property (nonatomic, weak) IBOutlet UIButton *btnClear;
+@property (nonatomic, strong) IBOutlet UITextField * txtSearch;
+@property (nonatomic, strong) IBOutlet UIView * searchView;
+@property (weak,nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
 @end
 
 @implementation FeedViewController
@@ -49,6 +56,9 @@
     arrayFeed = [[NSMutableArray alloc]init];
     index = 1;
     [self requestFeed:[NSString stringWithFormat:@"%i", index]];
+    [_txtSearch addTarget:self
+                   action:@selector(textFieldDidChange:)
+         forControlEvents:UIControlEventEditingChanged];
     UIImageView *imgMagnifyingGlass = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 15, 15)];
     imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
@@ -58,6 +68,21 @@
     self.txtSearch.layer.cornerRadius = round(self.txtSearch.frame.size.height / 2);
     self.txtSearch.layer.borderWidth = 1;
     self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+    self.searchUserTableView.layer.cornerRadius = 0.015 * self.searchUserTableView.bounds.size.width;
+    self.searchUserTableView.layer.masksToBounds = YES;
+    self.searchUserTableView.layer.borderWidth = 1;
+    self.searchUserTableView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
     
 }
 
@@ -238,8 +263,63 @@
     }];
 }
 
+- (void)requestUser:(NSString*)searchString withSearchID:(NSString*)searchID {
+    [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
+    
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token] forKey:@"token"];
+    [dictRequest setObject:searchString forKey:@"search_text"];
+    [dictRequest setObject:AUTHORITY_TYPE_FB forKey:@"authority_type"];
+    [dictRequest setObject:[FBSDKAccessToken currentAccessToken].tokenString forKey:@"authority_access_token"];
+    [dictRequest setObject:searchID forKey:@"search_id"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                arraySearch = [dictResult objectForKey:@"yousay_users"];
+                self.tableHeightConstraint.constant = arraySearch.count*50;
+                [self.searchUserTableView needsUpdateConstraints];
+                [self.searchUserTableView reloadData];
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self logout];
+            }
+            else if ([[dictResult valueForKey:@"rc"] integerValue] == 602) {
+                //If search is still in progress, keep searching
+                [self requestUser:searchString withSearchID:searchID];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        [SVProgressHUD dismiss];
+    }];
+}
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (tableView == self.searchUserTableView) {
+        return 50;
+    }
     NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:indexPath.section];
     NSString *string = [currentSaysDict valueForKey:@"feed_message"];
     CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
@@ -251,6 +331,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (tableView == self.searchUserTableView) {
+        return 0;
+    }
     return 10;
 }
 
@@ -264,14 +347,43 @@
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (tableView == self.searchUserTableView) {
+        return 1;
+    }
     return arrayFeed.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView == self.searchUserTableView) {
+        return arraySearch.count;
+    }
     return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.searchUserTableView) {
+        return [self consctructTableForSearchUser:tableView withIndexPath:indexPath];
+    }
+    return [self consctructTableForFeed:tableView withIndexPath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.searchUserTableView) {
+        NSDictionary *dict = [arraySearch objectAtIndex:indexPath.row];
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+        vc.isFriendProfile = YES;
+        vc.isFromFeed = YES;
+        vc.requestedID = [dict objectForKey:@"user_id"];
+        vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
+        vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+
+- (UITableViewCell*)consctructTableForFeed:(UITableView*)tableView withIndexPath:(NSIndexPath*)indexPath {
     static NSString *cellIdentifier = @"FeedTableViewCell";
     FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -282,7 +394,7 @@
     NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:indexPath.section];
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     NSString *string = [currentSaysDict valueForKey:@"feed_message"];
-     CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
+    CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
     
     if (arrProfiles.count>0) {
         NSDictionary *profile1 = [arrProfiles objectAtIndex:0];
@@ -305,7 +417,7 @@
         [cell.btnShare setHidden:YES];
         [cell.btnLikes setHidden:YES];
         [cell.lblLikes setHidden:YES];
-//        [cell.lblSaidAbout setFrame:CGRectMake(cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.size.width+200, cell.lblSaidAbout.frame.size.height)];
+        //        [cell.lblSaidAbout setFrame:CGRectMake(cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.size.width+200, cell.lblSaidAbout.frame.size.height)];
     }
     else if (arrProfiles.count == 2){
         [cell.imgViewProfile2 setHidden:NO];
@@ -327,7 +439,7 @@
         NSDictionary *profile2 = [arrProfiles objectAtIndex:1];
         string = [string stringByReplacingOccurrencesOfString:@"%2"
                                                    withString:@""];
-
+        
         [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:[profile2 objectForKey:@"avatar"]]];
         cell.imgViewProfile2.layer.cornerRadius = 0.5 * cell.imgViewProfile2.bounds.size.width;
         cell.imgViewProfile2.layer.masksToBounds = YES;
@@ -343,7 +455,7 @@
     NSString *key = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
     NSDictionary *dicColor = [AppDelegate sharedDelegate].colorDict;
     NSDictionary *indexDict = [dicColor objectForKey:key];
-   
+    
     [cell.viewSays setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
     
     [cell.lblSays setFrame:CGRectMake(cell.lblSays.frame.origin.x, cell.lblSays.frame.origin.y, cell.lblSays.frame.size.width, expectedSize.height)];
@@ -351,7 +463,7 @@
     cell.lblSays.text = string;
     cell.lblDate.text = [currentSaysDict valueForKey:@"time_ago"];
     cell.lblLikes.text = [NSString stringWithFormat:@"%@", [currentSaysDict valueForKey:@"like_count"]];
-
+    
     if ([cell.lblLikes.text integerValue] < 1) {
         [cell.btnLikeCount setEnabled:NO];
     }
@@ -364,6 +476,27 @@
     cell.layer.masksToBounds = YES;
     cell.layer.borderWidth = 1;
     cell.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    
+    return cell;
+}
+
+- (UITableViewCell*)consctructTableForSearchUser:(UITableView*)tableView withIndexPath:(NSIndexPath*)indexPath {
+    static NSString *cellIdentifier = @"WhoLikeListTableViewCell";
+    WhoLikeListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (! cell) {
+        
+        cell = [[WhoLikeListTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+    }
+    NSDictionary *dict = [arraySearch objectAtIndex:indexPath.row];
+    NSString *urlString = [dict objectForKey:@"image_url"];
+    [cell.profileView setImageURL:[NSURL URLWithString:urlString]];
+    cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
+    cell.profileView.layer.masksToBounds = YES;
+    cell.profileView.layer.borderWidth = 1;
+    cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    
+    [cell.profileName setText:[dict objectForKey:@"name"]];
     
     return cell;
 }
@@ -446,6 +579,10 @@
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (IBAction)btnClearSearchClicked:(id)sender {
+    NSLog(@"clear user search");
 }
 
 - (void) refreshFeed:(NSNotification *)notif {
@@ -558,5 +695,62 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [_btnClear setHidden:YES];
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [textField becomeFirstResponder];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [textField resignFirstResponder];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [_btnClear setHidden:NO];
+    return YES;
+}
+
+- (void)textFieldDidChange:(UITextField*)textField {
+    [textField becomeFirstResponder];
+    if ([textField.text length] > 0) {
+        [self.tableView setHidden:YES];
+        [self.searchView setHidden:NO];
+        [self requestUser:textField.text withSearchID:@""];
+    }
+    else {
+        [textField resignFirstResponder];
+        [self.searchView setHidden:YES];
+        [self.tableView setHidden:NO];
+    }
+}
+
+#pragma mark Keyboard
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets;
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
+        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.height), 0.0);
+    } else {
+        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.width), 0.0);
+    }
+    
+    self.searchUserTableView.contentInset = contentInsets;
+    self.searchUserTableView.scrollIndicatorInsets = contentInsets;
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    self.searchUserTableView.contentInset = UIEdgeInsetsZero;
+    self.searchUserTableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+}
 
 @end
