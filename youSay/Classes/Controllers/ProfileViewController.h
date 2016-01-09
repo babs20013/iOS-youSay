@@ -23,11 +23,12 @@
 @property (nonatomic, strong) IBOutlet UIView * searchView;
 @property (nonatomic, readwrite) BOOL isFriendProfile;
 @property (nonatomic, readwrite) BOOL isFromFeed;
+@property (nonatomic, readwrite) BOOL isRequestingProfile;
 @property (weak,nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
 @property (nonatomic, strong) NSString *requestedID;
 @property (nonatomic, strong) UIButton *btnAddSay;
 
-- (void)requestProfile:(NSString*)IDrequested;
+- (void)setIsRefresh:(BOOL)isRefresh;
 - (void) refreshPage:(NSNotification *)notif;
 
 @end

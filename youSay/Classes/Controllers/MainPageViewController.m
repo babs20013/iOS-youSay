@@ -12,6 +12,7 @@
 
 @interface MainPageViewController (){
     NSUInteger numberOfTabs;
+    BOOL isClick;
 }
 
 @end
@@ -56,8 +57,12 @@
     
     if(index == 0){
         FeedViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"refreshpage" object:nil];
+        if (isClick == YES) {
+            isClick = NO;
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"refreshpage" object:nil];
+        }
+        
        return cvc;
         
     }
@@ -67,8 +72,13 @@
         cvc.isFriendProfile = _isFriendProfile;
         cvc.requestedID = _requestedID;
         cvc.isFromFeed = _isFromFeed;
-        [[NSNotificationCenter defaultCenter]
+        if (isClick == YES ) {
+            [cvc setIsFriendProfile:NO];
+            isClick = NO;
+            cvc.requestedID = nil;
+            [[NSNotificationCenter defaultCenter]
              postNotificationName:@"notification" object:nil];
+        }
         return cvc;
     }
     else if (index == 2){
@@ -120,8 +130,11 @@
     }
 }
 
-- (void)viewPager:(ViewPagerController *)viewPager didChangeTabToIndex:(NSUInteger)index {
-    [self viewPager:viewPager contentViewControllerForTabAtIndex:index];
+- (void)viewPager:(ViewPagerController *)viewPager didChangeTabToIndex:(NSUInteger)index didSwipe:(BOOL)swipe {
+    if (swipe == NO && index==1) {
+        isClick = YES;
+        [self viewPager:viewPager contentViewControllerForTabAtIndex:index];
+    }
     NSLog(@"index %i", index);
 }
 

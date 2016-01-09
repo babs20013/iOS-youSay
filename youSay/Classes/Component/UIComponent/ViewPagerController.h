@@ -168,7 +168,7 @@ typedef NS_ENUM(NSUInteger, ViewPagerComponent) {
  * @param viewPager The viewPager that's subject to
  * @param index The index of the active tab
  */
-- (void)viewPager:(ViewPagerController *)viewPager didChangeTabToIndex:(NSUInteger)index;
+- (void)viewPager:(ViewPagerController *)viewPager didChangeTabToIndex:(NSUInteger)index didSwipe:(BOOL)swipe;
 /**
  * delegate object should implement this method if it wants to be informed when a tab changes and what its previous tab index was
  *

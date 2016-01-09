@@ -57,7 +57,6 @@
     SelectCharmsViewController *charmsSelection;
     BOOL isFirstLoad;
     BOOL isAfterCharm;
-    BOOL isProfileRequested;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UITableView *searchTableView;
@@ -93,11 +92,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     isFirstLoad = YES;
-    isProfileRequested = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshPage:)
-                                                 name:@"notification"
-                                               object:nil];
     isAfterCharm = NO;
     chartState = ChartStateDefault;
     [self.tableView setDelegate:self];
@@ -116,7 +110,7 @@
     if (isFriendProfile == NO) {
         [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
     }
-//    else {
+//    else if (_isFromFeed == NO) {
 //        [self requestProfile:requestedID];
 //    }
     
@@ -154,8 +148,15 @@
     [btnAddSay setImage:[UIImage imageNamed:@"AddButton"] forState:UIControlStateNormal];
     [btnAddSay setTitle:@"Add" forState:UIControlStateNormal];
     [btnAddSay addTarget:self action:@selector(btnAddSayTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnAddSay];
     [btnAddSay setHidden:YES];
+    [self.view addSubview:btnAddSay];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshPage:)
+                                                 name:@"notification"
+                                               object:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -360,6 +361,7 @@
 }
 
 - (void)requestProfile:(NSString*)IDrequested {
+    _isRequestingProfile = YES;
     isFirstLoad = NO;
     [SVProgressHUD show];
     [SVProgressHUD setStatus:@"Loading..."];
@@ -380,6 +382,7 @@
     [dictRequest setObject:IDrequested forKey:@"requested_user_id"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        _isRequestingProfile = NO;
         if (result)
         {
             NSDictionary *dictResult = result;
@@ -1536,17 +1539,21 @@
 
 - (void) refreshPage:(NSNotification *)notif {
    chartState = ChartStateDefault;
-    if ([AppDelegate sharedDelegate].isFirstLoad == YES) {
+    
+   if ([AppDelegate sharedDelegate].isFirstLoad == YES) {
         return;
-    }
-   else if (_isFromFeed== YES && requestedID) {
-       _isFromFeed=NO;
-       [self requestProfile:requestedID];
    }
-   else if ([[AppDelegate sharedDelegate].profileOwner UserID] && isProfileRequested == NO) {
-       isProfileRequested = YES;
+   else if ([[AppDelegate sharedDelegate].profileOwner UserID] &&
+            _isRequestingProfile == NO &&
+            _isFromFeed == NO) {
+       isFriendProfile = NO;
        [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
    }
+   else if (_isFromFeed == YES && requestedID && _isRequestingProfile == NO) {
+       _isFromFeed = NO;
+        [self requestProfile:requestedID];
+    }
+   
 }
 
 

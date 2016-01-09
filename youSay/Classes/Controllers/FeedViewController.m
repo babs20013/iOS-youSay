@@ -27,6 +27,7 @@
     int index;
     BOOL isNoMoreFeed;
     BOOL isLikeListReleased;
+    BOOL isRequesting;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -42,10 +43,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshFeed:)
-                                                 name:@"refreshpage"
-                                               object:nil];
     
     isScrollBounce = YES;
 }
@@ -55,7 +52,7 @@
     isLikeListReleased = NO;
     arrayFeed = [[NSMutableArray alloc]init];
     index = 1;
-    //[self requestFeed:[NSString stringWithFormat:@"%i", index]];
+    [self requestFeed:[NSString stringWithFormat:@"%i", index]];
     [_txtSearch addTarget:self
                    action:@selector(textFieldDidChange:)
          forControlEvents:UIControlEventEditingChanged];
@@ -83,6 +80,10 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshFeed:)
+                                                 name:@"refreshpage"
+                                               object:nil];
     
 }
 
@@ -93,6 +94,7 @@
 #pragma mark - Request
 
 - (void)requestFeed:(NSString*)startFrom {
+    isRequesting = YES;
     [SVProgressHUD show];
     [SVProgressHUD setStatus:@"Loading..."];
     UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
@@ -109,6 +111,7 @@
     [dictRequest setObject:@"1" forKey:@"sort"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        isRequesting = NO;
         if (result)
         {
             isScrollBounce = YES;
@@ -589,7 +592,9 @@
     arrayFeed = [[NSMutableArray alloc]init];
     index = 1;
     isNoMoreFeed = NO;
-    [self requestFeed:[NSString stringWithFormat:@"%i", index]];
+    if (isRequesting == NO) {
+        [self requestFeed:[NSString stringWithFormat:@"%i", index]];
+    }
 }
 
 #pragma mark - ScrollViewDelegate

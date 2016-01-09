@@ -602,8 +602,8 @@
     self.activeContentIndex = index;
     
     // Inform delegate about the change
-    if ([self.delegate respondsToSelector:@selector(viewPager:didChangeTabToIndex:)]) {
-        [self.delegate viewPager:self didChangeTabToIndex:self.activeTabIndex];
+    if ([self.delegate respondsToSelector:@selector(viewPager:didChangeTabToIndex:didSwipe:)]) {
+        [self.delegate viewPager:self didChangeTabToIndex:self.activeTabIndex didSwipe:didSwipe];
     }
     else if([self.delegate respondsToSelector:@selector(viewPager:didChangeTabToIndex:fromIndex:)]){
         [self.delegate viewPager:self didChangeTabToIndex:self.activeTabIndex fromIndex:previousIndex];
