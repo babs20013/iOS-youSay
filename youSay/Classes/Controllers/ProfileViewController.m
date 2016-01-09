@@ -55,7 +55,7 @@
     BOOL isAfterChangeCharm;
     BOOL isScrollBounce;
     SelectCharmsViewController *charmsSelection;
-    
+    BOOL isFirstLoad;
     BOOL isAfterCharm;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -91,6 +91,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isFirstLoad = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshPage:)
                                                  name:@"notification"
@@ -329,6 +330,7 @@
                 [AppDelegate sharedDelegate].profileOwner = profileModel;
                 profileDictionary = [result objectForKey:@"profile"];
                 isFriendProfile = NO;
+                isFirstLoad = NO;
                 [self requestSayColor];
                 if ([AppDelegate sharedDelegate].isNewToken == YES) {
                     [self requestAddUserDevice];
@@ -1399,6 +1401,7 @@
 }
 
 - (void)logout {
+    isFirstLoad = YES;
     FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
     [fb logOut];
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
@@ -1531,7 +1534,10 @@
 
 - (void) refreshPage:(NSNotification *)notif {
    chartState = ChartStateDefault;
-   if (_isFromFeed==YES && requestedID) {
+    if (isFirstLoad) {
+        return;
+    }
+   else if (_isFromFeed==YES && requestedID) {
        _isFromFeed = NO;
        [self requestProfile:requestedID];
    }
