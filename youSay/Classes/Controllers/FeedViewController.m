@@ -55,7 +55,7 @@
     isLikeListReleased = NO;
     arrayFeed = [[NSMutableArray alloc]init];
     index = 1;
-    [self requestFeed:[NSString stringWithFormat:@"%i", index]];
+    //[self requestFeed:[NSString stringWithFormat:@"%i", index]];
     [_txtSearch addTarget:self
                    action:@selector(textFieldDidChange:)
          forControlEvents:UIControlEventEditingChanged];

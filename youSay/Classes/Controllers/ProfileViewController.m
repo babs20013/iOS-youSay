@@ -57,6 +57,7 @@
     SelectCharmsViewController *charmsSelection;
     BOOL isFirstLoad;
     BOOL isAfterCharm;
+    BOOL isProfileRequested;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UITableView *searchTableView;
@@ -92,6 +93,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     isFirstLoad = YES;
+    isProfileRequested = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshPage:)
                                                  name:@"notification"
@@ -111,12 +113,12 @@
                          action:@selector(textFieldDidChange:)
                forControlEvents:UIControlEventEditingChanged];
     NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
-    if (!isFriendProfile) {
+    if (isFriendProfile == NO) {
         [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
     }
-    else {
-        [self requestProfile:requestedID];
-    }
+//    else {
+//        [self requestProfile:requestedID];
+//    }
     
     isAfterChangeCharm = NO;
     CharmChart *chart = [[CharmChart alloc]init];
@@ -358,6 +360,7 @@
 }
 
 - (void)requestProfile:(NSString*)IDrequested {
+    isFirstLoad = NO;
     [SVProgressHUD show];
     [SVProgressHUD setStatus:@"Loading..."];
     UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
@@ -1401,7 +1404,6 @@
 }
 
 - (void)logout {
-    isFirstLoad = YES;
     FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
     [fb logOut];
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
@@ -1534,14 +1536,15 @@
 
 - (void) refreshPage:(NSNotification *)notif {
    chartState = ChartStateDefault;
-    if ([AppDelegate sharedDelegate].isFirstLoad) {
+    if ([AppDelegate sharedDelegate].isFirstLoad == YES) {
         return;
     }
-   else if (_isFromFeed==YES && requestedID) {
-       _isFromFeed = NO;
+   else if (_isFromFeed== YES && requestedID) {
+       _isFromFeed=NO;
        [self requestProfile:requestedID];
    }
-   else if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
+   else if ([[AppDelegate sharedDelegate].profileOwner UserID] && isProfileRequested == NO) {
+       isProfileRequested = YES;
        [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
    }
 }
