@@ -21,8 +21,10 @@
 @property (nonatomic, strong) NSMutableArray * charmsArray;
 @property (nonatomic, strong) IBOutlet UIButton * btnAddSay;
 @property (nonatomic, strong) IBOutlet UITextField * txtSearch;
+@property (nonatomic, strong) IBOutlet UIView * searchView;
 @property (nonatomic, readwrite) BOOL isFriendProfile;
 @property (nonatomic, readwrite) BOOL isFromFeed;
+@property (weak,nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
 @property (nonatomic, strong) NSString *requestedID;
 
 - (void)requestProfile:(NSString*)IDrequested;

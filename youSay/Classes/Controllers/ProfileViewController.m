@@ -22,6 +22,7 @@
 #import "CharmChart.h"
 #import "AddNewSayViewController.h"
 #import "ReportSayViewController.h"
+#import "WhoLikeListTableViewCell.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -50,6 +51,7 @@
     NSMutableArray *arrayFilteredCharm;
     NSMutableArray *arrayOriginalCharm;
     NSMutableArray *arrActiveCharm;
+    NSMutableArray *arrSearch;
     BOOL isAfterChangeCharm;
     BOOL isScrollBounce;
     SelectCharmsViewController *charmsSelection;
@@ -57,6 +59,7 @@
     BOOL isAfterCharm;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UITableView *searchTableView;
 
 @end
 
@@ -72,9 +75,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     dictHideSay = [[NSMutableDictionary alloc] init];
-    isAfterCharm = NO;
-    isFriendProfile = NO;
-    chartState = ChartStateDefault;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshPage:)
                                                  name:@"notification"
@@ -93,6 +93,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isAfterCharm = NO;
+    isFriendProfile = NO;
+    chartState = ChartStateDefault;
+    [self.tableView setDelegate:self];
+    [self.tableView setDataSource:self];
+    [self.searchTableView setDelegate:self];
+    [self.searchTableView setDataSource:self];
+    self.searchTableView.layer.cornerRadius = 0.015 * self.searchTableView.bounds.size.width;
+    self.searchTableView.layer.masksToBounds = YES;
+    self.searchTableView.layer.borderWidth = 1;
+    self.searchTableView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    
+    [_txtSearch addTarget:self
+                         action:@selector(textFieldDidChange:)
+               forControlEvents:UIControlEventEditingChanged];
     NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
     if (!isFriendProfile) {
         [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
@@ -149,15 +164,6 @@
 
 -(void)loadFaceBookData:(NSString*)fbURLString param:(NSDictionary*)param
 {
-//    NSArray *permissions = [[NSArray alloc] initWithObjects:
-//                            @"user_likes",
-//                            @"read_stream",
-//                            @"publish_actions",
-//                            nil];
-//    FBSDK *session = [[FBSession alloc] initWithPermissions:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
-//    [FBSession setActiveSession:session];
-//    
-    
     AFHTTPClient * client = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:fbURLString]];
     [client registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [client setDefaultHeader:@"Accept" value:@"text/html"];
@@ -681,6 +687,57 @@
     }];
 }
 
+- (void)requestUser:(NSString*)searchString withSearchID:(NSString*)searchID {
+    [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
+    
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token] forKey:@"token"];
+    [dictRequest setObject:searchString forKey:@"search_text"];
+    [dictRequest setObject:AUTHORITY_TYPE_FB forKey:@"authority_type"];
+    [dictRequest setObject:[FBSDKAccessToken currentAccessToken].tokenString forKey:@"authority_access_token"];
+    [dictRequest setObject:searchID forKey:@"search_id"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                arrSearch = [dictResult objectForKey:@"yousay_users"];
+                self.tableHeightConstraint.constant = arrSearch.count*50;
+                [self.searchTableView needsUpdateConstraints];
+                [self.searchTableView reloadData];
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                 [alert show];
+                 [self logout];
+            }
+            else if ([[dictResult valueForKey:@"rc"] integerValue] == 602) {
+                //If search is still in progress, keep searching
+                [self requestUser:searchString withSearchID:searchID];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        [SVProgressHUD dismiss];
+    }];
+}
+
 #pragma mark TableView
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -701,14 +758,20 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
+    if (tableView == self.searchTableView) {
+        return 0;
+    }
+    else if (section == 1) {
         return 50;
     }
     return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 0) {
+    if (tableView == self.searchTableView) {
+        return 0;
+    }
+    else if (section == 0) {
         return 10;
     }
     if (section == 1) {
@@ -717,8 +780,10 @@
     return 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //TODO-- Should be dynamic based on the iPhone device height
-    if (indexPath.section == 0) {
+    if (tableView == self.searchTableView) {
+        return 50;
+    }
+    else if (indexPath.section == 0) {
         CGFloat height=0;
         if (self.view.frame.size.height >= 667) {//6+
             height= self.view.frame.size.height - 195;
@@ -750,25 +815,113 @@
     return 0;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-
 {
-//    if (chartState == ChartStateEdit) {
-//        return 1;
-//    }
-    if ([saysArray count]>0){
+    if (tableView == self.searchTableView) {
+        return 1;
+    }
+    else if ([saysArray count]>0){
         return 2;
     }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    if (section == 1) {
+    if (tableView == self.searchTableView) {
+        return arrSearch.count;
+    }
+    else if (section == 1) {
         return saysArray.count;}
     return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if  (tableView == self.searchTableView) {
+        return [self constructCellForSearchUser:indexPath forTableView:tableView];
+    }
+    return [self constructCellForProfilePage:indexPath forTableView:tableView];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.searchTableView) {
+        NSDictionary *dict = [arrSearch objectAtIndex:indexPath.row];
+        [self requestProfile:[dict objectForKey:@"user_id"]];
+        requestedID = [dict objectForKey:@"user_id"];
+        if (requestedID == [[AppDelegate sharedDelegate].profileOwner UserID]) {
+            isFriendProfile = NO;
+            chartState = ChartStateDefault;
+        }
+        else {
+            isFriendProfile = YES;
+            chartState = ChartStateViewing;
+        }
+        [self.searchView setHidden:YES];
+        [self.tableView setHidden:NO];
+        [self.txtSearch setText:@""];
+        [self.txtSearch resignFirstResponder];
+    }
+}
+
+
+
+-(UIColor*)colorWithHexString:(NSString*)hex
+{
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    cString = [cString stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
+
+- (UITableViewCell*)constructCellForSearchUser:(NSIndexPath*)indexPath forTableView:(UITableView*)tableView {
+    static NSString *cellIdentifier = @"WhoLikeListTableViewCell";
+    WhoLikeListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (! cell) {
+        
+        cell = [[WhoLikeListTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+    }
+    NSDictionary *dict = [arrSearch objectAtIndex:indexPath.row];
+    NSString *urlString = [dict objectForKey:@"image_url"];
+    [cell.profileView setImageURL:[NSURL URLWithString:urlString]];
+    cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
+    cell.profileView.layer.masksToBounds = YES;
+    cell.profileView.layer.borderWidth = 1;
+    cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    
+    [cell.profileName setText:[dict objectForKey:@"name"]];
+    
+    return cell;
+}
+
+- (UITableViewCell*)constructCellForProfilePage:(NSIndexPath*)indexPath forTableView:(UITableView*)tableView {
     static NSString *cellIdentifier = @"ProfileTableViewCell";
     ProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -809,7 +962,7 @@
         cel.imgViewProfilePicture.layer.masksToBounds = YES;
         cel.imgViewProfilePicture.layer.borderWidth = 1;
         cel.imgViewProfilePicture.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-
+        
         cel.lblName.text = model.Name;
         NSInteger popularity = [[profileDictionary objectForKey:@"popularity"] integerValue];
         NSInteger wiz = [[profileDictionary objectForKey:@"rank"] integerValue];
@@ -838,7 +991,7 @@
         cel.charmView.layer.masksToBounds = YES;
         cel.charmView.layer.borderWidth = 1;
         cel.charmView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-
+        
         //--Charms Box
         if (!isFriendProfile) {
             charmsArray = [profileDictionary valueForKey:@"charms"];
@@ -869,13 +1022,13 @@
             }
         }
         
-        CGFloat w = (tableView.frame.size.width - 40-28) / 5;
+        CGFloat w = (self.tableView.frame.size.width - 40-28) / 5;
         CGFloat h = (( w/3 )+2)*13;
         CGRect f1 =  CGRectMake(0, 0, w,h);
         
         [[cel.charmChartView subviews]
          makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
+        
         cel.charmChartView.delegate = self;
         NSMutableArray *arrScore = [[NSMutableArray alloc]init];
         NSMutableArray *arrNames = [[NSMutableArray alloc]init];
@@ -894,7 +1047,7 @@
         cel.charmChartView.chartScores  =  arrScore;
         cel.charmChartView.chartNames  =  arrNames;
         cel.charmChartView.chartLocked  =  arrLocked;
-
+        
         cel.charmChartView.state = chartState;
         charmView = cel.charmChartView;
         
@@ -914,9 +1067,9 @@
         else if (isFriendProfile == YES) {
             [cel.longPressInfoView setHidden:YES];
             [cel.rankButton setHidden:NO];
-//            [cel.lblShare setHidden:YES];
-//            [cel.btnShare setHidden:YES];
-//            [cel.imgVShare setHidden:YES];
+            //            [cel.lblShare setHidden:YES];
+            //            [cel.btnShare setHidden:YES];
+            //            [cel.imgVShare setHidden:YES];
             [cel.buttonEditView setHidden:YES];
         }
         else{
@@ -950,7 +1103,7 @@
         cel.mainView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         
         
-
+        
         [cel.imgViewProfilePic setImageURL:[NSURL URLWithString:[currentSaysDict objectForKey:@"profile_image"]]];
         cel.imgViewProfilePic.layer.cornerRadius = 0.5 * cel.imgViewProfilePic.bounds.size.width;
         cel.imgViewProfilePic.layer.masksToBounds = YES;
@@ -967,7 +1120,7 @@
         //[cel.btnProfile.titleLabel setText:[NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]]];
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel.peopleSayView setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
-        [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];                                          
+        [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];
         [cel.peopleSayLabel sizeToFit];
         CGSize expectedSize = [CommonHelper expectedSizeForLabel:cel.peopleSayLabel attributes:nil];
         cel.peopleSayLabel.frame = CGRectMake(cel.peopleSayLabel.frame.origin.x, cel.peopleSayLabel.frame.origin.y, expectedSize.width, expectedSize.height);
@@ -979,7 +1132,7 @@
             [cel.likeButton setSelected:YES];
         }
         else {
-             [cel.likeButton setSelected:NO];
+            [cel.likeButton setSelected:NO];
         }
         
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
@@ -999,13 +1152,13 @@
             [btnUndo addTarget:self action:@selector(btnUndoClicked:) forControlEvents:UIControlEventTouchUpInside];
             NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
             [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"Undo"
-                            attributes:
-                                            @{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-                                              NSForegroundColorAttributeName: [UIColor colorWithRed:23/255.f green:174/255.f blue:201/255.f alpha:1],
-                                              NSFontAttributeName: [UIFont fontWithName:@"Arial" size:14]}]];
+                                                                                     attributes:
+                                                      @{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+                                                        NSForegroundColorAttributeName: [UIColor colorWithRed:23/255.f green:174/255.f blue:201/255.f alpha:1],
+                                                        NSFontAttributeName: [UIFont fontWithName:@"Arial" size:14]}]];
             [btnUndo setAttributedTitle:attributedString forState:UIControlStateNormal];
             [hideView addSubview:btnUndo];
-
+            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell.contentView addSubview:hideView];
             return cell;
@@ -1021,7 +1174,7 @@
         }
         if ([cel.likesLabel.text integerValue] < 1) {
             [cel.btnLikeCount setEnabled:NO];
-           // [cel.btnLikeCount setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
+            // [cel.btnLikeCount setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
         }
         else {
             [cel.btnLikeCount setEnabled:YES];
@@ -1030,55 +1183,7 @@
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
         return cel;
     }
-    else if (indexPath.section == 2) {
-        
-        static NSString *cellIdentifier = @"AddTableViewCell";
-        UITableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        UIButton *btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(tableView.bounds.origin.x, 0, 60, 60)];
-        [btnAddSay.imageView setImage:[UIImage imageNamed:@"AddButton"]];
-        if (isFriendProfile) {
-            [cel addSubview:btnAddSay];
-        }
-    }
-   
     return cell;
-}
-
--(UIColor*)colorWithHexString:(NSString*)hex
-{
-    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
-    cString = [cString stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    
-    // String should be 6 or 8 characters
-    if ([cString length] < 6) return [UIColor grayColor];
-    
-    // strip 0X if it appears
-    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
-    
-    if ([cString length] != 6) return  [UIColor grayColor];
-    
-    // Separate into r, g, b substrings
-    NSRange range;
-    range.location = 0;
-    range.length = 2;
-    NSString *rString = [cString substringWithRange:range];
-    
-    range.location = 2;
-    NSString *gString = [cString substringWithRange:range];
-    
-    range.location = 4;
-    NSString *bString = [cString substringWithRange:range];
-    
-    // Scan values
-    unsigned int r, g, b;
-    [[NSScanner scannerWithString:rString] scanHexInt:&r];
-    [[NSScanner scannerWithString:gString] scanHexInt:&g];
-    [[NSScanner scannerWithString:bString] scanHexInt:&b];
-    
-    return [UIColor colorWithRed:((float) r / 255.0f)
-                           green:((float) g / 255.0f)
-                            blue:((float) b / 255.0f)
-                           alpha:1.0f];
 }
 
 - (UIView*)getCharmsDisplay:(CGFloat)chartHeight withScore:(NSInteger)score {
@@ -1277,6 +1382,10 @@
     [self requestProfile:[value objectForKey:@"user_id"]];
 }
 
+- (IBAction)btnClearSearchClicked:(id)sender {
+    
+}
+
 - (void)EnableCharmRateMode {
     [charmView beginEditing];
 }
@@ -1391,10 +1500,10 @@
     
     if (fabs(scrollView.contentOffset.y) < 1 && isScrollBounce) {
         isScrollBounce = NO;
-        if (requestedID) {
+        if (requestedID && self.tableView.hidden == NO && isFriendProfile == YES) {
             [self requestProfile:requestedID];
         }
-        else {
+        else if (self.tableView.hidden == NO) {
             [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
         }
     }
@@ -1417,6 +1526,7 @@
 }
 
 - (void) refreshPage:(NSNotification *)notif {
+    
     chartState = ChartStateDefault;
     if (_isFromFeed==YES && requestedID) {
         _isFromFeed = NO;
@@ -1437,6 +1547,39 @@
 - (void)dealloc {
     //[super dealloc];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [textField becomeFirstResponder];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [textField resignFirstResponder];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    return YES;
+}
+
+- (void)textFieldDidChange:(UITextField*)textField {
+    [textField becomeFirstResponder];
+    if ([textField.text length] > 0) {
+        [self.tableView setHidden:YES];
+        [self.searchView setHidden:NO];
+        [self requestUser:textField.text withSearchID:@""];
+    }
+    else {
+        [textField resignFirstResponder];
+        [self.searchView setHidden:YES];
+        [self.tableView setHidden:NO];
+    }
+    
 }
 
 @end
