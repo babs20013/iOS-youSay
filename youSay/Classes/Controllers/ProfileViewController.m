@@ -330,7 +330,7 @@
                 [AppDelegate sharedDelegate].profileOwner = profileModel;
                 profileDictionary = [result objectForKey:@"profile"];
                 isFriendProfile = NO;
-                isFirstLoad = NO;
+                [AppDelegate sharedDelegate].isFirstLoad = NO;
                 [self requestSayColor];
                 if ([AppDelegate sharedDelegate].isNewToken == YES) {
                     [self requestAddUserDevice];
@@ -1534,7 +1534,7 @@
 
 - (void) refreshPage:(NSNotification *)notif {
    chartState = ChartStateDefault;
-    if (isFirstLoad) {
+    if ([AppDelegate sharedDelegate].isFirstLoad) {
         return;
     }
    else if (_isFromFeed==YES && requestedID) {

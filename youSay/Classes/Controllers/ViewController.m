@@ -40,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     accessToken = @"";
+    [AppDelegate sharedDelegate].isFirstLoad = YES;
     if ([[FBSDKAccessToken currentAccessToken].expirationDate compare:[NSDate date]] == NSOrderedDescending) {
         [self goToMainPage];
     }

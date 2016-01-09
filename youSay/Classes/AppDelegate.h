@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSDictionary *colorDict;
 @property (strong, nonatomic) NSString *deviceToken;
 @property (nonatomic, readwrite) BOOL isNewToken;
+@property (nonatomic, readwrite) BOOL isFirstLoad;
 
 + (AppDelegate *)sharedDelegate;
 
