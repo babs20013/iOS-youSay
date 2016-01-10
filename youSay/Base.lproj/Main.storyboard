@@ -557,13 +557,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiY-Kp-zTX">
-                                        <rect key="frame" x="240" y="8" width="70" height="28"/>
+                                        <rect key="frame" x="260" y="8" width="50" height="28"/>
                                         <subviews>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGe-Qm-ydz">
-                                                <rect key="frame" x="0.0" y="0.0" width="70" height="28"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="28"/>
                                                 <animations/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="BWY-G4-vlL"/>
+                                                    <constraint firstAttribute="width" constant="50" id="BWY-G4-vlL"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                                 <state key="normal" title="Cancel">
@@ -574,7 +574,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Y9-5v-537">
-                                                <rect key="frame" x="40" y="0.0" width="30" height="28"/>
+                                                <rect key="frame" x="20" y="0.0" width="30" height="28"/>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="9kN-Hj-JPl"/>
@@ -592,7 +592,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="oGe-Qm-ydz" firstAttribute="top" secondItem="wiY-Kp-zTX" secondAttribute="top" id="4SF-Nf-OjN"/>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="70" id="TCW-a6-P9f"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="TCW-a6-P9f"/>
                                             <constraint firstItem="4Y9-5v-537" firstAttribute="top" secondItem="wiY-Kp-zTX" secondAttribute="top" id="YEP-SK-rJ7"/>
                                             <constraint firstAttribute="trailing" secondItem="oGe-Qm-ydz" secondAttribute="trailing" id="gQE-Vt-gH6"/>
                                             <constraint firstAttribute="bottom" secondItem="4Y9-5v-537" secondAttribute="bottom" id="gj4-OX-tp3"/>
@@ -602,7 +602,7 @@
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="C8p-JM-v4h">
-                                        <rect key="frame" x="8" y="7" width="224" height="30"/>
+                                        <rect key="frame" x="8" y="7" width="244" height="30"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1482,23 +1482,52 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f7s-rB-THb" userLabel="BarView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rmb-cc-cJC">
-                                        <rect key="frame" x="282" y="8" width="30" height="28"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="brh-u9-gga">
+                                        <rect key="frame" x="268" y="8" width="44" height="28"/>
+                                        <subviews>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYM-ks-bJj">
+                                                <rect key="frame" x="0.0" y="0.0" width="44" height="28"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
+                                                <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="btnCancelSearchClicked:" destination="1dz-LU-SJf" eventType="touchUpInside" id="iAj-pA-rlg"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rmb-cc-cJC">
+                                                <rect key="frame" x="14" y="0.0" width="30" height="28"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="CAm-ne-X6j"/>
+                                                    <constraint firstAttribute="height" constant="28" id="YqD-Db-krf"/>
+                                                </constraints>
+                                                <state key="normal" image="hamburger">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnOpenMenu:" destination="1dz-LU-SJf" eventType="touchUpInside" id="B2F-ht-uYU"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="gYM-ks-bJj" firstAttribute="top" secondItem="brh-u9-gga" secondAttribute="top" id="3ld-xz-6eX"/>
+                                            <constraint firstAttribute="trailing" secondItem="Rmb-cc-cJC" secondAttribute="trailing" id="9Bm-Tt-s7K"/>
+                                            <constraint firstItem="Rmb-cc-cJC" firstAttribute="top" secondItem="brh-u9-gga" secondAttribute="top" id="E6Q-5y-Kq4"/>
+                                            <constraint firstAttribute="trailing" secondItem="gYM-ks-bJj" secondAttribute="trailing" id="Rm9-di-XZD"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="bSa-iu-vRh"/>
+                                            <constraint firstAttribute="bottom" secondItem="gYM-ks-bJj" secondAttribute="bottom" id="eLo-T6-3RR"/>
+                                            <constraint firstItem="gYM-ks-bJj" firstAttribute="leading" secondItem="brh-u9-gga" secondAttribute="leading" id="hjC-8L-Ftj"/>
+                                            <constraint firstAttribute="bottom" secondItem="Rmb-cc-cJC" secondAttribute="bottom" id="vC3-Aa-i18"/>
+                                        </constraints>
+                                    </view>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EB1-Qc-tk2">
+                                        <rect key="frame" x="8" y="7" width="252" height="30"/>
                                         <animations/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="CAm-ne-X6j"/>
-                                            <constraint firstAttribute="height" constant="28" id="YqD-Db-krf"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="252" id="Vej-Rk-E8k"/>
                                         </constraints>
-                                        <state key="normal" image="hamburger">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btnOpenMenu:" destination="1dz-LU-SJf" eventType="touchUpInside" id="B2F-ht-uYU"/>
-                                        </connections>
-                                    </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EB1-Qc-tk2">
-                                        <rect key="frame" x="8" y="7" width="264" height="30"/>
-                                        <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
@@ -1510,9 +1539,10 @@
                                 <color key="backgroundColor" red="0.0039215686269999999" green="0.6705882353" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Rmb-cc-cJC" firstAttribute="leading" secondItem="EB1-Qc-tk2" secondAttribute="trailing" constant="10" id="6Ih-ml-PDH"/>
-                                    <constraint firstAttribute="trailing" secondItem="Rmb-cc-cJC" secondAttribute="trailing" constant="8" id="8JU-jW-cce"/>
-                                    <constraint firstItem="Rmb-cc-cJC" firstAttribute="top" secondItem="f7s-rB-THb" secondAttribute="top" constant="8" id="Nbt-dT-Lm6"/>
+                                    <constraint firstItem="brh-u9-gga" firstAttribute="top" secondItem="f7s-rB-THb" secondAttribute="top" constant="8" id="G6n-vd-XwH"/>
+                                    <constraint firstItem="brh-u9-gga" firstAttribute="leading" secondItem="EB1-Qc-tk2" secondAttribute="trailing" constant="8" id="Q9J-1r-tTp"/>
+                                    <constraint firstAttribute="bottom" secondItem="brh-u9-gga" secondAttribute="bottom" constant="8" id="XAr-Fy-EXT"/>
+                                    <constraint firstAttribute="trailing" secondItem="brh-u9-gga" secondAttribute="trailing" constant="8" id="nZf-bV-snc"/>
                                     <constraint firstAttribute="height" constant="44" id="sex-3s-BRr"/>
                                     <constraint firstItem="EB1-Qc-tk2" firstAttribute="leading" secondItem="f7s-rB-THb" secondAttribute="leading" constant="8" id="ssA-1W-6lm"/>
                                     <constraint firstItem="EB1-Qc-tk2" firstAttribute="centerY" secondItem="f7s-rB-THb" secondAttribute="centerY" id="ta3-ty-gPZ"/>
@@ -1869,12 +1899,16 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnCancel" destination="gYM-ks-bJj" id="6ib-fm-oT1"/>
                         <outlet property="btnClear" destination="5Id-uP-rII" id="0hn-Ce-sGD"/>
+                        <outlet property="btnRightMenu" destination="Rmb-cc-cJC" id="h32-NS-rN2"/>
+                        <outlet property="btnViewConstraint" destination="bSa-iu-vRh" id="gZm-4W-mkm"/>
                         <outlet property="searchUserTableView" destination="Eqe-4c-9gE" id="qvW-PE-B3D"/>
                         <outlet property="searchView" destination="l79-CU-AfT" id="dVC-g0-MHB"/>
                         <outlet property="tableHeightConstraint" destination="LKc-RP-cu8" id="1gE-pA-ANJ"/>
                         <outlet property="tableView" destination="XlH-sS-NF1" id="1UR-AS-MA2"/>
                         <outlet property="txtSearch" destination="EB1-Qc-tk2" id="cBR-It-Uer"/>
+                        <outlet property="viewButton" destination="brh-u9-gga" id="ltg-Xq-Bps"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="crr-ce-JQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>

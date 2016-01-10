@@ -36,6 +36,10 @@
 @property (nonatomic, strong) IBOutlet UITextField * txtSearch;
 @property (nonatomic, strong) IBOutlet UIView * searchView;
 @property (weak,nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
+@property (weak,nonatomic) IBOutlet NSLayoutConstraint *btnViewConstraint;
+@property (nonatomic, weak) IBOutlet UIButton *btnCancel;
+@property (nonatomic, weak) IBOutlet UIButton *btnRightMenu;
+@property (nonatomic, weak) IBOutlet UIView *viewButton;
 @end
 
 @implementation FeedViewController
@@ -84,6 +88,9 @@
                                              selector:@selector(refreshFeed:)
                                                  name:@"refreshpage"
                                                object:nil];
+    
+    self.btnViewConstraint.constant = 30;
+    [self.viewButton needsUpdateConstraints];
     
 }
 
@@ -585,7 +592,21 @@
 }
 
 - (IBAction)btnClearSearchClicked:(id)sender {
-    NSLog(@"clear user search");
+    arraySearch= [[NSMutableArray alloc]init];
+    [self.searchUserTableView reloadData];
+    self.tableHeightConstraint.constant = arraySearch.count*50;
+    [self.searchUserTableView needsUpdateConstraints];
+    [self.searchUserTableView reloadData];
+}
+
+- (IBAction)btnCancelSearchClicked:(id)sender {
+    [self.txtSearch resignFirstResponder];
+    [self.searchView setHidden:YES];
+    [self.tableView setHidden:NO];
+    [self.btnRightMenu setHidden:NO];
+    [self.btnCancel setHidden:YES];
+    self.btnViewConstraint.constant = 30;
+    [self.viewButton needsUpdateConstraints];
 }
 
 - (void) refreshFeed:(NSNotification *)notif {
@@ -723,15 +744,20 @@
 
 - (void)textFieldDidChange:(UITextField*)textField {
     [textField becomeFirstResponder];
-    if ([textField.text length] > 0) {
-        [self.tableView setHidden:YES];
-        [self.searchView setHidden:NO];
+    [self.tableView setHidden:YES];
+    [self.searchView setHidden:NO];
+    self.btnViewConstraint.constant = 50;
+    [self.viewButton needsUpdateConstraints];
+    
+    [self.btnCancel setHidden:NO];
+    [self.btnRightMenu setHidden:YES];
+    if ([textField.text length]>0){
+        
+        [self.btnClear setHidden:YES];
         [self requestUser:textField.text withSearchID:@""];
     }
     else {
-        [textField resignFirstResponder];
-        [self.searchView setHidden:YES];
-        [self.tableView setHidden:NO];
+        [self.btnClear setHidden:NO];
     }
 }
 

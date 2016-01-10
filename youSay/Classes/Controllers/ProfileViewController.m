@@ -1611,7 +1611,7 @@
     [textField becomeFirstResponder];
     [self.tableView setHidden:YES];
     [self.searchView setHidden:NO];
-    self.btnViewConstraint.constant = 70;
+    self.btnViewConstraint.constant = 50;
     [self.viewButton needsUpdateConstraints];
     
     [self.btnCancel setHidden:NO];
