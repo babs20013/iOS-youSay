@@ -592,13 +592,12 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="oGe-Qm-ydz" firstAttribute="top" secondItem="wiY-Kp-zTX" secondAttribute="top" id="4SF-Nf-OjN"/>
+                                            <constraint firstItem="oGe-Qm-ydz" firstAttribute="centerX" secondItem="wiY-Kp-zTX" secondAttribute="centerX" id="Lpq-Tw-kd5"/>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="TCW-a6-P9f"/>
                                             <constraint firstItem="4Y9-5v-537" firstAttribute="top" secondItem="wiY-Kp-zTX" secondAttribute="top" id="YEP-SK-rJ7"/>
-                                            <constraint firstAttribute="trailing" secondItem="oGe-Qm-ydz" secondAttribute="trailing" id="gQE-Vt-gH6"/>
                                             <constraint firstAttribute="bottom" secondItem="4Y9-5v-537" secondAttribute="bottom" id="gj4-OX-tp3"/>
                                             <constraint firstAttribute="bottom" secondItem="oGe-Qm-ydz" secondAttribute="bottom" id="itK-Hw-B6n"/>
                                             <constraint firstAttribute="trailing" secondItem="4Y9-5v-537" secondAttribute="trailing" id="lZD-ov-ohf"/>
-                                            <constraint firstItem="oGe-Qm-ydz" firstAttribute="leading" secondItem="wiY-Kp-zTX" secondAttribute="leading" id="pWf-e1-IFB"/>
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="C8p-JM-v4h">
@@ -606,9 +605,6 @@
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="264" id="roS-ib-j6W"/>
-                                        </constraints>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -1238,7 +1234,6 @@
                                                     <constraints>
                                                         <constraint firstItem="bmp-zu-9Oo" firstAttribute="bottom" secondItem="wfU-Do-jAG" secondAttribute="bottomMargin" id="7CD-cU-tOv"/>
                                                         <constraint firstItem="Mfm-N9-d4G" firstAttribute="leading" secondItem="bmp-zu-9Oo" secondAttribute="trailing" constant="9" id="C5X-se-dbx"/>
-                                                        <constraint firstItem="bmp-zu-9Oo" firstAttribute="centerY" secondItem="wfU-Do-jAG" secondAttribute="centerY" id="OSb-ie-UzF"/>
                                                         <constraint firstItem="bmp-zu-9Oo" firstAttribute="leading" secondItem="wfU-Do-jAG" secondAttribute="leadingMargin" constant="7" id="WOH-oL-X3N"/>
                                                         <constraint firstItem="bmp-zu-9Oo" firstAttribute="centerY" secondItem="Mfm-N9-d4G" secondAttribute="centerY" id="Ymr-Je-Pke"/>
                                                     </constraints>

@@ -72,6 +72,7 @@
     self.txtSearch.layer.cornerRadius = round(self.txtSearch.frame.size.height / 2);
     self.txtSearch.layer.borderWidth = 1;
     self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.txtSearch.autocorrectionType = UITextAutocorrectionTypeNo;
     
     self.searchUserTableView.layer.cornerRadius = 0.015 * self.searchUserTableView.bounds.size.width;
     self.searchUserTableView.layer.masksToBounds = YES;
@@ -277,11 +278,6 @@
 }
 
 - (void)requestUser:(NSString*)searchString withSearchID:(NSString*)searchID {
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
-    
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
@@ -292,6 +288,7 @@
     [dictRequest setObject:searchID forKey:@"search_id"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        isRequesting = NO;
         if (result)
         {
             NSDictionary *dictResult = result;
@@ -331,6 +328,7 @@
                         //--Check if the facebook user is already a yousay user
                         
                         [arraySearch addObject:model];
+                        [SVProgressHUD dismiss];
                     }
                     self.tableHeightConstraint.constant = arraySearch.count*50;
                     [self.searchUserTableView needsUpdateConstraints];
@@ -357,7 +355,6 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
     }];
 }
 
@@ -822,7 +819,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     arraySearch = nil;
-    [self requestUser:[textField text] withSearchID:@""];
+    if ([textField.text length]>2){
+        [self requestUser:textField.text withSearchID:@""];
+    }
     [textField resignFirstResponder];
     return YES;
 }
@@ -837,16 +836,24 @@
     [self.btnCancel setHidden:NO];
     [self.btnRightMenu setHidden:YES];
     
+    if ([textField.text length]==0){
+        [self.btnClear setHidden:NO];
+    }
+    else {
+        [self.btnClear setHidden:YES];
+    }
+    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), queue, ^{
         if ([textField.text length]>2 && isRequesting == NO){
             isRequesting = YES;
             [self.btnClear setHidden:YES];
             arraySearch = nil;
+            [SVProgressHUD show];
+            [SVProgressHUD setStatus:@"Loading..."];
+            UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+            [SVProgressHUD setBackgroundColor:blackColor];
             [self requestUser:textField.text withSearchID:@""];
-        }
-        else if ([textField.text length]==0){
-            [self.btnClear setHidden:NO];
         }
     });
 }

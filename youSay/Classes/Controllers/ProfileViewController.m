@@ -146,6 +146,7 @@
     self.txtSearch.layer.cornerRadius = round(self.txtSearch.frame.size.height / 2);
     self.txtSearch.layer.borderWidth = 1;
     self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.txtSearch.autocorrectionType = UITextAutocorrectionTypeNo;
     
     btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake((self.view.frame.size.width-60)/2, self.view.frame.size.height - 140, 60, 60)];
     [btnAddSay setImage:[UIImage imageNamed:@"AddButton"] forState:UIControlStateNormal];
@@ -717,23 +718,58 @@
     [dictRequest setObject:searchID forKey:@"search_id"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        _isRequestingProfile = NO;
         if (result)
         {
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                arrSearch = [dictResult objectForKey:@"yousay_users"];
-                self.tableHeightConstraint.constant = arrSearch.count*50;
-                [self.searchTableView needsUpdateConstraints];
-                [self.searchTableView reloadData];
+                if ([dictResult objectForKey:@"yousay_users"]) {
+                    NSString *searchid = [dictResult objectForKey:@"search_id"];
+                    [self requestUser:searchString withSearchID:searchid];
+                    NSArray *tempArr = [dictResult objectForKey:@"yousay_users"];
+                    for (int i = 0; i < tempArr.count; i++) {
+                        NSDictionary *dict = [tempArr objectAtIndex:i];
+                        FriendModel *model = [[FriendModel alloc]init];
+                        model.Name = [dict objectForKey:@"name"];
+                        model.ProfileImage = [dict objectForKey:@"image_url"];
+                        model.userID = [dict objectForKey:@"user_id"];
+                        model.isNeedProfile = NO;
+                        if (arrSearch == nil) {
+                            arrSearch = [[NSMutableArray alloc]init];
+                        }
+                        [arrSearch addObject:model];
+                    }
+                    
+                }
+                else if ([dictResult objectForKey:@"facebook_users"]) {
+                    NSArray *tempArr = [dictResult objectForKey:@"facebook_users"];
+                    for (int i = 0; i < tempArr.count; i++) {
+                        NSDictionary *dict = [tempArr objectAtIndex:i];
+                        FriendModel *model = [[FriendModel alloc]init];
+                        model.Name = [dict objectForKey:@"name"];
+                        model.userID = [dict objectForKey:@"id"];
+                        NSDictionary *dictPic = [[dict objectForKey:@"picture"] objectForKey:@"data"];
+                        model.ProfileImage = [dictPic objectForKey:@"url"];
+                        model.isNeedProfile = YES;
+                        if (arrSearch == nil) {
+                            arrSearch = [[NSMutableArray alloc]init];
+                        }
+                        //--Check if the facebook user is already a yousay user
+                        
+                        [arrSearch addObject:model];
+                    }
+                    self.tableHeightConstraint.constant = arrSearch.count*50;
+                    [self.searchTableView needsUpdateConstraints];
+                    [self.searchTableView reloadData];
+                }
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
-                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                 [alert show];
-                 [self logout];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self logout];
             }
             else if ([[dictResult valueForKey:@"rc"] integerValue] == 602) {
-                //If search is still in progress, keep searching
                 [self requestUser:searchString withSearchID:searchID];
             }
             else {
@@ -773,7 +809,9 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
+                chartState = ChartStateViewing;
                 profileDictionary = [dictResult objectForKey:@"profile"];
+                requestedID = [profileDictionary objectForKey:@"id"];
                 saysArray = saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
                 charmsArray = [profileDictionary valueForKey:@"charms"];
                 isAfterChangeCharm = NO;
@@ -912,16 +950,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.searchTableView) {
-        NSDictionary *dict = [arrSearch objectAtIndex:indexPath.row];
-        [self requestProfile:[dict objectForKey:@"user_id"]];
-        requestedID = [dict objectForKey:@"user_id"];
-        if (requestedID == [[AppDelegate sharedDelegate].profileOwner UserID]) {
-            isFriendProfile = NO;
-            chartState = ChartStateDefault;
+        FriendModel *model = [arrSearch objectAtIndex:indexPath.row];
+        if (model.isNeedProfile) {
+            [self requestCreateProfile:model];
         }
         else {
-            isFriendProfile = YES;
-            chartState = ChartStateViewing;
+            [self requestProfile:model.userID];
         }
         [self.searchView setHidden:YES];
         [self.tableView setHidden:NO];
@@ -975,15 +1009,14 @@
         
         cell = [[WhoLikeListTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
-    NSDictionary *dict = [arrSearch objectAtIndex:indexPath.row];
-    NSString *urlString = [dict objectForKey:@"image_url"];
-    [cell.profileView setImageURL:[NSURL URLWithString:urlString]];
+    FriendModel *model = [arrSearch objectAtIndex:indexPath.row];
+    [cell.profileView setImageURL:[NSURL URLWithString:model.ProfileImage]];
     cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
     cell.profileView.layer.masksToBounds = YES;
     cell.profileView.layer.borderWidth = 1;
     cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
     
-    [cell.profileName setText:[dict objectForKey:@"name"]];
+    [cell.profileName setText:model.Name];
     
     return cell;
 }
@@ -1680,8 +1713,12 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    arrSearch = nil;
+    if ([textField.text length]>2){
+        [self requestUser:textField.text withSearchID:@""];
+    }
     [textField resignFirstResponder];
-    [_btnClear setHidden:NO];
+    //[_btnClear setHidden:NO];
     return YES;
 }
 
@@ -1694,27 +1731,19 @@
     
     [self.btnCancel setHidden:NO];
     [self.btnRightMenu setHidden:YES];
-    if ([textField.text length]>0){
-        
-        [self.btnClear setHidden:YES];
-        [self requestUser:textField.text withSearchID:@""];
-    }
-    else {
+    if ([textField.text length]==0){
         [self.btnClear setHidden:NO];
     }
     
-//    if ([textField.text length] > 0) {
-//        [self.tableView setHidden:YES];
-//        [self.searchView setHidden:NO];
-//        [self.btnCancel setHidden:NO];
-//        [self requestUser:textField.text withSearchID:@""];
-//    }
-//    else {
-//        [textField resignFirstResponder];
-//        [self.searchView setHidden:YES];
-//        [self.tableView setHidden:NO];
-//    }
-    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), queue, ^{
+        if ([textField.text length]>2 && _isRequestingProfile == NO){
+            _isRequestingProfile = YES;
+            [self.btnClear setHidden:YES];
+            arrSearch = nil;
+            [self requestUser:textField.text withSearchID:@""];
+        }
+    });
 }
 
 @end
