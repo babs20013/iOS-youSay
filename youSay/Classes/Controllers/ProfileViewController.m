@@ -810,6 +810,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 chartState = ChartStateViewing;
+                isFriendProfile = YES;
                 profileDictionary = [dictResult objectForKey:@"profile"];
                 requestedID = [profileDictionary objectForKey:@"id"];
                 saysArray = saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
