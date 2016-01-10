@@ -238,12 +238,12 @@
     __block NSUInteger index = [self.tabs indexOfObject:tabView];
     
     //if Tap is not selected Tab(new Tab)
-//    if (self.activeTabIndex != index) {
-//        // Select the tab
-//        [self selectTabAtIndex:index didSwipe:NO];
-//    }
+    if (self.activeTabIndex != index || index==1) {
+        // Select the tab
+        [self selectTabAtIndex:index didSwipe:NO];
+    }
     
-    [self selectTabAtIndex:index didSwipe:NO];
+   // [self selectTabAtIndex:index didSwipe:NO];
 }
 
 #pragma mark - Interface rotation
@@ -585,7 +585,10 @@
 }
 
 - (void)selectTabAtIndex:(NSUInteger)index didSwipe:(BOOL)didSwipe {
-    
+    BOOL isFromSameTab = NO;
+    if (self.activeTabIndex == index) {
+        isFromSameTab = YES;
+    }
     if (index >= self.tabCount) {
         return;
     }
@@ -602,8 +605,8 @@
     self.activeContentIndex = index;
     
     // Inform delegate about the change
-    if ([self.delegate respondsToSelector:@selector(viewPager:didChangeTabToIndex:didSwipe:)]) {
-        [self.delegate viewPager:self didChangeTabToIndex:self.activeTabIndex didSwipe:didSwipe];
+    if ([self.delegate respondsToSelector:@selector(viewPager:didChangeTabToIndex:didSwipe:isFromSameTab:)]) {
+        [self.delegate viewPager:self didChangeTabToIndex:self.activeTabIndex didSwipe:didSwipe isFromSameTab:isFromSameTab];
     }
     else if([self.delegate respondsToSelector:@selector(viewPager:didChangeTabToIndex:fromIndex:)]){
         [self.delegate viewPager:self didChangeTabToIndex:self.activeTabIndex fromIndex:previousIndex];

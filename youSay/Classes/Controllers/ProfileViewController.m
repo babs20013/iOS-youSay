@@ -110,7 +110,7 @@
                          action:@selector(textFieldDidChange:)
                forControlEvents:UIControlEventEditingChanged];
     NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
-    if (isFriendProfile == NO) {
+    if (isFriendProfile == NO && [colorDictionary allKeys].count == 0) {
         [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
     }
 //    else if (_isFromFeed == NO) {
@@ -740,6 +740,61 @@
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
                 [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        [SVProgressHUD dismiss];
+    }];
+}
+
+- (void)requestCreateProfile:(FriendModel*)friendModel {
+    [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
+    
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_CREATE_PROFILE forKey:@"request"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token] forKey:@"token"];
+    [dictRequest setObject:friendModel.userID forKey:@"authentication_id"];
+    [dictRequest setObject:AUTHORITY_TYPE_FB forKey:@"authority_type"];
+    [dictRequest setObject:friendModel.Name forKey:@"name"];
+    [dictRequest setObject:friendModel.ProfileImage forKey:@"avatar_url"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                profileDictionary = [dictResult objectForKey:@"profile"];
+                saysArray = saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
+                charmsArray = [profileDictionary valueForKey:@"charms"];
+                isAfterChangeCharm = NO;
+                [self.tableView reloadData];
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self logout];
+            }
+            else if ([[dictResult valueForKey:@"rc"] integerValue] == 204) {
+                //user already exist so we call the owner profile
+                NSString *msg = [NSString stringWithFormat:@"%@ Redirecting to Own Profile", [dictResult valueForKey:@"message"]];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
             }
         }
         else if (error)
@@ -1556,21 +1611,44 @@
 
 - (void) refreshPage:(NSNotification *)notif {
    chartState = ChartStateDefault;
-    
-   if ([AppDelegate sharedDelegate].isFirstLoad == YES) {
-        return;
-   }
-   else if ([[AppDelegate sharedDelegate].profileOwner UserID] &&
-            _isRequestingProfile == NO &&
-            _isFromFeed == NO) {
-       isFriendProfile = NO;
-       [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
-   }
-   else if (_isFromFeed == YES && requestedID && _isRequestingProfile == NO) {
-       _isFromFeed = NO;
-        [self requestProfile:requestedID];
+    if ([AppDelegate sharedDelegate].isFirstLoad == YES) {
+         return;
     }
-   
+    else if ([[AppDelegate sharedDelegate].profileOwner UserID]){
+        [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+    }
+    
+    
+//   if ([AppDelegate sharedDelegate].isFirstLoad == YES) {
+//        return;
+//   }
+//   else if ([[AppDelegate sharedDelegate].profileOwner UserID] &&
+//            _isRequestingProfile == NO &&
+//            _isFromFeed == NO &&
+//            _friendModel == nil &&
+//            isFriendProfile == NO) {
+//       isFriendProfile = NO;
+//       _isRequestingProfile = YES;
+//       [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+//   }
+//   else if (_isFromFeed == YES && requestedID && _isRequestingProfile == NO) {
+//       _isFromFeed = NO;
+//       [self requestProfile:requestedID];
+//   }
+//   else if (_friendModel &&
+//            _isFromFeed == YES &&
+//            _isRequestingProfile == NO &&
+//            isFriendProfile == NO) {
+//       _isRequestingProfile = YES;
+//       if (_friendModel.isNeedProfile == NO) {
+//           [self requestProfile:_friendModel.userID];
+//       }
+//       else {
+//           [self requestCreateProfile:_friendModel];
+//       }
+//       
+//    }
+//   
 }
 
 

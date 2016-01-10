@@ -18,16 +18,18 @@
 #import "ReportSayViewController.h"
 #import "WhoLikeThisViewController.h"
 #import "WhoLikeListTableViewCell.h"
+#import "FriendModel.h"
 
 @interface FeedViewController ()
 {
     NSMutableArray *arrayFeed;
-    NSArray *arraySearch;
+    NSMutableArray *arraySearch;
     BOOL isScrollBounce;
     int index;
     BOOL isNoMoreFeed;
     BOOL isLikeListReleased;
     BOOL isRequesting;
+    
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -40,6 +42,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *btnCancel;
 @property (nonatomic, weak) IBOutlet UIButton *btnRightMenu;
 @property (nonatomic, weak) IBOutlet UIView *viewButton;
+
 @end
 
 @implementation FeedViewController
@@ -294,6 +297,91 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
+                if ([dictResult objectForKey:@"yousay_users"]) {
+                    NSString *searchid = [dictResult objectForKey:@"search_id"];
+                    [self requestUser:searchString withSearchID:searchid];
+                    NSArray *tempArr = [dictResult objectForKey:@"yousay_users"];
+                    for (int i = 0; i < tempArr.count; i++) {
+                        NSDictionary *dict = [tempArr objectAtIndex:i];
+                        FriendModel *model = [[FriendModel alloc]init];
+                        model.Name = [dict objectForKey:@"name"];
+                        model.ProfileImage = [dict objectForKey:@"image_url"];
+                        model.userID = [dict objectForKey:@"user_id"];
+                        model.isNeedProfile = NO;
+                        if (arraySearch == nil) {
+                            arraySearch = [[NSMutableArray alloc]init];
+                        }
+                        [arraySearch addObject:model];
+                    }
+                    
+                }
+                else if ([dictResult objectForKey:@"facebook_users"]) {
+                    NSArray *tempArr = [dictResult objectForKey:@"facebook_users"];
+                    for (int i = 0; i < tempArr.count; i++) {
+                        NSDictionary *dict = [tempArr objectAtIndex:i];
+                        FriendModel *model = [[FriendModel alloc]init];
+                        model.Name = [dict objectForKey:@"name"];
+                        model.userID = [dict objectForKey:@"id"];
+                        NSDictionary *dictPic = [[dict objectForKey:@"picture"] objectForKey:@"data"];
+                        model.ProfileImage = [dictPic objectForKey:@"url"];
+                        model.isNeedProfile = YES;
+                        if (arraySearch == nil) {
+                            arraySearch = [[NSMutableArray alloc]init];
+                        }
+                        //--Check if the facebook user is already a yousay user
+                        
+                        [arraySearch addObject:model];
+                    }
+                    self.tableHeightConstraint.constant = arraySearch.count*50;
+                    [self.searchUserTableView needsUpdateConstraints];
+                    [self.searchUserTableView reloadData];
+                }
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self logout];
+            }
+            else if ([[dictResult valueForKey:@"rc"] integerValue] == 602) {
+                [self requestUser:searchString withSearchID:searchID];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        [SVProgressHUD dismiss];
+    }];
+}
+
+- (void)requestFacebookUser:(NSString*)searchString withSearchID:(NSString*)searchID {
+    [SVProgressHUD show];
+    [SVProgressHUD setStatus:@"Loading..."];
+    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
+    [SVProgressHUD setBackgroundColor:blackColor];
+    
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token] forKey:@"token"];
+    [dictRequest setObject:searchString forKey:@"search_text"];
+    [dictRequest setObject:AUTHORITY_TYPE_FB forKey:@"authority_type"];
+    [dictRequest setObject:[FBSDKAccessToken currentAccessToken].tokenString forKey:@"authority_access_token"];
+    [dictRequest setObject:searchID forKey:@"search_id"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
                 arraySearch = [dictResult objectForKey:@"yousay_users"];
                 self.tableHeightConstraint.constant = arraySearch.count*50;
                 [self.searchUserTableView needsUpdateConstraints];
@@ -379,15 +467,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.searchUserTableView) {
-        NSDictionary *dict = [arraySearch objectAtIndex:indexPath.row];
-        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
-        vc.isFriendProfile = YES;
+        vc.isFriendProfile = NO;
         vc.isFromFeed = YES;
-        vc.requestedID = [dict objectForKey:@"user_id"];
+        vc.friendModel = [arraySearch objectAtIndex:indexPath.row];
         vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
-        vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -498,15 +583,14 @@
         
         cell = [[WhoLikeListTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
-    NSDictionary *dict = [arraySearch objectAtIndex:indexPath.row];
-    NSString *urlString = [dict objectForKey:@"image_url"];
-    [cell.profileView setImageURL:[NSURL URLWithString:urlString]];
+    FriendModel *model = [arraySearch objectAtIndex:indexPath.row];
+    [cell.profileView setImageURL:[NSURL URLWithString:model.ProfileImage]];
     cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
     cell.profileView.layer.masksToBounds = YES;
     cell.profileView.layer.borderWidth = 1;
     cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
     
-    [cell.profileName setText:[dict objectForKey:@"name"]];
+    [cell.profileName setText:model.Name];
     
     return cell;
 }
@@ -737,8 +821,9 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    arraySearch = nil;
+    [self requestUser:[textField text] withSearchID:@""];
     [textField resignFirstResponder];
-    [_btnClear setHidden:NO];
     return YES;
 }
 
@@ -751,14 +836,19 @@
     
     [self.btnCancel setHidden:NO];
     [self.btnRightMenu setHidden:YES];
-    if ([textField.text length]>0){
-        
-        [self.btnClear setHidden:YES];
-        [self requestUser:textField.text withSearchID:@""];
-    }
-    else {
-        [self.btnClear setHidden:NO];
-    }
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), queue, ^{
+        if ([textField.text length]>2 && isRequesting == NO){
+            isRequesting = YES;
+            [self.btnClear setHidden:YES];
+            arraySearch = nil;
+            [self requestUser:textField.text withSearchID:@""];
+        }
+        else if ([textField.text length]==0){
+            [self.btnClear setHidden:NO];
+        }
+    });
 }
 
 #pragma mark Keyboard

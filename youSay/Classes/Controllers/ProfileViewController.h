@@ -11,10 +11,12 @@
 #import "SelectCharmsViewController.h"
 #import "AddNewSayViewController.h"
 #import "WhoLikeThisViewController.h"
+#import "FriendModel.h"
 
 @interface ProfileViewController : UIViewController <UITextViewDelegate, FBSDKAppInviteDialogDelegate, CharmChartDelegate, UIScrollViewDelegate, CharmSelectionDelegate, UIGestureRecognizerDelegate, AddNewSayDelegate, LikeListDelegate>
 
 @property (nonatomic,strong) ProfileOwnerModel *profileModel;
+@property (nonatomic, strong) FriendModel *friendModel;
 @property (nonatomic,strong) NSDictionary * profileDictionary;
 @property (nonatomic,strong) NSDictionary * colorDictionary;
 @property (nonatomic, strong) NSMutableArray * saysArray;
@@ -31,5 +33,7 @@
 
 - (void)setIsRefresh:(BOOL)isRefresh;
 - (void) refreshPage:(NSNotification *)notif;
+- (void)requestProfile:(NSString*)IDrequested;
+- (void)requestCreateProfile:(FriendModel*)friendModel;
 
 @end

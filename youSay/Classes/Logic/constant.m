@@ -26,6 +26,7 @@ NSString *const REQUEST_UNLIKE_SAY = @"unlikeSay";
 NSString *const REQUEST_REPORT_SAY = @"reportSay";
 NSString *const REQUEST_GET_LIKE_LIST = @"getLikeList";
 NSString *const REQUEST_SEARCH_USER = @"search";
+NSString *const REQUEST_CREATE_PROFILE = @"createProfile";
 NSString *const AUTHORITY_TYPE_FB = @"2";
 
 

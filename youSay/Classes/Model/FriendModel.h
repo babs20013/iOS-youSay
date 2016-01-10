@@ -10,9 +10,9 @@
 
 @interface FriendModel : NSObject
 @property (nonatomic,strong) NSString *Name;
-@property (nonatomic,strong) NSString *Location;
-@property (nonatomic,strong) UIImage *ProfileImage;
-@property (nonatomic,assign) BOOL Selected;
+@property (nonatomic,strong) NSString *ProfileImage;
+@property (nonatomic,strong) NSString *userID;
+@property (nonatomic,assign) BOOL isNeedProfile;
 
 
 @end

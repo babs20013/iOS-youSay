@@ -37,7 +37,7 @@
         NSDictionary *dictFrienDetail = [arrayFriendList objectAtIndex:i];
         FriendModel *model = [[FriendModel alloc] init];
         model.Name = [dictFrienDetail objectForKey:@"name"];
-        model.Selected = NO;
+       // model.Selected = NO;
         
         NSDictionary *picture = [dictFrienDetail objectForKey:@"picture"];
         NSDictionary *pictureData = [picture objectForKey:@"data"];
@@ -45,7 +45,7 @@
         NSData *data = [NSData dataWithContentsOfURL:url];
         model.ProfileImage = [[UIImage alloc] initWithData:data];
         
-        model.Location = @"Last Vegas";
+        //model.Location = @"Last Vegas";
         [arrFriends addObject:model];
     }
     
@@ -64,7 +64,7 @@
     UICheckBox *btnCheckAll = [[UICheckBox alloc]initWithStateSelected:NO frame:CGRectMake(self.view.frame.size.width - 35, 15, 25, 25)];
     btnCheckAll.callback = ^(BOOL checked){
         for (FriendModel*m in arrFriends) {
-            m.Selected = checked;
+            //m.Selected = checked;
         }
         [self.tblFriends reloadData];
     };
@@ -138,22 +138,22 @@
     UIView *checkView = (UIView *)[cell viewWithTag:101];
     [[checkView subviews]
      makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
-    UICheckBox *checkBox  = [[UICheckBox alloc]initWithStateSelected:model.Selected frame:CGRectMake(0, 0, 25, 25)];
-    [checkBox setTag:indexPath.row];
-    [checkView addSubview:checkBox];
-    [checkBox setChecked:model.Selected];
-    __weak FriendModel *weakModel = model;
-    
-    checkBox.callback =  ^(BOOL checked){
-        weakModel.Selected = checked;
-    };
-    
-    UILabel *lblName = (UILabel *)[cell viewWithTag:102];
-    [lblName setText:model.Name];
-    
-    UILabel *lblLocation = (UILabel *)[cell viewWithTag:103];
-    [lblLocation setText:model.Location];
+//
+//    UICheckBox *checkBox  = [[UICheckBox alloc]initWithStateSelected:model.Selected frame:CGRectMake(0, 0, 25, 25)];
+//    [checkBox setTag:indexPath.row];
+//    [checkView addSubview:checkBox];
+//    [checkBox setChecked:model.Selected];
+//    __weak FriendModel *weakModel = model;
+//    
+//    checkBox.callback =  ^(BOOL checked){
+//        weakModel.Selected = checked;
+//    };
+//    
+//    UILabel *lblName = (UILabel *)[cell viewWithTag:102];
+//    [lblName setText:model.Name];
+//    
+//    UILabel *lblLocation = (UILabel *)[cell viewWithTag:103];
+//    [lblLocation setText:model.Location];
     
     return cell;
 }

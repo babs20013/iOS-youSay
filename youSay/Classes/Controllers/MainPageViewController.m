@@ -69,11 +69,27 @@
     else if (index == 1){
         ProfileViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
         cvc.colorDictionary = self.colorDictionary;
+        cvc.profileDictionary = self.profileDictionary;
         cvc.isFriendProfile = _isFriendProfile;
-        cvc.requestedID = _requestedID;
         cvc.isFromFeed = _isFromFeed;
-        if (isClick == YES ) {
+        cvc.friendModel = _friendModel;
+        cvc.profileModel = _profileModel;
+        
+        if (_isFromFeed == YES && _friendModel == nil) {
+            _isFromFeed = NO;
+            [cvc requestProfile:_requestedID];
+        }
+        else if (_isFromFeed == YES && _friendModel){
+            if (_friendModel.isNeedProfile == YES) {
+                [cvc requestCreateProfile:_friendModel];
+            }
+            else {
+                [cvc requestProfile:_friendModel.userID];
+            }
+        }
+        else if (isClick == YES && _isFromFeed == NO && _requestedID == nil) {
             [cvc setIsFriendProfile:NO];
+            cvc.isFromFeed = NO;
             isClick = NO;
             cvc.requestedID = nil;
             [[NSNotificationCenter defaultCenter]
@@ -130,9 +146,11 @@
     }
 }
 
-- (void)viewPager:(ViewPagerController *)viewPager didChangeTabToIndex:(NSUInteger)index didSwipe:(BOOL)swipe {
-    if (swipe == NO && index==1) {
+- (void)viewPager:(ViewPagerController *)viewPager didChangeTabToIndex:(NSUInteger)index didSwipe:(BOOL)swipe isFromSameTab:(BOOL)tab {
+    if (swipe == NO && index==1 && tab == YES) {
+        _requestedID = nil;
         isClick = YES;
+        _isFromFeed = NO;
         [self viewPager:viewPager contentViewControllerForTabAtIndex:index];
     }
     NSLog(@"index %i", index);

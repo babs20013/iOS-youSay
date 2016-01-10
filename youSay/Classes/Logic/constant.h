@@ -27,6 +27,7 @@ extern NSString *const REQUEST_UNLIKE_SAY;
 extern NSString *const REQUEST_REPORT_SAY;
 extern NSString *const REQUEST_GET_LIKE_LIST;
 extern NSString *const REQUEST_SEARCH_USER;
+extern NSString *const REQUEST_CREATE_PROFILE;
 
 #pragma mark -- Error Message
 extern NSString *const ERR_MSG_NO_INTERNET;

@@ -11,6 +11,7 @@
 #import "InviteFriendsViewController.h"
 #import "ProfileViewController.h"
 #import "FeedViewController.h"
+#import "FriendModel.h"
 
 @interface MainPageViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate>
 @property (nonatomic,strong) NSDictionary * profileDictionary;
@@ -20,4 +21,5 @@
 @property (nonatomic, readwrite) BOOL isFromFeed;
 @property (nonatomic, strong) NSString *requestedID;
 @property (nonatomic, strong) ProfileOwnerModel *profileModel;
+@property (nonatomic, strong) FriendModel *friendModel;
 @end
