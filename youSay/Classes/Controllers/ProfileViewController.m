@@ -61,6 +61,9 @@
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UITableView *searchTableView;
 @property (nonatomic, weak) IBOutlet UIButton *btnClear;
+@property (nonatomic, weak) IBOutlet UIButton *btnCancel;
+@property (nonatomic, weak) IBOutlet UIButton *btnRightMenu;
+@property (nonatomic, weak) IBOutlet UIView *viewButton;
 
 @end
 
@@ -156,6 +159,8 @@
                                              selector:@selector(refreshPage:)
                                                  name:@"notification"
                                                object:nil];
+    self.btnViewConstraint.constant = 30;
+    [self.viewButton needsUpdateConstraints];
 
 }
 
@@ -1394,8 +1399,20 @@
 }
 
 - (IBAction)btnClearSearchClicked:(id)sender {
-    [self.txtSearch setText:@""];
-    [self textFieldDidChange:self.txtSearch];
+    arrSearch= [[NSMutableArray alloc]init];
+    [self.searchTableView reloadData];
+    self.tableHeightConstraint.constant = arrSearch.count*50;
+    [self.searchTableView needsUpdateConstraints];
+    [self.searchTableView reloadData];
+}
+- (IBAction)btnCancelSearchClicked:(id)sender {
+    [self.txtSearch resignFirstResponder];
+    [self.searchView setHidden:YES];
+    [self.tableView setHidden:NO];
+    [self.btnRightMenu setHidden:NO];
+    [self.btnCancel setHidden:YES];
+    self.btnViewConstraint.constant = 30;
+    [self.viewButton needsUpdateConstraints];
 }
 
 - (void)EnableCharmRateMode {
@@ -1572,6 +1589,7 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     [_btnClear setHidden:YES];
+    
     return YES;
 }
 
@@ -1591,16 +1609,33 @@
 
 - (void)textFieldDidChange:(UITextField*)textField {
     [textField becomeFirstResponder];
-    if ([textField.text length] > 0) {
-        [self.tableView setHidden:YES];
-        [self.searchView setHidden:NO];
+    [self.tableView setHidden:YES];
+    [self.searchView setHidden:NO];
+    self.btnViewConstraint.constant = 70;
+    [self.viewButton needsUpdateConstraints];
+    
+    [self.btnCancel setHidden:NO];
+    [self.btnRightMenu setHidden:YES];
+    if ([textField.text length]>0){
+        
+        [self.btnClear setHidden:YES];
         [self requestUser:textField.text withSearchID:@""];
     }
     else {
-        [textField resignFirstResponder];
-        [self.searchView setHidden:YES];
-        [self.tableView setHidden:NO];
+        [self.btnClear setHidden:NO];
     }
+    
+//    if ([textField.text length] > 0) {
+//        [self.tableView setHidden:YES];
+//        [self.searchView setHidden:NO];
+//        [self.btnCancel setHidden:NO];
+//        [self requestUser:textField.text withSearchID:@""];
+//    }
+//    else {
+//        [textField resignFirstResponder];
+//        [self.searchView setHidden:YES];
+//        [self.tableView setHidden:NO];
+//    }
     
 }
 
