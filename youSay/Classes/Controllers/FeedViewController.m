@@ -275,7 +275,6 @@
 }
 
 - (void)requestUser:(NSString*)searchString withSearchID:(NSString*)searchID {
-    ShowLoader();
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
@@ -285,7 +284,9 @@
     [dictRequest setObject:[FBSDKAccessToken currentAccessToken].tokenString forKey:@"authority_access_token"];
     [dictRequest setObject:searchID forKey:@"search_id"];
     
+    
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        
         isRequesting = NO;
         if (result)
         {
@@ -311,6 +312,7 @@
                     
                 }
                 else if ([dictResult objectForKey:@"facebook_users"]) {
+                    HideLoader();
                     NSArray *tempArr = [dictResult objectForKey:@"facebook_users"];
                     for (int i = 0; i < tempArr.count; i++) {
                         NSDictionary *dict = [tempArr objectAtIndex:i];
@@ -326,7 +328,7 @@
                         //--Check if the facebook user is already a yousay user
                         
                         [arraySearch addObject:model];
-                        HideLoader();
+                        
                     }
                     self.tableHeightConstraint.constant = arraySearch.count*50;
                     [self.searchUserTableView needsUpdateConstraints];
@@ -358,8 +360,6 @@
 }
 
 - (void)requestFacebookUser:(NSString*)searchString withSearchID:(NSString*)searchID {
-    ShowLoader();
-    
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
@@ -401,7 +401,6 @@
         else{
             
         }
-        HideLoader();
     }];
 }
 
@@ -816,8 +815,8 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     arraySearch = nil;
     if ([textField.text length]>2){
-        [self performSelectorOnMainThread:@selector(requestUser:withSearchID:) withObject:textField.text waitUntilDone:YES];
-        //[self requestUser:textField.text withSearchID:@""];
+        ShowLoader();
+        [self requestUser:textField.text withSearchID:@""];
     }
     [textField resignFirstResponder];
     return YES;
@@ -839,16 +838,16 @@
     else {
         [self.btnClear setHidden:YES];
     }
-    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), queue, ^{
         if ([textField.text length]>2 && isRequesting == NO){
             isRequesting = YES;
             [self.btnClear setHidden:YES];
             arraySearch = nil;
-            [self performSelectorOnMainThread:@selector(showHUDAddedTo:animated:) withObject:[AppDelegate sharedDelegate].window waitUntilDone:YES];
-            ShowLoader();
-            [self requestUser:textField.text withSearchID:@""];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                ShowLoader();
+                [self requestUser:textField.text withSearchID:@""];
+            }];
         }
     });
 }

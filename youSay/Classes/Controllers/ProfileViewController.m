@@ -692,8 +692,6 @@
 }
 
 - (void)requestUser:(NSString*)searchString withSearchID:(NSString*)searchID {
-    ShowLoader();
-    
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
@@ -729,6 +727,7 @@
                     
                 }
                 else if ([dictResult objectForKey:@"facebook_users"]) {
+                    HideLoader();
                     NSArray *tempArr = [dictResult objectForKey:@"facebook_users"];
                     for (int i = 0; i < tempArr.count; i++) {
                         NSDictionary *dict = [tempArr objectAtIndex:i];
@@ -785,6 +784,7 @@
     [dictRequest setObject:AUTHORITY_TYPE_FB forKey:@"authority_type"];
     [dictRequest setObject:friendModel.Name forKey:@"name"];
     [dictRequest setObject:friendModel.ProfileImage forKey:@"avatar_url"];
+    [dictRequest setObject:friendModel.CoverImage forKey:@"cover_image_url"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         if (result)
@@ -935,9 +935,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.searchTableView) {
         if (_isRequestingProfile == NO) {
+            
             FriendModel *model = [arrSearch objectAtIndex:indexPath.row];
             if (model.isNeedProfile) {
-                [self requestCreateProfile:model];
+                NSString *string = [NSString stringWithFormat:@"%@?fields=cover",model.userID];
+                FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+                                              initWithGraphPath:string
+                                              parameters:nil
+                                              HTTPMethod:@"GET"];
+                [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                                      id result,
+                                                      NSError *error) {
+                    NSDictionary *dict = result;
+                    model.CoverImage = [[dict objectForKey:@"cover"] objectForKey:@"source"];
+                    if (model.CoverImage == nil) {
+                        model.CoverImage = @"";
+                    }
+                    [self requestCreateProfile:model];
+                    
+                }];
             }
             else {
                 [self requestProfile:model.userID];
@@ -1701,6 +1717,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     arrSearch = nil;
     if ([textField.text length]>2){
+        ShowLoader();
         [self requestUser:textField.text withSearchID:@""];
     }
     [textField resignFirstResponder];
@@ -1727,7 +1744,10 @@
             _isRequestingProfile = YES;
             [self.btnClear setHidden:YES];
             arrSearch = nil;
-            [self requestUser:textField.text withSearchID:@""];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                ShowLoader();
+                [self requestUser:textField.text withSearchID:@""];
+            }];
         }
     });
 }

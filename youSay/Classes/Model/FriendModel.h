@@ -11,6 +11,7 @@
 @interface FriendModel : NSObject
 @property (nonatomic,strong) NSString *Name;
 @property (nonatomic,strong) NSString *ProfileImage;
+@property (nonatomic,strong) NSString *CoverImage;
 @property (nonatomic,strong) NSString *userID;
 @property (nonatomic,assign) BOOL isNeedProfile;
 

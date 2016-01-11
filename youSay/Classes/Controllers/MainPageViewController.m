@@ -81,7 +81,22 @@
         }
         else if (_isFromFeed == YES && _friendModel){
             if (_friendModel.isNeedProfile == YES) {
-                [cvc requestCreateProfile:_friendModel];
+                NSString *string = [NSString stringWithFormat:@"%@?fields=cover",_friendModel.userID];
+                FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+                                              initWithGraphPath:string
+                                              parameters:nil
+                                              HTTPMethod:@"GET"];
+                [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                                      id result,
+                                                      NSError *error) {
+                    NSDictionary *dict = result;
+                    _friendModel.CoverImage = [[dict objectForKey:@"cover"] objectForKey:@"source"];
+                    if (_friendModel.CoverImage == nil) {
+                        _friendModel.CoverImage = @"";
+                    }
+                    [cvc requestCreateProfile:_friendModel];
+                    
+                }];
             }
             else {
                 [cvc requestProfile:_friendModel.userID];
