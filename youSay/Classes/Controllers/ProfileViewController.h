@@ -26,6 +26,7 @@
 @property (nonatomic, readwrite) BOOL isFriendProfile;
 @property (nonatomic, readwrite) BOOL isFromFeed;
 @property (nonatomic, readwrite) BOOL isRequestingProfile;
+@property (nonatomic, readwrite) BOOL isSameTab;
 @property (weak,nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
 @property (weak,nonatomic) IBOutlet NSLayoutConstraint *btnViewConstraint;
 @property (nonatomic, strong) NSString *requestedID;

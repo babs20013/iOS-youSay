@@ -34,7 +34,7 @@
 #import "SlideNavigationController.h"
 #import "MBProgressHUD.h"
 
-#define HideLoader() [MBProgressHUD hideHUDForView:[AppDelegate sharedDelegate].window animated:YES]
+#define HideLoader() [MBProgressHUD hideAllHUDsForView:[AppDelegate sharedDelegate].window animated:YES]
 #define ShowLoader() [MBProgressHUD showHUDAddedTo:[AppDelegate sharedDelegate].window animated:YES]
 #define SYSTEM_VERSION_EQUAL_TO(v)      ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 

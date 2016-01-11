@@ -245,6 +245,7 @@
         int nElements = count - i;
         int n = (arc4random() % nElements) + i;
         [arrayColor exchangeObjectAtIndex:i withObjectAtIndex:n];
+        [arrayColorKey exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
     
     for (int i = 0; i < arrayColor.count; i++) {
@@ -256,7 +257,7 @@
 //        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(x, y, 50, 50);
-        button.tag = i;
+        button.tag =i;
         button.layer.cornerRadius = 0.5 * button.bounds.size.width;
         [button setBackgroundColor:[self colorWithHexString: [[arrayColor objectAtIndex:i] objectForKey:@"back"]]];
         [button addTarget:self action:@selector(selectColor:) forControlEvents:UIControlEventTouchUpInside];

@@ -57,6 +57,7 @@
     SelectCharmsViewController *charmsSelection;
     BOOL isFirstLoad;
     BOOL isAfterCharm;
+    BOOL isAfterAddNewSay;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UITableView *searchTableView;
@@ -335,6 +336,7 @@
                 [AppDelegate sharedDelegate].profileOwner = profileModel;
                 profileDictionary = [result objectForKey:@"profile"];
                 isFriendProfile = NO;
+                requestedID = [dictResult valueForKey:@"user_id"];
                 [AppDelegate sharedDelegate].isFirstLoad = NO;
                 [self requestSayColor];
                 if ([AppDelegate sharedDelegate].isNewToken == YES) {
@@ -394,13 +396,20 @@
                 saysArray = saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
                 charmsArray = [profileDictionary valueForKey:@"charms"];
                 isFriendProfile = YES;
+                requestedID = [profileDictionary objectForKey:@"id"];
                 if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:IDrequested]) {
                     isFriendProfile = NO;
                 }
                 isAfterChangeCharm = NO;
                 //[self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
                 [self.tableView reloadData];
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                if (isAfterAddNewSay == YES) {
+                    isAfterAddNewSay = NO;
+                    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                }
+                else {
+                    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                }
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -959,6 +968,10 @@
                 [self requestProfile:model.userID];
             }
         }
+        [self.btnCancel setHidden:YES];
+        [self.btnRightMenu setHidden:NO];
+        self.btnViewConstraint.constant = 30;
+        [self.viewButton needsUpdateConstraints];
         [self.searchView setHidden:YES];
         [self.tableView setHidden:NO];
         [self.txtSearch setText:@""];
@@ -1223,6 +1236,7 @@
         cel.btnHide.tag = indexPath.row;
         cel.btnUndo.tag = indexPath.row;
         cel.btnProfile.tag = indexPath.row;
+        cel.btnReport.tag = indexPath.row;
         //[cel.btnProfile.titleLabel setText:[NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]]];
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel.peopleSayView setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
@@ -1631,6 +1645,7 @@
 #pragma mark - AddNewSayDelegate
 
 - (void)AddNewSayDidDismissed {
+    isAfterAddNewSay = YES;
     if (requestedID) {
         [self requestProfile:requestedID];
     }
@@ -1649,41 +1664,15 @@
     if ([AppDelegate sharedDelegate].isFirstLoad == YES) {
          return;
     }
-    else if ([[AppDelegate sharedDelegate].profileOwner UserID]){
+    else if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:requestedID]){
+        return;
+    }
+    else if (requestedID==nil){
+        return;
+    }
+    else if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
         [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
     }
-    
-    
-//   if ([AppDelegate sharedDelegate].isFirstLoad == YES) {
-//        return;
-//   }
-//   else if ([[AppDelegate sharedDelegate].profileOwner UserID] &&
-//            _isRequestingProfile == NO &&
-//            _isFromFeed == NO &&
-//            _friendModel == nil &&
-//            isFriendProfile == NO) {
-//       isFriendProfile = NO;
-//       _isRequestingProfile = YES;
-//       [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
-//   }
-//   else if (_isFromFeed == YES && requestedID && _isRequestingProfile == NO) {
-//       _isFromFeed = NO;
-//       [self requestProfile:requestedID];
-//   }
-//   else if (_friendModel &&
-//            _isFromFeed == YES &&
-//            _isRequestingProfile == NO &&
-//            isFriendProfile == NO) {
-//       _isRequestingProfile = YES;
-//       if (_friendModel.isNeedProfile == NO) {
-//           [self requestProfile:_friendModel.userID];
-//       }
-//       else {
-//           [self requestCreateProfile:_friendModel];
-//       }
-//       
-//    }
-//   
 }
 
 

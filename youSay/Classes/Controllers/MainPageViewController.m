@@ -13,6 +13,7 @@
 @interface MainPageViewController (){
     NSUInteger numberOfTabs;
     BOOL isClick;
+    BOOL isSameTab;
 }
 
 @end
@@ -74,6 +75,7 @@
         cvc.isFromFeed = _isFromFeed;
         cvc.friendModel = _friendModel;
         cvc.profileModel = _profileModel;
+        cvc.isSameTab = isSameTab;
         
         if (_isFromFeed == YES && _friendModel == nil) {
             _isFromFeed = NO;
@@ -106,6 +108,7 @@
             [cvc setIsFriendProfile:NO];
             cvc.isFromFeed = NO;
             isClick = NO;
+            
             cvc.requestedID = nil;
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"notification" object:nil];
@@ -162,10 +165,16 @@
 }
 
 - (void)viewPager:(ViewPagerController *)viewPager didChangeTabToIndex:(NSUInteger)index didSwipe:(BOOL)swipe isFromSameTab:(BOOL)tab {
-    if (swipe == NO && index==1 && tab == YES) {
+    if (index==1) {
+        isSameTab = tab;
         _requestedID = nil;
         isClick = YES;
         _isFromFeed = NO;
+        [self viewPager:viewPager contentViewControllerForTabAtIndex:index];
+    }
+    else if (index==0 && tab == YES) {
+        _requestedID = nil;
+        isClick = YES;
         [self viewPager:viewPager contentViewControllerForTabAtIndex:index];
     }
     NSLog(@"index %i", index);

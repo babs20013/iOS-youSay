@@ -119,6 +119,7 @@
     [dictRequest setObject:@"1" forKey:@"sort"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        HideLoader();
         isRequesting = NO;
         if (result)
         {
@@ -154,7 +155,6 @@
         else{
             
         }
-        HideLoader();
     }];
 }
 
@@ -491,9 +491,21 @@
         cell.imgViewProfile1.layer.borderWidth = 1;
         cell.imgViewProfile1.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         NSAttributedString *attributedText = [[NSAttributedString alloc]initWithString:[[currentSaysDict valueForKey:@"feed_title"] stringByReplacingOccurrencesOfString:@"%1" withString:[profile1 objectForKey:@"name"]]];
+        if (attributedText == nil){
+            attributedText = [[NSAttributedString alloc]initWithString:@""];
+        }
         cell.lblSaidAbout.attributedText = attributedText;
         [cell.btnProfile1 setTag:indexPath.section];
         [cell.btnLblProfile1 setTag:indexPath.section];
+        [cell.btnReport setTag:indexPath.section];
+    }
+    
+    if (arrProfiles.count == 0) {
+        [cell.lblSaidAbout setText:@""];
+        [cell.lblSaidAbout2 setText:@""];
+        if (string == nil) {
+            [cell.viewSays setHidden:YES];
+        }
     }
     
     if (arrProfiles.count == 1) {
@@ -532,8 +544,12 @@
         cell.imgViewProfile2.layer.masksToBounds = YES;
         cell.imgViewProfile2.layer.borderWidth = 1;
         cell.imgViewProfile2.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        
         [cell.lblSaidAbout2 setText:[profile2 objectForKey:@"name"]];
         [cell.lblSaidAbout2 setNumberOfLines:0];
+        if ([profile2 objectForKey:@"name"]) {
+            [cell.lblSaidAbout2 setText:@""];
+        }
         
         cell.lblSaidAbout.text = [cell.lblSaidAbout.text stringByReplacingOccurrencesOfString:@"%2" withString:@""];
         [cell.btnProfile2 setTag:indexPath.section];
