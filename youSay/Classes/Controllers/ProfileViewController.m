@@ -1069,14 +1069,19 @@
             [btnAddSay setHidden:NO];
         }
         //--Profile Box
-        [cel.imgViewCover setImageURL:[NSURL URLWithString:model.CoverImage]];
+        if (model.CoverImage != [NSNull null]) {
+            [cel.imgViewCover setImageURL:[NSURL URLWithString:model.CoverImage]];
+        }
+        
         cel.imgViewCover.layer.cornerRadius = 0.015 * cel.imgViewCover.bounds.size.width;
         cel.imgViewCover.layer.masksToBounds = YES;
         cel.imgViewCover.layer.borderWidth = 1;
         cel.imgViewCover.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         
+        if (model.ProfileImage != [NSNull null]) {
+            [cel.imgViewProfilePicture setImageURL:[NSURL URLWithString:model.ProfileImage]];
+        }
         
-        [cel.imgViewProfilePicture setImageURL:[NSURL URLWithString:model.ProfileImage]];
         cel.imgViewProfilePicture.layer.cornerRadius = 0.5 * cel.imgViewProfilePicture.bounds.size.width;
         cel.imgViewProfilePicture.layer.masksToBounds = YES;
         cel.imgViewProfilePicture.layer.borderWidth = 1;
