@@ -39,6 +39,7 @@
 		1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */; };
 		1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */; };
 		1BC5EC431C22F84B0016BFA1 /* SelectCharmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5EC421C22F84B0016BFA1 /* SelectCharmsViewController.m */; };
+		1BC88A881C42B2BC0032503E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC88A871C42B2BC0032503E /* MBProgressHUD.m */; };
 		1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */; };
 		1BEECEFE1C2EAAAB00615C9F /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEECEFD1C2EAAAB00615C9F /* FeedViewController.m */; };
 		1BEECF001C2EAE9200615C9F /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEECEFF1C2EAE9200615C9F /* FeedTableViewCell.m */; };
@@ -142,6 +143,8 @@
 		1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+Networking.m"; path = "youSay/Classes/Component/UIComponent/UIImageView+Networking.m"; sourceTree = SOURCE_ROOT; };
 		1BC5EC411C22F8330016BFA1 /* SelectCharmsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SelectCharmsViewController.h; path = youSay/Classes/Controllers/SelectCharmsViewController.h; sourceTree = SOURCE_ROOT; };
 		1BC5EC421C22F84B0016BFA1 /* SelectCharmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectCharmsViewController.m; path = youSay/Classes/Controllers/SelectCharmsViewController.m; sourceTree = SOURCE_ROOT; };
+		1BC88A861C42B2BC0032503E /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = youSay/Classes/Component/UIComponent/MBProgressHUD.h; sourceTree = SOURCE_ROOT; };
+		1BC88A871C42B2BC0032503E /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = youSay/Classes/Component/UIComponent/MBProgressHUD.m; sourceTree = SOURCE_ROOT; };
 		1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		1BEECEFC1C2EAA9900615C9F /* FeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedViewController.h; path = youSay/Classes/Controllers/FeedViewController.h; sourceTree = SOURCE_ROOT; };
 		1BEECEFD1C2EAAAB00615C9F /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedViewController.m; path = youSay/Classes/Controllers/FeedViewController.m; sourceTree = SOURCE_ROOT; };
@@ -490,6 +493,8 @@
 		9A1406771C1305BB006547A0 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				1BC88A861C42B2BC0032503E /* MBProgressHUD.h */,
+				1BC88A871C42B2BC0032503E /* MBProgressHUD.m */,
 				9AF52B811C3790F80078E568 /* UIColor+BFPaperColors */,
 				9AF52B7A1C3790660078E568 /* BFPaperButton.h */,
 				9AF52B7B1C3790660078E568 /* BFPaperButton.m */,
@@ -693,6 +698,7 @@
 				1B17E3BC1C180BD90080A574 /* AddNewSayViewController.m in Sources */,
 				5DBF3BC81BD8216600ACF60D /* FacebookStyleBar.m in Sources */,
 				1B17E3F01C180C6A0080A574 /* constant.m in Sources */,
+				1BC88A881C42B2BC0032503E /* MBProgressHUD.m in Sources */,
 				1B17E3D21C180BF70080A574 /* ViewPagerController.m in Sources */,
 				9A9CB60F1C19B8200082B3E5 /* SlideNavigationController.m in Sources */,
 				9A9CB6271C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */,
@@ -867,14 +873,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: eBworx Berhad";
 				GCC_PREFIX_HEADER = youSay/PrefixHeader.pch;
 				INFOPLIST_FILE = youSay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.novatore.youSay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "88ec56cc-e6f2-4974-9ea5-f9ce5426326a";
+				PROVISIONING_PROFILE = "d730e762-fab0-4662-9be7-8bc27cd657e6";
 			};
 			name = Release;
 		};

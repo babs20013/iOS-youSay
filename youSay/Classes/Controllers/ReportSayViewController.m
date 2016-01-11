@@ -92,10 +92,7 @@
 #pragma mark Request
 
 - (void)requestReportSay:(NSInteger)index {
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
+    ShowLoader();
     
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_REPORT_SAY forKey:@"request"];
@@ -131,7 +128,7 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
+        HideLoader();
     }];
 }
 

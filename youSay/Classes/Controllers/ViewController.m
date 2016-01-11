@@ -99,7 +99,7 @@
                        [self goToMainPage];
                     }
                 }
-                [SVProgressHUD dismiss];
+                HideLoader();
             }
         }];
     }

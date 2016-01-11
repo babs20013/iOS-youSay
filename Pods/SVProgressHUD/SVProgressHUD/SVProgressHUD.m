@@ -888,7 +888,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
     if(!_overlayView) {
         _overlayView = [[UIControl alloc] initWithFrame:[UIScreen mainScreen].bounds];
         _overlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _overlayView.backgroundColor = [UIColor clearColor];
+        _overlayView.backgroundColor = [UIColor redColor];
         [_overlayView addTarget:self action:@selector(overlayViewDidReceiveTouchEvent:forEvent:) forControlEvents:UIControlEventTouchDown];
     }
     return _overlayView;

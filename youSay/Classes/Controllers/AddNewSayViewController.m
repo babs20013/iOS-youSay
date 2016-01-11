@@ -92,10 +92,7 @@
 #pragma mark - Request
 
 - (void)requestAddSay:(NSInteger)colorID {
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
+    ShowLoader();
     
     AddSayRequest *request = [[AddSayRequest alloc]init];
     request.request = REQUEST_ADD_SAY;
@@ -106,6 +103,7 @@
     request.color = [[arrayColorKey objectAtIndex:colorID] integerValue];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:request completionBlock:^(id result, NSError *error) {
+        HideLoader();
         if (result)
         {
             NSDictionary *dictResult = result;
@@ -133,7 +131,6 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
     }];
 }
 

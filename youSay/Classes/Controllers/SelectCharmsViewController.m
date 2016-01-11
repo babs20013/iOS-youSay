@@ -57,10 +57,7 @@
 }
 
 - (void)getAllCharms {
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
+    ShowLoader();
     
     NSMutableDictionary *dictRequest = [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_GET_ALL_CHARMS forKey:@"request"];
@@ -91,15 +88,12 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
+        HideLoader();
     }];
 }
 
 - (void)requestChangeCharm:(NSString*)charmIn {
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
+    ShowLoader();
     
     NSMutableDictionary *dictRequest = [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_CHANGE_CHARM forKey:@"request"];
@@ -136,7 +130,7 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
+        HideLoader();
     }];
     
 }

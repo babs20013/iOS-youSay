@@ -256,7 +256,7 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
+        HideLoader();
     }];
 }
 
@@ -307,16 +307,12 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
+        HideLoader();
     }];
 }
 
 - (void)requestLogin {
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
-    
+    ShowLoader();
     RequestModel *loginReq = [[RequestModel alloc]init];
     loginReq.request = REQUEST_LOGIN;
     loginReq.authorization_id = [[AppDelegate sharedDelegate].profileOwner FacebookID];
@@ -363,16 +359,14 @@
         else{
             
         }
+        HideLoader();
     }];
 }
 
 - (void)requestProfile:(NSString*)IDrequested {
     _isRequestingProfile = YES;
     isFirstLoad = NO;
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
+    ShowLoader();
     if (profileModel == nil) {
         profileModel = [AppDelegate sharedDelegate].profileOwner;
     }
@@ -388,6 +382,8 @@
     [dictRequest setObject:IDrequested forKey:@"requested_user_id"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        //HideLoader();
+        [MBProgressHUD hideAllHUDsForView:[AppDelegate sharedDelegate].window animated:YES];
         _isRequestingProfile = NO;
         if (result)
         {
@@ -422,7 +418,6 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
     }];
 }
 
@@ -459,16 +454,13 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
+        HideLoader();
     }];
     
 }
 
 - (void)requestEditCharm:(CharmView*)charm{
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
+    ShowLoader();
     
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_RATE_USER_CHARMS forKey:@"request"];
@@ -515,15 +507,12 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
+        HideLoader();
     }];
 }
 
 - (void)requestChangeCharm:(NSString*)charmIn andCharmOut:(NSString*)charmOut{
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
+    ShowLoader();
     
     NSMutableDictionary *dictRequest = [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_CHANGE_CHARM forKey:@"request"];
@@ -560,7 +549,7 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
+        HideLoader();
     }];
 }
 
@@ -703,10 +692,7 @@
 }
 
 - (void)requestUser:(NSString*)searchString withSearchID:(NSString*)searchID {
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
+    ShowLoader();
     
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
@@ -784,15 +770,12 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
+        HideLoader();
     }];
 }
 
 - (void)requestCreateProfile:(FriendModel*)friendModel {
-    [SVProgressHUD show];
-    [SVProgressHUD setStatus:@"Loading..."];
-    UIColor *blackColor = [UIColor colorWithWhite:0.42f alpha:0.4f];
-    [SVProgressHUD setBackgroundColor:blackColor];
+    ShowLoader();
     
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_CREATE_PROFILE forKey:@"request"];
@@ -842,7 +825,7 @@
         else{
             
         }
-        [SVProgressHUD dismiss];
+        HideLoader();
     }];
 }
 
@@ -951,12 +934,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.searchTableView) {
-        FriendModel *model = [arrSearch objectAtIndex:indexPath.row];
-        if (model.isNeedProfile) {
-            [self requestCreateProfile:model];
-        }
-        else {
-            [self requestProfile:model.userID];
+        if (_isRequestingProfile == NO) {
+            FriendModel *model = [arrSearch objectAtIndex:indexPath.row];
+            if (model.isNeedProfile) {
+                [self requestCreateProfile:model];
+            }
+            else {
+                [self requestProfile:model.userID];
+            }
         }
         [self.searchView setHidden:YES];
         [self.tableView setHidden:NO];
