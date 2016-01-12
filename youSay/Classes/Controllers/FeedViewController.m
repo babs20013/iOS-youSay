@@ -480,6 +480,7 @@
         vc.isFromFeed = YES;
         vc.friendModel = model;
         vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
+    
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -919,6 +920,20 @@
     
     self.searchUserTableView.contentInset = contentInsets;
     self.searchUserTableView.scrollIndicatorInsets = contentInsets;
+    
+    [self.btnClear setHidden:NO];
+    [self.tableView setHidden:YES];
+    [self.searchView setHidden:NO];
+    self.btnViewConstraint.constant = 50;
+    [self.viewButton needsUpdateConstraints];
+    
+    [self.btnCancel setHidden:NO];
+    [self.btnRightMenu setHidden:YES];
+
+    isShowRecentSearch = YES;
+    self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
+    [self.searchUserTableView needsUpdateConstraints];
+    [self.searchUserTableView reloadData];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification

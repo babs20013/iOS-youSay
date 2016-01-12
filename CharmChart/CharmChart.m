@@ -40,6 +40,7 @@
 @interface CharmChart(){
     NSMutableArray *boxes;
     UILabel *lblScore;
+    UIButton *btn;
 }
 @end
 @implementation CharmChart
@@ -147,15 +148,18 @@
     [lblScore setTextColor:kChartScoreLabelColor];
     [self addSubview:lblScore];
 
-    UIButton *btnClose = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-([self boxSize].height+6)-2, lblScore.frame.origin.y + 6, ([self boxSize].height+7), ([self boxSize].height+7))];
-    [btnClose setImage:[UIImage imageNamed:@"charm-close"] forState:UIControlStateNormal];
-    [btnClose addTarget:self
+    btn = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-[self boxSize].height-25, lblScore.frame.origin.y-13, ([self boxSize].height+50), ([self boxSize].height+50))];
+    [btn setImage:[UIImage imageNamed:@"charm-close"] forState:UIControlStateNormal];
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
+    [btn setBackgroundColor:[UIColor clearColor]];
+    [btn addTarget:self
                  action:@selector(btnCloseClicked: withCharm:)
        forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:btnClose];
-    [btnClose setHidden:YES];
+    [self addSubview:btn];
+    
+    [btn setHidden:YES];
     if (_state == ChartStateEdit) {
-        [btnClose setHidden:NO];
+        [btn setHidden:NO];
     }
     else if (_state == ChartStateViewing && !_rated){
         [lblScore setHidden:YES];

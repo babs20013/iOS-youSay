@@ -58,6 +58,7 @@
     BOOL isFirstLoad;
     BOOL isAfterCharm;
     BOOL isAfterAddNewSay;
+    BOOL isShowRecentSearch;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UITableView *searchTableView;
@@ -81,6 +82,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     dictHideSay = [[NSMutableDictionary alloc] init];
+    [self.searchView setHidden:YES];
+    [self.tableView setHidden:NO];
+    [self.btnRightMenu setHidden:NO];
+    [self.btnCancel setHidden:YES];
+    self.btnViewConstraint.constant = 30;
+    [self.viewButton needsUpdateConstraints];
 }
 
 
@@ -156,7 +163,15 @@
     [btnAddSay setHidden:YES];
     [self.view addSubview:btnAddSay];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshPage:)
                                                  name:@"notification"
@@ -808,6 +823,7 @@
                 saysArray = saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
                 charmsArray = [profileDictionary valueForKey:@"charms"];
                 isAfterChangeCharm = NO;
+                
                 [self.tableView reloadData];
                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
@@ -926,8 +942,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.searchTableView) {
+    if (tableView == self.searchTableView && isShowRecentSearch == NO) {
         return arrSearch.count;
+    }
+    else if (tableView == self.searchTableView && isShowRecentSearch == YES) {
+        return [[AppDelegate sharedDelegate].arrRecentSeacrh count];
     }
     else if (section == 1) {
         return saysArray.count;}
@@ -944,8 +963,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.searchTableView) {
         if (_isRequestingProfile == NO) {
+            //--Add the profile to recent search
+            if (![AppDelegate sharedDelegate].arrRecentSeacrh) {
+                [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
+            }
+            FriendModel *model;
+            if (isShowRecentSearch == YES) {
+                model = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+            }
+            else {
+                model = [arrSearch objectAtIndex:indexPath.row];
+                [[AppDelegate sharedDelegate].arrRecentSeacrh addObject:[arrSearch objectAtIndex:indexPath.row]];
+            }
             
-            FriendModel *model = [arrSearch objectAtIndex:indexPath.row];
             if (model.isNeedProfile) {
                 NSString *string = [NSString stringWithFormat:@"%@?fields=cover",model.userID];
                 FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
@@ -1024,7 +1054,14 @@
         
         cell = [[WhoLikeListTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
-    FriendModel *model = [arrSearch objectAtIndex:indexPath.row];
+    FriendModel *model;
+    if (isShowRecentSearch == YES) {
+        model = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+    }
+    else {
+        model = [arrSearch objectAtIndex:indexPath.row];
+    }
+
     [cell.profileView setImageURL:[NSURL URLWithString:model.ProfileImage]];
     cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
     cell.profileView.layer.masksToBounds = YES;
@@ -1509,6 +1546,7 @@
 
 - (IBAction)btnClearSearchClicked:(id)sender {
     arrSearch= [[NSMutableArray alloc]init];
+    [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
     [self.searchTableView reloadData];
     self.tableHeightConstraint.constant = arrSearch.count*50;
     [self.searchTableView needsUpdateConstraints];
@@ -1651,10 +1689,10 @@
 
 - (void)AddNewSayDidDismissed {
     isAfterAddNewSay = YES;
-    if (requestedID) {
+    if (requestedID && _isRequestingProfile == NO) {
         [self requestProfile:requestedID];
     }
-    else {
+    else if (_isRequestingProfile == NO){
         [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
     }
 }
@@ -1696,11 +1734,18 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     [_btnClear setHidden:YES];
-    
     return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if ([textField.text length]==0){
+        [self.btnClear setHidden:NO];
+        isShowRecentSearch = YES;
+        self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
+        [self.searchTableView needsUpdateConstraints];
+        [self.searchTableView reloadData];
+    }
+
     [textField becomeFirstResponder];
 }
 
@@ -1711,6 +1756,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     arrSearch = nil;
     if ([textField.text length]>2){
+        isShowRecentSearch = NO;
         ShowLoader();
         [self requestUser:textField.text withSearchID:@""];
     }
@@ -1730,6 +1776,14 @@
     [self.btnRightMenu setHidden:YES];
     if ([textField.text length]==0){
         [self.btnClear setHidden:NO];
+        isShowRecentSearch = YES;
+        self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
+        [self.searchTableView needsUpdateConstraints];
+        [self.searchTableView reloadData];
+    }
+    else {
+        isShowRecentSearch = NO;
+        [self.btnClear setHidden:YES];
     }
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -1745,6 +1799,44 @@
         }
     });
 }
+
+#pragma mark Keyboard
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets;
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
+        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.height), 0.0);
+    } else {
+        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.width), 0.0);
+    }
+    
+    self.searchTableView.contentInset = contentInsets;
+    self.searchTableView.scrollIndicatorInsets = contentInsets;
+    
+    [self.btnClear setHidden:NO];
+    [self.tableView setHidden:YES];
+    [self.searchView setHidden:NO];
+    self.btnViewConstraint.constant = 50;
+    [self.viewButton needsUpdateConstraints];
+    
+    [self.btnCancel setHidden:NO];
+    [self.btnRightMenu setHidden:YES];
+    
+    isShowRecentSearch = YES;
+    self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
+    [self.searchTableView needsUpdateConstraints];
+    [self.searchTableView reloadData];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    self.searchTableView.contentInset = UIEdgeInsetsZero;
+    self.searchTableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+}
+
 
 @end
 

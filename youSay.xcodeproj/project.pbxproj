@@ -860,9 +860,9 @@
 				INFOPLIST_FILE = youSay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.novatore.youSay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "88ec56cc-e6f2-4974-9ea5-f9ce5426326a";
+				PROVISIONING_PROFILE = "08c1e319-8e78-4602-b095-deab51ff567a";
 			};
 			name = Debug;
 		};
@@ -878,7 +878,7 @@
 				INFOPLIST_FILE = youSay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.novatore.youSay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d730e762-fab0-4662-9be7-8bc27cd657e6";
 			};
