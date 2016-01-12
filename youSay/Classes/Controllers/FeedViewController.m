@@ -29,7 +29,7 @@
     BOOL isNoMoreFeed;
     BOOL isLikeListReleased;
     BOOL isRequesting;
-    
+    BOOL isShowRecentSearch;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -444,8 +444,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.searchUserTableView) {
+    if (tableView == self.searchUserTableView && isShowRecentSearch == NO) {
         return arraySearch.count;
+    }
+    else if (tableView == self.searchUserTableView && isShowRecentSearch == YES) {
+        return [[AppDelegate sharedDelegate].arrRecentSeacrh count];
     }
     return 1;
 }
@@ -459,11 +462,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.searchUserTableView) {
+        //--Add the profile to recent search
+        if (![AppDelegate sharedDelegate].arrRecentSeacrh) {
+            [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
+        }
+        FriendModel *model;
+        if (isShowRecentSearch == YES) {
+            model = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+        }
+        else {
+            model = [arraySearch objectAtIndex:indexPath.row];
+            [[AppDelegate sharedDelegate].arrRecentSeacrh addObject:[arraySearch objectAtIndex:indexPath.row]];
+        }
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
         vc.isFriendProfile = NO;
         vc.isFromFeed = YES;
-        vc.friendModel = [arraySearch objectAtIndex:indexPath.row];
+        vc.friendModel = model;
         vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -591,7 +606,14 @@
         
         cell = [[WhoLikeListTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
-    FriendModel *model = [arraySearch objectAtIndex:indexPath.row];
+    FriendModel *model;
+    if (isShowRecentSearch == YES) {
+        model = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+    }
+    else {
+        model = [arraySearch objectAtIndex:indexPath.row];
+    }
+    
     [cell.profileView setImageURL:[NSURL URLWithString:model.ProfileImage]];
     cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
     cell.profileView.layer.masksToBounds = YES;
@@ -685,6 +707,7 @@
 
 - (IBAction)btnClearSearchClicked:(id)sender {
     arraySearch= [[NSMutableArray alloc]init];
+    [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
     [self.searchUserTableView reloadData];
     self.tableHeightConstraint.constant = arraySearch.count*50;
     [self.searchUserTableView needsUpdateConstraints];
@@ -821,6 +844,13 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if ([textField.text length]==0){
+        [self.btnClear setHidden:NO];
+        isShowRecentSearch = YES;
+        self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
+        [self.searchUserTableView needsUpdateConstraints];
+        [self.searchUserTableView reloadData];
+    }
     [textField becomeFirstResponder];
 }
 
@@ -831,6 +861,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     arraySearch = nil;
     if ([textField.text length]>2){
+        isShowRecentSearch = NO;
         ShowLoader();
         [self requestUser:textField.text withSearchID:@""];
     }
@@ -850,8 +881,13 @@
     
     if ([textField.text length]==0){
         [self.btnClear setHidden:NO];
+        isShowRecentSearch = YES;
+        self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
+        [self.searchUserTableView needsUpdateConstraints];
+        [self.searchUserTableView reloadData];
     }
     else {
+        isShowRecentSearch = NO;
         [self.btnClear setHidden:YES];
     }
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);

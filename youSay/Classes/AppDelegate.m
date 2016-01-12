@@ -18,6 +18,7 @@
 
 @implementation AppDelegate
 @synthesize profileOwner;
+@synthesize arrRecentSeacrh;
 
 + (AppDelegate *)sharedDelegate
 {
