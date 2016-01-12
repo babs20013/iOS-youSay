@@ -734,7 +734,6 @@
             {
                 if ([dictResult objectForKey:@"yousay_users"]) {
                     NSString *searchid = [dictResult objectForKey:@"search_id"];
-                    [self requestUser:searchString withSearchID:searchid];
                     NSArray *tempArr = [dictResult objectForKey:@"yousay_users"];
                     for (int i = 0; i < tempArr.count; i++) {
                         NSDictionary *dict = [tempArr objectAtIndex:i];
@@ -748,7 +747,7 @@
                         }
                         [arrSearch addObject:model];
                     }
-                    
+                    [self requestUser:searchString withSearchID:searchid];
                 }
                 else if ([dictResult objectForKey:@"facebook_users"]) {
                     HideLoader();
@@ -768,6 +767,7 @@
                         
                         [arrSearch addObject:model];
                     }
+                    isShowRecentSearch = NO;
                     self.tableHeightConstraint.constant = arrSearch.count*50;
                     [self.searchTableView needsUpdateConstraints];
                     [self.searchTableView reloadData];
@@ -1725,12 +1725,16 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     [_btnClear setHidden:YES];
+    [self.tableView setHidden:YES];
+    [self.searchView setHidden:NO];
     return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     if ([textField.text length]==0){
         [self.btnClear setHidden:NO];
+        [self.tableView setHidden:YES];
+        [self.searchView setHidden:NO];
         isShowRecentSearch = YES;
         self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
         [self.searchTableView needsUpdateConstraints];
@@ -1816,7 +1820,7 @@
     [self.btnCancel setHidden:NO];
     [self.btnRightMenu setHidden:YES];
     
-    isShowRecentSearch = YES;
+
     self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
     [self.searchTableView needsUpdateConstraints];
     [self.searchTableView reloadData];
