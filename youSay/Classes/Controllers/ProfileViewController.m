@@ -1123,27 +1123,18 @@
         cel.imgViewProfilePicture.layer.masksToBounds = YES;
         cel.imgViewProfilePicture.layer.borderWidth = 1;
         cel.imgViewProfilePicture.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        [cel.imgViewProfilePicture.layer setBorderColor:[UIColor whiteColor].CGColor];
+        [cel.imgViewProfilePicture.layer setBorderWidth:3.0];
         
         cel.lblName.text = model.Name;
         NSInteger popularity = [[profileDictionary objectForKey:@"popularity"] integerValue];
         NSInteger wiz = [[profileDictionary objectForKey:@"rank"] integerValue];
-        [cel.newbie setTitle:[NSString stringWithFormat:@"%ld", (long)wiz] forState:UIControlStateNormal];
-        [cel.popular setTitle:[NSString stringWithFormat:@"%ld", (long)popularity] forState:UIControlStateNormal];
+        [cel.lblRankCount setText:[NSString stringWithFormat:@"%ld", (long)wiz]];
+        [cel.lblPopularityCount setText:[NSString stringWithFormat:@"%ld", (long)popularity]];
         
-        [imgViewRank setImageURL:[NSURL URLWithString:[profileDictionary objectForKey:@"rank_picture"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
-            ProfileTableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
-            if (updateCell) {
-                [cel.newbie setBackgroundImage:image forState:UIControlStateNormal];
-            }
-        }];
-        [imgViewPopularity setImageURL:[NSURL URLWithString:[profileDictionary objectForKey:@"popularity_picture"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
-            ProfileTableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
-            if (updateCell) {
-                [cel.popular setBackgroundImage:image forState:UIControlStateNormal];
-            }
-        }];
-        [cel.newbie setBackgroundImage:imgViewRank.image forState:UIControlStateNormal];
-        [cel.popular setBackgroundImage:imgViewPopularity.image forState:UIControlStateNormal];
+        [cel.newbie setImageURL:[NSURL URLWithString:[profileDictionary objectForKey:@"rank_picture"]]];
+        [cel.popular setImageURL:[NSURL URLWithString:[profileDictionary objectForKey:@"popularity_picture"]]];
+
         
         cel.lblRankLevel.text = [profileDictionary objectForKey:@"rank_level"];
         cel.lblPopularityLevel.text = [profileDictionary objectForKey:@"popularity_level"];

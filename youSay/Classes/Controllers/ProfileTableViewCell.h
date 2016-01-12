@@ -11,8 +11,8 @@
 @interface ProfileTableViewCell : UITableViewCell
 @property (nonatomic, strong) IBOutlet UIImageView *imgViewCover;
 @property (nonatomic, strong) IBOutlet UIImageView *imgViewProfilePicture;
-@property (nonatomic, strong) IBOutlet UIButton *newbie;
-@property (nonatomic, strong) IBOutlet UIButton *popular;
+@property (nonatomic, strong) IBOutlet UIImageView *newbie;
+@property (nonatomic, strong) IBOutlet UIImageView *popular;
 @property (nonatomic, strong) IBOutlet UILabel *lblName;
 @property (nonatomic, strong) IBOutlet UILabel *lblCharm1;
 @property (nonatomic, strong) IBOutlet UILabel *lblCharm2;
@@ -26,6 +26,8 @@
 @property (nonatomic, strong) IBOutlet UIView *viewCharm5;
 @property (nonatomic, strong) IBOutlet UILabel *lblRankLevel;
 @property (nonatomic, strong) IBOutlet UILabel *lblPopularityLevel;
+@property (nonatomic, strong) IBOutlet UILabel *lblRankCount;
+@property (nonatomic, strong) IBOutlet UILabel *lblPopularityCount;
 @property (nonatomic, strong) IBOutlet UIView *charmView;
 @property (nonatomic, strong) IBOutlet CharmView *charmChartView;
 
