@@ -98,14 +98,20 @@
     [self.btnCancel setHidden:YES];
     self.btnViewConstraint.constant = 30;
     [self.viewButton needsUpdateConstraints];
+    [self.btnAddSay setHidden:YES];
 }
 
 
 - (void)viewDidAppear:(BOOL)animated {
     // Fetch the devices from persistent data store
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
-    [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
+        NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
+        NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"%K like %@",@"id", [[AppDelegate sharedDelegate].profileOwner UserID]];
+        [fetchRequest setPredicate:predicateID];
+        
+        [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -367,6 +373,14 @@
                 isFriendProfile = NO;
                 requestedID = [dictResult valueForKey:@"user_id"];
                 [AppDelegate sharedDelegate].isFirstLoad = NO;
+                if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
+                    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
+                    NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"%K like %@",@"id", [[AppDelegate sharedDelegate].profileOwner UserID]];
+                    [fetchRequest setPredicate:predicateID];
+                    
+                    [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+                }
                 [self requestSayColor];
                 if ([AppDelegate sharedDelegate].isNewToken == YES) {
                     [self requestAddUserDevice];
@@ -746,7 +760,7 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                if ([dictResult objectForKey:@"yousay_users"]) {
+                if ([dictResult objectForKey:@"yousay_users"] ) {
                     NSString *searchid = [dictResult objectForKey:@"search_id"];
                     NSArray *tempArr = [dictResult objectForKey:@"yousay_users"];
                     for (int i = 0; i < tempArr.count; i++) {
@@ -766,7 +780,7 @@
                 }
                 else if ([dictResult objectForKey:@"facebook_users"]) {
                     HideLoader();
-                    NSArray *tempArr = [dictResult objectForKey:@"facebook_users"];
+                    NSArray *tempArr = [[dictResult objectForKey:@"facebook_users"] allObjects];
                     for (int i = 0; i < tempArr.count; i++) {
                         NSDictionary *dict = [tempArr objectAtIndex:i];
                         FriendModel *model = [[FriendModel alloc]init];
@@ -852,11 +866,8 @@
                 [self logout];
             }
             else if ([[dictResult valueForKey:@"rc"] integerValue] == 204) {
-                //user already exist so we call the owner profile
-                NSString *msg = [NSString stringWithFormat:@"%@ Redirecting to Own Profile", [dictResult valueForKey:@"message"]];
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-                [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+                //user already exist so we request the profile
+                [self requestProfile:[dictResult valueForKey:@"user_id"]];
             }
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -921,13 +932,13 @@
     else if (indexPath.section == 0) {
         CGFloat height=0;
         if (self.view.frame.size.height >= 667) {//6+
-            height= self.view.frame.size.height - 195;
+            height= self.view.frame.size.height - 165;
         }
         else if (self.view.frame.size.height >= 568) {//6
-            height= self.view.frame.size.height - 160;
+            height= self.view.frame.size.height - 130;
         }
         else if (self.view.frame.size.height >= 480) {//5
-            height= self.view.frame.size.height - 80;
+            height= self.view.frame.size.height - 50;
         }
         else{//4
             height= self.view.frame.size.height;
@@ -1041,6 +1052,8 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
     
+    NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"id == %@",[[AppDelegate sharedDelegate].profileOwner UserID]];
+    [request setPredicate:predicateID];
     
     NSError *Fetcherror;
     NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&Fetcherror] mutableCopy];
@@ -1063,7 +1076,7 @@
         [newSearch setValue:model.ProfileImage  forKey:@"profileImage"];
         [newSearch setValue:model.CoverImage  forKey:@"coverImage"];
         [newSearch setValue:model.userID  forKey:@"userID"];
-        
+        [newSearch setValue:[[AppDelegate sharedDelegate].profileOwner UserID]  forKey:@"id"];
         NSError *error = nil;
         // Save the object to persistent store
         if (![context save:&error]) {
@@ -1613,6 +1626,7 @@
     for (int i = 0; i < [[AppDelegate sharedDelegate].arrRecentSeacrh count]; i++) {
          [context deleteObject:[[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:i]];
     }
+    
     [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
     NSError *error = nil;
     if (![context save:&error]) {
@@ -1632,6 +1646,7 @@
     [self.tableView setHidden:NO];
     [self.btnRightMenu setHidden:NO];
     [self.btnCancel setHidden:YES];
+    [self.btnAddSay setHidden:NO];
     self.btnViewConstraint.constant = 30;
     [self.viewButton needsUpdateConstraints];
 }
@@ -1810,6 +1825,7 @@
     [_btnClear setHidden:YES];
     [self.tableView setHidden:YES];
     [self.searchView setHidden:NO];
+    [self.btnAddSay setHidden:YES];
     return YES;
 }
 
@@ -1818,6 +1834,7 @@
         [self.btnClear setHidden:NO];
         [self.tableView setHidden:YES];
         [self.searchView setHidden:NO];
+        [self.btnAddSay setHidden:YES];
         isShowRecentSearch = YES;
         self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
         [self.searchTableView needsUpdateConstraints];
