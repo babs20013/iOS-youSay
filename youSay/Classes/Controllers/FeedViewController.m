@@ -60,14 +60,25 @@
     [super viewWillAppear:animated];
     
     isScrollBounce = YES;
+    [self.searchView setHidden:YES];
+    [self.tableView setHidden:NO];
+    [self.btnRightMenu setHidden:NO];
+    [self.btnCancel setHidden:YES];
+    self.btnViewConstraint.constant = 30;
+    [self.viewButton needsUpdateConstraints];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    // Fetch the devices from persistent data store
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
-    [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
+        NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
+        NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"%K like %@",@"id", [[AppDelegate sharedDelegate].profileOwner UserID]];
+        [fetchRequest setPredicate:predicateID];
+        
+        [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    }
+
 
 }
 
@@ -330,7 +341,7 @@
                 }
                 else if ([dictResult objectForKey:@"facebook_users"]) {
                     HideLoader();
-                    NSArray *tempArr = [dictResult objectForKey:@"facebook_users"];
+                    NSArray *tempArr = [[dictResult objectForKey:@"facebook_users"] allObjects];
                     for (int i = 0; i < tempArr.count; i++) {
                         NSDictionary *dict = [tempArr objectAtIndex:i];
                         FriendModel *model = [[FriendModel alloc]init];
@@ -782,6 +793,8 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
     
+    NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"%K like %@", @"id", [[AppDelegate sharedDelegate].profileOwner UserID]];
+    [request setPredicate:predicateID];
     
     NSError *Fetcherror;
     NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&Fetcherror] mutableCopy];
@@ -804,6 +817,7 @@
         [newSearch setValue:model.ProfileImage  forKey:@"profileImage"];
         [newSearch setValue:model.CoverImage  forKey:@"coverImage"];
         [newSearch setValue:model.userID  forKey:@"userID"];
+        [newSearch setValue:[[AppDelegate sharedDelegate].profileOwner UserID]  forKey:@"id"];
         
         NSError *error = nil;
         // Save the object to persistent store

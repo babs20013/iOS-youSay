@@ -1052,7 +1052,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
     
-    NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"id == %@",[[AppDelegate sharedDelegate].profileOwner UserID]];
+    NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"%K like %@", @"id", [[AppDelegate sharedDelegate].profileOwner UserID]];
     [request setPredicate:predicateID];
     
     NSError *Fetcherror;
