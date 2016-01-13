@@ -839,6 +839,8 @@
                 charmsArray = [profileDictionary valueForKey:@"charms"];
                 isAfterChangeCharm = NO;
                 
+                friendModel.userID = requestedID;
+                
                 [self convertModelToObject:friendModel];
                 
                 [self.tableView reloadData];

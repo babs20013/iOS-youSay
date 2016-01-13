@@ -47,11 +47,28 @@
 
 @implementation FeedViewController
 
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     isScrollBounce = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    // Fetch the devices from persistent data store
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
+    [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+
 }
 
 - (void)viewDidLoad {
@@ -468,11 +485,16 @@
         }
         FriendModel *model;
         if (isShowRecentSearch == YES) {
-            model = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+            NSManagedObject *recentSearchClicked = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+            model = [[FriendModel alloc]init];
+            model.Name = [recentSearchClicked valueForKey:@"name"];
+            model.ProfileImage = [recentSearchClicked valueForKey:@"profileImage"];
+            model.CoverImage = [recentSearchClicked valueForKey:@"coverImage"];
+            model.userID = [recentSearchClicked valueForKey:@"userID"];
         }
         else {
             model = [arraySearch objectAtIndex:indexPath.row];
-            [[AppDelegate sharedDelegate].arrRecentSeacrh addObject:[arraySearch objectAtIndex:indexPath.row]];
+            [self convertModelToObject:model];
         }
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
@@ -609,20 +631,27 @@
     }
     FriendModel *model;
     if (isShowRecentSearch == YES) {
-        model = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+        NSManagedObject *recentSearch = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+        
+        [cell.profileView setImageURL:[NSURL URLWithString:[recentSearch valueForKey:@"profileImage"]]];
+        cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
+        cell.profileView.layer.masksToBounds = YES;
+        cell.profileView.layer.borderWidth = 1;
+        cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        
+        [cell.profileName setText:[recentSearch valueForKey:@"name"]];
+
     }
     else {
         model = [arraySearch objectAtIndex:indexPath.row];
+        [cell.profileView setImageURL:[NSURL URLWithString:model.ProfileImage]];
+        cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
+        cell.profileView.layer.masksToBounds = YES;
+        cell.profileView.layer.borderWidth = 1;
+        cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        
+        [cell.profileName setText:model.Name];
     }
-    
-    [cell.profileView setImageURL:[NSURL URLWithString:model.ProfileImage]];
-    cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
-    cell.profileView.layer.masksToBounds = YES;
-    cell.profileView.layer.borderWidth = 1;
-    cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-    
-    [cell.profileName setText:model.Name];
-    
     return cell;
 }
 
@@ -708,11 +737,21 @@
 
 - (IBAction)btnClearSearchClicked:(id)sender {
     arraySearch= [[NSMutableArray alloc]init];
+    NSManagedObjectContext *context = [self managedObjectContext];
+    for (int i = 0; i < [[AppDelegate sharedDelegate].arrRecentSeacrh count]; i++) {
+        [context deleteObject:[[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:i]];
+    }
     [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+        return;
+    }
+    [context deletedObjects];
+    
     [self.searchUserTableView reloadData];
     self.tableHeightConstraint.constant = arraySearch.count*50;
     [self.searchUserTableView needsUpdateConstraints];
-    [self.searchUserTableView reloadData];
 }
 
 - (IBAction)btnCancelSearchClicked:(id)sender {
@@ -731,6 +770,48 @@
     isNoMoreFeed = NO;
     if (isRequesting == NO) {
         [self requestFeed:[NSString stringWithFormat:@"%i", index]];
+    }
+}
+
+- (void)convertModelToObject:(FriendModel*)model {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Search"
+                                              inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entity];
+    
+    
+    NSError *Fetcherror;
+    NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&Fetcherror] mutableCopy];
+    
+    if (!mutableFetchResults) {
+        // error handling code.
+    }
+    
+    if ([[mutableFetchResults valueForKey:@"userID"]
+         containsObject:model.userID]) {
+        //notify duplicates
+        return;
+    }
+    else
+    {
+        // Create a new managed object
+        NSManagedObject *newSearch = [NSEntityDescription insertNewObjectForEntityForName:@"Search" inManagedObjectContext:context];
+        
+        [newSearch setValue:model.Name forKey:@"name"];
+        [newSearch setValue:model.ProfileImage  forKey:@"profileImage"];
+        [newSearch setValue:model.CoverImage  forKey:@"coverImage"];
+        [newSearch setValue:model.userID  forKey:@"userID"];
+        
+        NSError *error = nil;
+        // Save the object to persistent store
+        if (![context save:&error]) {
+            NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+        }
+        
+        [[AppDelegate sharedDelegate].arrRecentSeacrh addObject:newSearch];
     }
 }
 
