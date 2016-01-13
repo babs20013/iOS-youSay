@@ -80,6 +80,16 @@
 @synthesize isFriendProfile;
 @synthesize btnAddSay;
 
+
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     dictHideSay = [[NSMutableDictionary alloc] init];
     [self.searchView setHidden:YES];
@@ -92,6 +102,10 @@
 
 
 - (void)viewDidAppear:(BOOL)animated {
+    // Fetch the devices from persistent data store
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
+    [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -737,6 +751,7 @@
                     NSArray *tempArr = [dictResult objectForKey:@"yousay_users"];
                     for (int i = 0; i < tempArr.count; i++) {
                         NSDictionary *dict = [tempArr objectAtIndex:i];
+                        
                         FriendModel *model = [[FriendModel alloc]init];
                         model.Name = [dict objectForKey:@"name"];
                         model.ProfileImage = [dict objectForKey:@"image_url"];
@@ -823,6 +838,8 @@
                 saysArray = saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
                 charmsArray = [profileDictionary valueForKey:@"charms"];
                 isAfterChangeCharm = NO;
+                
+                [self convertModelToObject:friendModel];
                 
                 [self.tableView reloadData];
                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -967,36 +984,40 @@
             if (![AppDelegate sharedDelegate].arrRecentSeacrh) {
                 [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
             }
-            FriendModel *model;
+            FriendModel *search;
             if (isShowRecentSearch == YES) {
-                model = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+                // Configure the cell...
+                NSManagedObject *recentSearchClicked = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+                [self requestProfile:[recentSearchClicked valueForKey:@"userID"]];
             }
             else {
-                model = [arrSearch objectAtIndex:indexPath.row];
-                [[AppDelegate sharedDelegate].arrRecentSeacrh addObject:[arrSearch objectAtIndex:indexPath.row]];
+                search = [arrSearch objectAtIndex:indexPath.row];
+                if (search.isNeedProfile == YES) {
+                    NSString *string = [NSString stringWithFormat:@"%@?fields=cover",search.userID];
+                    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+                                                  initWithGraphPath:string
+                                                  parameters:nil
+                                                  HTTPMethod:@"GET"];
+                    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                                          id result,
+                                                          NSError *error) {
+                        NSDictionary *dict = result;
+                        search.CoverImage = [dict objectForKey:@"coverImage"];
+                        
+                        if (search.CoverImage == nil) {
+                            search.CoverImage = @"";
+                        }
+                        [self requestCreateProfile:search];
+                        
+                    }];
+                }
+                else {
+                    [self convertModelToObject:search];
+                    [self requestProfile:[search valueForKey:@"userID"]];
+                }
+
             }
             
-            if (model.isNeedProfile) {
-                NSString *string = [NSString stringWithFormat:@"%@?fields=cover",model.userID];
-                FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-                                              initWithGraphPath:string
-                                              parameters:nil
-                                              HTTPMethod:@"GET"];
-                [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
-                                                      id result,
-                                                      NSError *error) {
-                    NSDictionary *dict = result;
-                    model.CoverImage = [[dict objectForKey:@"cover"] objectForKey:@"source"];
-                    if (model.CoverImage == nil) {
-                        model.CoverImage = @"";
-                    }
-                    [self requestCreateProfile:model];
-                    
-                }];
-            }
-            else {
-                [self requestProfile:model.userID];
-            }
         }
         [self.btnCancel setHidden:YES];
         [self.btnRightMenu setHidden:NO];
@@ -1006,6 +1027,48 @@
         [self.tableView setHidden:NO];
         [self.txtSearch setText:@""];
         [self.txtSearch resignFirstResponder];
+    }
+}
+
+- (void)convertModelToObject:(FriendModel*)model {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Search"
+                                              inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entity];
+    
+    
+    NSError *Fetcherror;
+    NSMutableArray *mutableFetchResults = [[context executeFetchRequest:request error:&Fetcherror] mutableCopy];
+    
+    if (!mutableFetchResults) {
+        // error handling code.
+    }
+    
+    if ([[mutableFetchResults valueForKey:@"userID"]
+         containsObject:model.userID]) {
+        //notify duplicates
+        return;
+    }
+    else
+    {
+        // Create a new managed object
+        NSManagedObject *newSearch = [NSEntityDescription insertNewObjectForEntityForName:@"Search" inManagedObjectContext:context];
+        
+        [newSearch setValue:model.Name forKey:@"name"];
+        [newSearch setValue:model.ProfileImage  forKey:@"profileImage"];
+        [newSearch setValue:model.CoverImage  forKey:@"coverImage"];
+        [newSearch setValue:model.userID  forKey:@"userID"];
+        
+        NSError *error = nil;
+        // Save the object to persistent store
+        if (![context save:&error]) {
+            NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+        }
+        
+        [[AppDelegate sharedDelegate].arrRecentSeacrh addObject:newSearch];
     }
 }
 
@@ -1056,19 +1119,26 @@
     }
     FriendModel *model;
     if (isShowRecentSearch == YES) {
-        model = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+        NSManagedObject *recentSearch = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+        
+        [cell.profileView setImageURL:[NSURL URLWithString:[recentSearch valueForKey:@"profileImage"]]];
+        cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
+        cell.profileView.layer.masksToBounds = YES;
+        cell.profileView.layer.borderWidth = 1;
+        cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        
+        [cell.profileName setText:[recentSearch valueForKey:@"name"]];
     }
     else {
         model = [arrSearch objectAtIndex:indexPath.row];
+        [cell.profileView setImageURL:[NSURL URLWithString:model.ProfileImage]];
+        cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
+        cell.profileView.layer.masksToBounds = YES;
+        cell.profileView.layer.borderWidth = 1;
+        cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        
+        [cell.profileName setText:model.Name];
     }
-
-    [cell.profileView setImageURL:[NSURL URLWithString:model.ProfileImage]];
-    cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
-    cell.profileView.layer.masksToBounds = YES;
-    cell.profileView.layer.borderWidth = 1;
-    cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-    
-    [cell.profileName setText:model.Name];
     
     return cell;
 }
@@ -1537,7 +1607,18 @@
 
 - (IBAction)btnClearSearchClicked:(id)sender {
     arrSearch= [[NSMutableArray alloc]init];
+    NSManagedObjectContext *context = [self managedObjectContext];
+    for (int i = 0; i < [[AppDelegate sharedDelegate].arrRecentSeacrh count]; i++) {
+         [context deleteObject:[[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:i]];
+    }
     [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+        return;
+    }
+    [context deletedObjects];
+    
     [self.searchTableView reloadData];
     self.tableHeightConstraint.constant = arrSearch.count*50;
     [self.searchTableView needsUpdateConstraints];

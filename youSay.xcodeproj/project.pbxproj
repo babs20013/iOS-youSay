@@ -35,6 +35,7 @@
 		1B17E3F01C180C6A0080A574 /* constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3ED1C180C6A0080A574 /* constant.m */; };
 		1B17E3F11C180C6A0080A574 /* url.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3EF1C180C6A0080A574 /* url.m */; };
 		1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3F21C1813C20080A574 /* RequestModel.m */; };
+		1B48D83A1C4577EE00C92FE9 /* MyStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B48D8381C4577EE00C92FE9 /* MyStore.xcdatamodeld */; };
 		1B7C26C51C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */; };
 		1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */; };
 		1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */; };
@@ -135,6 +136,7 @@
 		1B17E3EF1C180C6A0080A574 /* url.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = url.m; sourceTree = "<group>"; };
 		1B17E3F21C1813C20080A574 /* RequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestModel.m; path = youSay/Classes/Model/RequestModel.m; sourceTree = SOURCE_ROOT; };
 		1B17E3F41C1813CF0080A574 /* RequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RequestModel.h; path = youSay/Classes/Model/RequestModel.h; sourceTree = SOURCE_ROOT; };
+		1B48D8391C4577EE00C92FE9 /* MyStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyStore.xcdatamodel; sourceTree = "<group>"; };
 		1B7C26C31C3EBC6F00DDEC2A /* WhoLikeListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WhoLikeListTableViewCell.h; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhoLikeListTableViewCell.m; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		1BABACFB1C19EFB000BD9EB4 /* SaysModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SaysModel.h; path = youSay/Classes/Model/SaysModel.h; sourceTree = SOURCE_ROOT; };
@@ -288,6 +290,7 @@
 			children = (
 				1B17E3A91C180BB30080A574 /* AppDelegate.h */,
 				1B17E3AA1C180BB30080A574 /* AppDelegate.m */,
+				1B48D8381C4577EE00C92FE9 /* MyStore.xcdatamodeld */,
 				1B17E3EB1C180C570080A574 /* Logic */,
 				5DBF3BDA1BD988CF00ACF60D /* ViewControllers */,
 				9A14067B1C133C42006547A0 /* Model */,
@@ -729,6 +732,7 @@
 				1B17E3EA1C180C1C0080A574 /* IQURLConnection.m in Sources */,
 				9AC66C371C1F1971002B3834 /* CharmChart.m in Sources */,
 				9A9CB6291C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */,
+				1B48D83A1C4577EE00C92FE9 /* MyStore.xcdatamodeld in Sources */,
 				1B17E3BF1C180BD90080A574 /* MainPageViewController.m in Sources */,
 				5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */,
 				1B17E3C01C180BD90080A574 /* PeopleSayTableViewCell.m in Sources */,
@@ -854,15 +858,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = youSay/PrefixHeader.pch;
 				INFOPLIST_FILE = youSay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
+				PRODUCT_BUNDLE_IDENTIFIER = com.novatore.youSay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "08c1e319-8e78-4602-b095-deab51ff567a";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -872,15 +876,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: eBworx Berhad";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PREFIX_HEADER = youSay/PrefixHeader.pch;
 				INFOPLIST_FILE = youSay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
+				PRODUCT_BUNDLE_IDENTIFIER = com.novatore.youSay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d730e762-fab0-4662-9be7-8bc27cd657e6";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -906,6 +910,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1B48D8381C4577EE00C92FE9 /* MyStore.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1B48D8391C4577EE00C92FE9 /* MyStore.xcdatamodel */,
+			);
+			currentVersion = 1B48D8391C4577EE00C92FE9 /* MyStore.xcdatamodel */;
+			path = MyStore.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 358C907C1BD654AC000B17AB /* Project object */;
 }
