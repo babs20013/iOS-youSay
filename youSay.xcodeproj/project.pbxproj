@@ -35,6 +35,7 @@
 		1B17E3F01C180C6A0080A574 /* constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3ED1C180C6A0080A574 /* constant.m */; };
 		1B17E3F11C180C6A0080A574 /* url.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3EF1C180C6A0080A574 /* url.m */; };
 		1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3F21C1813C20080A574 /* RequestModel.m */; };
+		1B2C6D681C4C08DD00724E24 /* ShowWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C6D671C4C08DD00724E24 /* ShowWebVC.m */; };
 		1B48D83A1C4577EE00C92FE9 /* MyStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B48D8381C4577EE00C92FE9 /* MyStore.xcdatamodeld */; };
 		1B7C26C51C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */; };
 		1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */; };
@@ -136,6 +137,8 @@
 		1B17E3EF1C180C6A0080A574 /* url.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = url.m; sourceTree = "<group>"; };
 		1B17E3F21C1813C20080A574 /* RequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestModel.m; path = youSay/Classes/Model/RequestModel.m; sourceTree = SOURCE_ROOT; };
 		1B17E3F41C1813CF0080A574 /* RequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RequestModel.h; path = youSay/Classes/Model/RequestModel.h; sourceTree = SOURCE_ROOT; };
+		1B2C6D661C4C08C400724E24 /* ShowWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ShowWebVC.h; path = youSay/Classes/Controllers/ShowWebVC.h; sourceTree = SOURCE_ROOT; };
+		1B2C6D671C4C08DD00724E24 /* ShowWebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShowWebVC.m; path = youSay/Classes/Controllers/ShowWebVC.m; sourceTree = SOURCE_ROOT; };
 		1B48D8391C4577EE00C92FE9 /* MyStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyStore.xcdatamodel; sourceTree = "<group>"; };
 		1B7C26C31C3EBC6F00DDEC2A /* WhoLikeListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WhoLikeListTableViewCell.h; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhoLikeListTableViewCell.m; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.m; sourceTree = SOURCE_ROOT; };
@@ -470,6 +473,8 @@
 				1B0DED491C3D7F3800F3B907 /* WhoLikeThisViewController.m */,
 				1B7C26C31C3EBC6F00DDEC2A /* WhoLikeListTableViewCell.h */,
 				1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */,
+				1B2C6D661C4C08C400724E24 /* ShowWebVC.h */,
+				1B2C6D671C4C08DD00724E24 /* ShowWebVC.m */,
 			);
 			name = ViewControllers;
 			path = Classes/Controllers;
@@ -722,6 +727,7 @@
 				1B17E3AB1C180BB30080A574 /* AppDelegate.m in Sources */,
 				9A9CB6261C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScale.m in Sources */,
 				5DBF3BCD1BD8216600ACF60D /* MessageTableViewCell.m in Sources */,
+				1B2C6D681C4C08DD00724E24 /* ShowWebVC.m in Sources */,
 				1B17E3E61C180C120080A574 /* IQMultipartFormData.m in Sources */,
 				1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */,
 				9A9CB6251C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorFade.m in Sources */,
@@ -858,15 +864,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: eBworx Berhad";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: eBworx Berhad";
 				GCC_PREFIX_HEADER = youSay/PrefixHeader.pch;
 				INFOPLIST_FILE = youSay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.novatore.youSay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d730e762-fab0-4662-9be7-8bc27cd657e6";
 			};
 			name = Debug;
 		};
@@ -884,7 +890,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.novatore.youSay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d730e762-fab0-4662-9be7-8bc27cd657e6";
 			};
 			name = Release;
 		};

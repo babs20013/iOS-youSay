@@ -10,6 +10,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "ProfileOwnerModel.h"
+#import <BFURL.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) NSMutableArray *arrRecentSeacrh;
 @property (nonatomic, readwrite) BOOL isNewToken;
 @property (nonatomic, readwrite) BOOL isFirstLoad;
+@property (strong, nonatomic) BFURL *parsedUrl;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

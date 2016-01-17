@@ -8,6 +8,7 @@
 
 #import "MenuViewController.h"
 #import "SlideNavigationController.h"
+#import "ShowWebVC.h"
 @interface MenuViewController ()
 {
     NSArray *arrayMenu;
@@ -60,10 +61,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        <#statements#>
+        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
+            ShowWebVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ShowWebVC"];
+            //initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+            [vc setUrl:@"https://yousayweb.com/yousay/contact_us.php"];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [nav setNavigationBarHidden:YES];
+            [[SlideNavigationController sharedInstance] presentViewController:nav animated:YES completion:nil];}];
+        
     }
     else if (indexPath.row == 1){
-    
+        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
+            ShowWebVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ShowWebVC"];
+            //initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+            [vc setUrl:@"https://yousayweb.com/yousay/privacy_policy.php"];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [nav setNavigationBarHidden:YES];
+            [[SlideNavigationController sharedInstance] presentViewController:nav animated:YES completion:nil];}];
     }
     else if (indexPath.row == 2) {
         FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];

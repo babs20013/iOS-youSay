@@ -908,7 +908,8 @@
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentDescription = desc;
                     content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [profileDictionary objectForKey:@"name"]];
-                    content.contentURL = [NSURL URLWithString:@"https://yousayweb.com/yousay/backend/api/apiclient.php"];
+                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@", IDRequested];
+                    content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult valueForKey:@"url"]];
                     
                     FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
@@ -971,7 +972,8 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                NSArray *activityItems = [NSArray arrayWithObjects:desc, [NSURL URLWithString:[dictResult objectForKey:@"url"]], nil];
+                NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", requestedID,sayID];
+                NSArray *activityItems = [NSArray arrayWithObjects:desc, [NSURL URLWithString:url], nil];
                 UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
                 activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
                 

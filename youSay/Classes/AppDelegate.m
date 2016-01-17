@@ -10,10 +10,16 @@
 #import "SlideNavigationController.h"
 #import "MenuViewController.h"
 #import "CommonHelper.h"
+
+#import <BFAppLinkReturnToRefererView.h>
+
+
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @interface AppDelegate () 
 
+@property (weak, nonatomic) BFAppLinkReturnToRefererView *appLinkReturnToRefererView;
+@property (strong, nonatomic) BFAppLink *appLink;
 @end
 
 @implementation AppDelegate
@@ -76,6 +82,13 @@
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
+    BFURL *parsedUrl = [BFURL URLWithInboundURL:url sourceApplication:sourceApplication];
+    self.parsedUrl = parsedUrl;
+    if ([parsedUrl appLinkData]) {
+        // this is an applink url, handle it here
+        NSURL *targetUrl = [parsedUrl targetURL];
+
+    }
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication

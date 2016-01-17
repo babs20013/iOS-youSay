@@ -18,7 +18,8 @@
 #import "ProfileViewController.h"
 #import "CommonHelper.h"
 #import "UIImageView+Networking.h"
-
+#import <BFAppLinkReturnToRefererView.h>
+#import <BFAppLinkReturnToRefererController.h>
 
 @interface ViewController ()
 {
@@ -29,12 +30,37 @@
     NSDictionary *profileDict;
     NSDictionary *colorDict;
 }
+@property (weak, nonatomic) BFAppLinkReturnToRefererView *appLinkReturnToRefererView;
+@property (strong, nonatomic) BFAppLink *appLink;
 @end
 
 @implementation ViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if (self.appLinkReturnToRefererView) {
+        self.appLinkReturnToRefererView.hidden = YES;
+    }
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (delegate.parsedUrl) {
+        self.appLink = [delegate.parsedUrl appLinkReferer];
+        [self _showRefererBackView];
+    }
+    delegate.parsedUrl = nil;
+}
+
+- (void) _showRefererBackView {
+    if (nil == self.appLinkReturnToRefererView) {
+        // Set up the back link navigation view
+        BFAppLinkReturnToRefererView *backLinkView  = [[BFAppLinkReturnToRefererView alloc] initWithFrame:CGRectMake(0, 30, 320, 40)];
+        self.appLinkReturnToRefererView = backLinkView;
+    }
+    self.appLinkReturnToRefererView.hidden = NO;
+    // Initialize the back link view controller
+    BFAppLinkReturnToRefererController *alc =[[BFAppLinkReturnToRefererController alloc] init];
+    alc.view = self.appLinkReturnToRefererView;
+    // Display the back link view
+    [alc showViewForRefererAppLink:self.appLink];
 }
 
 - (void)viewDidLoad {
