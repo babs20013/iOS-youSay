@@ -1716,6 +1716,9 @@
                                                     </constraints>
                                                     <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
                                                     <state key="normal" image="UpArrow"/>
+                                                    <connections>
+                                                        <action selector="btnShareSayClicked:" destination="1dz-LU-SJf" eventType="touchUpInside" id="Jbf-XR-fxK"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKd-Ik-Su6">
                                                     <rect key="frame" x="154" y="271" width="37" height="26"/>

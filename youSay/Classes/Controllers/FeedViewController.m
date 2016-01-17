@@ -30,6 +30,7 @@
     BOOL isLikeListReleased;
     BOOL isRequesting;
     BOOL isShowRecentSearch;
+    NSString *sayShared;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -432,6 +433,99 @@
     }];
 }
 
+- (void)requestGetSayImage:(NSString *)sayID withDescription:(NSString*)desc {
+    ShowLoader();
+    
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_GET_PROFILE_IMG forKey:@"request"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:sayID forKey:@"say_id"];
+    sayShared = sayID;
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                NSArray *activityItems = [NSArray arrayWithObjects:desc, [NSURL URLWithString:[dictResult objectForKey:@"url"]], nil];
+                UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+                activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                
+                [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
+                    if (!completed) return;
+                    [self requestSayShared:sayShared];
+                }];
+                
+                [self presentViewController:activityViewController animated:YES completion:nil];
+                
+                //
+                //                FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+                //                content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [profileDictionary objectForKey:@"name"]];
+                //                content.contentURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
+                //                content.contentDescription = desc;
+                //
+                //                [FBSDKShareDialog showFromViewController:self withContent:content delegate:nil];
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self logout];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        HideLoader();
+    }];
+}
+
+- (void)requestSayShared:(NSString *)sharedSayID {
+    ShowLoader();
+    
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_SAY_SHARED forKey:@"request"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token] forKey:@"token"];
+    [dictRequest setObject:sharedSayID forKey:@"shared_say_id"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                //do nothing
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self logout];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }
+        else if (error)
+        {
+        }
+        else{
+            
+        }
+        HideLoader();
+    }];
+}
+
+
+#pragma mark UITableView
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -547,6 +641,7 @@
         [cell.btnProfile1 setTag:indexPath.section];
         [cell.btnLblProfile1 setTag:indexPath.section];
         [cell.btnReport setTag:indexPath.section];
+        [cell.btnShare setTag:indexPath.section];
     }
     
     if (arrProfiles.count == 0) {
@@ -854,6 +949,26 @@
 
 -(IBAction)btnLblProfile2Clicked:(UIButton*)sender{
     [self highlightProfileName2:sender];
+}
+
+- (IBAction)btnShareSayClicked:(id)sender {
+    NSLog(@"btnShare : %ld", (long)[sender tag]);
+    NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:[sender tag]];
+    NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
+    NSDictionary *dictProfile1 = [arrProfiles objectAtIndex:0];
+    NSDictionary *dictProfile2 = [arrProfiles objectAtIndex:1];
+    NSString *desc = @"";
+    if ([[dictProfile2 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
+        desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dictProfile1 objectForKey:@"name"]];
+    }
+    else if ([[dictProfile1 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]){
+        desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dictProfile2 objectForKey:@"name"]];
+    }
+    else {
+        desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
+    }
+    [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc];
+    
 }
 
 - (void)highlightProfileName1:(UIButton*)sender {

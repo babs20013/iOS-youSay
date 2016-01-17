@@ -1783,14 +1783,14 @@
     NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
     if (isFriendProfile == YES) {
         if ([[dict objectForKey:@"by"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
-            desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \n Click to read more and write your own", [dict objectForKey:@"by"]];
+            desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dict objectForKey:@"by"]];
         }
         else {
-            desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \n Click to see more and write your own", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
+            desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
         }
     }
     else  {
-        desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \n Click to see who wrote about you", [dict objectForKey:@"by"]];
+        desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dict objectForKey:@"by"]];
     }
     [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:desc];
     
