@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    arrayMenu = [[NSArray alloc]initWithObjects:@"Settings",@"Report", @"Logout", @"Invite Friends", nil];
+    arrayMenu = [[NSArray alloc]initWithObjects:@"Contact Us",@"Privacy Policy", @"Logout", @"Invite Friends", nil];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -59,17 +59,23 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 2) {
+    if (indexPath.row == 0) {
+        <#statements#>
+    }
+    else if (indexPath.row == 1){
+    
+    }
+    else if (indexPath.row == 2) {
         FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
         [fb logOut];
         [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
     }
-    if (indexPath.row == 3) //InviteFriends
+    else if (indexPath.row == 3) //InviteFriends
     {
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
             FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
-            content.appLinkURL = [NSURL URLWithString:@"https://www.mydomain.com/myapplink"];
-            content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://www.mydomain.com/my_invite_image.jpg"];
+            content.appLinkURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/profileshare.html"];
+            content.appInvitePreviewImageURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/images/Invite_Friends.png"];
             [FBSDKAppInviteDialog showFromViewController:self.parentViewController withContent:content delegate:self];
         }];
     }
