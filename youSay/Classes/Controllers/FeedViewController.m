@@ -31,6 +31,7 @@
     BOOL isRequesting;
     BOOL isShowRecentSearch;
     NSString *sayShared;
+    NSString *profile;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -448,7 +449,8 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                NSArray *activityItems = [NSArray arrayWithObjects:desc, [NSURL URLWithString:[dictResult objectForKey:@"url"]], nil];
+                NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", profile,sayID];
+                NSArray *activityItems = [NSArray arrayWithObjects:desc, [NSURL URLWithString:url], nil];
                 UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
                 activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
                 
@@ -960,12 +962,15 @@
     NSString *desc = @"";
     if ([[dictProfile2 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
         desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dictProfile1 objectForKey:@"name"]];
+        profile = [dictProfile1 objectForKey:@"user_id"];
     }
     else if ([[dictProfile1 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]){
         desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dictProfile2 objectForKey:@"name"]];
+        profile = [dictProfile2 objectForKey:@"user_id"];
     }
     else {
         desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
+        profile = [dictProfile1 objectForKey:@"user_id"];
     }
     [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc];
     
