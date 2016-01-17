@@ -27,6 +27,10 @@ NSString *const REQUEST_REPORT_SAY = @"reportSay";
 NSString *const REQUEST_GET_LIKE_LIST = @"getLikeList";
 NSString *const REQUEST_SEARCH_USER = @"search";
 NSString *const REQUEST_CREATE_PROFILE = @"createProfile";
+NSString *const REQUEST_GET_PROFILE_IMG = @"getProfileImage";
+NSString *const REQUEST_GET_SAY_IMG = @"getSayImage";
+NSString *const REQUEST_PROFILE_SHARED = @"profileShared";
+NSString *const REQUEST_SAY_SHARED = @"sayShared";
 NSString *const AUTHORITY_TYPE_FB = @"2";
 
 

@@ -783,7 +783,7 @@
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6e-SR-w8q">
+                                                        <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6e-SR-w8q">
                                                             <rect key="frame" x="149" y="13" width="63" height="20"/>
                                                             <animations/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -792,6 +792,19 @@
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <state key="normal" image="fbShare"/>
+                                                            <connections>
+                                                                <action selector="btnShareProfileToFacebookClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="2JD-Ro-O7Q"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uu1-fU-sAp">
+                                                            <rect key="frame" x="222" y="10" width="61" height="30"/>
+                                                            <animations/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="Gpv-zp-ZGr"/>
+                                                            </constraints>
+                                                            <connections>
+                                                                <action selector="btnShareProfileClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="BkO-5X-BhD"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uad-gD-3bx">
                                                             <rect key="frame" x="222" y="13" width="38" height="16"/>
@@ -894,6 +907,7 @@
                                                         <constraint firstItem="4a2-Hx-UY4" firstAttribute="centerX" secondItem="nE6-Cf-vUH" secondAttribute="centerX" id="MFB-pn-rh2"/>
                                                         <constraint firstAttribute="bottom" secondItem="gGj-gE-Coy" secondAttribute="bottom" id="S0z-2L-lCL"/>
                                                         <constraint firstItem="VRz-RT-nLR" firstAttribute="top" secondItem="nE6-Cf-vUH" secondAttribute="top" constant="13" id="S9a-O9-e4i"/>
+                                                        <constraint firstItem="uu1-fU-sAp" firstAttribute="leading" secondItem="Uad-gD-3bx" secondAttribute="leading" id="X0b-E2-1HB"/>
                                                         <constraint firstItem="cx6-CX-QoI" firstAttribute="top" secondItem="4a2-Hx-UY4" secondAttribute="bottom" constant="-10" id="XFI-22-DpU"/>
                                                         <constraint firstItem="VRz-RT-nLR" firstAttribute="leading" secondItem="nE6-Cf-vUH" secondAttribute="leading" constant="14" id="XPT-Zn-laf"/>
                                                         <constraint firstItem="RN6-Lb-UVg" firstAttribute="top" secondItem="VRz-RT-nLR" secondAttribute="top" id="YgX-eg-ZEL"/>
@@ -902,7 +916,9 @@
                                                         <constraint firstItem="cvO-jw-9VG" firstAttribute="top" secondItem="4a2-Hx-UY4" secondAttribute="bottom" id="cD0-Jt-gXz"/>
                                                         <constraint firstItem="M6e-SR-w8q" firstAttribute="top" secondItem="VRz-RT-nLR" secondAttribute="top" id="cbf-1F-xFZ"/>
                                                         <constraint firstItem="4a2-Hx-UY4" firstAttribute="top" secondItem="VRz-RT-nLR" secondAttribute="bottom" constant="10" id="ddE-yh-mzZ"/>
+                                                        <constraint firstItem="uu1-fU-sAp" firstAttribute="trailing" secondItem="RN6-Lb-UVg" secondAttribute="trailing" id="eHv-8N-VNs"/>
                                                         <constraint firstItem="cx6-CX-QoI" firstAttribute="leading" secondItem="4a2-Hx-UY4" secondAttribute="leading" id="fDo-bU-6IF"/>
+                                                        <constraint firstItem="4a2-Hx-UY4" firstAttribute="top" secondItem="uu1-fU-sAp" secondAttribute="bottom" id="fm7-de-rFk"/>
                                                         <constraint firstItem="gGj-gE-Coy" firstAttribute="leading" secondItem="nE6-Cf-vUH" secondAttribute="leading" id="iQu-HF-qPs"/>
                                                         <constraint firstAttribute="bottom" secondItem="cvO-jw-9VG" secondAttribute="bottom" constant="10" id="oFV-FY-myq"/>
                                                         <constraint firstAttribute="trailing" secondItem="RN6-Lb-UVg" secondAttribute="trailing" constant="15" id="rw3-hJ-jDr"/>
@@ -1035,7 +1051,7 @@
                                                     <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
                                                     <state key="normal" image="UpArrow"/>
                                                     <connections>
-                                                        <action selector="btnShareClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="pi1-k0-Vzs"/>
+                                                        <action selector="btnShareSayClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="Re8-xj-3Td"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBS-I2-XQW" userLabel="BtnLike">

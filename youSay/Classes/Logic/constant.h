@@ -28,6 +28,10 @@ extern NSString *const REQUEST_REPORT_SAY;
 extern NSString *const REQUEST_GET_LIKE_LIST;
 extern NSString *const REQUEST_SEARCH_USER;
 extern NSString *const REQUEST_CREATE_PROFILE;
+extern NSString *const REQUEST_GET_PROFILE_IMG;
+extern NSString *const REQUEST_GET_SAY_IMG;
+extern NSString *const REQUEST_PROFILE_SHARED;
+extern NSString *const REQUEST_SAY_SHARED;
 
 #pragma mark -- Error Message
 extern NSString *const ERR_MSG_NO_INTERNET;
