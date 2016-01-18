@@ -12,6 +12,7 @@
 #import "ProfileViewController.h"
 #import "FeedViewController.h"
 #import "FriendModel.h"
+#import "NotificationViewController.h"
 
 @interface MainPageViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate>
 @property (nonatomic,strong) NSDictionary * profileDictionary;

@@ -2185,6 +2185,10 @@
     }
 }
 
+- (void)sharerDidCancel:(id<FBSDKSharing>)sharer {
+
+}
+
 
 @end
 

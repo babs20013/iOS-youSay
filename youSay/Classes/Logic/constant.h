@@ -32,6 +32,7 @@ extern NSString *const REQUEST_GET_PROFILE_IMG;
 extern NSString *const REQUEST_GET_SAY_IMG;
 extern NSString *const REQUEST_PROFILE_SHARED;
 extern NSString *const REQUEST_SAY_SHARED;
+extern NSString *const REQUEST_GET_NOTIFICATION;
 
 #pragma mark -- Error Message
 extern NSString *const ERR_MSG_NO_INTERNET;

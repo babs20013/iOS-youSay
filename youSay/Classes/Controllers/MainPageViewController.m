@@ -116,8 +116,8 @@
         return cvc;
     }
     else if (index == 2){
-        UIViewController *vc= [[UIViewController alloc]init];
-        return vc;
+        NotificationViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"NotificationViewController"];
+        return cvc;
     }
     else {
         UIViewController *vc= [[UIViewController alloc]init];

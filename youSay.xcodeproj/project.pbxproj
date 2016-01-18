@@ -35,6 +35,8 @@
 		1B17E3F01C180C6A0080A574 /* constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3ED1C180C6A0080A574 /* constant.m */; };
 		1B17E3F11C180C6A0080A574 /* url.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3EF1C180C6A0080A574 /* url.m */; };
 		1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3F21C1813C20080A574 /* RequestModel.m */; };
+		1B28B1531C4C9E5A00D112CD /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B28B1521C4C9E5A00D112CD /* NotificationViewController.m */; };
+		1B28B1551C4C9E7700D112CD /* NotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B28B1541C4C9E7700D112CD /* NotificationTableViewCell.m */; };
 		1B2C6D681C4C08DD00724E24 /* ShowWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C6D671C4C08DD00724E24 /* ShowWebVC.m */; };
 		1B48D83A1C4577EE00C92FE9 /* MyStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B48D8381C4577EE00C92FE9 /* MyStore.xcdatamodeld */; };
 		1B7C26C51C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */; };
@@ -137,6 +139,10 @@
 		1B17E3EF1C180C6A0080A574 /* url.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = url.m; sourceTree = "<group>"; };
 		1B17E3F21C1813C20080A574 /* RequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestModel.m; path = youSay/Classes/Model/RequestModel.m; sourceTree = SOURCE_ROOT; };
 		1B17E3F41C1813CF0080A574 /* RequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RequestModel.h; path = youSay/Classes/Model/RequestModel.h; sourceTree = SOURCE_ROOT; };
+		1B28B1511C4C9E3100D112CD /* NotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NotificationViewController.h; path = youSay/Classes/Controllers/NotificationViewController.h; sourceTree = SOURCE_ROOT; };
+		1B28B1521C4C9E5A00D112CD /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationViewController.m; path = youSay/Classes/Controllers/NotificationViewController.m; sourceTree = SOURCE_ROOT; };
+		1B28B1541C4C9E7700D112CD /* NotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationTableViewCell.m; path = youSay/Classes/Controllers/NotificationTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		1B28B1561C4C9E8900D112CD /* NotificationTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NotificationTableViewCell.h; path = youSay/Classes/Controllers/NotificationTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		1B2C6D661C4C08C400724E24 /* ShowWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ShowWebVC.h; path = youSay/Classes/Controllers/ShowWebVC.h; sourceTree = SOURCE_ROOT; };
 		1B2C6D671C4C08DD00724E24 /* ShowWebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShowWebVC.m; path = youSay/Classes/Controllers/ShowWebVC.m; sourceTree = SOURCE_ROOT; };
 		1B48D8391C4577EE00C92FE9 /* MyStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyStore.xcdatamodel; sourceTree = "<group>"; };
@@ -475,6 +481,10 @@
 				1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */,
 				1B2C6D661C4C08C400724E24 /* ShowWebVC.h */,
 				1B2C6D671C4C08DD00724E24 /* ShowWebVC.m */,
+				1B28B1511C4C9E3100D112CD /* NotificationViewController.h */,
+				1B28B1521C4C9E5A00D112CD /* NotificationViewController.m */,
+				1B28B1561C4C9E8900D112CD /* NotificationTableViewCell.h */,
+				1B28B1541C4C9E7700D112CD /* NotificationTableViewCell.m */,
 			);
 			name = ViewControllers;
 			path = Classes/Controllers;
@@ -715,6 +725,7 @@
 				9A9CB6181C19B9D10082B3E5 /* CommonHelper.m in Sources */,
 				1BC5EC431C22F84B0016BFA1 /* SelectCharmsViewController.m in Sources */,
 				5DBF3BA91BD8210D00ACF60D /* UIView+BLKFlexibleHeightBarSubview.m in Sources */,
+				1B28B1551C4C9E7700D112CD /* NotificationTableViewCell.m in Sources */,
 				1BEECEFE1C2EAAAB00615C9F /* FeedViewController.m in Sources */,
 				9A906B4D1C294D0600C3327C /* UIButton+Extension.m in Sources */,
 				9AF52B841C3790F80078E568 /* UIColor+BFPaperColors.m in Sources */,
@@ -727,6 +738,7 @@
 				1B17E3AB1C180BB30080A574 /* AppDelegate.m in Sources */,
 				9A9CB6261C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScale.m in Sources */,
 				5DBF3BCD1BD8216600ACF60D /* MessageTableViewCell.m in Sources */,
+				1B28B1531C4C9E5A00D112CD /* NotificationViewController.m in Sources */,
 				1B2C6D681C4C08DD00724E24 /* ShowWebVC.m in Sources */,
 				1B17E3E61C180C120080A574 /* IQMultipartFormData.m in Sources */,
 				1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */,
@@ -864,15 +876,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: eBworx Berhad";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: eBworx Berhad";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
 				GCC_PREFIX_HEADER = youSay/PrefixHeader.pch;
 				INFOPLIST_FILE = youSay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.novatore.youSay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d730e762-fab0-4662-9be7-8bc27cd657e6";
+				PROVISIONING_PROFILE = "08c1e319-8e78-4602-b095-deab51ff567a";
 			};
 			name = Debug;
 		};
@@ -888,9 +900,9 @@
 				INFOPLIST_FILE = youSay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.novatore.youSay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d730e762-fab0-4662-9be7-8bc27cd657e6";
+				PROVISIONING_PROFILE = "08c1e319-8e78-4602-b095-deab51ff567a";
 			};
 			name = Release;
 		};

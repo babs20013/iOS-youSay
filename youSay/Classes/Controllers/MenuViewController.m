@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    arrayMenu = [[NSArray alloc]initWithObjects:@"Contact Us",@"Privacy Policy", @"Logout", @"Invite Friends", nil];
+    arrayMenu = [[NSArray alloc]initWithObjects:@"Contact Us",@"Privacy Policy", @"Invite Friends", @"Logout",nil];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -79,12 +79,7 @@
             [nav setNavigationBarHidden:YES];
             [[SlideNavigationController sharedInstance] presentViewController:nav animated:YES completion:nil];}];
     }
-    else if (indexPath.row == 2) {
-        FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
-        [fb logOut];
-        [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
-    }
-    else if (indexPath.row == 3) //InviteFriends
+    else if (indexPath.row == 2) //InviteFriends
     {
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
             FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
@@ -93,6 +88,12 @@
             [FBSDKAppInviteDialog showFromViewController:self.parentViewController withContent:content delegate:self];
         }];
     }
+    else if (indexPath.row == 3) {
+        FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
+        [fb logOut];
+        [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
+    }
+    
 }
 
 #pragma mark - FBInviteDelegate

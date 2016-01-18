@@ -2310,6 +2310,123 @@
             </objects>
             <point key="canvasLocation" x="623" y="83"/>
         </scene>
+        <!--Notification View Controller-->
+        <scene sceneID="R46-Bn-zHk">
+            <objects>
+                <viewController storyboardIdentifier="NotificationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nsK-cv-jIa" customClass="NotificationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xKD-HJ-j4l"/>
+                        <viewControllerLayoutGuide type="bottom" id="u1d-lU-sfD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bNP-Ws-Vde" userLabel="Main">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5d4-Tb-dqG" userLabel="BarView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drj-ad-ZYL">
+                                        <rect key="frame" x="15" y="17" width="77" height="16"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0039215686269999999" green="0.67450980390000004" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="3cr-P0-csw"/>
+                                    <constraint firstItem="Drj-ad-ZYL" firstAttribute="leading" secondItem="5d4-Tb-dqG" secondAttribute="leading" constant="15" id="EPA-b5-3rE"/>
+                                    <constraint firstItem="Drj-ad-ZYL" firstAttribute="centerY" secondItem="5d4-Tb-dqG" secondAttribute="centerY" id="qW5-n7-CiM"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BgE-RI-lc0">
+                                <rect key="frame" x="10" y="60" width="300" height="498"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="498" id="9dK-9o-qwQ"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationTableViewCell" rowHeight="70" id="esH-2K-PpO" customClass="NotificationTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="300" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="esH-2K-PpO" id="eJp-E7-0h4">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vpn-HO-Ut9">
+                                                    <rect key="frame" x="13" y="13" width="45" height="45"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="45" id="d4T-bx-tYl"/>
+                                                        <constraint firstAttribute="height" constant="45" id="wwg-nY-JII"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label 2 lines 2 lines " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Brt-4x-bj7">
+                                                    <rect key="frame" x="66" y="13" width="216" height="14"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="216" id="x63-vY-n8t"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xwz-jv-YBl">
+                                                    <rect key="frame" x="66" y="28" width="25" height="12"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="Vpn-HO-Ut9" firstAttribute="centerY" secondItem="eJp-E7-0h4" secondAttribute="centerY" id="1D2-eD-eiF"/>
+                                                <constraint firstItem="Xwz-jv-YBl" firstAttribute="leading" secondItem="Brt-4x-bj7" secondAttribute="leading" id="9hj-hl-qUM"/>
+                                                <constraint firstItem="Xwz-jv-YBl" firstAttribute="top" secondItem="Brt-4x-bj7" secondAttribute="bottom" constant="1" id="BjS-W9-u8U"/>
+                                                <constraint firstItem="Brt-4x-bj7" firstAttribute="top" secondItem="eJp-E7-0h4" secondAttribute="topMargin" constant="5" id="bQN-Cq-EzZ"/>
+                                                <constraint firstItem="Vpn-HO-Ut9" firstAttribute="leading" secondItem="eJp-E7-0h4" secondAttribute="leadingMargin" constant="5" id="eAj-Do-G9I"/>
+                                                <constraint firstItem="Brt-4x-bj7" firstAttribute="leading" secondItem="Vpn-HO-Ut9" secondAttribute="trailing" constant="8" id="yGo-Yf-qY0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <connections>
+                                            <outlet property="notificationDate" destination="Xwz-jv-YBl" id="0xd-9q-uxl"/>
+                                            <outlet property="notificationDesc" destination="Brt-4x-bj7" id="Sxr-Wt-NMj"/>
+                                            <outlet property="profileView" destination="Vpn-HO-Ut9" id="GB2-EN-Wrg"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="nsK-cv-jIa" id="HRU-4W-iJ6"/>
+                                    <outlet property="delegate" destination="nsK-cv-jIa" id="qut-f4-hG5"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5d4-Tb-dqG" firstAttribute="leading" secondItem="bNP-Ws-Vde" secondAttribute="leading" id="2A9-E6-eYZ"/>
+                            <constraint firstItem="BgE-RI-lc0" firstAttribute="leading" secondItem="bNP-Ws-Vde" secondAttribute="leading" constant="10" id="LRM-GT-cg4"/>
+                            <constraint firstItem="5d4-Tb-dqG" firstAttribute="top" secondItem="bNP-Ws-Vde" secondAttribute="topMargin" id="LUp-IV-BjX"/>
+                            <constraint firstItem="u1d-lU-sfD" firstAttribute="top" secondItem="BgE-RI-lc0" secondAttribute="bottom" constant="10" id="axy-8y-eKn"/>
+                            <constraint firstAttribute="trailing" secondItem="5d4-Tb-dqG" secondAttribute="trailing" id="pLN-7N-cVC"/>
+                            <constraint firstItem="BgE-RI-lc0" firstAttribute="top" secondItem="5d4-Tb-dqG" secondAttribute="bottom" constant="10" id="v4g-Yt-J65"/>
+                            <constraint firstAttribute="trailing" secondItem="BgE-RI-lc0" secondAttribute="trailing" constant="10" id="w8E-AN-SlV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableHeightConstraint" destination="9dK-9o-qwQ" id="hr7-lk-BA7"/>
+                        <outlet property="tblView" destination="BgE-RI-lc0" id="KgL-kY-yfL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9dM-ku-ppe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1058" y="-130"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AddButton" width="109" height="110"/>
