@@ -33,6 +33,7 @@
     BOOL isShowRecentSearch;
     NSString *sayShared;
     NSString *profile;
+    BOOL isSearching;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -306,6 +307,7 @@
 }
 
 - (void)requestUser:(NSString*)searchString withSearchID:(NSString*)searchID {
+    isRequesting = YES;
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
@@ -344,6 +346,7 @@
                 }
                 else if ([dictResult objectForKey:@"facebook_users"]) {
                     HideLoader();
+                    isRequesting = NO;
                     NSArray *tempArr = [[dictResult objectForKey:@"facebook_users"] allObjects];
                     for (int i = 0; i < tempArr.count; i++) {
                         NSDictionary *dict = [tempArr objectAtIndex:i];
@@ -382,12 +385,12 @@
         }
         else if (error)
         {
+            HideLoader();
         }
         else{
-            
+            HideLoader();
         }
     }];
-    HideLoader();
 }
 
 - (void)requestFacebookUser:(NSString*)searchString withSearchID:(NSString*)searchID {
@@ -1127,16 +1130,17 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     arraySearch = nil;
-    if ([textField.text length]>2){
-        isShowRecentSearch = NO;
-        ShowLoader();
-        [self requestUser:textField.text withSearchID:@""];
-    }
+//    if ([textField.text length]>2){
+//        isShowRecentSearch = NO;
+//        ShowLoader();
+//        [self requestUser:textField.text withSearchID:@""];
+//    }
     [textField resignFirstResponder];
     return YES;
 }
 
 - (void)textFieldDidChange:(UITextField*)textField {
+    HideLoader();
     [textField becomeFirstResponder];
     [self.tableView setHidden:YES];
     [self.searchView setHidden:NO];
@@ -1164,8 +1168,10 @@
             [self.btnClear setHidden:YES];
             arraySearch = nil;
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                ShowLoader();
-                [self requestUser:textField.text withSearchID:@""];
+                if (isSearching == NO) {
+                    ShowLoader();
+                    [self requestUser:textField.text withSearchID:@""];
+                }
             }];
         }
     });
@@ -1196,7 +1202,6 @@
     [self.btnCancel setHidden:NO];
     [self.btnRightMenu setHidden:YES];
 
-    isShowRecentSearch = YES;
     self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
     [self.searchUserTableView needsUpdateConstraints];
     [self.searchUserTableView reloadData];

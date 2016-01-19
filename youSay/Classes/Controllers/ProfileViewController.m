@@ -64,6 +64,7 @@
     NSString *profileShared;
     NSString *sayShared;
     BOOL isProfileShared;
+    BOOL isSearching;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UITableView *searchTableView;
@@ -760,6 +761,7 @@
 }
 
 - (void)requestUser:(NSString*)searchString withSearchID:(NSString*)searchID {
+    isSearching = YES;
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
@@ -796,6 +798,7 @@
                 }
                 else if ([dictResult objectForKey:@"facebook_users"]) {
                     HideLoader();
+                    isSearching = NO;
                     NSArray *tempArr = [[dictResult objectForKey:@"facebook_users"] allObjects];
                     for (int i = 0; i < tempArr.count; i++) {
                         NSDictionary *dict = [tempArr objectAtIndex:i];
@@ -834,11 +837,12 @@
         }
         else if (error)
         {
+            HideLoader();
         }
         else{
-            
+            HideLoader();
         }
-        HideLoader();
+        //HideLoader();
     }];
 }
 
@@ -2158,17 +2162,21 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     arrSearch = nil;
-    if ([textField.text length]>2){
-        isShowRecentSearch = NO;
-        ShowLoader();
-        [self requestUser:textField.text withSearchID:@""];
-    }
+//    if ([textField.text length]>2){
+//        isShowRecentSearch = NO;
+//        if (isSearching == NO) {
+//            ShowLoader();
+//        }
+//        
+//        [self requestUser:textField.text withSearchID:@""];
+//    }
     [textField resignFirstResponder];
     //[_btnClear setHidden:NO];
     return YES;
 }
 
 - (void)textFieldDidChange:(UITextField*)textField {
+    HideLoader();
     [textField becomeFirstResponder];
     [self.tableView setHidden:YES];
     [self.searchView setHidden:NO];
@@ -2196,8 +2204,10 @@
             [self.btnClear setHidden:YES];
             arrSearch = nil;
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                ShowLoader();
-                [self requestUser:textField.text withSearchID:@""];
+                if (isSearching == NO) {
+                    ShowLoader();
+                    [self requestUser:textField.text withSearchID:@""];
+                }
             }];
         }
     });
