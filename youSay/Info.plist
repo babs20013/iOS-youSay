@@ -45,7 +45,7 @@
   &lt;string&gt;1651430315095340&lt;/string&gt;
   &lt;key&gt;FacebookDisplayName&lt;/key&gt;
 &lt;string&gt;YouSay&lt;/string&gt;</key>
-	<string>YouSay</string>
+	<string>Yousay social</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbauth2</string>

@@ -434,7 +434,7 @@
     }];
 }
 
-- (void)requestGetSayImage:(NSString *)sayID withDescription:(NSString*)desc {
+- (void)requestGetSayImage:(NSString *)sayID withDescription:(NSString*)desc isFB:(BOOL)isFacebook{
     ShowLoader();
     
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
@@ -449,6 +449,15 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
+                if (isFacebook == YES) {
+                    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", @"TODO", sayID];
+                    content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
+                    content.contentURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
+                    content.contentDescription = desc;
+                    
+                    [FBSDKShareDialog showFromViewController:self withContent:content delegate:nil];
+                }
                 NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", profile,sayID];
                 NSArray *activityItems = [NSArray arrayWithObjects:desc, [NSURL URLWithString:url], nil];
                 UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
@@ -460,14 +469,6 @@
                 }];
                 
                 [self presentViewController:activityViewController animated:YES completion:nil];
-                
-                //
-                //                FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-                //                content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [profileDictionary objectForKey:@"name"]];
-                //                content.contentURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
-                //                content.contentDescription = desc;
-                //
-                //                [FBSDKShareDialog showFromViewController:self withContent:content delegate:nil];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -972,7 +973,30 @@
         desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
         profile = [dictProfile1 objectForKey:@"user_id"];
     }
-    [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc];
+    [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc isFB:NO];
+    
+}
+
+- (IBAction)btnShareSayToFBClicked:(id)sender {
+    NSLog(@"btnShare : %ld", (long)[sender tag]);
+    NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:[sender tag]];
+    NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
+    NSDictionary *dictProfile1 = [arrProfiles objectAtIndex:0];
+    NSDictionary *dictProfile2 = [arrProfiles objectAtIndex:1];
+    NSString *desc = @"";
+    if ([[dictProfile2 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
+        desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dictProfile1 objectForKey:@"name"]];
+        profile = [dictProfile1 objectForKey:@"user_id"];
+    }
+    else if ([[dictProfile1 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]){
+        desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dictProfile2 objectForKey:@"name"]];
+        profile = [dictProfile2 objectForKey:@"user_id"];
+    }
+    else {
+        desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
+        profile = [dictProfile1 objectForKey:@"user_id"];
+    }
+    [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc isFB:YES];
     
 }
 

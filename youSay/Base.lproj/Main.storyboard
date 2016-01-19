@@ -1030,6 +1030,14 @@
                                                         <action selector="btnHideClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="AUD-AS-SNE"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SnU-BC-7lP">
+                                                    <rect key="frame" x="95" y="101" width="59" height="35"/>
+                                                    <animations/>
+                                                    <state key="normal" image="fbShare"/>
+                                                    <connections>
+                                                        <action selector="btnShareSayToFBClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="i5n-Jm-Ikj"/>
+                                                    </connections>
+                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R2q-0d-1Zx">
                                                     <rect key="frame" x="157" y="101" width="37" height="35"/>
                                                     <animations/>
@@ -1154,6 +1162,8 @@
                                                 <constraint firstItem="5Ew-02-N81" firstAttribute="leading" secondItem="oBS-I2-XQW" secondAttribute="trailing" id="48K-gi-kRz"/>
                                                 <constraint firstItem="R2q-0d-1Zx" firstAttribute="centerY" secondItem="0xx-bF-dzz" secondAttribute="centerY" id="6Uo-Fd-oVZ"/>
                                                 <constraint firstItem="Z4q-s5-q8Y" firstAttribute="leading" secondItem="7R3-pI-fRi" secondAttribute="leading" id="72A-vj-2bZ"/>
+                                                <constraint firstItem="SnU-BC-7lP" firstAttribute="centerY" secondItem="R2q-0d-1Zx" secondAttribute="centerY" id="C69-8k-GIj"/>
+                                                <constraint firstItem="SnU-BC-7lP" firstAttribute="top" secondItem="R2q-0d-1Zx" secondAttribute="top" id="GJM-CZ-bvB"/>
                                                 <constraint firstItem="DvR-Vm-wAp" firstAttribute="top" secondItem="8sk-2w-GwW" secondAttribute="topMargin" constant="5" id="ITB-6c-IAZ"/>
                                                 <constraint firstItem="7R3-pI-fRi" firstAttribute="top" secondItem="8sk-2w-GwW" secondAttribute="topMargin" constant="5" id="IX6-w3-d2O"/>
                                                 <constraint firstItem="5Ew-02-N81" firstAttribute="centerY" secondItem="0xx-bF-dzz" secondAttribute="centerY" id="KnA-Qx-TZ4"/>
@@ -1170,6 +1180,7 @@
                                                 <constraint firstItem="EW0-h3-X4Q" firstAttribute="leading" secondItem="5Ew-02-N81" secondAttribute="leading" id="UZE-nv-d9h"/>
                                                 <constraint firstItem="DvR-Vm-wAp" firstAttribute="leading" secondItem="8sk-2w-GwW" secondAttribute="leadingMargin" constant="10" id="Vbf-EO-w1c"/>
                                                 <constraint firstItem="Kvr-KM-ifj" firstAttribute="leading" secondItem="R2q-0d-1Zx" secondAttribute="trailing" constant="3" id="WMp-Gi-6Jv"/>
+                                                <constraint firstItem="R2q-0d-1Zx" firstAttribute="leading" secondItem="SnU-BC-7lP" secondAttribute="trailing" constant="3" id="YuC-Sj-zPe"/>
                                                 <constraint firstItem="5Ew-02-N81" firstAttribute="trailing" secondItem="Z4q-s5-q8Y" secondAttribute="trailing" id="ZDu-R4-8Sc"/>
                                                 <constraint firstItem="0xx-bF-dzz" firstAttribute="leading" secondItem="Z4q-s5-q8Y" secondAttribute="leading" id="c7c-1i-dc3"/>
                                                 <constraint firstItem="Z4q-s5-q8Y" firstAttribute="top" secondItem="DvR-Vm-wAp" secondAttribute="bottom" constant="12" id="eWj-Iz-Tvs"/>
@@ -1195,6 +1206,7 @@
                                             <outlet property="btnProfile" destination="DvR-Vm-wAp" id="1bH-Ds-3ni"/>
                                             <outlet property="btnReport" destination="R2q-0d-1Zx" id="Te3-hf-mYT"/>
                                             <outlet property="btnShare" destination="Kvr-KM-ifj" id="VRS-qU-G1W"/>
+                                            <outlet property="btnShareFB" destination="SnU-BC-7lP" id="wvr-Bk-FaU"/>
                                             <outlet property="btnUndo" destination="4QW-4M-XJK" id="fYa-LL-uBC"/>
                                             <outlet property="dateLabel" destination="0xx-bF-dzz" id="3EZ-qe-wzt"/>
                                             <outlet property="hideSayView" destination="yqZ-SI-yPN" id="KEc-Jp-JM7"/>

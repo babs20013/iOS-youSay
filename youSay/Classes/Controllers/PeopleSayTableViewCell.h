@@ -24,5 +24,6 @@
 @property (nonatomic, strong) IBOutlet UIButton *btnShare;
 @property (nonatomic, strong) IBOutlet UIButton *btnReport;
 @property (nonatomic, strong) IBOutlet UIButton *btnLikeCount;
+@property (nonatomic, strong) IBOutlet UIButton *btnShareFB;
 @end
 

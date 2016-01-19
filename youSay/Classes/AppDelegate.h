@@ -11,6 +11,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "ProfileOwnerModel.h"
 #import <BFURL.h>
+#import "GAI.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -22,6 +23,7 @@
 @property (nonatomic, readwrite) BOOL isNewToken;
 @property (nonatomic, readwrite) BOOL isFirstLoad;
 @property (strong, nonatomic) BFURL *parsedUrl;
+@property(nonatomic, strong) id<GAITracker> tracker;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

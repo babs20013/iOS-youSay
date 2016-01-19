@@ -133,6 +133,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dict = [arrNotification objectAtIndex:indexPath.row];
+    
     [self dismissViewControllerAnimated:YES completion:^{
         if ([self.delegate performSelector:@selector(RouteToPageFromNotification:) withObject:[dict objectForKey:@"user_id"]]) {
             [self.delegate RouteToPageFromNotification:[dict objectForKey:@"user_id"]];
