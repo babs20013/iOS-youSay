@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "474893889.747937"
+            timestampString = "474896617.487849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1809"
-            endingLineNumber = "1809"
+            startingLineNumber = "1825"
+            endingLineNumber = "1825"
             landmarkName = "-btnShareProfileToFacebookClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "474889687.243547"
+            timestampString = "474896617.487849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "908"
-            endingLineNumber = "908"
+            startingLineNumber = "920"
+            endingLineNumber = "920"
             landmarkName = "-requestGetProfileImage:withDescription:andID:"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "474893889.747937"
+            timestampString = "474896617.487849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1794"
-            endingLineNumber = "1794"
+            startingLineNumber = "1810"
+            endingLineNumber = "1810"
             landmarkName = "-btnShareProfileClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "474893003.390568"
+            timestampString = "474896617.487849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "984"
-            endingLineNumber = "984"
+            startingLineNumber = "996"
+            endingLineNumber = "996"
             landmarkName = "-requestGetSayImage:withDescription:isFB:"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "474893059.813121"
+            timestampString = "474896617.487849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "931"
-            endingLineNumber = "931"
+            startingLineNumber = "943"
+            endingLineNumber = "943"
             landmarkName = "-requestGetProfileImage:withDescription:andID:"
             landmarkType = "5">
             <Locations>
@@ -186,12 +186,12 @@
                   moduleName = "Yousay social"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sysadmin/Documents/PartTime/you-say/youSay/Classes/Controllers/ProfileViewController.m"
-                  timestampString = "474892636.511041"
+                  timestampString = "474896503.122028"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "930"
-                  endingLineNumber = "930"
-                  offsetFromSymbolStart = "1340">
+                  startingLineNumber = "942"
+                  endingLineNumber = "942"
+                  offsetFromSymbolStart = "1516">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -201,12 +201,12 @@
                   moduleName = "Yousay social"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sysadmin/Documents/PartTime/you-say/youSay/Classes/Controllers/ProfileViewController.m"
-                  timestampString = "474892636.511296"
+                  timestampString = "474896503.122281"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "930"
-                  endingLineNumber = "930"
-                  offsetFromSymbolStart = "96">
+                  startingLineNumber = "942"
+                  endingLineNumber = "942"
+                  offsetFromSymbolStart = "104">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/ProfileViewController.m"
-            timestampString = "474893059.813121"
+            timestampString = "474896617.487849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "934"
-            endingLineNumber = "934"
+            startingLineNumber = "946"
+            endingLineNumber = "946"
             landmarkName = "-requestGetProfileImage:withDescription:andID:"
             landmarkType = "5">
          </BreakpointContent>
@@ -282,12 +282,12 @@
                   moduleName = "Yousay social"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sysadmin/Documents/PartTime/you-say/youSay/Classes/Controllers/FeedViewController.m"
-                  timestampString = "474892636.51555"
+                  timestampString = "474896503.126534"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "475"
-                  endingLineNumber = "475"
-                  offsetFromSymbolStart = "1616">
+                  startingLineNumber = "476"
+                  endingLineNumber = "476"
+                  offsetFromSymbolStart = "1792">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -297,12 +297,12 @@
                   moduleName = "Yousay social"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sysadmin/Documents/PartTime/you-say/youSay/Classes/Controllers/FeedViewController.m"
-                  timestampString = "474892636.515808"
+                  timestampString = "474896503.126782"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "475"
-                  endingLineNumber = "475"
-                  offsetFromSymbolStart = "96">
+                  startingLineNumber = "476"
+                  endingLineNumber = "476"
+                  offsetFromSymbolStart = "104">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -329,12 +329,28 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "youSay/Classes/Controllers/MainPageViewController.m"
-            timestampString = "474891260.925279"
+            filePath = "youSay/Classes/Controllers/FeedViewController.m"
+            timestampString = "474893184.935769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "1008"
+            endingLineNumber = "1008"
+            landmarkName = "-btnShareSayToFBClicked:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "youSay/Classes/Controllers/MainPageViewController.m"
+            timestampString = "474895196.134377"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "-viewPager:contentViewControllerForTabAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -345,13 +361,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "youSay/Classes/Controllers/FeedViewController.m"
-            timestampString = "474893184.935769"
+            filePath = "youSay/Classes/Controllers/NotificationViewController.m"
+            timestampString = "474895703.888514"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1008"
-            endingLineNumber = "1008"
-            landmarkName = "-btnShareSayToFBClicked:"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "youSay/Classes/Controllers/ProfileViewController.m"
+            timestampString = "474895957.019811"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "460"
+            endingLineNumber = "460"
+            landmarkName = "-requestProfile:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "youSay/Classes/Controllers/ProfileViewController.m"
+            timestampString = "474896617.487849"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1652"
+            endingLineNumber = "1652"
+            landmarkName = "-constructCellForProfilePage:forTableView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

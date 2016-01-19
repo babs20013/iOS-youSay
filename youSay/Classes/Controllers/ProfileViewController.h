@@ -30,6 +30,7 @@
 @property (weak,nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
 @property (weak,nonatomic) IBOutlet NSLayoutConstraint *btnViewConstraint;
 @property (nonatomic, strong) NSString *requestedID;
+@property (nonatomic, strong) NSString *sayID;
 @property (nonatomic, strong) UIButton *btnAddSay;
 
 - (void)setIsRefresh:(BOOL)isRefresh;

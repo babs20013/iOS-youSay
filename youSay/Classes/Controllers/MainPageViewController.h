@@ -21,6 +21,7 @@
 @property (nonatomic, readwrite) BOOL isFriendProfile;
 @property (nonatomic, readwrite) BOOL isFromFeed;
 @property (nonatomic, strong) NSString *requestedID;
+@property (nonatomic, strong) NSString *sayID;
 @property (nonatomic, strong) ProfileOwnerModel *profileModel;
 @property (nonatomic, strong) FriendModel *friendModel;
 @end

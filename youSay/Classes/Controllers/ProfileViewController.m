@@ -84,6 +84,7 @@
 @synthesize charmsArray;
 @synthesize isFriendProfile;
 @synthesize btnAddSay;
+@synthesize sayID;
 
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -441,7 +442,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 profileDictionary = [dictResult objectForKey:@"profile"];
-                saysArray = saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
+                saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
                 charmsArray = [profileDictionary valueForKey:@"charms"];
                 isFriendProfile = YES;
                 requestedID = [profileDictionary objectForKey:@"id"];
@@ -454,6 +455,16 @@
                 if (isAfterAddNewSay == YES) {
                     isAfterAddNewSay = NO;
                     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                }
+                else if (sayID){
+                    for (int i = 0; i < saysArray.count; i++) {
+                        NSDictionary *says = [saysArray objectAtIndex:i];
+                        if ([[says objectForKey:@"say_id"] integerValue] == [sayID integerValue]) {
+                            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                            sayID = nil;
+                            return;
+                        }
+                    }
                 }
                 else {
                     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -854,7 +865,7 @@
                 isFriendProfile = YES;
                 profileDictionary = [dictResult objectForKey:@"profile"];
                 requestedID = [profileDictionary objectForKey:@"id"];
-                saysArray = saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
+                saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
                 charmsArray = [profileDictionary valueForKey:@"charms"];
                 isAfterChangeCharm = NO;
                 

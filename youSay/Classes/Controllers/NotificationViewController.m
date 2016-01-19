@@ -10,6 +10,7 @@
 #import "UIImageView+Networking.h"
 #import "NotificationTableViewCell.h"
 #import "CommonHelper.h"
+#import "MainPageViewController.h"
 
 @interface NotificationViewController (){
     NSArray *arrNotification;
@@ -133,12 +134,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dict = [arrNotification objectAtIndex:indexPath.row];
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+    vc.isFromFeed = YES;
+    vc.requestedID = [[AppDelegate sharedDelegate].profileOwner UserID];//[dictProfile objectForKey:@"profile_id"];
+    vc.sayID = [dict objectForKey:@"say_id"];
+    vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
+    vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
+    [self.navigationController pushViewController:vc animated:YES];
     
-    [self dismissViewControllerAnimated:YES completion:^{
-        if ([self.delegate performSelector:@selector(RouteToPageFromNotification:) withObject:[dict objectForKey:@"user_id"]]) {
-            [self.delegate RouteToPageFromNotification:[dict objectForKey:@"user_id"]];
-        }
-    }];
+//    [self dismissViewControllerAnimated:YES completion:^{
+//        if ([self.delegate performSelector:@selector(RouteToPageFromNotification:) withObject:[dict objectForKey:@"user_id"]]) {
+//            [self.delegate RouteToPageFromNotification:[dict objectForKey:@"user_id"]];
+//        }
+//    }];
 }
 
 #pragma mark Request
