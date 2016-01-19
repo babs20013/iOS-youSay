@@ -24,6 +24,7 @@
 #import "ReportSayViewController.h"
 #import "WhoLikeListTableViewCell.h"
 #import <Social/Social.h>
+#import "CustomActivityProvider.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -920,39 +921,50 @@
                         // fallback presentation when there is no FB app
                         dialog.mode = FBSDKShareDialogModeFeedBrowser;
                     }
+                    HideLoader();
                     [dialog show];
                     dialog.delegate = self;
                 }
                 else {
-                    NSArray *activityItems = [NSArray arrayWithObjects:desc,[NSURL URLWithString:[dictResult objectForKey:@"url"]], nil];
-                    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
-                    activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-                    
-                    [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
-                        if (!completed) return;
-                        [self requestProfileShared:profileShared];
+                    UIImageView *imgView = [[UIImageView alloc]init];
+//                    [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]]];
+                    [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
+                        HideLoader();
+                        NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@", IDRequested];
+                        CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
+                        activityProvider.imageToShare = image;
+                        NSArray *activityItems = [NSArray arrayWithObjects:activityProvider, desc,[NSURL URLWithString:url], nil];
+                        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+                        activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                        
+                        [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
+                            if (!completed) return;
+                            [self requestProfileShared:profileShared];
+                        }];
+                        
+                        [self presentViewController:activityViewController animated:YES completion:nil];
                     }];
-                    
-                    [self presentViewController:activityViewController animated:YES completion:nil];
                 }
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                HideLoader();
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
                 [self logout];
             }
             else {
+                HideLoader();
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
             }
         }
         else if (error)
         {
+            HideLoader();
         }
         else{
-            
+            HideLoader();
         }
-        HideLoader();
     }];
 }
 
@@ -980,39 +992,57 @@
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
                     content.contentDescription = desc;
                     
-                    [FBSDKShareDialog showFromViewController:self withContent:content delegate:nil];
+                    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
+                    dialog.fromViewController = self;
+                    dialog.shareContent = content;
+                    dialog.mode = FBSDKShareDialogModeNative;
+                    if (![dialog canShow]) {
+                        // fallback presentation when there is no FB app
+                        dialog.mode = FBSDKShareDialogModeFeedBrowser;
+                    }
+                    HideLoader();
+                    [dialog show];
+                    dialog.delegate = self;
                 }
                 else {
-                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", requestedID, sayID];
-                    NSArray *activityItems = [NSArray arrayWithObjects:desc, [NSURL URLWithString:url], nil];
-                    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
-                    activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-                    
-                    [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
-                        if (!completed) return;
-                        [self requestSayShared:sayShared];
+                    UIImageView *imgView = [[UIImageView alloc]init];
+                    [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
+                        HideLoader();
+                        NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", requestedID, sayID];
+                        CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
+                        activityProvider.imageToShare = image;
+                        NSArray *activityItems = [NSArray arrayWithObjects:activityProvider, desc,[NSURL URLWithString:url], nil];
+                        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+                        activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                        
+                        [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
+                            if (!completed) return;
+                            [self requestSayShared:sayShared];
+                        }];
+                        
+                        [self presentViewController:activityViewController animated:YES completion:nil];
                     }];
-                    
-                    [self presentViewController:activityViewController animated:YES completion:nil];
                 }
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                HideLoader();
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
                 [self logout];
             }
             else {
+                HideLoader();
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
             }
         }
         else if (error)
         {
+            HideLoader();
         }
         else{
-            
+            HideLoader();
         }
-        HideLoader();
     }];
 }
 
@@ -2200,6 +2230,7 @@
 }
 
 #pragma mark FBSDKSharingDelegate
+
 - (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results {
     if (isProfileShared == YES) {
         [self requestProfileShared:profileShared];
@@ -2207,6 +2238,10 @@
     else {
         [self requestSayShared:sayShared];
     }
+}
+
+- (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error{
+    [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error!", nil) message:NSLocalizedString(@"There is an error while sharing! Please try Again.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil]show];
 }
 
 - (void)sharerDidCancel:(id<FBSDKSharing>)sharer {

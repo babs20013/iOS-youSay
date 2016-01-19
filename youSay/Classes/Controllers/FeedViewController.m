@@ -19,6 +19,7 @@
 #import "WhoLikeThisViewController.h"
 #import "WhoLikeListTableViewCell.h"
 #import "FriendModel.h"
+#import "CustomActivityProvider.h"
 
 @interface FeedViewController ()
 {
@@ -456,37 +457,60 @@
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
                     content.contentURL = [NSURL URLWithString:url];
                     content.contentDescription = desc;
-                    [FBSDKShareDialog showFromViewController:self withContent:content delegate:nil];
+                    FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
+                    dialog.fromViewController = self;
+                    dialog.shareContent = content;
+                    dialog.mode = FBSDKShareDialogModeNative;
+                    if (![dialog canShow]) {
+                        // fallback presentation when there is no FB app
+                        dialog.mode = FBSDKShareDialogModeFeedBrowser;
+                    }
+                    HideLoader();
+                    [dialog show];
+                    dialog.delegate = self;
                 }
-                NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", profile,sayID];
-                NSArray *activityItems = [NSArray arrayWithObjects:desc, [NSURL URLWithString:url], nil];
-                UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
-                activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                else {
+                    UIImageView *imgView = [[UIImageView alloc]init];
+                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", profile,sayID];
+                    ShowLoader();
+                    [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
+                        HideLoader();
+                        CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
+                        activityProvider.imageToShare = image;
+                        NSArray *activityItems = [NSArray arrayWithObjects:activityProvider, desc,[NSURL URLWithString:url], nil];
+                        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+                        activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                        [self presentViewController:activityViewController animated:YES completion:nil];
+                        
+                        [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
+                            if (!completed) return;
+                            [self requestSayShared:sayShared];
+                        }];
+                        
+                        
+                    }];
+                }
                 
-                [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
-                    if (!completed) return;
-                    [self requestSayShared:sayShared];
-                }];
-                
-                [self presentViewController:activityViewController animated:YES completion:nil];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                HideLoader();
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
                 [self logout];
             }
             else {
+                HideLoader();
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
             }
         }
         else if (error)
         {
+            HideLoader();
         }
         else{
-            
+            HideLoader();
         }
-        HideLoader();
     }];
 }
 
@@ -662,6 +686,7 @@
         [cell.viewSays setHidden:YES];
         [cell.btnReport setHidden:YES];
         [cell.btnShare setHidden:YES];
+        [cell.btnShareFB setHidden:YES];
         [cell.btnLikes setHidden:YES];
         [cell.lblLikes setHidden:YES];
         //        [cell.lblSaidAbout setFrame:CGRectMake(cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.size.width+200, cell.lblSaidAbout.frame.size.height)];
@@ -672,6 +697,7 @@
         [cell.viewSays setHidden:NO];
         [cell.btnReport setHidden:NO];
         [cell.btnShare setHidden:NO];
+        [cell.btnShareFB setHidden:NO];
         [cell.btnLikes setHidden:NO];
         [cell.lblLikes setHidden:NO];
         [cell.btnLikes setTag:indexPath.section];
@@ -968,11 +994,11 @@
     }
     else if ([[dictProfile1 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]){
         desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dictProfile2 objectForKey:@"name"]];
-        profile = [dictProfile2 objectForKey:@"user_id"];
+        profile = [dictProfile2 objectForKey:@"profile_id"];
     }
     else {
         desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
-        profile = [dictProfile2 objectForKey:@"user_id"];
+        profile = [dictProfile2 objectForKey:@"profile_id"];
     }
     [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc isFB:NO];
     
@@ -991,11 +1017,11 @@
     }
     else if ([[dictProfile1 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]){
         desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dictProfile2 objectForKey:@"name"]];
-        profile = [dictProfile2 objectForKey:@"user_id"];
+        profile = [dictProfile2 objectForKey:@"profile_id"];
     }
     else {
         desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
-        profile = [dictProfile2 objectForKey:@"user_id"];
+        profile = [dictProfile2 objectForKey:@"profile_id"];
     }
     [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc isFB:YES];
     
@@ -1182,4 +1208,17 @@
     self.searchUserTableView.scrollIndicatorInsets = UIEdgeInsetsZero;
 }
 
+#pragma mark FBSDKSharingDelegate
+
+- (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results {
+    [self requestSayShared:sayShared];
+}
+
+- (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error{
+    [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error!", nil) message:NSLocalizedString(@"There is an error while sharing! Please try Again.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil]show];
+}
+
+- (void)sharerDidCancel:(id<FBSDKSharing>)sharer {
+    
+}
 @end

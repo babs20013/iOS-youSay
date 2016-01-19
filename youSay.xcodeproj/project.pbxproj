@@ -49,6 +49,7 @@
 		1BC5EC431C22F84B0016BFA1 /* SelectCharmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5EC421C22F84B0016BFA1 /* SelectCharmsViewController.m */; };
 		1BC88A881C42B2BC0032503E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC88A871C42B2BC0032503E /* MBProgressHUD.m */; };
 		1BECB4C41C0F5E1E0031AF1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */; };
+		1BEE59A01C4E26A20035686C /* CustomActivityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEE599F1C4E26A20035686C /* CustomActivityProvider.m */; };
 		1BEECEFE1C2EAAAB00615C9F /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEECEFD1C2EAAAB00615C9F /* FeedViewController.m */; };
 		1BEECF001C2EAE9200615C9F /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEECEFF1C2EAE9200615C9F /* FeedTableViewCell.m */; };
 		358C90891BD654AC000B17AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 358C90881BD654AC000B17AB /* main.m */; };
@@ -178,6 +179,8 @@
 		1BC88A861C42B2BC0032503E /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = youSay/Classes/Component/UIComponent/MBProgressHUD.h; sourceTree = SOURCE_ROOT; };
 		1BC88A871C42B2BC0032503E /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = youSay/Classes/Component/UIComponent/MBProgressHUD.m; sourceTree = SOURCE_ROOT; };
 		1BECB4C31C0F5E1E0031AF1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		1BEE599E1C4E26950035686C /* CustomActivityProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CustomActivityProvider.h; path = youSay/Classes/Controllers/CustomActivityProvider.h; sourceTree = SOURCE_ROOT; };
+		1BEE599F1C4E26A20035686C /* CustomActivityProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomActivityProvider.m; path = youSay/Classes/Controllers/CustomActivityProvider.m; sourceTree = SOURCE_ROOT; };
 		1BEECEFC1C2EAA9900615C9F /* FeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedViewController.h; path = youSay/Classes/Controllers/FeedViewController.h; sourceTree = SOURCE_ROOT; };
 		1BEECEFD1C2EAAAB00615C9F /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedViewController.m; path = youSay/Classes/Controllers/FeedViewController.m; sourceTree = SOURCE_ROOT; };
 		1BEECEFF1C2EAE9200615C9F /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = youSay/Classes/Controllers/FeedTableViewCell.m; sourceTree = SOURCE_ROOT; };
@@ -529,6 +532,8 @@
 				1B28B1521C4C9E5A00D112CD /* NotificationViewController.m */,
 				1B28B1561C4C9E8900D112CD /* NotificationTableViewCell.h */,
 				1B28B1541C4C9E7700D112CD /* NotificationTableViewCell.m */,
+				1BEE599E1C4E26950035686C /* CustomActivityProvider.h */,
+				1BEE599F1C4E26A20035686C /* CustomActivityProvider.m */,
 			);
 			name = ViewControllers;
 			path = Classes/Controllers;
@@ -760,6 +765,7 @@
 			files = (
 				5DBF3BAA1BD8210D00ACF60D /* BLKFlexibleHeightBarSubviewLayoutAttributes.m in Sources */,
 				5DBF3BB51BD8212500ACF60D /* SquareCashStyleBehaviorDefiner.m in Sources */,
+				1BEE59A01C4E26A20035686C /* CustomActivityProvider.m in Sources */,
 				1B17E3C21C180BD90080A574 /* ProfileViewController.m in Sources */,
 				1B17E3E51C180C120080A574 /* IQHTTPService.m in Sources */,
 				5DBF3BB71BD8212500ACF60D /* BLKDelegateSplitter.m in Sources */,
