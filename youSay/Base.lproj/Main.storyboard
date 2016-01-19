@@ -1694,6 +1694,14 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fg-zG-smf">
+                                                    <rect key="frame" x="90" y="273" width="59" height="22"/>
+                                                    <animations/>
+                                                    <state key="normal" image="fbShare"/>
+                                                    <connections>
+                                                        <action selector="btnShareSayToFBClicked:" destination="1dz-LU-SJf" eventType="touchUpInside" id="BX5-4z-dg5"/>
+                                                    </connections>
+                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vK5-gh-kWY" userLabel="Btn Like Count">
                                                     <rect key="frame" x="256" y="277" width="30" height="30"/>
                                                     <animations/>
@@ -1795,6 +1803,7 @@
                                                 <constraint firstItem="12w-xW-gSd" firstAttribute="top" secondItem="Ooo-Hz-kqy" secondAttribute="topMargin" constant="5" id="Etc-bX-zJf"/>
                                                 <constraint firstItem="5yj-wd-w5K" firstAttribute="leading" secondItem="Ooo-Hz-kqy" secondAttribute="leadingMargin" constant="10" id="Ewh-h7-nxp"/>
                                                 <constraint firstItem="3Nb-ae-D3E" firstAttribute="top" secondItem="5yj-wd-w5K" secondAttribute="bottom" constant="10" id="GAs-oW-tVz"/>
+                                                <constraint firstItem="7fg-zG-smf" firstAttribute="centerY" secondItem="aKd-Ik-Su6" secondAttribute="centerY" id="GRb-xI-bg9"/>
                                                 <constraint firstItem="fyB-p0-pGR" firstAttribute="leading" secondItem="uLt-D3-zUJ" secondAttribute="trailing" id="IFl-d5-MwJ"/>
                                                 <constraint firstItem="BKg-h7-tmI" firstAttribute="centerY" secondItem="aKd-Ik-Su6" secondAttribute="centerY" id="Kwq-iU-w6d"/>
                                                 <constraint firstItem="Mwk-DP-o4t" firstAttribute="leading" secondItem="LVY-Sc-qd8" secondAttribute="leading" id="L95-Fx-apN"/>
@@ -1828,6 +1837,7 @@
                                                 <constraint firstItem="4A1-zj-Aki" firstAttribute="top" secondItem="Ooo-Hz-kqy" secondAttribute="topMargin" constant="5" id="xLy-ko-VwL"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="5yj-wd-w5K" secondAttribute="trailing" constant="10" id="y0M-jH-YaQ"/>
                                                 <constraint firstItem="Mwk-DP-o4t" firstAttribute="top" secondItem="LVY-Sc-qd8" secondAttribute="top" id="zA4-jn-lyf"/>
+                                                <constraint firstItem="aKd-Ik-Su6" firstAttribute="leading" secondItem="7fg-zG-smf" secondAttribute="trailing" constant="5" id="ziY-cL-wfH"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -1840,6 +1850,7 @@
                                             <outlet property="btnProfile2" destination="p6v-ry-Fqf" id="mbs-Kc-Sdj"/>
                                             <outlet property="btnReport" destination="aKd-Ik-Su6" id="SV8-oB-UDq"/>
                                             <outlet property="btnShare" destination="uLt-D3-zUJ" id="XYs-gN-pP2"/>
+                                            <outlet property="btnShareFB" destination="7fg-zG-smf" id="51m-10-KxE"/>
                                             <outlet property="imgViewProfile1" destination="tTG-y1-l1P" id="bLT-HE-pfL"/>
                                             <outlet property="imgViewProfile2" destination="12w-xW-gSd" id="Xfm-mG-5GQ"/>
                                             <outlet property="lblDate" destination="3Nb-ae-D3E" id="3G9-lD-TU4"/>

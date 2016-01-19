@@ -451,11 +451,11 @@
             {
                 if (isFacebook == YES) {
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", @"TODO", sayID];
+                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", profile, sayID];
                     content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
-                    content.contentURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
+                    content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
+                    content.contentURL = [NSURL URLWithString:url];
                     content.contentDescription = desc;
-                    
                     [FBSDKShareDialog showFromViewController:self withContent:content delegate:nil];
                 }
                 NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", profile,sayID];
@@ -645,6 +645,7 @@
         [cell.btnLblProfile1 setTag:indexPath.section];
         [cell.btnReport setTag:indexPath.section];
         [cell.btnShare setTag:indexPath.section];
+        [cell.btnShareFB setTag:indexPath.section];
     }
     
     if (arrProfiles.count == 0) {
@@ -963,7 +964,7 @@
     NSString *desc = @"";
     if ([[dictProfile2 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
         desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dictProfile1 objectForKey:@"name"]];
-        profile = [dictProfile1 objectForKey:@"user_id"];
+        profile = [[AppDelegate sharedDelegate].profileOwner UserID];
     }
     else if ([[dictProfile1 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]){
         desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dictProfile2 objectForKey:@"name"]];
@@ -971,7 +972,7 @@
     }
     else {
         desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
-        profile = [dictProfile1 objectForKey:@"user_id"];
+        profile = [dictProfile2 objectForKey:@"user_id"];
     }
     [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc isFB:NO];
     
@@ -986,7 +987,7 @@
     NSString *desc = @"";
     if ([[dictProfile2 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
         desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dictProfile1 objectForKey:@"name"]];
-        profile = [dictProfile1 objectForKey:@"user_id"];
+        profile = [[AppDelegate sharedDelegate].profileOwner UserID];
     }
     else if ([[dictProfile1 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]){
         desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dictProfile2 objectForKey:@"name"]];
@@ -994,7 +995,7 @@
     }
     else {
         desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
-        profile = [dictProfile1 objectForKey:@"user_id"];
+        profile = [dictProfile2 objectForKey:@"user_id"];
     }
     [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc isFB:YES];
     
