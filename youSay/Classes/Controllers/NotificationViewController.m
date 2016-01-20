@@ -128,7 +128,7 @@
         cell.notificationDesc.frame = CGRectMake(13, 8, expectedSize.width+400, expectedSize.height);
         [cell.profileView setHidden:YES];
         if (expectedSize.width < tableView.frame.size.width-40) {
-            cell.notificationDesc.text = [NSString stringWithFormat:@"%@                       ",string];
+            cell.notificationDesc.text = [NSString stringWithFormat:@"%@                                                                                         ",string];
         }
     }
     else {
@@ -182,6 +182,7 @@
                 self.tableHeightConstraint.constant = arrNotification.count * 50;
                 [self.tblView needsUpdateConstraints];
                 [self.tblView reloadData];
+                [AppDelegate sharedDelegate].num_of_new_notifications = [[dictResult valueForKey:@"num_of_new_notifications"] integerValue];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

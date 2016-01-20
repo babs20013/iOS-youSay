@@ -19,6 +19,7 @@
 @property (strong, nonatomic) ProfileOwnerModel *profileOwner;
 @property (strong, nonatomic) NSDictionary *colorDict;
 @property (strong, nonatomic) NSString *deviceToken;
+@property (readwrite, nonatomic) NSInteger num_of_new_notifications;
 @property (strong, nonatomic) NSMutableArray *arrRecentSeacrh;
 @property (nonatomic, readwrite) BOOL isNewToken;
 @property (nonatomic, readwrite) BOOL isFirstLoad;
