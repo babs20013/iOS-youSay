@@ -72,6 +72,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *btnCancel;
 @property (nonatomic, weak) IBOutlet UIButton *btnRightMenu;
 @property (nonatomic, weak) IBOutlet UIView *viewButton;
+@property (strong, nonatomic) IQURLConnection *userSearchRequest;
 
 @end
 
@@ -764,7 +765,6 @@
 }
 
 - (void)requestUser:(NSString*)searchString withSearchID:(NSString*)searchID {
-    isSearching = YES;
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
@@ -774,7 +774,7 @@
     [dictRequest setObject:[FBSDKAccessToken currentAccessToken].tokenString forKey:@"authority_access_token"];
     [dictRequest setObject:searchID forKey:@"search_id"];
     
-    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+    _userSearchRequest =  [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         _isRequestingProfile = NO;
         if (result)
         {
@@ -801,7 +801,6 @@
                 }
                 else if ([dictResult objectForKey:@"facebook_users"]) {
                     HideLoader();
-                    isSearching = NO;
                     NSArray *tempArr = [[dictResult objectForKey:@"facebook_users"] allObjects];
                     for (int i = 0; i < tempArr.count; i++) {
                         NSDictionary *dict = [tempArr objectAtIndex:i];
@@ -2182,6 +2181,7 @@
 
 - (void)textFieldDidChange:(UITextField*)textField {
     HideLoader();
+    [_userSearchRequest cancel];
     [textField becomeFirstResponder];
     [self.tableView setHidden:YES];
     [self.searchView setHidden:NO];
@@ -2209,10 +2209,8 @@
             [self.btnClear setHidden:YES];
             arrSearch = nil;
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                if (isSearching == NO) {
-                    ShowLoader();
-                    [self requestUser:textField.text withSearchID:@""];
-                }
+                ShowLoader();
+                [self requestUser:textField.text withSearchID:@""];
             }];
         }
     });

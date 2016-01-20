@@ -46,6 +46,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *btnCancel;
 @property (nonatomic, weak) IBOutlet UIButton *btnRightMenu;
 @property (nonatomic, weak) IBOutlet UIView *viewButton;
+@property (strong, nonatomic) IQURLConnection *userSearchRequest;
 
 @end
 
@@ -319,7 +320,7 @@
     [dictRequest setObject:searchID forKey:@"search_id"];
     
     
-    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+    _userSearchRequest =  [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         
         isRequesting = NO;
         if (result)
@@ -1143,6 +1144,7 @@
 
 - (void)textFieldDidChange:(UITextField*)textField {
     HideLoader();
+    [_userSearchRequest cancel];
     [textField becomeFirstResponder];
     [self.tableView setHidden:YES];
     [self.searchView setHidden:NO];
