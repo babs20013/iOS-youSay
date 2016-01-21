@@ -40,22 +40,36 @@
     return numberOfTabs;
 }
 - (UIView *)viewPager:(ViewPagerController *)viewPager viewForTabAtIndex:(NSUInteger)index {
+    NSString *notif = [NSString stringWithFormat:@"Notications 9999"];
     
-    NSArray *arrTabString = [NSArray arrayWithObjects:@"Feed", @"Profile", @"Notifications", nil];
+    NSString *notifications = @"Notications";
+    NSString *count = [NSString stringWithFormat:@"9999"];
+    
+    NSMutableAttributedString *text =
+    [[NSMutableAttributedString alloc]
+     initWithString:notif];
+    
+    [text addAttribute:NSForegroundColorAttributeName
+                 value:[UIColor clearColor]
+                 range:NSMakeRange(notifications.length+1,count.length)];
+    NSAttributedString *feed = [[NSAttributedString alloc]initWithString:@"Feed"];
+    NSAttributedString *profile = [[NSAttributedString alloc]initWithString:@"Profile"];
+    NSArray *arrTabString = [NSArray arrayWithObjects:feed, profile, text, nil];
     
     UILabel *label = [UILabel new];
+    label.attributedText = text;
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont boldSystemFontOfSize:12.0];
-    label.text = [arrTabString objectAtIndex:index];
-    label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor];
-    [label sizeToFit];
+    label.attributedText = [arrTabString objectAtIndex:index];
+    label.textAlignment = NSTextAlignmentLeft;
     
+    [label sizeToFit];
     return label;
 }
 
 - (UIViewController *)viewPager:(ViewPagerController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index {
-    
+    //[viewPager modifyNotificationCounter:[AppDelegate sharedDelegate].num_of_new_notifications];
     if(index == 0){
         FeedViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
         if (isClick == YES) {
