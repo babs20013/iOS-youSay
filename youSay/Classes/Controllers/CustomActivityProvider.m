@@ -22,14 +22,14 @@
     }
     return _imageToShare;
 }
-- (id) activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController { return @"Placeholder"; }
+- (id) activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController { return @""; }
 
-- (NSString *)activityViewController:(UIActivityViewController *)activityViewController subjectForActivityType:(nullable NSString *)activityType{
-    return _subject;
-}
+//- (NSString *)activityViewController:(UIActivityViewController *)activityViewController subjectForActivityType:(nullable NSString *)activityType{
+//    return _subject;
+//}
 
 //- (NSString *)activityViewController:(UIActivityViewController *)activityViewController dataTypeIdentifierForActivityType:(nullable NSString *)activityType; // UTI for item if it is an NSData. iOS 7.0. will be called with nil activity and then selected activity
-- (nullable UIImage *)activityViewController:(UIActivityViewController *)activityViewController thumbnailImageForActivityType:(nullable NSString *)activityType suggestedSize:(CGSize)size {
-    return _imageToShare;
-}
+//- (nullable UIImage *)activityViewController:(UIActivityViewController *)activityViewController thumbnailImageForActivityType:(nullable NSString *)activityType suggestedSize:(CGSize)size {
+//    return _imageToShare;
+//}
 @end

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "358C90831BD654AC000B17AB"
-               BuildableName = "Yousay social.app"
+               BuildableName = "Yousay.app"
                BlueprintName = "youSay"
                ReferencedContainer = "container:youSay.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "358C90831BD654AC000B17AB"
-            BuildableName = "Yousay social.app"
+            BuildableName = "Yousay.app"
             BlueprintName = "youSay"
             ReferencedContainer = "container:youSay.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "358C90831BD654AC000B17AB"
-            BuildableName = "Yousay social.app"
+            BuildableName = "Yousay.app"
             BlueprintName = "youSay"
             ReferencedContainer = "container:youSay.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "358C90831BD654AC000B17AB"
-            BuildableName = "Yousay social.app"
+            BuildableName = "Yousay.app"
             BlueprintName = "youSay"
             ReferencedContainer = "container:youSay.xcodeproj">
          </BuildableReference>

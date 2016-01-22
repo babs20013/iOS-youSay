@@ -9,6 +9,4 @@
 #import <UIKit/UIKit.h>
 @interface CustomActivityProvider : UIActivityItemProvider <UIActivityItemSource>
 @property (nonatomic, strong) UIImage *imageToShare;
-@property (nonatomic, strong) NSString *url;
-@property (nonatomic, strong) NSString *subject;
 @end

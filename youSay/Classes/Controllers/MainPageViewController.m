@@ -39,7 +39,6 @@
 }
 
 -(void)reload{
-//    [AppDelegate sharedDelegate].num_of_new_notifications = 2;
     [self reloadTab];
 }
 #pragma mark - ViewPagerDataSource
@@ -77,7 +76,6 @@
 }
 
 - (UIViewController *)viewPager:(ViewPagerController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index {
-//    [viewPager modifyNotificationCounter:[AppDelegate sharedDelegate].num_of_new_notifications];
     if(index == 0){
         FeedViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
         if (isClick == YES) {

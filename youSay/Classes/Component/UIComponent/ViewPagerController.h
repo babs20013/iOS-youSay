@@ -74,6 +74,8 @@ typedef NS_ENUM(NSUInteger, ViewPagerComponent) {
  */
 - (void)selectTabAtIndex:(NSUInteger)index;
 
+- (void)highlightTabAtIndex:(NSUInteger)index;
+
 /**
  * Reloads the appearance of the tabs view. 
  * Adjusts tabs' width, offset, the center, fix former/latter tabs cases.

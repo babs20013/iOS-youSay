@@ -584,6 +584,24 @@
     [self selectTabAtIndex:index didSwipe:NO];
 }
 
+- (void)highlightTabAtIndex:(NSUInteger)index {
+    BOOL isFromSameTab = NO;
+    if (self.activeTabIndex == index) {
+        isFromSameTab = YES;
+    }
+    if (index >= self.tabCount) {
+        return;
+    }
+    
+    self.animatingToTab = YES;
+    
+    // Set activeTabIndex
+    self.activeTabIndex = index;
+    
+    // Set activeContentIndex
+    self.activeContentIndex = index;
+}
+
 - (void)selectTabAtIndex:(NSUInteger)index didSwipe:(BOOL)didSwipe {
     BOOL isFromSameTab = NO;
     if (self.activeTabIndex == index) {
@@ -939,8 +957,9 @@
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
         [tabView addGestureRecognizer:tapGestureRecognizer];
     }
+    [self highlightTabAtIndex:_activeContentIndex];
     
-    [self selectTabAtIndex:_activeTabIndex didSwipe:NO];
+   // [self selectTabAtIndex:_activeTabIndex didSwipe:NO];
 }
 - (TabView *)tabViewAtIndex:(NSUInteger)index {
     

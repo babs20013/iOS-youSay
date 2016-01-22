@@ -34,6 +34,7 @@
     NSString *sayShared;
     NSString *profile;
     BOOL isSearching;
+    BOOL isSearchingFB;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -172,7 +173,10 @@
                 if ([startFrom integerValue] == 1 && arrResult.count > 0) {
                     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
                 }
-                //[AppDelegate sharedDelegate].num_of_new_notifications = [[dictResult valueForKey:@"num_of_new_notifications"] integerValue];
+                [AppDelegate sharedDelegate].num_of_new_notifications = [[dictResult valueForKey:@"num_of_new_notifications"] integerValue];
+                
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:kNotificationUpdateNotification object:nil];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -326,9 +330,11 @@
         isRequesting = NO;
         if (result)
         {
+            HideLoader();
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
+                isSearchingFB = YES;
                 if ([dictResult objectForKey:@"yousay_users"]) {
                     NSString *searchid = [dictResult objectForKey:@"search_id"];
                     [self requestUser:searchString withSearchID:searchid];
@@ -345,10 +351,10 @@
                         }
                         [arraySearch addObject:model];
                     }
-                    
+                    [self.searchUserTableView reloadData];
                 }
                 else if ([dictResult objectForKey:@"facebook_users"]) {
-                    HideLoader();
+                    isSearchingFB = NO;
                     isRequesting = NO;
                     NSArray *tempArr = [[dictResult objectForKey:@"facebook_users"] allObjects];
                     for (int i = 0; i < tempArr.count; i++) {
@@ -358,6 +364,7 @@
                         model.userID = [dict objectForKey:@"id"];
                         NSDictionary *dictPic = [[dict objectForKey:@"picture"] objectForKey:@"data"];
                         model.ProfileImage = [dictPic objectForKey:@"url"];
+                        model.CoverImage = [[dict objectForKey:@"cover"] objectForKey:@"source"];
                         model.isNeedProfile = YES;
                         if (arraySearch == nil) {
                             arraySearch = [[NSMutableArray alloc]init];
@@ -367,10 +374,12 @@
                         [arraySearch addObject:model];
                         
                     }
-                    self.tableHeightConstraint.constant = arraySearch.count*50;
-                    [self.searchUserTableView needsUpdateConstraints];
                     [self.searchUserTableView reloadData];
-                    //[AppDelegate sharedDelegate].num_of_new_notifications = [[dictResult valueForKey:@"num_of_new_notifications"] integerValue];
+                    
+                    [AppDelegate sharedDelegate].num_of_new_notifications = [[dictResult valueForKey:@"num_of_new_notifications"] integerValue];
+                    
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:kNotificationUpdateNotification object:nil];
                 }
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
@@ -414,8 +423,6 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 arraySearch = [dictResult objectForKey:@"yousay_users"];
-                self.tableHeightConstraint.constant = arraySearch.count*50;
-                [self.searchUserTableView needsUpdateConstraints];
                 [self.searchUserTableView reloadData];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
@@ -578,7 +585,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (tableView == self.searchUserTableView) {
-        return 0;
+        return 60;
     }
     return 10;
 }
@@ -586,7 +593,21 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *footerView = [[UIView alloc]init];
     footerView.backgroundColor = [UIColor lightGrayColor];
-    
+    if (tableView == self.searchUserTableView & isSearchingFB == YES) {
+        MBProgressHUD *loading = [[MBProgressHUD alloc]initWithView:footerView];
+        [loading setFrame:footerView.frame];
+        [loading setBackgroundColor:[UIColor clearColor]];
+        [loading setLabelText:@"Searching for Facebook user"];
+        [loading setLabelFont:[UIFont fontWithName:@"Arial" size:12]];
+        [loading setAlpha:0.5];
+        [footerView addSubview:loading];
+//        UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 200, 30)];
+//        lbl.font = [UIFont fontWithName:@"Arial" size:12];
+//        lbl.textColor = [UIColor whiteColor];
+//        lbl.text = @"Searching for Facebook user";
+//        [footerView addSubview:lbl];
+        [loading show:YES];
+    }
     return footerView;
 }
 
@@ -662,7 +683,14 @@
     
     if (arrProfiles.count>0) {
         NSDictionary *profile1 = [arrProfiles objectAtIndex:0];
-        [cell.imgViewProfile1 setImageURL:[NSURL URLWithString:[profile1 objectForKey:@"avatar"]]];
+        NSURL *avatar = [NSURL URLWithString:[profile1 objectForKey:@"avatar"]];
+        if  (avatar && [avatar scheme] && [avatar host]) {
+            [cell.imgViewProfile1 setImageURL:avatar];
+        }
+        else {
+            [cell.imgViewProfile1 setImageURL:[NSURL URLWithString:@"http://2.bp.blogspot.com/-6QyJDHjB5XE/Uscgo2DVBdI/AAAAAAAACS0/DFSFGLBK_fY/s1600/facebook-default-no-profile-pic.jpg"]];
+        }
+       
         cell.imgViewProfile1.layer.cornerRadius = 0.5 * cell.imgViewProfile1.bounds.size.width;
         cell.imgViewProfile1.layer.masksToBounds = YES;
         cell.imgViewProfile1.layer.borderWidth = 1;
@@ -720,7 +748,15 @@
         string = [string stringByReplacingOccurrencesOfString:@"%2"
                                                    withString:@""];
         
-        [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:[profile2 objectForKey:@"avatar"]]];
+        NSURL *avatar = [NSURL URLWithString:[profile2 objectForKey:@"avatar"]];
+        if  (avatar && [avatar scheme] && [avatar host]) {
+            [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:[profile2 objectForKey:@"avatar"]]];
+        }
+        else {
+            [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:@"http://2.bp.blogspot.com/-6QyJDHjB5XE/Uscgo2DVBdI/AAAAAAAACS0/DFSFGLBK_fY/s1600/facebook-default-no-profile-pic.jpg"]];
+        }
+        
+        
         cell.imgViewProfile2.layer.cornerRadius = 0.5 * cell.imgViewProfile2.bounds.size.width;
         cell.imgViewProfile2.layer.masksToBounds = YES;
         cell.imgViewProfile2.layer.borderWidth = 1;
@@ -893,8 +929,6 @@
     [context deletedObjects];
     
     [self.searchUserTableView reloadData];
-    self.tableHeightConstraint.constant = arraySearch.count*50;
-    [self.searchUserTableView needsUpdateConstraints];
 }
 
 - (IBAction)btnCancelSearchClicked:(id)sender {
@@ -1121,8 +1155,6 @@
     if ([textField.text length]==0){
         [self.btnClear setHidden:NO];
         isShowRecentSearch = YES;
-        self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
-        [self.searchUserTableView needsUpdateConstraints];
         [self.searchUserTableView reloadData];
     }
     [textField becomeFirstResponder];
@@ -1158,8 +1190,6 @@
     if ([textField.text length]==0){
         [self.btnClear setHidden:NO];
         isShowRecentSearch = YES;
-        self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
-        [self.searchUserTableView needsUpdateConstraints];
         [self.searchUserTableView reloadData];
     }
     else {
@@ -1207,8 +1237,6 @@
     [self.btnCancel setHidden:NO];
     [self.btnRightMenu setHidden:YES];
 
-    self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
-    [self.searchUserTableView needsUpdateConstraints];
     [self.searchUserTableView reloadData];
 }
 

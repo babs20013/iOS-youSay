@@ -185,7 +185,7 @@
 		1BEECEFD1C2EAAAB00615C9F /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedViewController.m; path = youSay/Classes/Controllers/FeedViewController.m; sourceTree = SOURCE_ROOT; };
 		1BEECEFF1C2EAE9200615C9F /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = youSay/Classes/Controllers/FeedTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		1BEECF011C2EAE9D00615C9F /* FeedTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = youSay/Classes/Controllers/FeedTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		358C90841BD654AC000B17AB /* yousay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yousay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		358C90841BD654AC000B17AB /* Yousay Social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yousay Social.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		358C90881BD654AC000B17AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		358C90911BD654AC000B17AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		358C90931BD654AC000B17AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -380,7 +380,7 @@
 		358C90851BD654AC000B17AB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				358C90841BD654AC000B17AB /* yousay.app */,
+				358C90841BD654AC000B17AB /* Yousay Social.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -673,7 +673,7 @@
 			);
 			name = youSay;
 			productName = youSay;
-			productReference = 358C90841BD654AC000B17AB /* yousay.app */;
+			productReference = 358C90841BD654AC000B17AB /* Yousay Social.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -943,7 +943,7 @@
 					"$(PROJECT_DIR)/youSay/Classes",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
-				PRODUCT_NAME = yousay;
+				PRODUCT_NAME = "Yousay Social";
 				PROVISIONING_PROFILE = "08c1e319-8e78-4602-b095-deab51ff567a";
 			};
 			name = Debug;
@@ -965,7 +965,7 @@
 					"$(PROJECT_DIR)/youSay/Classes",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
-				PRODUCT_NAME = yousay;
+				PRODUCT_NAME = "Yousay Social";
 				PROVISIONING_PROFILE = "08c1e319-8e78-4602-b095-deab51ff567a";
 			};
 			name = Release;
