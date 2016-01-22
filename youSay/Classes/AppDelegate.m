@@ -73,7 +73,7 @@ static NSString *const kAllowTracking = @"allowTracking";
     [GAI sharedInstance].dispatchInterval = -1;
     
     [GAI sharedInstance].trackUncaughtExceptions = YES;
-    self.tracker = [[GAI sharedInstance] trackerWithName:@"Yousay_ios"
+    self.tracker = [[GAI sharedInstance] trackerWithName:@"yousay"
                                               trackingId:kTrackingId];
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application

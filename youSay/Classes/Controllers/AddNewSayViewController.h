@@ -16,7 +16,7 @@
 @end
 
 
-@interface AddNewSayViewController : UIViewController <UITextViewDelegate>
+@interface AddNewSayViewController : GAITrackedViewController <UITextViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextView *addSayTextView;
 @property (nonatomic, strong) IBOutlet UIView *textViewBG;

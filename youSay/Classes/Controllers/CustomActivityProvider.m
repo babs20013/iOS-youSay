@@ -20,7 +20,16 @@
     if ( [activityType isEqualToString:UIActivityTypeMail] ) {
         return _imageToShare;
     }
-    return nil;
+    return _imageToShare;
 }
-- (id) activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController { return @""; }
+- (id) activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController { return @"Placeholder"; }
+
+- (NSString *)activityViewController:(UIActivityViewController *)activityViewController subjectForActivityType:(nullable NSString *)activityType{
+    return _subject;
+}
+
+//- (NSString *)activityViewController:(UIActivityViewController *)activityViewController dataTypeIdentifierForActivityType:(nullable NSString *)activityType; // UTI for item if it is an NSData. iOS 7.0. will be called with nil activity and then selected activity
+- (nullable UIImage *)activityViewController:(UIActivityViewController *)activityViewController thumbnailImageForActivityType:(nullable NSString *)activityType suggestedSize:(CGSize)size {
+    return _imageToShare;
+}
 @end

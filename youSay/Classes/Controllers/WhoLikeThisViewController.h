@@ -12,7 +12,7 @@
 - (void) ListDismissedAfterClickProfile:(NSString*)userID;
 @end
 
-@interface WhoLikeThisViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate>
+@interface WhoLikeThisViewController : GAITrackedViewController  <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tblView;
 @property (nonatomic, strong) NSString *say_id;

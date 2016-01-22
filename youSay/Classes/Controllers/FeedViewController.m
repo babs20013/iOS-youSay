@@ -89,6 +89,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = @"Feed";
     isLikeListReleased = NO;
     arrayFeed = [[NSMutableArray alloc]init];
     index = 1;

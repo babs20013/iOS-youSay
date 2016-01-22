@@ -44,6 +44,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = @"AddNewSay";
     addSayTextView.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self

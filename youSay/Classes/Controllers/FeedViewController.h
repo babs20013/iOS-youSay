@@ -10,7 +10,7 @@
 #import "FeedViewController.h"
 #import "WhoLikeThisViewController.h"
 
-@interface FeedViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, LikeListDelegate, FBSDKSharingDelegate>
+@interface FeedViewController : GAITrackedViewController  <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, LikeListDelegate, FBSDKSharingDelegate>
 
 - (void) refreshFeed:(NSNotification *)notif;
 

@@ -13,7 +13,7 @@
 #import "WhoLikeThisViewController.h"
 #import "FriendModel.h"
 
-@interface ProfileViewController : UIViewController <UITextViewDelegate, FBSDKAppInviteDialogDelegate, CharmChartDelegate, UIScrollViewDelegate, CharmSelectionDelegate, UIGestureRecognizerDelegate, AddNewSayDelegate, LikeListDelegate, FBSDKSharingDelegate>
+@interface ProfileViewController : GAITrackedViewController <UITextViewDelegate, FBSDKAppInviteDialogDelegate, CharmChartDelegate, UIScrollViewDelegate, CharmSelectionDelegate, UIGestureRecognizerDelegate, AddNewSayDelegate, LikeListDelegate, FBSDKSharingDelegate>
 
 @property (nonatomic,strong) ProfileOwnerModel *profileModel;
 @property (nonatomic, strong) FriendModel *friendModel;

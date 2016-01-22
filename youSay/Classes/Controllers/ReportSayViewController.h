@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ReportSayViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate>
+@interface ReportSayViewController : GAITrackedViewController  <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tblView;
 @property (nonatomic, strong) NSString *say_id;

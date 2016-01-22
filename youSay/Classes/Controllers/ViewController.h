@@ -10,7 +10,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "SlideNavigationController.h"
 
-@interface ViewController : UIViewController  <SlideNavigationControllerDelegate, FBSDKAppInviteDialogDelegate>
+@interface ViewController : GAITrackedViewController  <SlideNavigationControllerDelegate, FBSDKAppInviteDialogDelegate>
 
 
 @end

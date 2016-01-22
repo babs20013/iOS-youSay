@@ -130,6 +130,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = @"Profile";
     isFirstLoad = YES;
     isAfterCharm = NO;
     chartState = ChartStateDefault;
@@ -952,6 +953,7 @@
                         NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@", IDRequested];
                         CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
                         activityProvider.imageToShare = image;
+                        activityProvider.subject = desc;
                         NSArray *activityItems = [NSArray arrayWithObjects:activityProvider, desc,[NSURL URLWithString:url], nil];
                         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
                         activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;

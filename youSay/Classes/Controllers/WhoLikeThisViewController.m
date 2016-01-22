@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = @"WhoLikeList";
     [self.tblView setDataSource:self];
     [self.tblView setDelegate:self];
     [self requestGetLikeList];

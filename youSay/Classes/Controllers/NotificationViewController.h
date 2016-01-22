@@ -12,7 +12,7 @@
 - (void) RouteToPageFromNotification:(NSString*)userID;
 @end
 
-@interface NotificationViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate>
+@interface NotificationViewController : GAITrackedViewController  <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tblView;
 @property (nonatomic, strong) NSString *say_id;

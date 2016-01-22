@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = @"Report";
     arrReportList = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ReportList" ofType:@"plist"]];
     self.tableHeightConstraint.constant = arrReportList.count * 40;
     [self.tblView needsUpdateConstraints];

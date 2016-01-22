@@ -20,6 +20,8 @@
 #import "UIImageView+Networking.h"
 #import <BFAppLinkReturnToRefererView.h>
 #import <BFAppLinkReturnToRefererController.h>
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
 
 @interface ViewController ()
 {
@@ -65,6 +67,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSMutableDictionary *event =
+    [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                                            action:@"buttonPress"
+                                             label:@"dispatch"
+                                             value:nil] build];
+    [[GAI sharedInstance].defaultTracker send:event];
+    [[GAI sharedInstance] dispatch];
+    
     accessToken = @"";
     if ([[FBSDKAccessToken currentAccessToken].expirationDate compare:[NSDate date]] == NSOrderedDescending) {
         [self goToMainPage];

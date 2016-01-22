@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.screenName = @"Notification";
     [self requestGetNotification:@"1"];
     self.tblView.layer.cornerRadius = 0.015 * self.tblView.bounds.size.width;
     self.tblView.layer.masksToBounds = YES;
@@ -145,7 +146,7 @@
     vc.isFromFeed = YES;
     vc.requestedID = [[AppDelegate sharedDelegate].profileOwner UserID];//[dictProfile objectForKey:@"profile_id"];
     vc.sayID = [dict objectForKey:@"say_id"];
-    vc.numOfNotification = 30;
+    //vc.numOfNotification = 30;
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
     vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
     [self.navigationController pushViewController:vc animated:YES];
