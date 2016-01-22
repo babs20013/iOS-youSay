@@ -90,7 +90,7 @@
         cvc.friendModel = _friendModel;
         cvc.profileModel = _profileModel;
         cvc.isSameTab = isSameTab;
-        cvc.sayID = _sayID;
+        cvc.saysID = _sayID;
         
         if (_isFromFeed == YES && _friendModel == nil) {
             _isFromFeed = NO;

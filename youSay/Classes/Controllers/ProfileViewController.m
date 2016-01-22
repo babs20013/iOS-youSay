@@ -86,7 +86,7 @@
 @synthesize charmsArray;
 @synthesize isFriendProfile;
 @synthesize btnAddSay;
-@synthesize sayID;
+@synthesize saysID;
 
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -461,12 +461,12 @@
                     isAfterAddNewSay = NO;
                     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
                 }
-                else if (sayID){
+                else if (saysID){
                     for (int i = 0; i < saysArray.count; i++) {
                         NSDictionary *says = [saysArray objectAtIndex:i];
-                        if ([[says objectForKey:@"say_id"] integerValue] == [sayID integerValue]) {
+                        if ([[says objectForKey:@"say_id"] integerValue] == [saysID integerValue]) {
                             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-                            sayID = nil;
+                            saysID = nil;
                             return;
                         }
                     }
@@ -993,7 +993,7 @@
     ShowLoader();
     
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
-    [dictRequest setObject:REQUEST_GET_PROFILE_IMG forKey:@"request"];
+    [dictRequest setObject:REQUEST_GET_SAY_IMG forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
     [dictRequest setObject:sayID forKey:@"say_id"];
     sayShared = sayID;
@@ -1032,6 +1032,7 @@
                         NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", requestedID, sayID];
                         CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
                         activityProvider.imageToShare = image;
+                        activityProvider.subject = desc;
                         NSArray *activityItems = [NSArray arrayWithObjects:activityProvider, desc,[NSURL URLWithString:url], nil];
                         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
                         activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;

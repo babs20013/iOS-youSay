@@ -446,7 +446,7 @@
     ShowLoader();
     
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
-    [dictRequest setObject:REQUEST_GET_PROFILE_IMG forKey:@"request"];
+    [dictRequest setObject:REQUEST_GET_SAY_IMG forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
     [dictRequest setObject:sayID forKey:@"say_id"];
     sayShared = sayID;
