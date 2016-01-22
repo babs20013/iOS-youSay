@@ -22,7 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reload)
+                                                 name:kNotificationUpdateNotification
+                                               object:nil];
     numberOfTabs = 3;
     
     self.dataSource = self;
@@ -34,23 +37,28 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)reload{
+//    [AppDelegate sharedDelegate].num_of_new_notifications = 2;
+    [self reloadTab];
+}
 #pragma mark - ViewPagerDataSource
 
 - (NSUInteger)numberOfTabsForViewPager:(ViewPagerController *)viewPager {
     return numberOfTabs;
 }
 - (UIView *)viewPager:(ViewPagerController *)viewPager viewForTabAtIndex:(NSUInteger)index {
-    NSString *notif = [NSString stringWithFormat:@"Notications 9999"];
+    NSString *notif = [NSString stringWithFormat:@"Notications %ld",(long)[AppDelegate sharedDelegate].num_of_new_notifications];
     
     NSString *notifications = @"Notications";
-    NSString *count = [NSString stringWithFormat:@"9999"];
+    NSString *count = [NSString stringWithFormat:@"%ld",(long)[AppDelegate sharedDelegate].num_of_new_notifications];
     
     NSMutableAttributedString *text =
     [[NSMutableAttributedString alloc]
      initWithString:notif];
     
     [text addAttribute:NSForegroundColorAttributeName
-                 value:[UIColor clearColor]
+                 value:[UIColor colorWithRed:1.0 green:0.8 blue:0.4 alpha:1.0]
                  range:NSMakeRange(notifications.length+1,count.length)];
     NSAttributedString *feed = [[NSAttributedString alloc]initWithString:@"Feed"];
     NSAttributedString *profile = [[NSAttributedString alloc]initWithString:@"Profile"];
@@ -69,7 +77,7 @@
 }
 
 - (UIViewController *)viewPager:(ViewPagerController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index {
-    //[viewPager modifyNotificationCounter:[AppDelegate sharedDelegate].num_of_new_notifications];
+//    [viewPager modifyNotificationCounter:[AppDelegate sharedDelegate].num_of_new_notifications];
     if(index == 0){
         FeedViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
         if (isClick == YES) {

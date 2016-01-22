@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#define kNotificationUpdateNotification @"NotificationUpdateNotification"
 extern NSString *const APP_NAME;
 extern NSString *const APP_VERSION;
 extern NSString *const REQUEST_LOGIN;

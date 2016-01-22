@@ -890,7 +890,58 @@
     // Set setup done
     self.defaultSetupDone = YES;
 }
+-(void)reloadTab{
+    for (UIView *tabView in self.tabs) {
+        [tabView removeFromSuperview];
+    }
+    
+    [self.tabs removeAllObjects];
+    
+    // Get tabCount from dataSource
+    self.tabCount = [self.dataSource numberOfTabsForViewPager:self];
+    
+    // Populate arrays with [NSNull null];
+    self.tabs = [NSMutableArray arrayWithCapacity:self.tabCount];
+    for (NSUInteger i = 0; i < self.tabCount; i++) {
+        [self.tabs addObject:[NSNull null]];
+    }
 
+    
+    // Add tab views to _tabsView
+    CGFloat contentSizeWidth = 0;
+    
+    // Give the standard offset if fixFormerTabsPositions is provided as YES
+    if ([self.fixFormerTabsPositions boolValue]) {
+        
+        // And if the centerCurrentTab is provided as YES fine tune the offset according to it
+        if ([self.centerCurrentTab boolValue]) {
+            contentSizeWidth = (CGRectGetWidth(self.tabsView.frame) - [self.tabWidth floatValue]) / 2.0;
+        } else {
+            contentSizeWidth = [self.tabOffset floatValue];
+        }
+    }
+
+    
+    for (NSUInteger i = 0; i < self.tabCount; i++) {
+        
+        UIView *tabView = [self tabViewAtIndex:i];
+        
+        CGRect frame = tabView.frame;
+        frame.origin.x = contentSizeWidth;
+        frame.size.width = [self.tabWidth floatValue];
+        tabView.frame = frame;
+        
+        [self.tabsView addSubview:tabView];
+        
+        contentSizeWidth += CGRectGetWidth(tabView.frame);
+        
+        // To capture tap events
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+        [tabView addGestureRecognizer:tapGestureRecognizer];
+    }
+    
+    [self selectTabAtIndex:_activeTabIndex didSwipe:NO];
+}
 - (TabView *)tabViewAtIndex:(NSUInteger)index {
     
     if (index >= self.tabCount) {

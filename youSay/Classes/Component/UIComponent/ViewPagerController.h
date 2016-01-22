@@ -112,6 +112,7 @@ typedef NS_ENUM(NSUInteger, ViewPagerComponent) {
  * @return A UIColor for the given component
  */
 - (UIColor *)colorForComponent:(ViewPagerComponent)component;
+-(void)reloadTab;
 
 @end
 
