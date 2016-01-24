@@ -33,6 +33,38 @@
             endingLineNumber = "943"
             landmarkName = "-requestGetProfileImage:withDescription:andID:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ProfileViewController requestGetProfileImage:withDescription:andID:]"
+                  moduleName = "Yousay Social"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sysadmin/Documents/PartTime/iOS-youSay/youSay/Classes/Controllers/ProfileViewController.m"
+                  timestampString = "475320273.883464"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "944"
+                  endingLineNumber = "944"
+                  offsetFromSymbolStart = "512">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__70-[ProfileViewController requestGetProfileImage:withDescription:andID:]_block_invoke"
+                  moduleName = "Yousay Social"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sysadmin/Documents/PartTime/iOS-youSay/youSay/Classes/Controllers/ProfileViewController.m"
+                  timestampString = "475320273.883664"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "944"
+                  endingLineNumber = "944"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -111,7 +143,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "112"
             endingLineNumber = "112"
-            landmarkName = "-application:openURL:sourceApplication:annotation:"
+            landmarkName = "-applicationWillTerminate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -215,30 +247,30 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__70-[ProfileViewController requestGetProfileImage:withDescription:andID:]_block_invoke"
-                  moduleName = "yousay"
+                  moduleName = "Yousay Social"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sysadmin/Documents/PartTime/iOS-youSay/youSay/Classes/Controllers/ProfileViewController.m"
-                  timestampString = "475177930.251162"
+                  timestampString = "475320273.894633"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "969"
                   endingLineNumber = "969"
-                  offsetFromSymbolStart = "1401">
+                  offsetFromSymbolStart = "1380">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__70-[ProfileViewController requestGetProfileImage:withDescription:andID:]_block_invoke"
-                  moduleName = "yousay"
+                  moduleName = "Yousay Social"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sysadmin/Documents/PartTime/iOS-youSay/youSay/Classes/Controllers/ProfileViewController.m"
-                  timestampString = "475177930.25164"
+                  timestampString = "475320273.894888"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "969"
                   endingLineNumber = "969"
-                  offsetFromSymbolStart = "1441">
+                  offsetFromSymbolStart = "1432">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -314,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "youSay/Classes/Controllers/NotificationViewController.m"
-            timestampString = "475134936.190303"
+            timestampString = "475320416.618518"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -407,30 +439,30 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__65-[ProfileViewController requestGetSayImage:withDescription:isFB:]_block_invoke"
-                  moduleName = "yousay"
+                  moduleName = "Yousay Social"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sysadmin/Documents/PartTime/iOS-youSay/youSay/Classes/Controllers/ProfileViewController.m"
-                  timestampString = "475177930.2873"
+                  timestampString = "475320273.905555"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1051"
                   endingLineNumber = "1051"
-                  offsetFromSymbolStart = "1509">
+                  offsetFromSymbolStart = "1540">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__65-[ProfileViewController requestGetSayImage:withDescription:isFB:]_block_invoke_2"
-                  moduleName = "yousay"
+                  moduleName = "Yousay Social"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sysadmin/Documents/PartTime/iOS-youSay/youSay/Classes/Controllers/ProfileViewController.m"
-                  timestampString = "475177930.287846"
+                  timestampString = "475320273.906108"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1051"
                   endingLineNumber = "1051"
-                  offsetFromSymbolStart = "81">
+                  offsetFromSymbolStart = "104">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -455,30 +487,30 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__65-[ProfileViewController requestGetSayImage:withDescription:isFB:]_block_invoke_2"
-                  moduleName = "yousay"
+                  moduleName = "Yousay Social"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sysadmin/Documents/PartTime/iOS-youSay/youSay/Classes/Controllers/ProfileViewController.m"
-                  timestampString = "475177930.29045"
+                  timestampString = "475320273.90819"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1060"
                   endingLineNumber = "1060"
-                  offsetFromSymbolStart = "733">
+                  offsetFromSymbolStart = "816">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__65-[ProfileViewController requestGetSayImage:withDescription:isFB:]_block_invoke_3"
-                  moduleName = "yousay"
+                  moduleName = "Yousay Social"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sysadmin/Documents/PartTime/iOS-youSay/youSay/Classes/Controllers/ProfileViewController.m"
-                  timestampString = "475177930.29084"
+                  timestampString = "475320273.908935"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1060"
                   endingLineNumber = "1060"
-                  offsetFromSymbolStart = "49">
+                  offsetFromSymbolStart = "52">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -512,6 +544,54 @@
             startingLineNumber = "1470"
             endingLineNumber = "1470"
             landmarkName = "-constructCellForProfilePage:forTableView:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "youSay/Classes/Controllers/NotificationViewController.m"
+            timestampString = "475320416.618518"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "-tableView:numberOfRowsInSection:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "youSay/Classes/Controllers/NotificationViewController.m"
+            timestampString = "475320252.234951"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-tableView:heightForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "youSay/Classes/Controllers/NotificationViewController.m"
+            timestampString = "475320416.618518"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

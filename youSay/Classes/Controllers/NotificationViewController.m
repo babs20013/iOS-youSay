@@ -61,7 +61,7 @@
     
     NSArray *arrProfile = [dict objectForKey:@"profiles"];
     NSDictionary *dictProfile;
-    if (arrProfile.count > 0) {
+    if (arrProfile) {
         dictProfile = [arrProfile objectAtIndex:0];
     }
     
@@ -84,7 +84,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [arrNotification count];
+    if (arrNotification) {
+        return [arrNotification count];
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath; {
@@ -99,7 +102,7 @@
     
     NSArray *arrProfile = [dict objectForKey:@"profiles"];
     NSDictionary *dictProfile;
-    if (arrProfile.count > 0) {
+    if (arrProfile) {
         dictProfile = [arrProfile objectAtIndex:0];
     }
     
@@ -180,8 +183,8 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 arrNotification = [dictResult objectForKey:@"items"];
-                self.tableHeightConstraint.constant = arrNotification.count * 50;
-                [self.tblView needsUpdateConstraints];
+//                self.tableHeightConstraint.constant = arrNotification.count * 50;
+//                [self.tblView needsUpdateConstraints];
                 [self.tblView reloadData];
                 
                 [AppDelegate sharedDelegate].num_of_new_notifications = [[dictResult valueForKey:@"num_of_new_notifications"] integerValue];

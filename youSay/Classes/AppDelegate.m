@@ -10,13 +10,16 @@
 #import "SlideNavigationController.h"
 #import "MenuViewController.h"
 #import "CommonHelper.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 #import <BFAppLinkReturnToRefererView.h>
 
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-static NSString *const kTrackingId = @"UA-72525008-1";
+static NSString *const kTrackingId = @"UA-72170478-1";
 static NSString *const kAllowTracking = @"allowTracking";
 
 @interface AppDelegate ()
@@ -75,6 +78,9 @@ static NSString *const kAllowTracking = @"allowTracking";
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     self.tracker = [[GAI sharedInstance] trackerWithName:@"Yousay Social"
                                               trackingId:kTrackingId];
+    
+    [Fabric with:@[[Crashlytics class]]];
+   
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];;
@@ -138,6 +144,37 @@ static NSString *const kAllowTracking = @"allowTracking";
     
     [defaults synchronize];
 }
+
+//Your app receives push notification.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    
+    
+    
+    
+    UIApplicationState state = [application applicationState];
+    
+    // If your app is running
+    if (state == UIApplicationStateActive)
+    {
+        
+        //You need to customize your alert by yourself for this situation. For ex,
+        NSString *cancelTitle = @"Close";
+        NSString *message = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+                                                            message:message
+                                                           delegate:self
+                                                  cancelButtonTitle:cancelTitle
+                                                  otherButtonTitles:@"You Say", nil];
+        [alertView show];
+        
+    }
+    // If your app was in in active state
+    else if (state == UIApplicationStateInactive)
+    {
+    }
+}
+
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {

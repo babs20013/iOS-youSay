@@ -43,6 +43,8 @@
 		1B60A05A1C4DE055006EF699 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B60A0591C4DE055006EF699 /* libGoogleAnalyticsServices.a */; };
 		1B60A06E1C4DE6F4006EF699 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B60A06D1C4DE6F4006EF699 /* libz.1.dylib */; };
 		1B60A0701C4DE70F006EF699 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B60A06F1C4DE70F006EF699 /* libsqlite3.dylib */; };
+		1B6328231C54CA67001932AD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6328211C54CA67001932AD /* Fabric.framework */; };
+		1B6328241C54CA68001932AD /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6328221C54CA67001932AD /* Crashlytics.framework */; };
 		1B7C26C51C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */; };
 		1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */; };
 		1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */; };
@@ -168,6 +170,8 @@
 		1B60A0691C4DE147006EF699 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		1B60A06D1C4DE6F4006EF699 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
 		1B60A06F1C4DE70F006EF699 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = ../../../../../usr/lib/libsqlite3.dylib; sourceTree = "<group>"; };
+		1B6328211C54CA67001932AD /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		1B6328221C54CA67001932AD /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1B7C26C31C3EBC6F00DDEC2A /* WhoLikeListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WhoLikeListTableViewCell.h; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhoLikeListTableViewCell.m; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		1BABACFB1C19EFB000BD9EB4 /* SaysModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SaysModel.h; path = youSay/Classes/Model/SaysModel.h; sourceTree = SOURCE_ROOT; };
@@ -264,6 +268,8 @@
 				5D91F79B1BDA9C69005845BE /* SystemConfiguration.framework in Frameworks */,
 				4FB16F6028629C6BDBBA350E /* libPods.a in Frameworks */,
 				1B60A05A1C4DE055006EF699 /* libGoogleAnalyticsServices.a in Frameworks */,
+				1B6328231C54CA67001932AD /* Fabric.framework in Frameworks */,
+				1B6328241C54CA68001932AD /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,6 +548,8 @@
 		641ACAE6EB98C3799C34D85E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B6328211C54CA67001932AD /* Fabric.framework */,
+				1B6328221C54CA67001932AD /* Crashlytics.framework */,
 				1B60A06F1C4DE70F006EF699 /* libsqlite3.dylib */,
 				1B60A06D1C4DE6F4006EF699 /* libz.1.dylib */,
 				1B60A0691C4DE147006EF699 /* libsqlite3.tbd */,
@@ -934,6 +942,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = youSay/PrefixHeader.pch;
 				INFOPLIST_FILE = youSay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -942,7 +954,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/youSay/Classes",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
 				PRODUCT_NAME = "Yousay Social";
 				PROVISIONING_PROFILE = "08c1e319-8e78-4602-b095-deab51ff567a";
 			};
@@ -956,6 +968,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = youSay/PrefixHeader.pch;
 				INFOPLIST_FILE = youSay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -964,7 +980,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/youSay/Classes",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
 				PRODUCT_NAME = "Yousay Social";
 				PROVISIONING_PROFILE = "08c1e319-8e78-4602-b095-deab51ff567a";
 			};
