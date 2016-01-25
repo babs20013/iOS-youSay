@@ -151,26 +151,16 @@ static NSString *const kAllowTracking = @"allowTracking";
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     UIApplicationState state = [application applicationState];
-    
+    NSLog(@"state = %ld", (long)state);
     // If your app is running
     if (state == UIApplicationStateActive)
     {
-        
-        //You need to customize your alert by yourself for this situation. For ex,
-        NSString *cancelTitle = @"Close";
-        NSString *message = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
-        _data = [userInfo valueForKey:@"data"];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
-                                                            message:message
-                                                           delegate:self
-                                                  cancelButtonTitle:cancelTitle
-                                                  otherButtonTitles:@"You Say", nil];
-        [alertView show];
-        
+        // do nothing
     }
     // If your app was in inactive state
-    else if (state == UIApplicationStateInactive)
-    {
+     else if (state == UIApplicationStateInactive || state == UIApplicationStateBackground){
+        _data = [userInfo valueForKey:@"data"];
+        [self pushNotificationAction:_data];
     }
 }
 
@@ -202,8 +192,10 @@ static NSString *const kAllowTracking = @"allowTracking";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
     vc.isFromFeed = YES;
-    vc.requestedID = [[AppDelegate sharedDelegate].profileOwner UserID];
+    vc.requestedID = [data objectForKey:@"profile_id"];
     vc.sayID = [data objectForKey:@"say_id"];
+    
+    NSLog(@"sayID original: %@",[data objectForKey:@"say_id"]);
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
     vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
     [(UINavigationController *)self.window.rootViewController pushViewController:vc animated:YES];

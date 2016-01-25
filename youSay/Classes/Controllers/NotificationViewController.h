@@ -12,7 +12,7 @@
 - (void) RouteToPageFromNotification:(NSString*)userID;
 @end
 
-@interface NotificationViewController : GAITrackedViewController  <UITableViewDataSource, UITableViewDelegate, FBSDKAppInviteDialogDelegate>
+@interface NotificationViewController : GAITrackedViewController  <UITableViewDataSource, UITableViewDelegate, FBSDKAppInviteDialogDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tblView;
 @property (nonatomic, strong) NSString *say_id;

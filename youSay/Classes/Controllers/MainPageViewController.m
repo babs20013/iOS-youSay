@@ -97,6 +97,7 @@
         cvc.profileModel = _profileModel;
         cvc.isSameTab = isSameTab;
         cvc.saysID = _sayID;
+        NSLog(@"sayID dr main page = %@", _sayID);
         
         if (_isFromFeed == YES && _friendModel == nil) {
             _isFromFeed = NO;

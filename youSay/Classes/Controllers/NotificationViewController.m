@@ -14,6 +14,9 @@
 
 @interface NotificationViewController (){
     NSMutableArray *arrNotification;
+    int index;
+    BOOL isNoMoreNotification;
+    BOOL isScrollBounce;
 }
 @end
 
@@ -22,8 +25,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    arrNotification = [[NSMutableArray alloc]init];
+    isNoMoreNotification = NO;
     self.screenName = @"Notification";
-    [self requestGetNotification:@"1"];
+    isScrollBounce = YES;
+    index = 1;
+    [self requestGetNotification:[NSString stringWithFormat:@"%d", index]];
     self.tblView.layer.cornerRadius = 0.015 * self.tblView.bounds.size.width;
     self.tblView.layer.masksToBounds = YES;
     self.tblView.layer.borderWidth = 1;
@@ -132,13 +139,16 @@
     [cell.notificationDate setFont:[UIFont fontWithName:@"Arial" size:10]];
     [cell.notificationDate setTextColor:[UIColor lightGrayColor]];
     
+    [cell.btnAvatar setTag:indexPath.row];
     if (urlString.length == 0){
         //cell.notificationDesc.frame = CGRectMake(13, 8, expectedSize.width+400, expectedSize.height);
         [cell.profileView setHidden:YES];
+        [cell.btnAvatar setHidden:YES];
         [cell.profileView setFrame:CGRectMake(13, 0, 0, 0)];
     }
     else {
         [cell.profileView setHidden:NO];
+        [cell.btnAvatar setHidden:NO];
     }    
     return cell;
 }
@@ -156,12 +166,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
     vc.isFromFeed = YES;
-    NSArray *arrProfile = [dict objectForKey:@"profiles"];
-    if (arrProfile && [arrProfile isKindOfClass:[NSArray class]]) {
-        NSDictionary *dictProfile = [arrProfile objectAtIndex:0];
-        vc.requestedID = [dictProfile objectForKey:@"profile_id"];
-    }
-    
+    vc.requestedID = [dict objectForKey:@"profile_id"];
     vc.sayID = [dict objectForKey:@"say_id"];
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
     vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
@@ -189,10 +194,13 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                arrNotification = [dictResult objectForKey:@"items"];
-               // [[NSMutableArray alloc] initWithArray:[dictResult objectForKey:@"items"]];
-//                self.tableHeightConstraint.constant = arrNotification.count * 50;
-//                [self.tblView needsUpdateConstraints];
+                index = index+10;
+                isScrollBounce = YES;
+                NSArray *arrResult = [dictResult objectForKey:@"items"];
+                if (arrResult.count == 0) {
+                    isNoMoreNotification = YES;
+                }
+                [arrNotification addObjectsFromArray:arrResult];
                 [self.tblView reloadData];
                 
                 [AppDelegate sharedDelegate].num_of_new_notifications = [[dictResult valueForKey:@"num_of_new_notifications"] integerValue];
@@ -230,6 +238,25 @@
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
 }
 
+- (IBAction)avatarClicked:(id)sender {
+    NSLog(@"AVATAR CLICKED");
+    
+    NSDictionary *dict = [arrNotification objectAtIndex:[sender tag]];
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+    vc.isFromFeed = YES;
+    NSArray *arrProfile = [dict objectForKey:@"profiles"];
+    if (arrProfile && [arrProfile isKindOfClass:[NSArray class]]) {
+        NSDictionary *dictProfile = [arrProfile objectAtIndex:0];
+        vc.requestedID = [dictProfile objectForKey:@"profile_id"];
+    }
+    vc.sayID = [dict objectForKey:@"say_id"];
+    vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
+    vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark -- App Invite Delegate
 
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
@@ -238,6 +265,17 @@
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YouSay" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
+}
+
+#pragma mark - ScrollViewDelegate
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if(self.tblView.contentOffset.y >= (self.tblView.contentSize.height - self.tblView.bounds.size.height) && isScrollBounce) {
+        if (!isNoMoreNotification) {
+            isScrollBounce = NO;
+            [self requestGetNotification:[NSString stringWithFormat:@"%i", index]];
+        }
+    }
 }
 
 

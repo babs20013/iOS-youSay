@@ -75,13 +75,31 @@
 }
 
 - (void)InitializeUI {
-    [coverImg setImageURL:[NSURL URLWithString:model.CoverImage]];
+    
+    //--Profile Box
+    NSURL *cover = [NSURL URLWithString:model.CoverImage];
+    if  (cover && [cover scheme] && [cover host]) {
+        [coverImg setImageURL:cover];
+    }
+    else {
+        [coverImg setImageURL:[NSURL URLWithString:@"http://freephotos.atguru.in/hdphotos/best-cover-photos/best-friend-facebook-timeline-cover-image.png"]];
+    }
+    
+    //[coverImg setImageURL:[NSURL URLWithString:model.CoverImage]];
     coverImg.frame = CGRectMake(0, 0, self.view.bounds.size.width, 70);
     profileView.frame = CGRectMake(0, 43, self.view.bounds.size.width, 70);
     profileLabel.text = model.Name;
     coverImg.clipsToBounds = YES;
     
-    [profileImg setImageURL:[NSURL URLWithString:model.ProfileImage]];
+    NSURL *profile = [NSURL URLWithString:model.ProfileImage];
+    if  (profile && [profile scheme] && [profile host]) {
+        [profileImg setImageURL:[NSURL URLWithString:model.ProfileImage]];
+    }
+    else {
+        [profileImg setImageURL:[NSURL URLWithString:@"http://2.bp.blogspot.com/-6QyJDHjB5XE/Uscgo2DVBdI/AAAAAAAACS0/DFSFGLBK_fY/s1600/facebook-default-no-profile-pic.jpg"]];
+    }
+    
+    //[profileImg setImageURL:[NSURL URLWithString:model.ProfileImage]];
     profileImg.layer.cornerRadius = 0.5 * profileImg.bounds.size.width;
     profileImg.layer.masksToBounds = YES;
     profileImg.layer.borderWidth = 1;

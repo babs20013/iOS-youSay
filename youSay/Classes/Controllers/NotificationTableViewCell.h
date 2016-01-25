@@ -13,6 +13,8 @@
 @property (nonatomic, strong) IBOutlet UIImageView *profileView;
 @property (nonatomic, strong) IBOutlet UILabel *notificationDesc;
 @property (nonatomic, strong) IBOutlet UILabel *notificationDate;
+@property (nonatomic, strong) IBOutlet UIButton *btnAvatar;
+
 
 @end
 

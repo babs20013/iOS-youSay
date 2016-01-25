@@ -781,7 +781,7 @@
         
         [cell.lblSaidAbout2 setText:[profile2 objectForKey:@"name"]];
         [cell.lblSaidAbout2 setNumberOfLines:0];
-        if ([profile2 objectForKey:@"name"]) {
+        if (![profile2 objectForKey:@"name"]) {
             [cell.lblSaidAbout2 setText:@""];
         }
         

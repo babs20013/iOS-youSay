@@ -315,9 +315,7 @@
     loginReq.authority_access_token = [FBSDKAccessToken currentAccessToken].tokenString;
     loginReq.app_name = APP_NAME;
     loginReq.app_version = APP_VERSION;
-    loginReq.device_info = @"iPhone 5";
-    
-    
+    loginReq.device_info =  [[UIDevice currentDevice] model];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:loginReq completionBlock:^(id result, NSError *error) {
         if (result)
@@ -340,10 +338,12 @@
                     
                     [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
                 }
+
                 [self requestSayColor];
                 if ([AppDelegate sharedDelegate].isNewToken == YES) {
                     [self requestAddUserDevice];
                 }
+                
                 
                 [AppDelegate sharedDelegate].num_of_new_notifications = [[dictResult valueForKey:@"num_of_new_notifications"] integerValue];
                 
@@ -472,7 +472,21 @@
                 colorDictionary = [result objectForKey:@"colors"];
                 [AppDelegate sharedDelegate].colorDict = colorDictionary;
                 saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
+                
                 [self.tableView reloadData];
+                NSLog(@"saysID: %@", saysID);
+                if (saysID){
+                    NSLog(@"masuk kok");
+                    for (int i = 0; i < saysArray.count; i++) {
+                        NSDictionary *says = [saysArray objectAtIndex:i];
+                        if ([[says objectForKey:@"say_id"] integerValue] == [saysID integerValue]) {
+                            NSLog(@"masuk lagi");
+                            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                            saysID = nil;
+                            return;
+                        }
+                    }
+                }
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
