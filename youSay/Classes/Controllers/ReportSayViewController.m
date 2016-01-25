@@ -112,6 +112,14 @@
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:MSG_REPORT_SENT delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
                 [self dismissViewControllerAnimated:YES completion:nil];
+                
+                NSMutableDictionary *event =
+                [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                                                        action:@"ReportSay"
+                                                         label:@"ReportSay"
+                                                         value:nil] build];
+                [[GAI sharedInstance].defaultTracker send:event];
+                [[GAI sharedInstance] dispatch];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

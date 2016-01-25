@@ -306,57 +306,6 @@
     }];
 }
 
-- (void)requestAddSay {
-    NSArray *keys = [dictHideSay allKeys];
-    NSString *saysID = @"";
-    for (int i = 0; i < keys.count; i++) {
-        NSDictionary *dict = [saysArray objectAtIndex:i];
-        if (i < keys.count-1) {
-            saysID = [saysID stringByAppendingString:[NSString stringWithFormat:@"%@,",[dict objectForKey:@"say_id"]]];
-        }
-        else {
-            saysID = [saysID stringByAppendingString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"say_id"]]];
-        }
-        
-    }
-    
-    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
-    [dictRequest setObject:REQUEST_ADD_SAY forKey:@"request"];
-    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
-    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token]  forKey:@"token"];
-    [dictRequest setObject:requestedID forKey:@"profile_id_to_add_to"];
-    [dictRequest setObject:@"test add say" forKey:@"text"];
-    [dictRequest setObject:@"1" forKey:@"color"];
-    
-    
-    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
-        if (result)
-        {
-            NSDictionary *dictResult = result;
-            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
-            {
-                [dictHideSay removeAllObjects];
-            }
-            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-                [self logout];
-            }
-            else {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-            }
-        }
-        else if (error)
-        {
-        }
-        else{
-            
-        }
-        HideLoader();
-    }];
-}
-
 - (void)requestLogin {
     ShowLoader();
     RequestModel *loginReq = [[RequestModel alloc]init];
@@ -400,6 +349,13 @@
                 
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:kNotificationUpdateNotification object:nil];
+                
+                NSMutableDictionary *event = [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                                                        action:@"login"
+                                                         label:@"login"
+                                                         value:nil] build];
+                [[GAI sharedInstance].defaultTracker send:event];
+                [[GAI sharedInstance] dispatch];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -569,6 +525,14 @@
                 charmsArray = [dictResult objectForKey:@"charms"];
                 isAfterChangeCharm = NO;
                 [self.tableView reloadData];
+                
+                NSMutableDictionary *event =
+                [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                                                        action:@"rating"
+                                                         label:@"rating"
+                                                         value:nil] build];
+                [[GAI sharedInstance].defaultTracker send:event];
+                [[GAI sharedInstance] dispatch];
 
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
@@ -612,6 +576,14 @@
                 isAfterChangeCharm = YES;
                 isAfterCharm = YES;
                 [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+                NSMutableDictionary *event =
+                [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                                                        action:@"change_charm"
+                                                         label:@"change_charm"
+                                                         value:nil] build];
+                [[GAI sharedInstance].defaultTracker send:event];
+                [[GAI sharedInstance] dispatch];
+
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -1115,7 +1087,14 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-               //do nothing
+                NSMutableDictionary *event =
+                [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                                                        action:@"shareProfile"
+                                                         label:@"shareProfile"
+                                                         value:nil] build];
+                [[GAI sharedInstance].defaultTracker send:event];
+                [[GAI sharedInstance] dispatch];
+                
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -1152,7 +1131,13 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
-                //do nothing
+                NSMutableDictionary *event =
+                [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                                                        action:@"shareSay"
+                                                         label:@"shareSay"
+                                                         value:nil] build];
+                [[GAI sharedInstance].defaultTracker send:event];
+                [[GAI sharedInstance] dispatch];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -2114,7 +2099,6 @@
             }
         }
         [self.tableView reloadData];
-        //[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
@@ -2138,6 +2122,15 @@
 
 - (void)AddNewSayDidDismissed {
     isAfterAddNewSay = YES;
+    
+    NSMutableDictionary *event =
+    [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                                            action:@"AddSay"
+                                             label:@"AddSay"
+                                             value:nil] build];
+    [[GAI sharedInstance].defaultTracker send:event];
+    [[GAI sharedInstance] dispatch];
+    
     if (requestedID && _isRequestingProfile == NO) {
         [self requestProfile:requestedID];
     }

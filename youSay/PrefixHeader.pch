@@ -33,6 +33,8 @@
 #import "AppDelegate.h"
 #import "SlideNavigationController.h"
 #import "MBProgressHUD.h"
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
 
 #define HideLoader() [MBProgressHUD hideAllHUDsForView:[AppDelegate sharedDelegate].window animated:YES]
 #define ShowLoader() [MBProgressHUD showHUDAddedTo:[AppDelegate sharedDelegate].window animated:YES]

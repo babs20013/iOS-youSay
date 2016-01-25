@@ -20,8 +20,6 @@
 #import "UIImageView+Networking.h"
 #import <BFAppLinkReturnToRefererView.h>
 #import <BFAppLinkReturnToRefererController.h>
-#import "GAI.h"
-#import "GAIDictionaryBuilder.h"
 
 @interface ViewController ()
 {
@@ -69,8 +67,8 @@
     [super viewDidLoad];
     NSMutableDictionary *event =
     [[GAIDictionaryBuilder createEventWithCategory:@"UI"
-                                            action:@"buttonPress"
-                                             label:@"dispatch"
+                                            action:@"app_launched"
+                                             label:@"app_launched"
                                              value:nil] build];
     [[GAI sharedInstance].defaultTracker send:event];
     [[GAI sharedInstance] dispatch];
@@ -129,12 +127,9 @@
             else {
                 // If you ask for multiple permissions at once, you
                 // should check if specific permissions missing
-                if ([result.grantedPermissions containsObject:@"email"]) {
-                    // Do work
-                    accessToken = [FBSDKAccessToken currentAccessToken].tokenString;
-                    if([accessToken isKindOfClass:[NSString class]]){
-                       [self goToMainPage];
-                    }
+                accessToken = [FBSDKAccessToken currentAccessToken].tokenString;
+                if([accessToken isKindOfClass:[NSString class]]){
+                    [self goToMainPage];
                 }
                 HideLoader();
             }
