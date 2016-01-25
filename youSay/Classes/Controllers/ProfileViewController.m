@@ -829,6 +829,12 @@
                         if (arrSearch == nil) {
                             arrSearch = [[NSMutableArray alloc]init];
                         }
+                        if (model.CoverImage == nil) {
+                            model.CoverImage = DEFAULT_COVER_IMG;
+                        }
+                        if (model.ProfileImage == nil) {
+                            model.ProfileImage = DEFAULT_PROFILE_IMG;
+                        }
                         //--Check if the facebook user is already a yousay user
                         
                         [arrSearch addObject:model];
@@ -861,8 +867,13 @@
         else if (error)
         {
             HideLoader();
+            isSearchingFB = NO;
+            _isRequestingProfile = NO;
         }
         else{
+            isSearchingFB = NO;
+            _isRequestingProfile = NO;
+
             HideLoader();
         }
         //HideLoader();

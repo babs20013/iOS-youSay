@@ -42,3 +42,7 @@ NSString *const ERR_MSG_TITLE_SORRY = @"Sorry!";
 
 #pragma mark -- Message
 NSString *const MSG_REPORT_SENT = @"Thank you. Your report has been sent.";
+
+#pragma mark -- Misc
+NSString *const DEFAULT_COVER_IMG = @"http://freephotos.atguru.in/hdphotos/best-cover-photos/best-friend-facebook-timeline-cover-image.png";
+NSString *const DEFAULT_PROFILE_IMG = @"http://2.bp.blogspot.com/-6QyJDHjB5XE/Uscgo2DVBdI/AAAAAAAACS0/DFSFGLBK_fY/s1600/facebook-default-no-profile-pic.jpg";

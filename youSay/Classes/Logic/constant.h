@@ -40,3 +40,7 @@ extern NSString *const ERR_MSG_TITLE_SORRY;
 
 #pragma mark -- Message
 extern NSString *const MSG_REPORT_SENT;
+
+#pragma mark -- Misc
+extern NSString *const DEFAULT_COVER_IMG;
+extern NSString *const DEFAULT_PROFILE_IMG;

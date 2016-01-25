@@ -148,10 +148,6 @@ static NSString *const kAllowTracking = @"allowTracking";
 //Your app receives push notification.
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    
-    
-    
-    
     UIApplicationState state = [application applicationState];
     
     // If your app is running

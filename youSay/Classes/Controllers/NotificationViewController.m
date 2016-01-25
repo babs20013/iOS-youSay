@@ -13,7 +13,7 @@
 #import "MainPageViewController.h"
 
 @interface NotificationViewController (){
-    NSArray *arrNotification;
+    NSMutableArray *arrNotification;
 }
 @end
 
@@ -67,7 +67,7 @@
     
     NSString *string = [[NSString alloc]initWithString:[[dict objectForKey:@"message"] stringByReplacingOccurrencesOfString:@"%1" withString:[dictProfile objectForKey:@"name"]]];
     CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-40 font:[UIFont fontWithName:@"Arial" size:12] attributes:nil];
-    return expectedSize.height+30;
+    return expectedSize.height+40;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -84,7 +84,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (arrNotification) {
+    if (arrNotification ) {
         return [arrNotification count];
     }
     return 0;
@@ -98,20 +98,26 @@
         
         cell = [[NotificationTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
+
     NSDictionary *dict = [arrNotification objectAtIndex:indexPath.row];
-    
     NSArray *arrProfile = [dict objectForKey:@"profiles"];
     NSDictionary *dictProfile;
-    if (arrProfile) {
+    NSString *string;
+    if (arrProfile && [arrProfile isKindOfClass:[NSArray class]]) {
         dictProfile = [arrProfile objectAtIndex:0];
+        string = [[NSString alloc]initWithString:[[dict objectForKey:@"message"] stringByReplacingOccurrencesOfString:@"%1" withString:[dictProfile objectForKey:@"name"]]];
+        if (string == nil){
+            string = @"";
+        }
+    }
+    else {
+        string = [dict objectForKey:@"message"];
     }
     
-    NSString *string = [[NSString alloc]initWithString:[[dict objectForKey:@"message"] stringByReplacingOccurrencesOfString:@"%1" withString:[dictProfile objectForKey:@"name"]]];
-    if (string == nil){
-        string = @"";
-    }
-    NSString *urlString = [dict objectForKey:@"avatar"];
+    NSString *urlString = [dictProfile objectForKey:@"avatar"];
+    [cell.profileView setTranslatesAutoresizingMaskIntoConstraints:YES];
     [cell.profileView setImageURL:[NSURL URLWithString:urlString]];
+    [cell.profileView setFrame:CGRectMake(13, (cell.frame.size.height-45)/2, 45, 45)];
     cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
     cell.profileView.layer.masksToBounds = YES;
     cell.profileView.layer.borderWidth = 1;
@@ -126,14 +132,10 @@
     [cell.notificationDate setFont:[UIFont fontWithName:@"Arial" size:10]];
     [cell.notificationDate setTextColor:[UIColor lightGrayColor]];
     
-    CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-40 font:[UIFont fontWithName:@"Arial" size:12] attributes:nil];
-    
     if (urlString.length == 0){
-        cell.notificationDesc.frame = CGRectMake(13, 8, expectedSize.width+400, expectedSize.height);
+        //cell.notificationDesc.frame = CGRectMake(13, 8, expectedSize.width+400, expectedSize.height);
         [cell.profileView setHidden:YES];
-        if (expectedSize.width < tableView.frame.size.width-40) {
-            cell.notificationDesc.text = [NSString stringWithFormat:@"%@                                                                                         ",string];
-        }
+        [cell.profileView setFrame:CGRectMake(13, 0, 0, 0)];
     }
     else {
         [cell.profileView setHidden:NO];
@@ -149,16 +151,9 @@
     vc.isFromFeed = YES;
     vc.requestedID = [[AppDelegate sharedDelegate].profileOwner UserID];//[dictProfile objectForKey:@"profile_id"];
     vc.sayID = [dict objectForKey:@"say_id"];
-    //vc.numOfNotification = 30;
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
     vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
     [self.navigationController pushViewController:vc animated:YES];
-    
-//    [self dismissViewControllerAnimated:YES completion:^{
-//        if ([self.delegate performSelector:@selector(RouteToPageFromNotification:) withObject:[dict objectForKey:@"user_id"]]) {
-//            [self.delegate RouteToPageFromNotification:[dict objectForKey:@"user_id"]];
-//        }
-//    }];
 }
 
 #pragma mark Request
@@ -183,6 +178,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 arrNotification = [dictResult objectForKey:@"items"];
+               // [[NSMutableArray alloc] initWithArray:[dictResult objectForKey:@"items"]];
 //                self.tableHeightConstraint.constant = arrNotification.count * 50;
 //                [self.tblView needsUpdateConstraints];
                 [self.tblView reloadData];

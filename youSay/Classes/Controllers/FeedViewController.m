@@ -333,6 +333,7 @@
             NSDictionary *dictResult = result;
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
+                
                 isSearchingFB = YES;
                 if ([dictResult objectForKey:@"yousay_users"]) {
                     NSString *searchid = [dictResult objectForKey:@"search_id"];
@@ -364,6 +365,12 @@
                         NSDictionary *dictPic = [[dict objectForKey:@"picture"] objectForKey:@"data"];
                         model.ProfileImage = [dictPic objectForKey:@"url"];
                         model.CoverImage = [[dict objectForKey:@"cover"] objectForKey:@"source"];
+                        if (model.CoverImage == nil) {
+                            model.CoverImage = DEFAULT_COVER_IMG;
+                        }
+                        if (model.ProfileImage == nil) {
+                            model.ProfileImage = DEFAULT_PROFILE_IMG;
+                        }
                         model.isNeedProfile = YES;
                         if (arraySearch == nil) {
                             arraySearch = [[NSMutableArray alloc]init];
@@ -398,9 +405,11 @@
         else if (error)
         {
             HideLoader();
+            isRequesting = NO;
         }
         else{
             HideLoader();
+            isRequesting = NO;
         }
     }];
 }
@@ -813,8 +822,14 @@
     FriendModel *model;
     if (isShowRecentSearch == YES) {
         NSManagedObject *recentSearch = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
+        NSURL *image = [NSURL URLWithString:[recentSearch valueForKey:@"profileImage"]];
+        if (image && [image scheme] && [image host]) {
+            [cell.profileView setImageURL:image];
+        }
+        else {
+            [cell.profileView setImageURL:[NSURL URLWithString:@"http://2.bp.blogspot.com/-6QyJDHjB5XE/Uscgo2DVBdI/AAAAAAAACS0/DFSFGLBK_fY/s1600/facebook-default-no-profile-pic.jpg"]];
+        }
         
-        [cell.profileView setImageURL:[NSURL URLWithString:[recentSearch valueForKey:@"profileImage"]]];
         cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
         cell.profileView.layer.masksToBounds = YES;
         cell.profileView.layer.borderWidth = 1;
@@ -1205,10 +1220,8 @@
             [self.btnClear setHidden:YES];
             arraySearch = nil;
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                if (isSearching == NO) {
-                    ShowLoader();
-                    [self requestUser:textField.text withSearchID:@""];
-                }
+                ShowLoader();
+                [self requestUser:textField.text withSearchID:@""];
             }];
         }
     });
