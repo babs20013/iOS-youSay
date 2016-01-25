@@ -13,7 +13,7 @@
 #import <BFURL.h>
 #import "GAI.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, FBSDKAppInviteDialogDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) ProfileOwnerModel *profileOwner;

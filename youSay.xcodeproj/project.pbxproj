@@ -940,8 +940,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -954,9 +954,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/youSay/Classes",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
 				PRODUCT_NAME = "Yousay Social";
-				PROVISIONING_PROFILE = "08c1e319-8e78-4602-b095-deab51ff567a";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -980,9 +980,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/youSay/Classes",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
 				PRODUCT_NAME = "Yousay Social";
-				PROVISIONING_PROFILE = "08c1e319-8e78-4602-b095-deab51ff567a";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

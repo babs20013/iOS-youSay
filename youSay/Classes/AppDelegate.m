@@ -12,7 +12,7 @@
 #import "CommonHelper.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-
+#import "MainPageViewController.h"
 
 #import <BFAppLinkReturnToRefererView.h>
 
@@ -30,6 +30,8 @@ static NSString *const kAllowTracking = @"allowTracking";
 
 @property (weak, nonatomic) BFAppLinkReturnToRefererView *appLinkReturnToRefererView;
 @property (strong, nonatomic) BFAppLink *appLink;
+
+@property (strong, nonatomic) NSDictionary *data;
 @end
 
 @implementation AppDelegate
@@ -157,6 +159,7 @@ static NSString *const kAllowTracking = @"allowTracking";
         //You need to customize your alert by yourself for this situation. For ex,
         NSString *cancelTitle = @"Close";
         NSString *message = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
+        _data = [userInfo valueForKey:@"data"];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
                                                             message:message
                                                            delegate:self
@@ -165,16 +168,45 @@ static NSString *const kAllowTracking = @"allowTracking";
         [alertView show];
         
     }
-    // If your app was in in active state
+    // If your app was in inactive state
     else if (state == UIApplicationStateInactive)
     {
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        NSLog(@"Clicked button index 0");
+        [self pushNotificationAction:_data];
+    }
+}
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
     NSLog(@"Failed to get token, error: %@", error);
+}
+
+- (void)pushNotificationAction:(NSDictionary*)data{
+    NSDictionary *type = [data objectForKey:@"type"];
+    NSArray *keys = [type allKeys];
+    NSString *key;
+    if ([keys count] != 0) {
+        key = [keys objectAtIndex:0];}
+   if ([key integerValue] == 8) {
+        FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
+        content.appLinkURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/profileshare.html"];
+        content.appInvitePreviewImageURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/images/Invite_Friends.png"];
+        [FBSDKAppInviteDialog showFromViewController:self.window.rootViewController withContent:content delegate:self];
+    }
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+    vc.isFromFeed = YES;
+    vc.requestedID = [[AppDelegate sharedDelegate].profileOwner UserID];
+    vc.sayID = [data objectForKey:@"say_id"];
+    vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
+    vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
+    [(UINavigationController *)self.window.rootViewController pushViewController:vc animated:YES];
 }
 
 - (void)saveContext
@@ -296,5 +328,15 @@ static NSString *const kAllowTracking = @"allowTracking";
     [[GAI sharedInstance] dispatchWithCompletionHandler:self.dispatchHandler];
 }
 
+#pragma mark - AppInviteDelegate
+
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
+
+}
+
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YouSay" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+}
 
 @end

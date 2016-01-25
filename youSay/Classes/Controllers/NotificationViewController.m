@@ -145,11 +145,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dict = [arrNotification objectAtIndex:indexPath.row];
+    
+    if ([[[dict valueForKey:@"type"] valueForKey:@"code"] integerValue] == 8) {
+        FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
+        content.appLinkURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/profileshare.html"];
+        content.appInvitePreviewImageURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/images/Invite_Friends.png"];
+        [FBSDKAppInviteDialog showFromViewController:self.parentViewController withContent:content delegate:self];
+    }
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
     vc.isFromFeed = YES;
-    vc.requestedID = [[AppDelegate sharedDelegate].profileOwner UserID];//[dictProfile objectForKey:@"profile_id"];
+    NSArray *arrProfile = [dict objectForKey:@"profiles"];
+    if (arrProfile && [arrProfile isKindOfClass:[NSArray class]]) {
+        NSDictionary *dictProfile = [arrProfile objectAtIndex:0];
+        vc.requestedID = [dictProfile objectForKey:@"profile_id"];
+    }
+    
     vc.sayID = [dict objectForKey:@"say_id"];
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
     vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
@@ -216,6 +228,16 @@
     FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
     [fb logOut];
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
+}
+
+#pragma mark -- App Invite Delegate
+
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
+
+}
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YouSay" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 
