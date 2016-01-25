@@ -782,7 +782,7 @@
     [dictRequest setObject:searchID forKey:@"search_id"];
     
     _userSearchRequest =  [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
-        _isRequestingProfile = NO;
+        
         if (result)
         {
             HideLoader();
@@ -814,6 +814,7 @@
                 else if ([dictResult objectForKey:@"facebook_users"]) {
                     isSearchingFB = NO;
                    // HideLoader();
+                    _isRequestingProfile = NO;
                     NSArray *tempArr = [[dictResult objectForKey:@"facebook_users"] allObjects];
                     for (int i = 0; i < tempArr.count; i++) {
                         NSDictionary *dict = [tempArr objectAtIndex:i];

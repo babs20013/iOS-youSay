@@ -327,7 +327,6 @@
     
     _userSearchRequest =  [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         
-        isRequesting = NO;
         if (result)
         {
             HideLoader();
@@ -584,10 +583,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (tableView == self.searchUserTableView) {
+    if (tableView == self.searchUserTableView && isSearchingFB == YES) {
         return 60;
     }
-    return 10;
+    else if (tableView == self.tableView){
+        return 10;
+    }
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
