@@ -474,7 +474,7 @@
             {
                 if (isFacebook == YES) {
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", profile, sayID];
+                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&sayid=%@&imageid=%@", profile, sayID, [dictResult valueForKey:@"image_id"]];
                     content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
                     content.contentURL = [NSURL URLWithString:url];
@@ -493,7 +493,7 @@
                 }
                 else {
                     UIImageView *imgView = [[UIImageView alloc]init];
-                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@", profile,sayID];
+                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&sayid=%@&imageid=%@", profile,sayID, [dictResult valueForKey:@"image_id"]];
                     ShowLoader();
                     [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
                         HideLoader();
@@ -552,7 +552,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 NSMutableDictionary *event =
-                [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                [[GAIDictionaryBuilder createEventWithCategory:@"Action"
                                                         action:@"shareSay"
                                                          label:@"shareSay"
                                                          value:nil] build];

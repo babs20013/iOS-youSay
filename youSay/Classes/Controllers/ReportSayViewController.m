@@ -114,7 +114,7 @@
                 [self dismissViewControllerAnimated:YES completion:nil];
                 
                 NSMutableDictionary *event =
-                [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                [[GAIDictionaryBuilder createEventWithCategory:@"Action"
                                                         action:@"ReportSay"
                                                          label:@"ReportSay"
                                                          value:nil] build];

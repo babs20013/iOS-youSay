@@ -350,7 +350,7 @@
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:kNotificationUpdateNotification object:nil];
                 
-                NSMutableDictionary *event = [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                NSMutableDictionary *event = [[GAIDictionaryBuilder createEventWithCategory:@"Action"
                                                         action:@"login"
                                                          label:@"login"
                                                          value:nil] build];
@@ -541,7 +541,7 @@
                 [self.tableView reloadData];
                 
                 NSMutableDictionary *event =
-                [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                [[GAIDictionaryBuilder createEventWithCategory:@"Action"
                                                         action:@"rating"
                                                          label:@"rating"
                                                          value:nil] build];
@@ -591,7 +591,7 @@
                 isAfterCharm = YES;
                 [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
                 NSMutableDictionary *event =
-                [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                [[GAIDictionaryBuilder createEventWithCategory:@"Action"
                                                         action:@"change_charm"
                                                          label:@"change_charm"
                                                          value:nil] build];
@@ -949,7 +949,7 @@
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentDescription = desc;
                     content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
-                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
+                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
                     content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult valueForKey:@"url"]];
                     
@@ -970,7 +970,7 @@
 //                    [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]]];
                     [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
                         HideLoader();
-                        NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
+                        NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
                         CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
                         activityProvider.imageToShare = image;
                         NSArray *activityItems = [NSArray arrayWithObjects:activityProvider, desc,[NSURL URLWithString:url], nil];
@@ -1027,7 +1027,7 @@
                 if (isFacebook == YES) {//means facebook
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
-                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@imageid=%@", requestedID, sayID, [dictResult valueForKey:@"image_id"]];
+                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&sayid=%@&imageid=%@", requestedID, sayID, [dictResult valueForKey:@"image_id"]];
                     content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
                     content.contentDescription = desc;
@@ -1048,7 +1048,7 @@
                     UIImageView *imgView = [[UIImageView alloc]init];
                     [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
                         HideLoader();
-                        NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@sayid=%@imageid=%@", requestedID, sayID, [dictResult valueForKey:@"image_id"]];
+                        NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&sayid=%@&imageid=%@", requestedID, sayID, [dictResult valueForKey:@"image_id"]];
                         CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
                         activityProvider.imageToShare = image;
                         NSArray *activityItems = [NSArray arrayWithObjects:activityProvider, desc,[NSURL URLWithString:url], nil];
@@ -1102,7 +1102,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 NSMutableDictionary *event =
-                [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                [[GAIDictionaryBuilder createEventWithCategory:@"Action"
                                                         action:@"shareProfile"
                                                          label:@"shareProfile"
                                                          value:nil] build];
@@ -1146,7 +1146,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 NSMutableDictionary *event =
-                [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                [[GAIDictionaryBuilder createEventWithCategory:@"Action"
                                                         action:@"shareSay"
                                                          label:@"shareSay"
                                                          value:nil] build];
@@ -2139,7 +2139,7 @@
     isAfterAddNewSay = YES;
     
     NSMutableDictionary *event =
-    [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+    [[GAIDictionaryBuilder createEventWithCategory:@"Action"
                                             action:@"AddSay"
                                              label:@"AddSay"
                                              value:nil] build];
@@ -2204,8 +2204,6 @@
         [self.searchView setHidden:NO];
         [self.btnAddSay setHidden:YES];
         isShowRecentSearch = YES;
-//        self.tableHeightConstraint.constant = ([[AppDelegate sharedDelegate].arrRecentSeacrh count]+1)*50;
-//        [self.searchTableView needsUpdateConstraints];
         [self.searchTableView reloadData];
     }
 
@@ -2293,10 +2291,7 @@
     [self.btnCancel setHidden:NO];
     [self.btnRightMenu setHidden:YES];
     
-
-//    self.tableHeightConstraint.constant = [[AppDelegate sharedDelegate].arrRecentSeacrh count]*50;
-//    [self.searchTableView needsUpdateConstraints];
-    [self.searchTableView reloadData];
+   // [self.searchTableView reloadData];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification

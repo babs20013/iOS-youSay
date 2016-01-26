@@ -189,6 +189,9 @@
     [dictRequest setObject:@"1" forKey:@"sort"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:result options:0 error:nil];
+        
+        
         if (result)
         {
             NSDictionary *dictResult = result;

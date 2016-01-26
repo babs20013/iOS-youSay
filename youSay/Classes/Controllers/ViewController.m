@@ -66,7 +66,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSMutableDictionary *event =
-    [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+    [[GAIDictionaryBuilder createEventWithCategory:@"Action"
                                             action:@"app_launched"
                                              label:@"app_launched"
                                              value:nil] build];
