@@ -1329,7 +1329,7 @@
                                     <constraint firstItem="nCP-On-08z" firstAttribute="centerY" secondItem="p2P-MY-hob" secondAttribute="centerY" id="74H-V6-HRt"/>
                                     <constraint firstItem="p2P-MY-hob" firstAttribute="leading" secondItem="91N-zM-M4A" secondAttribute="leading" id="9eq-xt-4sl"/>
                                     <constraint firstItem="8SQ-7P-uTm" firstAttribute="top" secondItem="p2P-MY-hob" secondAttribute="bottom" constant="5" id="L2d-Vj-BxF"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8SQ-7P-uTm" secondAttribute="bottom" id="OhK-CL-JHg"/>
+                                    <constraint firstAttribute="bottom" secondItem="8SQ-7P-uTm" secondAttribute="bottom" id="OhK-CL-JHg"/>
                                     <constraint firstAttribute="trailing" secondItem="8SQ-7P-uTm" secondAttribute="trailing" id="VgS-tS-gcQ"/>
                                     <constraint firstAttribute="trailing" secondItem="nCP-On-08z" secondAttribute="trailing" id="fQR-Ie-oev"/>
                                     <constraint firstItem="8SQ-7P-uTm" firstAttribute="leading" secondItem="91N-zM-M4A" secondAttribute="leading" id="tTn-8v-FbM"/>
@@ -1957,7 +1957,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Eqe-4c-9gE" secondAttribute="trailing" id="NcA-b3-VYd"/>
                                     <constraint firstItem="Eqe-4c-9gE" firstAttribute="top" secondItem="l79-CU-AfT" secondAttribute="top" constant="30" id="O2k-r7-MhR"/>
                                     <constraint firstItem="5Id-uP-rII" firstAttribute="centerY" secondItem="IbO-gV-Gal" secondAttribute="centerY" id="ewh-Jh-6Li"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Eqe-4c-9gE" secondAttribute="bottom" id="fUA-3W-at4"/>
+                                    <constraint firstAttribute="bottom" secondItem="Eqe-4c-9gE" secondAttribute="bottom" id="fUA-3W-at4"/>
                                     <constraint firstItem="Eqe-4c-9gE" firstAttribute="leading" secondItem="l79-CU-AfT" secondAttribute="leading" id="rgf-HI-Eit"/>
                                     <constraint firstItem="IbO-gV-Gal" firstAttribute="top" secondItem="l79-CU-AfT" secondAttribute="top" constant="5" id="xSP-Si-YTG"/>
                                 </constraints>

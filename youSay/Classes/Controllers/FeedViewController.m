@@ -670,7 +670,6 @@
             model.userID = [recentSearchClicked valueForKey:@"userID"];
         }
         else {
-            model = [arraySearch objectAtIndex:indexPath.row];
             [self convertModelToObject:model];
         }
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -1246,8 +1245,8 @@
         contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.width), 0.0);
     }
     
-    self.searchUserTableView.contentInset = contentInsets;
-    self.searchUserTableView.scrollIndicatorInsets = contentInsets;
+//    self.searchUserTableView.contentInset = contentInsets;
+//    self.searchUserTableView.scrollIndicatorInsets = contentInsets;
     
     [self.btnClear setHidden:NO];
     [self.tableView setHidden:YES];

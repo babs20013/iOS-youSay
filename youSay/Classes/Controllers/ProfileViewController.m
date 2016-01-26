@@ -2279,8 +2279,8 @@
         contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.width), 0.0);
     }
     
-    self.searchTableView.contentInset = contentInsets;
-    self.searchTableView.scrollIndicatorInsets = contentInsets;
+//    self.searchTableView.contentInset = contentInsets;
+//    self.searchTableView.scrollIndicatorInsets = contentInsets;
     
     [self.btnClear setHidden:NO];
     [self.tableView setHidden:YES];
