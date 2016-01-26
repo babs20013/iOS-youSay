@@ -29,6 +29,8 @@
     ProfileOwnerModel *profileModel;
     NSDictionary *profileDict;
     NSDictionary *colorDict;
+    BOOL isNewRegister;
+    NSString *tempToken;
 }
 @property (weak, nonatomic) BFAppLinkReturnToRefererView *appLinkReturnToRefererView;
 @property (strong, nonatomic) BFAppLink *appLink;
@@ -114,7 +116,7 @@
                                               otherButtonTitles:nil];
         [alert show];
     } else {
-        
+        tempToken = [FBSDKAccessToken currentAccessToken].tokenString;
         NSLog(@"There IS internet connection");
         FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
         login.loginBehavior = FBSDKLoginBehaviorNative;
@@ -125,6 +127,15 @@
                 // Handle cancellations
             }
             else {
+                //--TODO - Check for new register-- this is only temporary solution
+                if (tempToken == nil) {
+                    NSMutableDictionary *event = [[GAIDictionaryBuilder createEventWithCategory:@"Action"
+                                                                                         action:@"new_registration"
+                                                                                          label:@"new_registration"
+                                                                                          value:nil] build];
+                    [[GAI sharedInstance].defaultTracker send:event];
+                    [[GAI sharedInstance] dispatch];
+                }
                 // If you ask for multiple permissions at once, you
                 // should check if specific permissions missing
                 accessToken = [FBSDKAccessToken currentAccessToken].tokenString;

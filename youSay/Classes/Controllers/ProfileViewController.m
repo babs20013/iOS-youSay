@@ -148,9 +148,22 @@
                          action:@selector(textFieldDidChange:)
                forControlEvents:UIControlEventEditingChanged];
     NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
+    
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (isFriendProfile == NO && [colorDictionary allKeys].count == 0) {
-        [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+        if ([defaults objectForKey:@"yousayuserid"] && [defaults objectForKey:@"yousaytoken"] ) {
+            profileModel = [[ProfileOwnerModel alloc]init];
+            profileModel.UserID = [defaults stringForKey:@"yousayuserid"];
+            profileModel.token = [defaults stringForKey:@"yousaytoken"];
+            [AppDelegate sharedDelegate].profileOwner = profileModel;
+            [self requestProfile:[defaults objectForKey:@"yousayuserid"]];
+        }
+        else {
+            [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+        }
     }
+    
 //    else if (_isFromFeed == NO) {
 //        [self requestProfile:requestedID];
 //    }
@@ -325,6 +338,11 @@
             {
                 profileModel.UserID = [dictResult valueForKey:@"user_id"];
                 profileModel.token = [dictResult valueForKey:@"token"];
+                
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                [defaults setObject:[dictResult valueForKey:@"user_id"] forKey:@"yousayuserid"];
+                [defaults setObject:[dictResult valueForKey:@"token"] forKey:@"yousaytoken"];
+                
                 [AppDelegate sharedDelegate].profileOwner = profileModel;
                 profileDictionary = [result objectForKey:@"profile"];
                 isFriendProfile = NO;
@@ -416,6 +434,9 @@
                 isAfterChangeCharm = NO;
                 //[self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
                 [self.tableView reloadData];
+                if  ([colorDictionary.allKeys count] == 0) {
+                    [self requestSayColor];
+                }
                 if (isAfterAddNewSay == YES) {
                     isAfterAddNewSay = NO;
                     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -2021,6 +2042,9 @@
 - (void)logout {
     FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
     [fb logOut];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:nil forKey:@"yousayuserid"];
+    [defaults setObject:nil forKey:@"yousaytoken"];
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
 }
 

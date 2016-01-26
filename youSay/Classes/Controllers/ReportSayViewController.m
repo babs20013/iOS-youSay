@@ -152,6 +152,9 @@
 - (void)logout {
     FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
     [fb logOut];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:nil forKey:@"yousayuserid"];
+    [defaults setObject:nil forKey:@"yousaytoken"];
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
 }
 

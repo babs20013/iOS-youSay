@@ -656,6 +656,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.searchUserTableView) {
+        [_userSearchRequest cancel];
         //--Add the profile to recent search
         if (![AppDelegate sharedDelegate].arrRecentSeacrh) {
             [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
@@ -1143,6 +1144,9 @@
 - (void)logout {
     FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
     [fb logOut];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:nil forKey:@"yousayuserid"];
+    [defaults setObject:nil forKey:@"yousaytoken"];
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
 }
 
