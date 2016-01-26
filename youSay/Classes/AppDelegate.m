@@ -20,6 +20,8 @@
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 static NSString *const kTrackingId = @"UA-72170478-1";
+//@"UA-72685655-1";
+
 static NSString *const kAllowTracking = @"allowTracking";
 
 @interface AppDelegate ()
@@ -155,7 +157,16 @@ static NSString *const kAllowTracking = @"allowTracking";
     // If your app is running
     if (state == UIApplicationStateActive)
     {
-        // do nothing
+        NSString *cancelTitle = @"Close";
+        NSString *message = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
+        _data = [userInfo valueForKey:@"data"];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+                                                            message:message
+                                                           delegate:self
+                                                  cancelButtonTitle:cancelTitle
+                                                  otherButtonTitles:@"You Say", nil];
+        [alertView show];
+
     }
     // If your app was in inactive state
      else if (state == UIApplicationStateInactive || state == UIApplicationStateBackground){
@@ -166,7 +177,6 @@ static NSString *const kAllowTracking = @"allowTracking";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        NSLog(@"Clicked button index 0");
         [self pushNotificationAction:_data];
     }
 }

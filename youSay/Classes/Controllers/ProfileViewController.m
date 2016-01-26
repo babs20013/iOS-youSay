@@ -2316,6 +2316,7 @@
 }
 
 - (void)sharerDidCancel:(id<FBSDKSharing>)sharer {
+    //HideLoader();
 
 }
 

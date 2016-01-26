@@ -2367,7 +2367,7 @@
                                     <constraint firstItem="Drj-ad-ZYL" firstAttribute="centerY" secondItem="5d4-Tb-dqG" secondAttribute="centerY" id="qW5-n7-CiM"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BgE-RI-lc0">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="74" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BgE-RI-lc0">
                                 <rect key="frame" x="10" y="60" width="300" height="498"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2376,37 +2376,39 @@
                                 </constraints>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationTableViewCell" rowHeight="70" id="esH-2K-PpO" customClass="NotificationTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="300" height="70"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="NotificationTableViewCell" rowHeight="74" id="esH-2K-PpO" customClass="NotificationTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="300" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="esH-2K-PpO" id="eJp-E7-0h4">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="69"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="73"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vpn-HO-Ut9">
-                                                    <rect key="frame" x="13" y="12" width="45" height="45"/>
+                                                    <rect key="frame" x="13" y="15" width="45" height="45"/>
                                                     <animations/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="45" id="8A7-1w-kiH"/>
-                                                        <constraint firstAttribute="height" constant="45" id="wwg-nY-JII"/>
+                                                        <constraint firstAttribute="height" constant="45" id="CF2-5W-Mzt"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label 2 lines 2 lines " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Brt-4x-bj7">
-                                                    <rect key="frame" x="66" y="13" width="216" height="14"/>
+                                                    <rect key="frame" x="66" y="8" width="216" height="14"/>
                                                     <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="216" id="W81-d9-LEh"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xwz-jv-YBl">
-                                                    <rect key="frame" x="66" y="28" width="25" height="12"/>
+                                                    <rect key="frame" x="66" y="23" width="25" height="12"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jti-tg-bQs">
-                                                    <rect key="frame" x="13" y="12" width="45" height="45"/>
+                                                    <rect key="frame" x="13" y="15" width="45" height="43"/>
                                                     <animations/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <connections>
@@ -2416,22 +2418,23 @@
                                             </subviews>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstItem="Vpn-HO-Ut9" firstAttribute="centerY" secondItem="eJp-E7-0h4" secondAttribute="centerY" id="1D2-eD-eiF"/>
-                                                <constraint firstItem="Jti-tg-bQs" firstAttribute="width" secondItem="Vpn-HO-Ut9" secondAttribute="width" id="5Cq-6y-Jd5"/>
                                                 <constraint firstItem="Xwz-jv-YBl" firstAttribute="leading" secondItem="Brt-4x-bj7" secondAttribute="leading" id="9hj-hl-qUM"/>
                                                 <constraint firstItem="Xwz-jv-YBl" firstAttribute="top" secondItem="Brt-4x-bj7" secondAttribute="bottom" constant="1" id="BjS-W9-u8U"/>
-                                                <constraint firstItem="Jti-tg-bQs" firstAttribute="top" secondItem="Vpn-HO-Ut9" secondAttribute="top" id="EIq-AB-L3R"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Brt-4x-bj7" secondAttribute="trailing" constant="10" id="bFs-vD-y0S"/>
                                                 <constraint firstItem="Jti-tg-bQs" firstAttribute="trailing" secondItem="Vpn-HO-Ut9" secondAttribute="trailing" id="bLg-OG-CVx"/>
-                                                <constraint firstItem="Brt-4x-bj7" firstAttribute="top" secondItem="eJp-E7-0h4" secondAttribute="topMargin" constant="5" id="bQN-Cq-EzZ"/>
+                                                <constraint firstItem="Brt-4x-bj7" firstAttribute="top" secondItem="eJp-E7-0h4" secondAttribute="topMargin" id="bQN-Cq-EzZ"/>
+                                                <constraint firstItem="Vpn-HO-Ut9" firstAttribute="top" secondItem="Jti-tg-bQs" secondAttribute="top" id="bu9-D8-SQ0"/>
                                                 <constraint firstItem="Vpn-HO-Ut9" firstAttribute="leading" secondItem="eJp-E7-0h4" secondAttribute="leadingMargin" constant="5" id="eAj-Do-G9I"/>
-                                                <constraint firstItem="Jti-tg-bQs" firstAttribute="bottom" secondItem="Vpn-HO-Ut9" secondAttribute="bottom" id="i8s-pv-0EB"/>
-                                                <constraint firstItem="Jti-tg-bQs" firstAttribute="height" secondItem="Vpn-HO-Ut9" secondAttribute="height" id="slf-gK-kFI"/>
+                                                <constraint firstItem="Jti-tg-bQs" firstAttribute="centerY" secondItem="eJp-E7-0h4" secondAttribute="centerY" id="o6X-SW-IRe"/>
                                                 <constraint firstItem="Brt-4x-bj7" firstAttribute="leading" secondItem="Vpn-HO-Ut9" secondAttribute="trailing" constant="8" id="yGo-Yf-qY0"/>
                                                 <constraint firstItem="Jti-tg-bQs" firstAttribute="leading" secondItem="Vpn-HO-Ut9" secondAttribute="leading" id="yfu-lr-Uza"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
+                                        <constraints>
+                                            <constraint firstItem="Vpn-HO-Ut9" firstAttribute="centerY" secondItem="esH-2K-PpO" secondAttribute="centerY" id="2c0-PA-mr9"/>
+                                        </constraints>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="btnAvatar" destination="Jti-tg-bQs" id="I7g-fQ-Rlg"/>
                                             <outlet property="notificationDate" destination="Xwz-jv-YBl" id="0xd-9q-uxl"/>

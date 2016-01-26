@@ -68,13 +68,19 @@
     
     NSArray *arrProfile = [dict objectForKey:@"profiles"];
     NSDictionary *dictProfile;
-    if (arrProfile) {
+    NSString *string;
+    if (arrProfile && [arrProfile isKindOfClass:[NSArray class]]) {
         dictProfile = [arrProfile objectAtIndex:0];
+        string = [[NSString alloc]initWithString:[[dict objectForKey:@"message"] stringByReplacingOccurrencesOfString:@"%1" withString:[dictProfile objectForKey:@"name"]]];
+        return 74;
+    }
+    else {
+        string = [dict objectForKey:@"message"];
+        CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-40 font:[UIFont fontWithName:@"Arial" size:12] attributes:nil];
+        
+        return expectedSize.height-10;
     }
     
-    NSString *string = [[NSString alloc]initWithString:[[dict objectForKey:@"message"] stringByReplacingOccurrencesOfString:@"%1" withString:[dictProfile objectForKey:@"name"]]];
-    CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-40 font:[UIFont fontWithName:@"Arial" size:12] attributes:nil];
-    return expectedSize.height+40;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -122,9 +128,10 @@
     }
     
     NSString *urlString = [dictProfile objectForKey:@"avatar"];
+    //[cell.profileView setFrame:CGRectMake(13, (cell.frame.size.height-45)/2 , 45, 45)];
     [cell.profileView setTranslatesAutoresizingMaskIntoConstraints:YES];
     [cell.profileView setImageURL:[NSURL URLWithString:urlString]];
-    [cell.profileView setFrame:CGRectMake(13, (cell.frame.size.height-45)/2, 45, 45)];
+   // [cell.profileView setFrame:CGRectMake(13, (cell.frame.size.height-45)/2, 45, 45)];
     cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
     cell.profileView.layer.masksToBounds = YES;
     cell.profileView.layer.borderWidth = 1;
@@ -141,7 +148,6 @@
     
     [cell.btnAvatar setTag:indexPath.row];
     if (urlString.length == 0){
-        //cell.notificationDesc.frame = CGRectMake(13, 8, expectedSize.width+400, expectedSize.height);
         [cell.profileView setHidden:YES];
         [cell.btnAvatar setHidden:YES];
         [cell.profileView setFrame:CGRectMake(13, 0, 0, 0)];
@@ -149,6 +155,7 @@
     else {
         [cell.profileView setHidden:NO];
         [cell.btnAvatar setHidden:NO];
+        [cell.profileView setFrame:CGRectMake(13, (cell.frame.size.height-45)/2 , 45, 45)];
     }    
     return cell;
 }
@@ -189,9 +196,15 @@
     [dictRequest setObject:@"1" forKey:@"sort"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:result options:0 error:nil];
-        
-        
+//        NSString* path = [[NSBundle mainBundle] pathForResource:@"notification"
+//                                                         ofType:@"txt"];
+//        NSString* content = [NSString stringWithContentsOfFile:path
+//                                                      encoding:NSUTF8StringEncoding
+//                                                         error:NULL];
+//        NSData *data = [NSData dataWithContentsOfFile:path];
+//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+//        
+//        
         if (result)
         {
             NSDictionary *dictResult = result;

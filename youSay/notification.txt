@@ -1,0 +1,193 @@
+{
+    "rc": 0,
+    "message": "success",
+    "num_of_new_notifications": 0,
+    "items": [
+        {
+            "message": "%1 wrote something about you. Check it out and write back to him.",
+            "profiles": [
+                {
+                    "name": "Blha Bha",
+                    "profile_id": "e3f42e9c5c31f85c1f4398e910097cab",
+                    "avatar": "https://scontent.xx.fbcdn.net/hprofile-xtf1/v/t1.0-1/p200x200/12341473_525079980981950_7393795034878800233_n.jpg?oh=53ae7640f76dd1971317f237230dc9c8&oe=5731BE78"
+                }
+            ],
+            "action": "user_profile",
+            "profile_id": "e3bc9b47db55ef30379d859066c7182f",
+            "say_id": 1477,
+            "time_ago": "12m ago",
+            "datetime": "2016-01-26 06:27:00",
+            "id": 625,
+            "type": {
+                "code": "3",
+                "value": "new_say"
+            }
+        },
+        {
+            "message": "You got a new charm rating for brave",
+            "profiles": "",
+            "action": "user_profile",
+            "profile_id": "e3bc9b47db55ef30379d859066c7182f",
+            "time_ago": "1d ago",
+            "datetime": "2016-01-25 05:47:48",
+            "id": 556,
+            "type": {
+                "code": "2",
+                "value": "charm_rating"
+            }
+        },
+        {
+            "message": "%1 wrote something about you. Check it out and write back to him.",
+            "profiles": [
+                {
+                    "name": "Blha Bha",
+                    "profile_id": "e3f42e9c5c31f85c1f4398e910097cab",
+                    "avatar": "https://scontent.xx.fbcdn.net/hprofile-xtf1/v/t1.0-1/p200x200/12341473_525079980981950_7393795034878800233_n.jpg?oh=53ae7640f76dd1971317f237230dc9c8&oe=5731BE78"
+                }
+            ],
+            "action": "user_profile",
+            "profile_id": "e3bc9b47db55ef30379d859066c7182f",
+            "say_id": 741,
+            "time_ago": "1d ago",
+            "datetime": "2016-01-25 05:35:09",
+            "id": 554,
+            "type": {
+                "code": "3",
+                "value": "new_say"
+            }
+        },
+        {
+            "message": "You got a new charm rating for Caring",
+            "profiles": "",
+            "action": "user_profile",
+            "profile_id": "e3bc9b47db55ef30379d859066c7182f",
+            "time_ago": "1d ago",
+            "datetime": "2016-01-25 05:34:40",
+            "id": 553,
+            "type": {
+                "code": "2",
+                "value": "charm_rating"
+            }
+        },
+        {
+            "message": "%1 has joined You Say. Say something about him",
+            "profiles": [
+                {
+                    "name": "Blha Bha",
+                    "profile_id": "e3f42e9c5c31f85c1f4398e910097cab",
+                    "avatar": "https://scontent.xx.fbcdn.net/hprofile-xtf1/v/t1.0-1/p200x200/12341473_525079980981950_7393795034878800233_n.jpg?oh=53ae7640f76dd1971317f237230dc9c8&oe=5731BE78"
+                }
+            ],
+            "action": "user_profile",
+            "profile_id": "e3f42e9c5c31f85c1f4398e910097cab",
+            "say_id": "",
+            "time_ago": "1d ago",
+            "datetime": "2016-01-25 05:33:37",
+            "id": 551,
+            "type": {
+                "code": "1",
+                "value": "joined"
+            }
+        },
+        {
+            "message": "Someone liked the say about you from user %1",
+            "profiles": [
+                {
+                    "name": "Oved Yavine",
+                    "profile_id": "e72e8812303e463f731802d0b40bf54e",
+                    "avatar": "https://scontent.xx.fbcdn.net/hprofile-xfp1/v/t1.0-1/p200x200/12246810_10153696124018608_1238856271570636877_n.jpg?oh=8368be87bd520814cfcc94af1e2ab69b&oe=57487D71"
+                }
+            ],
+            "action": "user_profile",
+            "profile_id": "e3bc9b47db55ef30379d859066c7182f",
+            "say_id": "740",
+            "time_ago": "1d ago",
+            "datetime": "2016-01-25 05:31:40",
+            "id": 550,
+            "type": {
+                "code": "6",
+                "value": "say_liked"
+            }
+        },
+        {
+            "message": "%1 wrote something about you. Check it out and write back to him.",
+            "profiles": [
+                {
+                    "name": "Blha Bha",
+                    "profile_id": "e72e8812303e463f731802d0b40bf54e",
+                    "avatar": "https://scontent.xx.fbcdn.net/hprofile-xtf1/v/t1.0-1/p200x200/12341473_525079980981950_7393795034878800233_n.jpg?oh=53ae7640f76dd1971317f237230dc9c8&oe=5731BE78"
+                }
+            ],
+            "action": "user_profile",
+            "profile_id": "e3bc9b47db55ef30379d859066c7182f",
+            "say_id": 740,
+            "time_ago": "1d ago",
+            "datetime": "2016-01-25 05:30:26",
+            "id": 548,
+            "type": {
+                "code": "3",
+                "value": "new_say"
+            }
+        },
+        {
+            "message": "%1 wrote something about you. Check it out and write back to him.",
+            "profiles": [
+                {
+                    "name": "Blha Bha",
+                    "profile_id": "e72e8812303e463f731802d0b40bf54e",
+                    "avatar": "https://scontent.xx.fbcdn.net/hprofile-xtf1/v/t1.0-1/p200x200/12341473_525079980981950_7393795034878800233_n.jpg?oh=53ae7640f76dd1971317f237230dc9c8&oe=5731BE78"
+                }
+            ],
+            "action": "user_profile",
+            "profile_id": "e3bc9b47db55ef30379d859066c7182f",
+            "say_id": 739,
+            "time_ago": "1d ago",
+            "datetime": "2016-01-25 05:29:58",
+            "id": 547,
+            "type": {
+                "code": "3",
+                "value": "new_say"
+            }
+        },
+        {
+            "message": "%1 wrote something about you. Check it out and write back to him.",
+            "profiles": [
+                {
+                    "name": "Blha Bha",
+                    "profile_id": "e72e8812303e463f731802d0b40bf54e",
+                    "avatar": "https://scontent.xx.fbcdn.net/hprofile-xtf1/v/t1.0-1/p200x200/12341473_525079980981950_7393795034878800233_n.jpg?oh=53ae7640f76dd1971317f237230dc9c8&oe=5731BE78"
+                }
+            ],
+            "action": "user_profile",
+            "profile_id": "e3bc9b47db55ef30379d859066c7182f",
+            "say_id": 738,
+            "time_ago": "1d ago",
+            "datetime": "2016-01-25 05:29:31",
+            "id": 546,
+            "type": {
+                "code": "3",
+                "value": "new_say"
+            }
+        },
+        {
+            "message": "%1 wrote something about you. Check it out and write back to him.",
+            "profiles": [
+                {
+                    "name": "Blha Bha",
+                    "profile_id": "e72e8812303e463f731802d0b40bf54e",
+                    "avatar": "https://scontent.xx.fbcdn.net/hprofile-xtf1/v/t1.0-1/p200x200/12341473_525079980981950_7393795034878800233_n.jpg?oh=53ae7640f76dd1971317f237230dc9c8&oe=5731BE78"
+                }
+            ],
+            "action": "user_profile",
+            "profile_id": "e3bc9b47db55ef30379d859066c7182f",
+            "say_id": 733,
+            "time_ago": "2d ago",
+            "datetime": "2016-01-24 06:01:22",
+            "id": 540,
+            "type": {
+                "code": "3",
+                "value": "new_say"
+            }
+        }
+    ]
+}
