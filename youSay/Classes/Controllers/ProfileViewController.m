@@ -430,6 +430,7 @@
                 requestedID = [profileDictionary objectForKey:@"id"];
                 if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:IDrequested]) {
                     isFriendProfile = NO;
+                    [[AppDelegate sharedDelegate] profileOwner].Name = [profileDictionary objectForKey:@"name"];
                 }
                 isAfterChangeCharm = NO;
                 //[self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
@@ -970,7 +971,8 @@
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentDescription = desc;
                     content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
-                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
+//                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
+                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html", IDRequested, [dictResult valueForKey:@"image_id"]];
                     content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult valueForKey:@"url"]];
                     
