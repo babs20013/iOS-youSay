@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    arrayMenu = [[NSArray alloc]initWithObjects:@"Contact Us",@"Privacy Policy", @"Invite Friends", @"Logout",nil];
+    arrayMenu = [[NSArray alloc]initWithObjects:@"Contact Us",@"Privacy Policy", @"Invite Friends", @"About", @"Logout",nil];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -45,7 +45,7 @@
 
 #pragma mark - UITable View
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return [arrayMenu count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -89,6 +89,13 @@
         }];
     }
     else if (indexPath.row == 3) {
+        NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YouSay" message:version delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }];
+    }
+    else if (indexPath.row == 4) {
         FBSDKLoginManager *fb = [[FBSDKLoginManager alloc]init];
         [fb logOut];
         [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];

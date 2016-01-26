@@ -128,10 +128,8 @@
     }
     
     NSString *urlString = [dictProfile objectForKey:@"avatar"];
-    //[cell.profileView setFrame:CGRectMake(13, (cell.frame.size.height-45)/2 , 45, 45)];
     [cell.profileView setTranslatesAutoresizingMaskIntoConstraints:YES];
     [cell.profileView setImageURL:[NSURL URLWithString:urlString]];
-   // [cell.profileView setFrame:CGRectMake(13, (cell.frame.size.height-45)/2, 45, 45)];
     cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
     cell.profileView.layer.masksToBounds = YES;
     cell.profileView.layer.borderWidth = 1;
