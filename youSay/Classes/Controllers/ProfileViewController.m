@@ -66,6 +66,7 @@
     BOOL isProfileShared;
     BOOL isSearching;
     BOOL isSearchingFB;
+    BOOL isAfterShareFB;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UITableView *searchTableView;
@@ -2324,11 +2325,23 @@
 {
     self.searchTableView.contentInset = UIEdgeInsetsZero;
     self.searchTableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+    if (isAfterShareFB == YES) {
+        isAfterShareFB = NO;
+        [self.btnCancel setHidden:YES];
+        [self.btnRightMenu setHidden:NO];
+        self.btnViewConstraint.constant = 30;
+        [self.viewButton needsUpdateConstraints];
+        [self.searchView setHidden:YES];
+        [self.tableView setHidden:NO];
+        [self.txtSearch setText:@""];
+        [self.txtSearch resignFirstResponder];
+    }
 }
 
 #pragma mark FBSDKSharingDelegate
 
 - (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results {
+    isAfterShareFB = YES;
     if (isProfileShared == YES) {
         [self requestProfileShared:profileShared];
     }
@@ -2338,12 +2351,14 @@
 }
 
 - (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error{
+    isAfterShareFB = YES;
     [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error!", nil) message:NSLocalizedString(@"There is an error while sharing! Please try Again.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil]show];
 }
 
 - (void)sharerDidCancel:(id<FBSDKSharing>)sharer {
     //HideLoader();
-
+    [self keyboardWillHide:nil];
+    isAfterShareFB = YES;
 }
 
 
