@@ -19,7 +19,7 @@
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-static NSString *const kTrackingId = @"UA-72170478-1";
+static NSString *const kTrackingId = @"UA-72525008-1";
 //@"UA-72170478-1";
 //@"UA-72685655-1";
 
