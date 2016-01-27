@@ -134,12 +134,6 @@
     
     [cell.profileView setTranslatesAutoresizingMaskIntoConstraints:YES];
     
-    [cell.profileView setImageURL:[NSURL URLWithString:urlString]];
-    cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
-    cell.profileView.layer.masksToBounds = YES;
-    cell.profileView.layer.borderWidth = 1;
-    cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-    
     cell.notificationDesc.text = string;
     [cell.notificationDesc setFont:[UIFont fontWithName:@"Arial" size:12]];
     [cell.notificationDesc setTextColor:[UIColor darkGrayColor]];
@@ -160,7 +154,14 @@
         [cell.profileView setHidden:NO];
         [cell.btnAvatar setHidden:NO];
         [cell.profileView setFrame:CGRectMake(13, (cell.frame.size.height-45)/2 , 45, 45)];
-    }    
+    }
+    
+    [cell.profileView setImageURL:[NSURL URLWithString:urlString]];
+    cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
+    cell.profileView.layer.masksToBounds = YES;
+    cell.profileView.layer.borderWidth = 1;
+    cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    
     return cell;
 }
 
