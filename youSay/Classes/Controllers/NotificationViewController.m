@@ -77,6 +77,9 @@
     else {
         string = [dict objectForKey:@"message"];
         CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-40 font:[UIFont fontWithName:@"Arial" size:12] attributes:nil];
+        if (expectedSize.height < 60) {
+            return 50;
+        }
         
         return expectedSize.height-10;
     }
@@ -128,7 +131,9 @@
     }
     
     NSString *urlString = [dictProfile objectForKey:@"avatar"];
+    
     [cell.profileView setTranslatesAutoresizingMaskIntoConstraints:YES];
+    
     [cell.profileView setImageURL:[NSURL URLWithString:urlString]];
     cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
     cell.profileView.layer.masksToBounds = YES;
@@ -148,6 +153,7 @@
     if (urlString.length == 0){
         [cell.profileView setHidden:YES];
         [cell.btnAvatar setHidden:YES];
+        
         [cell.profileView setFrame:CGRectMake(13, 0, 0, 0)];
     }
     else {

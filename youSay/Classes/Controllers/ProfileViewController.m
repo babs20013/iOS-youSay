@@ -973,7 +973,7 @@
                     content.contentDescription = desc;
                     content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
                     NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
-//                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html", IDRequested, [dictResult valueForKey:@"image_id"]];
+                    //NSString *url = @"https://secret-caverns-5123.herokuapp.com";
                     content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult valueForKey:@"url"]];
                     
