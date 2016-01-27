@@ -237,6 +237,20 @@
 
 -(IQURLConnection*)requestWithURL:(NSURL*)url httpMethod:(NSString*)method contentType:(NSString*)contentType httpBody:(NSData*)httpBody dataCompletionHandler:(IQDataCompletionBlock)completionHandler
 {
+    NSLog(@"Sending the message");
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There is no internet connection");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_MSG_TITLE_SORRY
+                                                        message:ERR_MSG_NO_INTERNET
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        HideLoader();
+        return nil;
+    } else {
     NSMutableURLRequest *request = [IQHTTPService requestWithURL:url httpMethod:method contentType:contentType body:httpBody];
     
     //Adding headers
@@ -264,7 +278,8 @@
     
     completionHandler = NULL;
     
-    return connection;
+        return connection;
+    }
 }
 
 - (IQURLConnection*)requestWithPath:(NSString*)path parameter:(NSDictionary*)parameter multipartFormData:(IQMultipartFormData*)multipartFormData uploadProgressBlock:(IQProgressBlock)uploadProgress completionHandler:(IQDictionaryCompletionBlock)completionHandler
@@ -542,6 +557,7 @@
         return nil;
     }
 }
+
 
 @end
 
