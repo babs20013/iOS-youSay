@@ -972,8 +972,8 @@
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentDescription = desc;
                     content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
-                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
-                    //NSString *url = @"https://secret-caverns-5123.herokuapp.com";
+                    //NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
+                    NSString *url = @"https://secret-caverns-5123.herokuapp.com";
                     content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult valueForKey:@"url"]];
                     
@@ -1050,11 +1050,11 @@
             {
                 if (isFacebook == YES) {//means facebook
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-                    content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
+                    content.contentTitle = desc;
                     NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&sayid=%@&imageid=%@", requestedID, sayID, [dictResult valueForKey:@"image_id"]];
                     content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
-                    content.contentDescription = desc;
+                    content.contentDescription = @"Click to find out more about yourself";//desc;
                     
                     FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
                     dialog.fromViewController = self;
@@ -1904,39 +1904,18 @@
 
 - (IBAction)btnShareSayClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
-    NSString *desc = @"";
     NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
-    if (isFriendProfile == YES) {
-        if ([[dict objectForKey:@"by"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
-            desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dict objectForKey:@"by"]];
-        }
-        else {
-            desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
-        }
-    }
-    else  {
-        desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dict objectForKey:@"by"]];
-    }
-    [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:desc isFB:NO];
+    NSString *desc = [NSString stringWithFormat:@"%@ wrote something special about %@ on Yousay", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
+    [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:[desc uppercaseString] isFB:NO];
     
 }
 
 - (IBAction)btnShareSayToFBClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
-    NSString *desc = @"";
     NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
-    if (isFriendProfile == YES) {
-        if ([[dict objectForKey:@"by"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
-            desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dict objectForKey:@"by"]];
-        }
-        else {
-            desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
-        }
-    }
-    else  {
-        desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dict objectForKey:@"by"]];
-    }
-    [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:desc isFB:YES];
+    NSString *desc = [NSString stringWithFormat:@"%@ wrote something special about %@ on Yousay", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
+
+    [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:[desc uppercaseString] isFB:YES];
 }
 
 
