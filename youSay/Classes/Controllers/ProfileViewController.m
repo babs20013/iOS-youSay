@@ -1304,6 +1304,12 @@
         return arrSearch.count;
     }
     else if (tableView == self.searchTableView && isShowRecentSearch == YES) {
+        if ([[AppDelegate sharedDelegate].arrRecentSeacrh count] == 0) {
+            [self.btnClear setHidden:YES];
+        }
+        else {
+            [self.btnClear setHidden:NO];
+        }
         return [[AppDelegate sharedDelegate].arrRecentSeacrh count];
     }
     else if (section == 1) {
@@ -2205,7 +2211,6 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     if ([textField.text length]==0){
-        [self.btnClear setHidden:NO];
         [self.tableView setHidden:YES];
         [self.searchView setHidden:NO];
         [self.btnAddSay setHidden:YES];
@@ -2247,7 +2252,6 @@
     [self.btnCancel setHidden:NO];
     [self.btnRightMenu setHidden:YES];
     if ([textField.text length]==0){
-        [self.btnClear setHidden:NO];
         isShowRecentSearch = YES;
 //        self.tableHeightConstraint.constant = ([[AppDelegate sharedDelegate].arrRecentSeacrh count]+1)*50;
 //        [self.searchTableView needsUpdateConstraints];
@@ -2287,8 +2291,6 @@
     
 //    self.searchTableView.contentInset = contentInsets;
 //    self.searchTableView.scrollIndicatorInsets = contentInsets;
-    
-    [self.btnClear setHidden:NO];
     [self.tableView setHidden:YES];
     [self.searchView setHidden:NO];
     self.btnViewConstraint.constant = 50;

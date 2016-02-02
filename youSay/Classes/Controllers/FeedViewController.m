@@ -644,6 +644,12 @@
         return arraySearch.count;
     }
     else if (tableView == self.searchUserTableView && isShowRecentSearch == YES) {
+        if ([[AppDelegate sharedDelegate].arrRecentSeacrh count] == 0) {
+            [self.btnClear setHidden:YES];
+        }
+        else {
+            [self.btnClear setHidden:NO];
+        }
         return [[AppDelegate sharedDelegate].arrRecentSeacrh count];
     }
     return 1;
@@ -673,11 +679,12 @@
             model.userID = [recentSearchClicked valueForKey:@"userID"];
         }
         else {
+            model = [arraySearch objectAtIndex:indexPath.row];
             [self convertModelToObject:model];
         }
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
-        vc.isFriendProfile = NO;
+        //vc.isFriendProfile = NO;
         vc.isFromFeed = YES;
         vc.friendModel = model;
         vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
@@ -854,7 +861,6 @@
         cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         
         [cell.profileName setText:[recentSearch valueForKey:@"name"]];
-
     }
     else {
         model = [arraySearch objectAtIndex:indexPath.row];
@@ -1025,8 +1031,8 @@
         if (![context save:&error]) {
             NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
         }
-        
-        [[AppDelegate sharedDelegate].arrRecentSeacrh addObject:newSearch];
+        //No need to add here, we will add it inside the ProfileViewController
+      //  [[AppDelegate sharedDelegate].arrRecentSeacrh addObject:newSearch];
     }
 }
 
