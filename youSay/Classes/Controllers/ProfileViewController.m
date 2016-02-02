@@ -570,6 +570,10 @@
                                                          value:nil] build];
                 [[GAI sharedInstance].defaultTracker send:event];
                 [[GAI sharedInstance] dispatch];
+                
+                //--If rate charm is succesful, alert the user wether they want to share the rating
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:@"Would you like to share this profile?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Share", nil];
+                [alert show];
 
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
@@ -972,9 +976,14 @@
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentDescription = desc;
                     content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
-                    //NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
-                    NSString *url = @"https://secret-caverns-5123.herokuapp.com";
-                    content.contentURL = [NSURL URLWithString:url];
+                    NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
+                    
+                    NSString *apiEndpoint = [NSString stringWithFormat:@"http://tinyurl.com/api-create.php?url=%@",url];
+                    NSString *shortURL = [NSString stringWithContentsOfURL:[NSURL URLWithString:apiEndpoint]
+                                                                  encoding:NSASCIIStringEncoding
+                                                                     error:nil];
+                    
+                    content.contentURL = [NSURL URLWithString:shortURL];
                     content.imageURL = [NSURL URLWithString:[dictResult valueForKey:@"url"]];
                     
                     FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
@@ -1052,7 +1061,12 @@
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentTitle = desc;
                     NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&sayid=%@&imageid=%@", requestedID, sayID, [dictResult valueForKey:@"image_id"]];
-                    content.contentURL = [NSURL URLWithString:url];
+                    
+                    NSString *apiEndpoint = [NSString stringWithFormat:@"http://tinyurl.com/api-create.php?url=%@",url];
+                    NSString *shortURL = [NSString stringWithContentsOfURL:[NSURL URLWithString:apiEndpoint]
+                                                                  encoding:NSASCIIStringEncoding
+                                                                     error:nil];
+                    content.contentURL = [NSURL URLWithString:shortURL];
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
                     content.contentDescription = @"Click to find out more about yourself";//desc;
                     
@@ -2342,6 +2356,15 @@
     isAfterShareFB = YES;
 }
 
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        alertView.tag = 1;
+        [self btnShareProfileClicked:alertView];
+    }
+}
 
 @end
 

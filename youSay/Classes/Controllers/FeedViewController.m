@@ -477,9 +477,15 @@
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&sayid=%@&imageid=%@", profile, sayID, [dictResult valueForKey:@"image_id"]];
                     content.contentTitle = desc;
+                    
+                    NSString *apiEndpoint = [NSString stringWithFormat:@"http://tinyurl.com/api-create.php?url=%@",url];
+                    NSString *shortURL = [NSString stringWithContentsOfURL:[NSURL URLWithString:apiEndpoint]
+                                                                  encoding:NSASCIIStringEncoding
+                                                                     error:nil];
+                    
                     //[NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
-                    content.contentURL = [NSURL URLWithString:url];
+                    content.contentURL = [NSURL URLWithString:shortURL];
                     content.contentDescription = @"Click to find out more about yourself";
                     FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
                     dialog.fromViewController = self;
