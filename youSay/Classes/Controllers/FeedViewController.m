@@ -680,11 +680,11 @@
         }
         else {
             model = [arraySearch objectAtIndex:indexPath.row];
-            [self convertModelToObject:model];
+            //[self convertModelToObject:model];
         }
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
-        //vc.isFriendProfile = NO;
+        vc.isFriendProfile = NO;
         vc.isFromFeed = YES;
         vc.friendModel = model;
         vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;

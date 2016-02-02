@@ -1401,7 +1401,7 @@
             NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
         }
         
-        [[AppDelegate sharedDelegate].arrRecentSeacrh addObject:newSearch];
+        [[AppDelegate sharedDelegate].arrRecentSeacrh insertObject:newSearch atIndex:0];
     }
 }
 
