@@ -571,8 +571,12 @@
                 [[GAI sharedInstance].defaultTracker send:event];
                 [[GAI sharedInstance] dispatch];
                 
+                NSString *firstName = [[[profileDictionary objectForKey:@"name"] componentsSeparatedByString:@" "] objectAtIndex:0];
+                
+                
+                NSString *message = [NSString stringWithFormat:@"Whoa! Share your rates with %@", firstName];
                 //--If rate charm is succesful, alert the user wether they want to share the rating
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:@"Would you like to share this profile?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Share", nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:message delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Share", nil];
                 [alert show];
 
             }
@@ -2361,7 +2365,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        alertView.tag = 1;
+        alertView.tag = 1000;
         [self btnShareProfileClicked:alertView];
     }
 }
