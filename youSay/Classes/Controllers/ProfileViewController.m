@@ -41,6 +41,9 @@
 #define kColorLabel [UIColor colorWithRed:27.0/255.0 green:174.0/255.0 blue:198.0/255.0 alpha:1.0]
 #define kColorBG [UIColor colorWithRed:180.0/255.0 green:185.0/255.0 blue:187.0/255.0 alpha:1.0]
 
+#define shareSayTag 55
+#define shareAfterRateTag   56
+
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate> {
     ProfileOwnerModel *friendsProfileModel;
     NSMutableDictionary *dictHideSay;
@@ -577,6 +580,7 @@
                 NSString *message = [NSString stringWithFormat:@"Whoa! Share your rates with %@", firstName];
                 //--If rate charm is succesful, alert the user wether they want to share the rating
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:message delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Share", nil];
+                alert.tag = shareAfterRateTag;
                 [alert show];
 
             }
@@ -2168,19 +2172,26 @@
 - (void)AddNewSayDidDismissed {
     isAfterAddNewSay = YES;
     
-    NSMutableDictionary *event =
-    [[GAIDictionaryBuilder createEventWithCategory:@"Action"
-                                            action:@"AddSay"
-                                             label:@"AddSay"
-                                             value:nil] build];
-    [[GAI sharedInstance].defaultTracker send:event];
-    [[GAI sharedInstance] dispatch];
-    
-    if (requestedID && _isRequestingProfile == NO) {
-        [self requestProfile:requestedID];
-    }
-    else if (_isRequestingProfile == NO){
-        [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+    if (_isRequestingProfile == NO) {
+        NSMutableDictionary *event =
+        [[GAIDictionaryBuilder createEventWithCategory:@"Action"
+                                                action:@"AddSay"
+                                                 label:@"AddSay"
+                                                 value:nil] build];
+        [[GAI sharedInstance].defaultTracker send:event];
+        [[GAI sharedInstance] dispatch];
+        
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Add Say" message:@"Share your say! It's awesome" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Share", nil];
+        alert.tag = shareSayTag;
+        [alert show];
+        if (requestedID) {
+            [self requestProfile:requestedID];
+            
+        }
+        else{
+            [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
+        }
+        
     }
 }
 
@@ -2356,17 +2367,21 @@
 
 - (void)sharerDidCancel:(id<FBSDKSharing>)sharer {
     //HideLoader();
-    [self keyboardWillHide:nil];
     isAfterShareFB = YES;
+    [self keyboardWillHide:nil];
 }
 
 
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
+    if (buttonIndex == 1 && alertView.tag == shareSayTag) {
+        alertView.tag = 0;
+        [self btnShareSayToFBClicked:alertView];
+    }
+    else if (buttonIndex == 1 && alertView.tag == shareAfterRateTag) {
         alertView.tag = 1000;
-        [self btnShareProfileClicked:alertView];
+        [self btnShareProfileToFacebookClicked:alertView];
     }
 }
 

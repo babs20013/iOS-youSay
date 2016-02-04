@@ -166,6 +166,7 @@
 
 - (IBAction)btnSendClicked:(id)sender {
     NSLog(@"Sending the message");
+    [self.addSayTextView endEditing:YES];
     [self requestAddSay:[btnSelectedColor tag]];
 }
 
