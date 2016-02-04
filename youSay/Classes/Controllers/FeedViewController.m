@@ -48,6 +48,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *btnCancel;
 @property (nonatomic, weak) IBOutlet UIButton *btnRightMenu;
 @property (nonatomic, weak) IBOutlet UIView *viewButton;
+@property (nonatomic, weak) IBOutlet UILabel *lblRecentSearch;
 @property (strong, nonatomic) IQURLConnection *userSearchRequest;
 
 @end
@@ -380,6 +381,10 @@
                         
                         [arraySearch addObject:model];
                         
+                    }
+                    
+                    if (arraySearch.count == 0) {
+                        [self.lblRecentSearch setText:@"No Profiles Found"];
                     }
                     [self.searchUserTableView reloadData];
                     
@@ -852,6 +857,7 @@
     }
     FriendModel *model;
     if (isShowRecentSearch == YES) {
+        [self.lblRecentSearch setText:@"Recent Search"];
         NSManagedObject *recentSearch = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
         NSURL *image = [NSURL URLWithString:[recentSearch valueForKey:@"profileImage"]];
         if (image && [image scheme] && [image host]) {
@@ -869,6 +875,7 @@
         [cell.profileName setText:[recentSearch valueForKey:@"name"]];
     }
     else {
+        [self.lblRecentSearch setText:@"Profiles Found"];
         model = [arraySearch objectAtIndex:indexPath.row];
         [cell.profileView setImageURL:[NSURL URLWithString:model.ProfileImage]];
         cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;

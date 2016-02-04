@@ -1258,6 +1258,7 @@
                         <outlet property="btnClear" destination="nCP-On-08z" id="Fo5-8x-aBf"/>
                         <outlet property="btnRightMenu" destination="4Y9-5v-537" id="RbN-ld-Ruv"/>
                         <outlet property="btnViewConstraint" destination="TCW-a6-P9f" id="lXb-9D-8n8"/>
+                        <outlet property="lblRecentSearch" destination="p2P-MY-hob" id="Ct8-6y-zcy"/>
                         <outlet property="searchDisplayController" destination="jCQ-ct-BVD" id="OKX-dd-TEm"/>
                         <outlet property="searchTableView" destination="8SQ-7P-uTm" id="wp5-S0-I5R"/>
                         <outlet property="searchView" destination="91N-zM-M4A" id="ZUp-yu-cXh"/>
@@ -1840,6 +1841,7 @@
                         <outlet property="btnClear" destination="5Id-uP-rII" id="0hn-Ce-sGD"/>
                         <outlet property="btnRightMenu" destination="Rmb-cc-cJC" id="h32-NS-rN2"/>
                         <outlet property="btnViewConstraint" destination="bSa-iu-vRh" id="gZm-4W-mkm"/>
+                        <outlet property="lblRecentSearch" destination="IbO-gV-Gal" id="CjZ-kg-6xJ"/>
                         <outlet property="searchUserTableView" destination="Eqe-4c-9gE" id="qvW-PE-B3D"/>
                         <outlet property="searchView" destination="l79-CU-AfT" id="dVC-g0-MHB"/>
                         <outlet property="tableHeightConstraint" destination="LKc-RP-cu8" id="1gE-pA-ANJ"/>
