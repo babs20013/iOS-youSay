@@ -1929,7 +1929,7 @@
 - (IBAction)btnShareSayClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
     NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
-    NSString *desc = [NSString stringWithFormat:@"%@ wrote something special about %@ on Yousay", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
+    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
     [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:[desc uppercaseString] isFB:NO];
     
 }
@@ -1937,7 +1937,7 @@
 - (IBAction)btnShareSayToFBClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
     NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
-    NSString *desc = [NSString stringWithFormat:@"%@ wrote something special about %@ on Yousay", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
+    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
 
     [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:[desc uppercaseString] isFB:YES];
 }

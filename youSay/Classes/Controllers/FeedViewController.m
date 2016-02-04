@@ -1075,7 +1075,7 @@
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     NSDictionary *dictProfile1 = [arrProfiles objectAtIndex:0];
     NSDictionary *dictProfile2 = [arrProfiles objectAtIndex:1];
-    NSString *desc = [NSString stringWithFormat:@"%@ wrote something special about %@ on Yousay", [dictProfile1 objectForKey:@"name"], [dictProfile1 objectForKey:@"name"]];
+    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", [dictProfile1 objectForKey:@"name"], [dictProfile1 objectForKey:@"name"]];
     if ([[dictProfile2 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
         //desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dictProfile1 objectForKey:@"name"]];
         profile = [[AppDelegate sharedDelegate].profileOwner UserID];
