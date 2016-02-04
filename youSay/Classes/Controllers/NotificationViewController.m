@@ -34,7 +34,7 @@
     self.tblView.layer.cornerRadius = 0.015 * self.tblView.bounds.size.width;
     self.tblView.layer.masksToBounds = YES;
     self.tblView.layer.borderWidth = 1;
-    self.tblView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    self.tblView.layer.borderColor = [UIColor clearColor].CGColor;//[UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -209,7 +209,7 @@
 //        NSData *data = [NSData dataWithContentsOfFile:path];
 //        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 //        
-//        
+        
         if (result)
         {
             NSDictionary *dictResult = result;
