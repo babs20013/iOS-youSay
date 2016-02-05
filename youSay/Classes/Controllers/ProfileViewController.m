@@ -446,6 +446,11 @@
                 if (isAfterAddNewSay == YES) {
                     isAfterAddNewSay = NO;
                     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:@"Share your say! It's awesome" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Share", nil];
+                    alert.tag = shareSayTag;
+                    [alert performSelector:@selector(show) withObject:nil afterDelay:1];
+
+                   // [alert show];
                 }
                 else if (saysID){
                     for (int i = 0; i < saysArray.count; i++) {
@@ -582,7 +587,7 @@
                 //--If rate charm is succesful, alert the user wether they want to share the rating
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:message delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Share", nil];
                 alert.tag = shareAfterRateTag;
-                [alert show];
+                [alert performSelector:@selector(show) withObject:nil afterDelay:1];
 
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
@@ -876,7 +881,7 @@
                 }
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
                 [self logout];
             }
@@ -1245,7 +1250,7 @@
         MBProgressHUD *loading = [[MBProgressHUD alloc]initWithView:thisView];
         [loading setFrame:thisView.frame];
         [loading setBackgroundColor:[UIColor clearColor]];
-        [loading setLabelText:@"Searching for Facebook user"];
+        [loading setLabelText:@"Searching users"];
         [loading setLabelFont:[UIFont fontWithName:@"Arial" size:12]];
         [loading setAlpha:0.5];
         [thisView addSubview:loading];
@@ -1939,17 +1944,33 @@
 - (IBAction)btnShareSayClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
     NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
-    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
-    [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:[desc uppercaseString] isFB:NO];
+    NSString *by = [dict objectForKey:@"by"];
+    NSString *to = [profileDictionary objectForKey:@"name"];
+    if ([[dict objectForKey:@"user_id"] isEqualToString:profileModel.UserID]) {
+        by = @"I";
+    }
+    if ([[profileDictionary objectForKey:@"id"] isEqualToString:profileModel.UserID]) {
+        to = @"Me";
+    }
+    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", by, to];
+    [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:desc isFB:NO];
     
 }
 
 - (IBAction)btnShareSayToFBClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
     NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
-    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", [dict objectForKey:@"by"], [profileDictionary objectForKey:@"name"]];
+    NSString *by = [dict objectForKey:@"by"];
+    NSString *to = [profileDictionary objectForKey:@"name"];
+    if ([[dict objectForKey:@"user_id"] isEqualToString:profileModel.UserID]) {
+        by = @"I";
+    }
+    if ([[profileDictionary objectForKey:@"id"] isEqualToString:profileModel.UserID]) {
+        to = @"Me";
+    }
+    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", by, to];
 
-    [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:[desc uppercaseString] isFB:YES];
+    [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:desc isFB:YES];
 }
 
 
@@ -2187,9 +2208,6 @@
         [[GAI sharedInstance].defaultTracker send:event];
         [[GAI sharedInstance] dispatch];
         
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Add Say" message:@"Share your say! It's awesome" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Share", nil];
-        alert.tag = shareSayTag;
-        [alert show];
         if (requestedID) {
             [self requestProfile:requestedID];
             

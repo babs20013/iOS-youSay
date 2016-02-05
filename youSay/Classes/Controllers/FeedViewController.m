@@ -627,7 +627,7 @@
         MBProgressHUD *loading = [[MBProgressHUD alloc]initWithView:footerView];
         [loading setFrame:footerView.frame];
         [loading setBackgroundColor:[UIColor clearColor]];
-        [loading setLabelText:@"Searching for Facebook user"];
+        [loading setLabelText:@"Searching users"];
         [loading setLabelFont:[UIFont fontWithName:@"Arial" size:12]];
         [loading setAlpha:0.5];
         [footerView addSubview:loading];
@@ -1082,7 +1082,7 @@
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     NSDictionary *dictProfile1 = [arrProfiles objectAtIndex:0];
     NSDictionary *dictProfile2 = [arrProfiles objectAtIndex:1];
-    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", [dictProfile1 objectForKey:@"name"], [dictProfile1 objectForKey:@"name"]];
+    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", [dictProfile1 objectForKey:@"name"] , [dictProfile2 objectForKey:@"name"]];
     if ([[dictProfile2 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
         //desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dictProfile1 objectForKey:@"name"]];
         profile = [[AppDelegate sharedDelegate].profileOwner UserID];
@@ -1095,7 +1095,7 @@
         //desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
         profile = [dictProfile2 objectForKey:@"profile_id"];
     }
-    [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:[desc uppercaseString] isFB:NO];
+    [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc isFB:NO];
     
 }
 
@@ -1105,7 +1105,7 @@
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     NSDictionary *dictProfile1 = [arrProfiles objectAtIndex:0];
     NSDictionary *dictProfile2 = [arrProfiles objectAtIndex:1];
-    NSString *desc = [NSString stringWithFormat:@"%@ wrote something special about %@ on Yousay", [dictProfile1 objectForKey:@"name"], [dictProfile1 objectForKey:@"name"]];
+    NSString *desc = [NSString stringWithFormat:@"%@ wrote something special about %@ on Yousay", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
     if ([[dictProfile2 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
         //desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dictProfile1 objectForKey:@"name"]];
         profile = [[AppDelegate sharedDelegate].profileOwner UserID];
