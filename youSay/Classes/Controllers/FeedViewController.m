@@ -1204,6 +1204,8 @@
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self.tableView setHidden:YES];
+    [self.searchView setHidden:NO];
     [_btnClear setHidden:YES];
     isAfterShareFB = NO;
     return YES;
