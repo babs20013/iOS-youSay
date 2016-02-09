@@ -17,10 +17,17 @@
 - (id) activityViewController:(UIActivityViewController *)activityViewController
           itemForActivityType:(NSString *)activityType
 {
-    if ( [activityType isEqualToString:UIActivityTypeMail] ) {
-        return _imageToShare;
+    if ( [activityType isEqualToString:UIActivityTypePostToFacebook] ) {
+        return [NSURL URLWithString:_urlString];
     }
-    return _imageToShare;
+    else {
+        NSString *apiEndpoint = [NSString stringWithFormat:@"http://tinyurl.com/api-create.php?url=%@",_urlString];
+        NSString *shortURL = [NSString stringWithContentsOfURL:[NSURL URLWithString:apiEndpoint]
+                                                      encoding:NSASCIIStringEncoding
+                                                         error:nil];
+        return [NSURL URLWithString:shortURL];
+    }
+    return nil;
 }
 - (id) activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController { return @""; }
 

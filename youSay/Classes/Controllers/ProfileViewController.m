@@ -994,13 +994,7 @@
                     content.contentDescription = desc;
                     content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
                     NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
-                    
-                    NSString *apiEndpoint = [NSString stringWithFormat:@"http://tinyurl.com/api-create.php?url=%@",url];
-                    NSString *shortURL = [NSString stringWithContentsOfURL:[NSURL URLWithString:apiEndpoint]
-                                                                  encoding:NSASCIIStringEncoding
-                                                                     error:nil];
-                    
-                    content.contentURL = [NSURL URLWithString:shortURL];
+                    content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult valueForKey:@"url"]];
                     
                     FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
@@ -1017,13 +1011,12 @@
                 }
                 else {
                     UIImageView *imgView = [[UIImageView alloc]init];
-//                    [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]]];
                     [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
                         HideLoader();
                         NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
                         CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
-                        activityProvider.imageToShare = image;
-                        NSArray *activityItems = [NSArray arrayWithObjects:activityProvider, desc,[NSURL URLWithString:url], nil];
+                        activityProvider.urlString = url;
+                        NSArray *activityItems = [NSArray arrayWithObjects:image, activityProvider, desc, nil];
                         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
                         activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
                         
@@ -1078,12 +1071,7 @@
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentTitle = desc;
                     NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&sayid=%@&imageid=%@", requestedID, sayID, [dictResult valueForKey:@"image_id"]];
-                    
-                    NSString *apiEndpoint = [NSString stringWithFormat:@"http://tinyurl.com/api-create.php?url=%@",url];
-                    NSString *shortURL = [NSString stringWithContentsOfURL:[NSURL URLWithString:apiEndpoint]
-                                                                  encoding:NSASCIIStringEncoding
-                                                                     error:nil];
-                    content.contentURL = [NSURL URLWithString:shortURL];
+                    content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
                     content.contentDescription = @"Click to find out more about yourself";//desc;
                     
@@ -1105,8 +1093,8 @@
                         HideLoader();
                         NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&sayid=%@&imageid=%@", requestedID, sayID, [dictResult valueForKey:@"image_id"]];
                         CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
-                        activityProvider.imageToShare = image;
-                        NSArray *activityItems = [NSArray arrayWithObjects:activityProvider, desc,[NSURL URLWithString:url], nil];
+                        activityProvider.urlString = url;
+                        NSArray *activityItems = [NSArray arrayWithObjects:image, activityProvider, desc, nil];
                         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
                         activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
                         
