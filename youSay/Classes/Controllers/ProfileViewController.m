@@ -165,7 +165,7 @@
             [self requestProfile:[defaults objectForKey:@"yousayuserid"]];
         }
         else {
-            [self loadFaceBookData:completeUrl param:@{@"fields":@"email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+            [self loadFaceBookData:completeUrl param:@{@"fields":@"friends, email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
         }
     }
     
