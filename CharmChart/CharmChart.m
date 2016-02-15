@@ -8,17 +8,17 @@
 
 #import "CharmChart.h"
 
-#define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
-#define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
-#define kColor30 [UIColor colorWithRed:186.0/255.0 green:227.0/255.0 blue:86.0/255.0 alpha:1.0]
-#define kColor40 [UIColor colorWithRed:82.0/255.0 green:209.0/255.0 blue:131.0/255.0 alpha:1.0]
-#define kColor50 [UIColor colorWithRed:108.0/255.0 green:196.0/255.0 blue:140.0/255.0 alpha:1.0]
-#define kColor60 [UIColor colorWithRed:68.0/255.0 green:188.0/255.0 blue:168.0/255.0 alpha:1.0]
-#define kColor70 [UIColor colorWithRed:47.0/255.0 green:181.0/255.0 blue:160.0/255.0 alpha:1.0]
-#define kColor80 [UIColor colorWithRed:53.0/255.0 green:184.0/255.0 blue:202.0/255.0 alpha:1.0]
-#define kColor90 [UIColor colorWithRed:31.0/255.0 green:175.0/255.0 blue:197.0/255.0 alpha:1.0]
-#define kColor100 [UIColor colorWithRed:1.0/255.0 green:172.0/255.0 blue:197.0/255.0 alpha:1.0]
-#define kColorDefault [UIColor colorWithRed:209.0/255.0 green:209.0/255.0 blue:209.0/255.0 alpha:1.0]
+#define kColor10 [UIColor colorWithRed:236.0/255.0 green:161.0/255.0 blue:20.0/255.0 alpha:1.0]
+#define kColor20 [UIColor colorWithRed:214.0/255.0 green:163.0/255.0 blue:16.0/255.0 alpha:1.0]
+#define kColor30 [UIColor colorWithRed:150.0/255.0 green:167.0/255.0 blue:14.0/255.0 alpha:1.0]
+#define kColor40 [UIColor colorWithRed:90.0/255.0 green:171.0/255.0 blue:14.0/255.0 alpha:1.0]
+#define kColor50 [UIColor colorWithRed:51.0/255.0 green:172.0/255.0 blue:37.0/255.0 alpha:1.0]
+#define kColor60 [UIColor colorWithRed:51.0/255.0 green:171.0/255.0 blue:78.0/255.0 alpha:1.0]
+#define kColor70 [UIColor colorWithRed:51.0/255.0 green:167.0/255.0 blue:125.0/255.0 alpha:1.0]
+#define kColor80 [UIColor colorWithRed:51.0/255.0 green:165.0/255.0 blue:153.0/255.0 alpha:1.0]
+#define kColor90 [UIColor colorWithRed:51.0/255.0 green:163.0/255.0 blue:170.0/255.0 alpha:1.0]
+#define kColor100 [UIColor colorWithRed:51.0/255.0 green:161.0/255.0 blue:188.0/255.0 alpha:1.0]
+#define kColorDefault [UIColor colorWithRed:239.0/255.0 green:239.0/255.0 blue:239.0/255.0 alpha:1.0]
 #define kChartTitleLabelColor [UIColor colorWithRed:90.0/255.0 green:90.0/255.0 blue:90.0/255.0 alpha:1.0]
 #define kChartScoreLabelColor [UIColor colorWithRed:0.0/255.0 green:172.0/255.0 blue:196.0/255.0 alpha:1.0]
 
@@ -29,8 +29,8 @@
 //#define kMinHorizontalGap 5
 //#define kChartLabelHeight 29
 
-#define kMinVerticalGap 1
-#define kMinHorizontalGap 20
+#define kMinVerticalGap 5
+#define kMinHorizontalGap 10
 #define kChartLabelHeight 40
 
 #define kDefaultFontArialBold @"Arial-BoldMT"
@@ -62,14 +62,14 @@
         CGFloat barValue = ((i+1) * 10);
 
         UIView *valueBox = [[UIView alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (i*([self boxSize].height+kMinVerticalGap) + [self boxSize].height)-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
-        [valueBox setBackgroundColor:kColor80];
-        [valueBox setHidden:YES];
+        [valueBox setBackgroundColor:kColorDefault];
+        [valueBox setHidden:NO];
         valueBox.tag = i+1;
         if (( roundedScore >= 0 && roundedScore >= barValue )) {
             [valueBox setBackgroundColor:[self getColor:i+1]];
             [valueBox setHidden:NO];
         }
-        valueBox.layer.cornerRadius = 0.03 * valueBox.bounds.size.width;
+        valueBox.layer.cornerRadius = 0.02 * valueBox.bounds.size.width;
         valueBox.layer.masksToBounds = YES;
         [self addSubview:valueBox];
         
@@ -132,7 +132,8 @@
     if ((_state == ChartStateViewing && _score == 0 && !_rated) || (_state ==  ChartStateRate && !_rated) ){
         position = 11;
     }
-    lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
+    lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- ((position+2)*([self boxSize].height+kMinVerticalGap)), [self boxSize].width, [self boxSize].height)];
+    
     if (_rated){
         [lblScore setText:[NSString stringWithFormat:@"%ld",(long)_score]];
     }
@@ -140,12 +141,12 @@
         [lblScore setText:_state ==  ChartStateRate ? @"0" : [NSString stringWithFormat:@"%ld",(long)_score]];
     }
     
-    [lblScore setFont:[UIFont fontWithName:kDefaultFontArialBold size:13]];
+    [lblScore setFont:[UIFont fontWithName:kDefaultFontArial size:13]];
     if (position > 10 && _state ==  ChartStateRate) {
         [lblScore setHidden:YES];
     }
     lblScore.textAlignment = NSTextAlignmentCenter;
-    [lblScore setTextColor:kChartScoreLabelColor];
+    [lblScore setTextColor:[self getColor:roundedScore/10]];
     [self addSubview:lblScore];
 
     btn = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-[self boxSize].height-25, lblScore.frame.origin.y-13, ([self boxSize].height+50), ([self boxSize].height+50))];
@@ -179,7 +180,7 @@
 }
 
 -(CGSize)boxSize{
-    return CGSizeMake(self.frame.size.width-kMinHorizontalGap, ((self.frame.size.width-kMinHorizontalGap)/3));
+    return CGSizeMake(self.frame.size.width-kMinHorizontalGap, ((self.frame.size.width-kMinHorizontalGap)/5));
 }
 
 -(NSInteger)roundedScore{
