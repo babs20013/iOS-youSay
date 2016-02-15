@@ -28,6 +28,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *lblPopularityLevel;
 @property (nonatomic, strong) IBOutlet UILabel *lblRankCount;
 @property (nonatomic, strong) IBOutlet UILabel *lblPopularityCount;
+@property (nonatomic, strong) IBOutlet UILabel *lblTotalScore;
 @property (nonatomic, strong) IBOutlet UIView *charmView;
 @property (nonatomic, strong) IBOutlet CharmView *charmChartView;
 

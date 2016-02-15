@@ -561,9 +561,9 @@
                                     </view>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="C8p-JM-v4h">
                                         <rect key="frame" x="8" y="7" width="244" height="30"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.20000000000000001" green="0.70980392156862748" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.20000000000000001" green="0.70980392160000005" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
@@ -737,8 +737,8 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="17" id="wgy-k9-GTk"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="15"/>
-                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
+                                                            <color key="textColor" red="0.12156862745098039" green="0.61176470588235299" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6e-SR-w8q">
@@ -864,6 +864,7 @@
                                             <outlet property="lblRankCount" destination="0oP-V4-tJL" id="ruf-QQ-XJX"/>
                                             <outlet property="lblRankLevel" destination="mJw-sY-AUf" id="ZsO-Mb-q16"/>
                                             <outlet property="lblShare" destination="Uad-gD-3bx" id="YQ8-Ef-QBx"/>
+                                            <outlet property="lblTotalScore" destination="tvU-s0-44l" id="k6L-pU-MrY"/>
                                             <outlet property="lblYourCharm" destination="VRz-RT-nLR" id="bNG-0n-PMa"/>
                                             <outlet property="newbie" destination="Pln-bs-DEU" id="Ind-xQ-Dov"/>
                                             <outlet property="popular" destination="BCt-Ai-5t1" id="MVh-0Z-Wha"/>

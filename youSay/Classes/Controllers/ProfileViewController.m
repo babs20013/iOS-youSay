@@ -197,14 +197,19 @@
     imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
     [leftView addSubview:imgMagnifyingGlass];
+    self.txtSearch.textColor = [UIColor whiteColor];
     self.txtSearch.leftView = leftView;
     self.txtSearch.leftViewMode = UITextFieldViewModeAlways;
     self.txtSearch.layer.cornerRadius = round(self.txtSearch.frame.size.height / 2);
     self.txtSearch.layer.borderWidth = 1;
-    self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.txtSearch.layer.borderColor = [UIColor clearColor].CGColor;
     self.txtSearch.autocorrectionType = UITextAutocorrectionTypeNo;
     
-    btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake((self.view.frame.size.width-60)/2, self.view.frame.size.height - 140, 60, 60)];
+    
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+    self.txtSearch.attributedPlaceholder = str;
+    
+    btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(self.tableView.frame.size.width, self.tableView.frame.size.height, 60, 60)];
     [btnAddSay setImage:[UIImage imageNamed:@"AddButton"] forState:UIControlStateNormal];
     [btnAddSay setTitle:@"Add" forState:UIControlStateNormal];
     [btnAddSay addTarget:self action:@selector(btnAddSayTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -278,14 +283,14 @@
 
 - (void)requestHideSay {
     NSArray *keys = [dictHideSay allKeys];
-    NSString *saysID = @"";
+    NSString *sayID = @"";
     for (int i = 0; i < keys.count; i++) {
         NSDictionary *dict = [saysArray objectAtIndex:i];
         if (i < keys.count-1) {
-            saysID = [saysID stringByAppendingString:[NSString stringWithFormat:@"%@,",[dict objectForKey:@"say_id"]]];
+            sayID = [sayID stringByAppendingString:[NSString stringWithFormat:@"%@,",[dict objectForKey:@"say_id"]]];
         }
         else {
-            saysID = [saysID stringByAppendingString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"say_id"]]];
+            sayID = [sayID stringByAppendingString:[NSString stringWithFormat:@"%@",[dict objectForKey:@"say_id"]]];
         }
         
     }
@@ -294,7 +299,7 @@
     [dictRequest setObject:REQUEST_HIDE_SAY forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token]  forKey:@"token"];
-    [dictRequest setObject:saysID forKey:@"say_id"];
+    [dictRequest setObject:sayID forKey:@"say_id"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         if (result)
@@ -1239,10 +1244,11 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *thisView = [[UIView alloc]init];
-    thisView.backgroundColor = [UIColor whiteColor];//kColorBG;
+    thisView.backgroundColor = [UIColor clearColor];//kColorBG;
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, self.view.bounds.size.width-40, 37)];
     label.text = [NSString stringWithFormat:@"What people SAID about %@", [profileDictionary objectForKey:@"name"]];
     label.numberOfLines = 0;
+    label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor darkGrayColor];
     label.font = [UIFont fontWithName:@"Arial" size:14];
     [thisView addSubview:label];
@@ -1587,6 +1593,7 @@
         
         cel.lblRankLevel.text = [profileDictionary objectForKey:@"rank_level"];
         cel.lblPopularityLevel.text = [profileDictionary objectForKey:@"popularity_level"];
+        cel.lblTotalScore.text = [NSString stringWithFormat:@"%ld", (long)wiz];
         
         cel.charmView.layer.cornerRadius = 0.015 * cel.charmView.bounds.size.width;
         cel.charmView.layer.masksToBounds = YES;
