@@ -1288,8 +1288,8 @@
     else if (section == 0 && tableView == self.tableView) {
         return 10;
     }
-    if (section == 1) {
-        return 40;
+    if (section > 0) {
+        return 30;
     }
     return 0;
 }
@@ -1313,7 +1313,7 @@
         }
         return height;
     }
-    else if (indexPath.section == 1) {
+    else {
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
         if ([[dictHideSay objectForKey:index] isEqualToString:@"isHide"]) {
             return 90;
@@ -1323,9 +1323,9 @@
         CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
         return 70 + expectedSize.height + 30 + 20;
     }
-    else if (indexPath.section == 2) {
-        return 65;
-    }
+//    else if (indexPath.section == 2) {
+//        return 65;
+//    }
     return 0;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -1334,7 +1334,7 @@
         return 1;
     }
     else if ([saysArray count]>0){
-        return 2;
+        return [saysArray count]+1;
     }
     else if (profileModel ) {
         return 1;
@@ -1355,8 +1355,8 @@
         }
         return [[AppDelegate sharedDelegate].arrRecentSeacrh count];
     }
-    else if (section == 1) {
-        return saysArray.count;}
+//    else if (section == 1) {
+//        return saysArray.count;}
     return 1;
 }
 
@@ -1698,11 +1698,11 @@
         return cel;
     }
     
-    else if (indexPath.section == 1)
+    else //if (indexPath.section == 1)
     {
         static NSString *cellIdentifier = @"PeopleSayTableViewCell";
         PeopleSayTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.row];
+        NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.section-1];
         NSString *colorIndex = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
         
         cel.mainView.layer.cornerRadius = 0.015 * cel.mainView.bounds.size.width;
@@ -1735,7 +1735,7 @@
         cel.btnShare.tag = indexPath.row;
         //[cel.btnProfile.titleLabel setText:[NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]]];
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
-        [cel.peopleSayView setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
+        [cel setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
         [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];
         [cel.peopleSayLabel sizeToFit];
         CGSize expectedSize = [CommonHelper expectedSizeForLabel:cel.peopleSayLabel attributes:nil];

@@ -10,6 +10,9 @@
 
 
 NSString * HTTP_URL_SERVER                       = @"https://yousayweb.com/yousay/backend/api/";
+//@"https://yousayweb.com/yousay_dev/backend/api/apiclient.php";
+//@"https://yousayweb.com/yousay_dev/backend/api/index.php";
+//@"https://yousayweb.com/yousay/backend/api/";
 
 static URL *instance = nil;
 

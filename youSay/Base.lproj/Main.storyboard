@@ -36,8 +36,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6H-GF-LsT">
-                                <rect key="frame" x="24" y="320" width="271" height="58"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoginBG" translatesAutoresizingMaskIntoConstraints="NO" id="Aaz-hU-GR0">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="YouSayLogo" translatesAutoresizingMaskIntoConstraints="NO" id="gnT-wQ-KWa">
+                                <rect key="frame" x="23" y="39" width="274" height="104"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="104" id="sCt-TJ-GfY"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6H-GF-LsT">
+                                <rect key="frame" x="20" y="293" width="280" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="fbLogin">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -46,29 +55,28 @@
                                     <action selector="faceBookAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CFO-kY-dKi"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="YouSayLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ioy-Yj-634">
-                                <rect key="frame" x="54" y="130" width="213" height="90"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="90" id="sx1-OL-trW"/>
-                                    <constraint firstAttribute="width" constant="213" id="t3a-0c-70C"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We will not publish anything without your approval" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocN-SF-Kf4">
-                                <rect key="frame" x="28" y="393" width="264" height="14"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <rect key="frame" x="18" y="364" width="284" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.10196078431372549" green="0.67843137254901964" blue="0.76470588235294112" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <rect key="contentStretch" x="0.0" y="0.050000000000000003" width="1" height="1"/>
                         <constraints>
+                            <constraint firstItem="gnT-wQ-KWa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="7" id="4dW-wp-6jv"/>
+                            <constraint firstItem="Aaz-hU-GR0" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="54j-UF-LEB"/>
+                            <constraint firstItem="dbI-8K-AG7" firstAttribute="top" secondItem="Aaz-hU-GR0" secondAttribute="bottom" id="71g-aq-NYJ"/>
+                            <constraint firstItem="gnT-wQ-KWa" firstAttribute="top" secondItem="bdP-fO-KJH" secondAttribute="bottom" constant="39" id="Bju-mD-Njl"/>
                             <constraint firstItem="r6H-GF-LsT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FkM-XN-W1k"/>
                             <constraint firstItem="ocN-SF-Kf4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L2n-Kp-LE8"/>
-                            <constraint firstItem="ioy-Yj-634" firstAttribute="top" secondItem="bdP-fO-KJH" secondAttribute="bottom" constant="130" id="gOv-SV-EwS"/>
+                            <constraint firstItem="dbI-8K-AG7" firstAttribute="top" secondItem="ocN-SF-Kf4" secondAttribute="bottom" constant="189" id="UZd-sa-9RE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gnT-wQ-KWa" secondAttribute="trailing" constant="7" id="cIF-Oi-c14"/>
+                            <constraint firstItem="Aaz-hU-GR0" firstAttribute="top" secondItem="bdP-fO-KJH" secondAttribute="bottom" id="eVo-YD-esE"/>
+                            <constraint firstItem="Aaz-hU-GR0" firstAttribute="centerX" secondItem="r6H-GF-LsT" secondAttribute="centerX" id="giD-ls-UI3"/>
                             <constraint firstItem="ocN-SF-Kf4" firstAttribute="top" secondItem="r6H-GF-LsT" secondAttribute="bottom" constant="15" id="heJ-Dh-C2Z"/>
-                            <constraint firstItem="r6H-GF-LsT" firstAttribute="top" secondItem="ioy-Yj-634" secondAttribute="bottom" constant="100" id="pL5-vw-qWu"/>
-                            <constraint firstItem="ioy-Yj-634" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="v6w-hf-CD7"/>
+                            <constraint firstItem="Aaz-hU-GR0" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="nH9-37-Vhf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="RTC-Tm-fbM"/>
@@ -742,7 +750,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6e-SR-w8q">
-                                                            <rect key="frame" x="125" y="267" width="59" height="22"/>
+                                                            <rect key="frame" x="125" y="268" width="53" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <state key="normal" image="fbShare"/>
@@ -870,7 +878,7 @@
                                             <outlet property="popular" destination="BCt-Ai-5t1" id="MVh-0Z-Wha"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PeopleSayTableViewCell" rowHeight="300" id="84r-SK-Jvj" customClass="PeopleSayTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PeopleSayTableViewCell" rowHeight="300" id="84r-SK-Jvj" customClass="PeopleSayTableViewCell">
                                         <rect key="frame" x="0.0" y="462" width="298" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="84r-SK-Jvj" id="8sk-2w-GwW">
@@ -894,7 +902,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.1204798468" green="0.35539451890000001" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="HBU-bF-tAK" secondAttribute="bottom" constant="10" id="3wh-qV-tny"/>
                                                         <constraint firstAttribute="trailing" secondItem="HBU-bF-tAK" secondAttribute="trailing" constant="10" id="Pl1-4E-n31"/>
@@ -929,7 +937,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SnU-BC-7lP">
-                                                    <rect key="frame" x="95" y="101" width="59" height="35"/>
+                                                    <rect key="frame" x="101" y="101" width="53" height="35"/>
                                                     <state key="normal" image="fbShare"/>
                                                     <connections>
                                                         <action selector="btnShareSayToFBClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="i5n-Jm-Ikj"/>
@@ -1548,7 +1556,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fg-zG-smf">
-                                                    <rect key="frame" x="90" y="273" width="59" height="22"/>
+                                                    <rect key="frame" x="96" y="273" width="53" height="22"/>
                                                     <state key="normal" image="fbShare"/>
                                                     <connections>
                                                         <action selector="btnShareSayToFBClicked:" destination="1dz-LU-SJf" eventType="touchUpInside" id="BX5-4z-dg5"/>
@@ -2274,21 +2282,22 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AddButton" width="109" height="110"/>
+        <image name="AddButton" width="126" height="128"/>
         <image name="Back" width="23" height="17"/>
         <image name="Close" width="19" height="21"/>
         <image name="Color" width="49" height="45"/>
         <image name="DoneBtn" width="468" height="75"/>
         <image name="Heart" width="59" height="59"/>
-        <image name="Likes" width="34" height="29"/>
+        <image name="Likes" width="43" height="38"/>
+        <image name="LoginBG" width="640" height="1136"/>
         <image name="Send" width="37" height="34"/>
-        <image name="Share" width="34" height="32"/>
+        <image name="Share" width="38" height="43"/>
         <image name="Star" width="59" height="60"/>
         <image name="UpArrow" width="30" height="31"/>
-        <image name="YouSayLogo" width="426" height="180"/>
-        <image name="fbLogin" width="271" height="58"/>
-        <image name="fbShare" width="59" height="22"/>
-        <image name="hamburger" width="58" height="55"/>
-        <image name="like_filled" width="34" height="29"/>
+        <image name="YouSayLogo" width="546" height="202"/>
+        <image name="fbLogin" width="332" height="56"/>
+        <image name="fbShare" width="53" height="20"/>
+        <image name="hamburger" width="60" height="48"/>
+        <image name="like_filled" width="43" height="38"/>
     </resources>
 </document>
