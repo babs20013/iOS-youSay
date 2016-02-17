@@ -47,6 +47,7 @@
 		1B6328231C54CA67001932AD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6328211C54CA67001932AD /* Fabric.framework */; };
 		1B6328241C54CA68001932AD /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6328221C54CA67001932AD /* Crashlytics.framework */; };
 		1B7C26C51C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */; };
+		1BA801CD1C74B046007EB3E2 /* PageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA801CB1C74B046007EB3E2 /* PageControl.m */; };
 		1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */; };
 		1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */; };
 		1BC5EC431C22F84B0016BFA1 /* SelectCharmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5EC421C22F84B0016BFA1 /* SelectCharmsViewController.m */; };
@@ -176,6 +177,8 @@
 		1B6328221C54CA67001932AD /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1B7C26C31C3EBC6F00DDEC2A /* WhoLikeListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WhoLikeListTableViewCell.h; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhoLikeListTableViewCell.m; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		1BA801CB1C74B046007EB3E2 /* PageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageControl.m; path = youSay/Classes/Component/PageControl.m; sourceTree = SOURCE_ROOT; };
+		1BA801CC1C74B046007EB3E2 /* PageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageControl.h; path = youSay/Classes/Component/PageControl.h; sourceTree = SOURCE_ROOT; };
 		1BABACFB1C19EFB000BD9EB4 /* SaysModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SaysModel.h; path = youSay/Classes/Model/SaysModel.h; sourceTree = SOURCE_ROOT; };
 		1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SaysModel.m; path = youSay/Classes/Model/SaysModel.m; sourceTree = SOURCE_ROOT; };
 		1BABAD011C1ABE6200BD9EB4 /* UIImageView+Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Networking.h"; path = "youSay/Classes/Component/UIComponent/UIImageView+Networking.h"; sourceTree = SOURCE_ROOT; };
@@ -281,6 +284,8 @@
 		1B17E34D1C18067F0080A574 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				1BA801CC1C74B046007EB3E2 /* PageControl.h */,
+				1BA801CB1C74B046007EB3E2 /* PageControl.m */,
 				9A1406771C1305BB006547A0 /* UIComponent */,
 				1B17E34E1C1806860080A574 /* API */,
 				9A9CB6161C19B9D10082B3E5 /* CommonHelper.h */,
@@ -829,6 +834,7 @@
 				358C90891BD654AC000B17AB /* main.m in Sources */,
 				1B17E3D91C180C050080A574 /* HTTPReq.m in Sources */,
 				9A9CB6281C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m in Sources */,
+				1BA801CD1C74B046007EB3E2 /* PageControl.m in Sources */,
 				1B17E3EA1C180C1C0080A574 /* IQURLConnection.m in Sources */,
 				9AC66C371C1F1971002B3834 /* CharmChart.m in Sources */,
 				9A9CB6291C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */,
@@ -976,9 +982,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/youSay/Classes",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
 				PRODUCT_NAME = "Yousay Social";
-				PROVISIONING_PROFILE = "ca5dc29b-dd30-40c3-8916-861d252dd25c";
+				PROVISIONING_PROFILE = "af0e4d93-73fb-43de-9537-1584e01a4f89";
 			};
 			name = Debug;
 		};
@@ -1002,9 +1008,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/youSay/Classes",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
 				PRODUCT_NAME = "Yousay Social";
-				PROVISIONING_PROFILE = "ca5dc29b-dd30-40c3-8916-861d252dd25c";
+				PROVISIONING_PROFILE = "d730e762-fab0-4662-9be7-8bc27cd657e6";
 			};
 			name = Release;
 		};

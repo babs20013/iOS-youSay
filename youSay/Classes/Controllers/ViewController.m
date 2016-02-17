@@ -31,12 +31,18 @@
     NSDictionary *colorDict;
     BOOL isNewRegister;
     NSString *tempToken;
+    CGRect screenRect;
+    PageControl *pageControl;
+    UIImageView *cover1;
+    UIButton *btnSkipDone;
 }
 @property (weak, nonatomic) BFAppLinkReturnToRefererView *appLinkReturnToRefererView;
 @property (strong, nonatomic) BFAppLink *appLink;
 @end
 
 @implementation ViewController
+
+@synthesize scrollView;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -86,12 +92,76 @@
             }
         }];
     }
+    else {
+        [self showWalkthrough];
+    }
+}
 
+- (void)showWalkthrough {
+    // Do any additional setup after loading the view.
+    screenRect = [[UIScreen mainScreen] bounds];
+    scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, screenRect.size.width, screenRect.size.height)];
+    scrollView.delegate = self;
+    scrollView.canCancelContentTouches = NO;
+    scrollView.scrollEnabled = YES;
+    scrollView.pagingEnabled = YES;
+    scrollView.bounces = NO;
+    scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.showsVerticalScrollIndicator = NO;
+    
+    [scrollView setContentSize:CGSizeMake(screenRect.size.width*4, screenRect.size.height)];
+    [scrollView setBackgroundColor:[UIColor whiteColor]];
+    
+    pageControl = [[PageControl alloc] initWithFrame:CGRectMake(0, screenRect.size.height-30, screenRect.size.width, 15)] ;
+    pageControl.numberOfPages = 4;
+    pageControl.currentPage = 0;
+    pageControl.delegate = self;
+    pageControl.dotColorCurrentPage = [UIColor clearColor];
+    pageControl.dotColorOtherPage = [UIColor clearColor];
+    
+    [self.view addSubview:scrollView];
+    [self.view addSubview:pageControl];
+    
+    btnSkipDone = [[UIButton alloc]initWithFrame:CGRectMake(screenRect.size.width-80, screenRect.size.height-50, 80, 40)];
+    btnSkipDone.backgroundColor = [UIColor clearColor];
+    [btnSkipDone addTarget:self action:@selector(btnSkipDoneClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:btnSkipDone];
+    
+    [self setupCover];
+}
+
+-(void)setupCover{
+    UIImage *img1 = [UIImage imageNamed:@"Walkthrough1"];
+    cover1 = [[UIImageView alloc]initWithImage:img1];
+    cover1.frame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
+    [self.scrollView addSubview:cover1];
+    
+    UIImage *img2 = [UIImage imageNamed:@"Walkthrough2"];
+    UIImageView *cover2 = [[UIImageView alloc]initWithImage:img2];
+    cover2.frame = CGRectMake(screenRect.size.width*1, 0, screenRect.size.width, screenRect.size.height);
+    [self.scrollView addSubview:cover2];
+    
+    UIImage *img3 = [UIImage imageNamed:@"Walkthrough3"];
+    UIImageView *cover3 = [[UIImageView alloc]initWithImage:img3];
+    cover3.frame = CGRectMake(screenRect.size.width*2,0, screenRect.size.width, screenRect.size.height);
+    [self.scrollView addSubview:cover3];
+    
+    UIImage *img4 = [UIImage imageNamed:@"Walkthrough4"];
+    UIImageView *cover4 = [[UIImageView alloc]initWithImage:img4];
+    cover4.frame = CGRectMake(screenRect.size.width*3,0, screenRect.size.width, screenRect.size.height);
+    [self.scrollView addSubview:cover4];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)btnSkipDoneClicked:(id)sender {
+    [pageControl removeFromSuperview];
+    [scrollView removeFromSuperview];
+    [btnSkipDone removeFromSuperview];
 }
 
 - (void)goToMainPage {

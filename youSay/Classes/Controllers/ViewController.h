@@ -10,8 +10,10 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "SlideNavigationController.h"
 
-@interface ViewController : GAITrackedViewController  <SlideNavigationControllerDelegate, FBSDKAppInviteDialogDelegate>
+#import "PageControl.h"
 
+@interface ViewController : GAITrackedViewController  <PageControlDelegate,UIScrollViewDelegate, SlideNavigationControllerDelegate, FBSDKAppInviteDialogDelegate>
 
+@property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @end
 
