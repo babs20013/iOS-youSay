@@ -9,9 +9,15 @@
 #import "MenuViewController.h"
 #import "SlideNavigationController.h"
 #import "ShowWebVC.h"
+#import "WhoLikeListTableViewCell.h"
+
+#define kColorBlue [UIColor colorWithRed:44.0/255.0 green:161.0/255.0 blue:189.0/255.0 alpha:1.0]
+
+
 @interface MenuViewController ()
 {
     NSArray *arrayMenu;
+    NSArray *arrayImage;
 }
 
 @end
@@ -21,7 +27,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    arrayMenu = [[NSArray alloc]initWithObjects:@"Contact Us",@"Privacy Policy", @"Invite Friends", @"About", @"Logout",nil];
+    arrayMenu = [[NSArray alloc]initWithObjects:@"Invite Friends", @"Contact Us",@"Privacy Policy",  @"About", @"Log Out",nil];
+    UIImage *menu1 = [UIImage imageNamed:@"chatIcon"];
+    UIImage *menu2 = [UIImage imageNamed:@"contactus"];
+    UIImage *menu3 = [UIImage imageNamed:@"privacy"];
+    UIImage *menu4 = [UIImage imageNamed:@"about"];
+    UIImage *menu5 = [UIImage imageNamed:@"logout"];
+    
+    arrayImage = [[NSArray alloc]initWithObjects:menu1, menu2, menu3, menu4, menu5, nil];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -44,6 +57,11 @@
 */
 
 #pragma mark - UITable View
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 80;
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [arrayMenu count];
 }
@@ -51,11 +69,22 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString* CellId = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellId forIndexPath:indexPath];
-
+    
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellId];
     }
-    [cell.textLabel setText:[arrayMenu objectAtIndex:indexPath.row]];
+    cell.textLabel.frame = CGRectMake(70, cell.textLabel.frame.origin.y, cell.textLabel.frame.size.width, cell.textLabel.frame.size.height);
+    cell.textLabel.text = [arrayMenu objectAtIndex:indexPath.row];
+    [cell.textLabel setFont:[UIFont systemFontOfSize:19.0]];
+    if (indexPath.row == 0) {
+        [cell.textLabel setTextColor:kColorBlue];
+    }
+    else {
+        [cell.textLabel setTextColor:[UIColor darkGrayColor]];
+    }
+    
+    cell.imageView.image = [arrayImage objectAtIndex:indexPath.row];
+    
     return cell;
 }
 
