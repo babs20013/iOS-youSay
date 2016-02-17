@@ -21,6 +21,9 @@
 #import "FriendModel.h"
 #import "CustomActivityProvider.h"
 
+#define kColorSearch [UIColor colorWithRed:42.0/255.0 green:180.0/255.0 blue:202.0/255.0 alpha:1.0]
+
+
 @interface FeedViewController ()
 {
     NSMutableArray *arrayFeed;
@@ -105,17 +108,31 @@
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
     [leftView addSubview:imgMagnifyingGlass];
     self.txtSearch.leftView = leftView;
+    self.txtSearch.textColor = [UIColor whiteColor];
     self.txtSearch.leftViewMode = UITextFieldViewModeAlways;
     self.txtSearch.layer.cornerRadius = round(self.txtSearch.frame.size.height / 2);
     self.txtSearch.layer.borderWidth = 1;
-    self.txtSearch.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.txtSearch.layer.borderColor = kColorSearch.CGColor;
     self.txtSearch.autocorrectionType = UITextAutocorrectionTypeNo;
+    
+    UIButton *clearTextButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
+    [clearTextButton setImage:[UIImage imageNamed:@"ClearText"] forState:UIControlStateNormal];
+    [clearTextButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
+    [clearTextButton addTarget:self action:@selector(clearTextField:) forControlEvents:UIControlEventTouchUpInside];
+    [self.txtSearch setRightView:clearTextButton];
+    [self.txtSearch setClearButtonMode:UITextFieldViewModeNever];
+    [self.txtSearch setRightViewMode:UITextFieldViewModeAlways];
+    
+    
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+    self.txtSearch.attributedPlaceholder = str;
     
     self.searchUserTableView.layer.cornerRadius = 0.015 * self.searchUserTableView.bounds.size.width;
     self.searchUserTableView.layer.masksToBounds = YES;
     self.searchUserTableView.layer.borderWidth = 1;
     self.searchUserTableView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
     
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -1058,6 +1075,12 @@
         //No need to add here, we will add it inside the ProfileViewController
       //  [[AppDelegate sharedDelegate].arrRecentSeacrh addObject:newSearch];
     }
+}
+
+- (IBAction)clearTextField:(id)sender {
+    [self.txtSearch setText:@""];
+    isShowRecentSearch = YES;
+    [self.searchUserTableView reloadData];
 }
 
 #pragma mark - ScrollViewDelegate

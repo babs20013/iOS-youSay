@@ -41,6 +41,8 @@
 #define kColorLabel [UIColor colorWithRed:27.0/255.0 green:174.0/255.0 blue:198.0/255.0 alpha:1.0]
 #define kColorBG [UIColor colorWithRed:180.0/255.0 green:185.0/255.0 blue:187.0/255.0 alpha:1.0]
 
+#define kColorSearch [UIColor colorWithRed:42.0/255.0 green:180.0/255.0 blue:202.0/255.0 alpha:1.0]
+
 #define shareSayTag 55
 #define shareAfterRateTag   56
 
@@ -202,9 +204,17 @@
     self.txtSearch.leftViewMode = UITextFieldViewModeAlways;
     self.txtSearch.layer.cornerRadius = round(self.txtSearch.frame.size.height / 2);
     self.txtSearch.layer.borderWidth = 1;
-    self.txtSearch.layer.borderColor = [UIColor clearColor].CGColor;
+    self.txtSearch.layer.borderColor = kColorSearch.CGColor;
     self.txtSearch.autocorrectionType = UITextAutocorrectionTypeNo;
     
+    UIButton *clearTextButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
+    [clearTextButton setImage:[UIImage imageNamed:@"ClearText"] forState:UIControlStateNormal];
+    [clearTextButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
+    [clearTextButton addTarget:self action:@selector(clearTextField:) forControlEvents:UIControlEventTouchUpInside];
+    [self.txtSearch setRightView:clearTextButton];
+    [self.txtSearch setClearButtonMode:UITextFieldViewModeNever];
+    [self.txtSearch setRightViewMode:UITextFieldViewModeAlways];
+
     
     NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     self.txtSearch.attributedPlaceholder = str;
@@ -2096,6 +2106,12 @@
     [defaults setObject:nil forKey:@"yousayuserid"];
     [defaults setObject:nil forKey:@"yousaytoken"];
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
+}
+
+- (IBAction)clearTextField:(id)sender {
+    [self.txtSearch setText:@""];
+    isShowRecentSearch = YES;
+    [self.searchTableView reloadData];
 }
 
 
