@@ -219,7 +219,7 @@
     NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     self.txtSearch.attributedPlaceholder = str;
     
-    btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(self.tableView.frame.size.width, self.tableView.frame.size.height, 60, 60)];
+    btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(self.tableView.frame.size.width, 485, 60, 60)];
     [btnAddSay setImage:[UIImage imageNamed:@"AddButton"] forState:UIControlStateNormal];
     [btnAddSay setTitle:@"Add" forState:UIControlStateNormal];
     [btnAddSay addTarget:self action:@selector(btnAddSayTapped:) forControlEvents:UIControlEventTouchUpInside];
