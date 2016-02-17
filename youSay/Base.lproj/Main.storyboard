@@ -46,7 +46,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6H-GF-LsT">
-                                <rect key="frame" x="-6" y="293" width="332" height="56"/>
+                                <rect key="frame" x="-6" y="401" width="332" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="fbLogin">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -56,8 +56,8 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We will not publish anything without your approval" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocN-SF-Kf4">
-                                <rect key="frame" x="18" y="364" width="284" height="15"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <rect key="frame" x="8" y="472" width="304" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -71,7 +71,7 @@
                             <constraint firstItem="gnT-wQ-KWa" firstAttribute="top" secondItem="bdP-fO-KJH" secondAttribute="bottom" constant="39" id="Bju-mD-Njl"/>
                             <constraint firstItem="r6H-GF-LsT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FkM-XN-W1k"/>
                             <constraint firstItem="ocN-SF-Kf4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L2n-Kp-LE8"/>
-                            <constraint firstItem="dbI-8K-AG7" firstAttribute="top" secondItem="ocN-SF-Kf4" secondAttribute="bottom" constant="189" id="UZd-sa-9RE"/>
+                            <constraint firstItem="dbI-8K-AG7" firstAttribute="top" secondItem="ocN-SF-Kf4" secondAttribute="bottom" constant="80" id="UZd-sa-9RE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gnT-wQ-KWa" secondAttribute="trailing" constant="7" id="cIF-Oi-c14"/>
                             <constraint firstItem="Aaz-hU-GR0" firstAttribute="top" secondItem="bdP-fO-KJH" secondAttribute="bottom" id="eVo-YD-esE"/>
                             <constraint firstItem="Aaz-hU-GR0" firstAttribute="centerX" secondItem="r6H-GF-LsT" secondAttribute="centerX" id="giD-ls-UI3"/>
