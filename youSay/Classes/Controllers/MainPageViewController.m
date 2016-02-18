@@ -96,6 +96,7 @@
         cvc.friendModel = _friendModel;
         cvc.profileModel = _profileModel;
         cvc.isSameTab = isSameTab;
+        cvc.isAddSay = _isAddSay;
         cvc.saysID = _sayID;
         NSLog(@"sayID dr main page = %@", _sayID);
         

@@ -1100,25 +1100,20 @@
 }
 
 - (IBAction)btnAddSayClicked:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    //chartState = ChartStateViewing;
-    AddNewSayViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddNewSayViewController"];
+
     NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:[sender tag]];
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     NSDictionary *profileDictionary = [arrProfiles objectAtIndex:0];
     
-    ProfileOwnerModel *model = [[ProfileOwnerModel alloc]init];
-    model.Name = [profileDictionary objectForKey:@"name"];
-    model.ProfileImage = [profileDictionary objectForKey:@"avatar"];
-   // model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
-    model.UserID = [profileDictionary objectForKey:@"profile_id"];
-    vc.model = model;
-    //vc.delegate = self;
-    vc.colorDict = [AppDelegate sharedDelegate].colorDict;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [nav setNavigationBarHidden:YES];
-    [self presentViewController:nav animated:YES completion:nil];
-
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+    vc.isFriendProfile = YES;
+    vc.isFromFeed = YES;
+    vc.isAddSay = YES;
+    vc.requestedID = [profileDictionary objectForKey:@"profile_id"];
+    vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
+    vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - ScrollViewDelegate
