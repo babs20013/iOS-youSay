@@ -89,7 +89,17 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0) //InviteFriends
+    {
+        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
+            FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
+            content.appLinkURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/profileshare.html"];
+            content.appInvitePreviewImageURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/images/Invite_Friends.png"];
+            [FBSDKAppInviteDialog showFromViewController:self.parentViewController withContent:content delegate:self];
+        }];
+    }
+    
+    if (indexPath.row == 1) {
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
             ShowWebVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ShowWebVC"];
             //initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
@@ -99,7 +109,7 @@
             [[SlideNavigationController sharedInstance] presentViewController:nav animated:YES completion:nil];}];
         
     }
-    else if (indexPath.row == 1){
+    else if (indexPath.row == 2){
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
             ShowWebVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ShowWebVC"];
             //initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
@@ -108,15 +118,7 @@
             [nav setNavigationBarHidden:YES];
             [[SlideNavigationController sharedInstance] presentViewController:nav animated:YES completion:nil];}];
     }
-    else if (indexPath.row == 2) //InviteFriends
-    {
-        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
-            FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
-            content.appLinkURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/profileshare.html"];
-            content.appInvitePreviewImageURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/images/Invite_Friends.png"];
-            [FBSDKAppInviteDialog showFromViewController:self.parentViewController withContent:content delegate:self];
-        }];
-    }
+    
     else if (indexPath.row == 3) {
         NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
