@@ -650,7 +650,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *footerView = [[UIView alloc]init];
-    footerView.backgroundColor = [UIColor lightGrayColor];
+    footerView.backgroundColor = [UIColor colorWithRed:180.0/255.0 green:185.0/255.0 blue:187.0/255.0 alpha:1.0];
     if (tableView == self.searchUserTableView & isSearchingFB == YES) {
         MBProgressHUD *loading = [[MBProgressHUD alloc]initWithView:footerView];
         [loading setFrame:footerView.frame];
@@ -764,7 +764,8 @@
         if (attributedText == nil){
             attributedText = [[NSAttributedString alloc]initWithString:@""];
         }
-        cell.lblSaidAbout.attributedText = attributedText;
+        //cell.lblSaidAbout.attributedText = attributedText;
+        cell.lblSaidAbout.text = [profile1 objectForKey:@"name"];
         [cell.btnProfile1 setTag:indexPath.section];
         [cell.btnLblProfile1 setTag:indexPath.section];
         [cell.btnReport setTag:indexPath.section];
@@ -823,20 +824,20 @@
         string = [string stringByReplacingOccurrencesOfString:@"%2"
                                                    withString:@""];
         
-        NSURL *avatar = [NSURL URLWithString:[profile2 objectForKey:@"avatar"]];
-        if  (avatar && [avatar scheme] && [avatar host]) {
-            [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:[profile2 objectForKey:@"avatar"]]];
-        }
-        else {
-            [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:@"http://2.bp.blogspot.com/-6QyJDHjB5XE/Uscgo2DVBdI/AAAAAAAACS0/DFSFGLBK_fY/s1600/facebook-default-no-profile-pic.jpg"]];
-        }
-        
-        
-        cell.imgViewProfile2.layer.cornerRadius = 0.5 * cell.imgViewProfile2.bounds.size.width;
-        cell.imgViewProfile2.layer.masksToBounds = YES;
-        cell.imgViewProfile2.layer.borderWidth = 1;
-        cell.imgViewProfile2.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-        
+//        NSURL *avatar = [NSURL URLWithString:[profile2 objectForKey:@"avatar"]];
+//        if  (avatar && [avatar scheme] && [avatar host]) {
+//            [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:[profile2 objectForKey:@"avatar"]]];
+//        }
+//        else {
+//            [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:@"http://2.bp.blogspot.com/-6QyJDHjB5XE/Uscgo2DVBdI/AAAAAAAACS0/DFSFGLBK_fY/s1600/facebook-default-no-profile-pic.jpg"]];
+//        }
+//        
+//        
+//        cell.imgViewProfile2.layer.cornerRadius = 0.5 * cell.imgViewProfile2.bounds.size.width;
+//        cell.imgViewProfile2.layer.masksToBounds = YES;
+//        cell.imgViewProfile2.layer.borderWidth = 1;
+//        cell.imgViewProfile2.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+//        
         [cell.lblSaidAbout2 setText:[profile2 objectForKey:@"name"]];
         [cell.lblSaidAbout2 setNumberOfLines:0];
         if (![profile2 objectForKey:@"name"]) {
@@ -851,7 +852,7 @@
     NSDictionary *dicColor = [AppDelegate sharedDelegate].colorDict;
     NSDictionary *indexDict = [dicColor objectForKey:key];
     
-    [cell.viewSays setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
+    [cell setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
     
     [cell.lblSays setFrame:CGRectMake(cell.lblSays.frame.origin.x, cell.lblSays.frame.origin.y, cell.lblSays.frame.size.width, expectedSize.height)];
     [cell.lblSays setTextColor:[self colorWithHexString:[indexDict objectForKey:@"fore"]]];
