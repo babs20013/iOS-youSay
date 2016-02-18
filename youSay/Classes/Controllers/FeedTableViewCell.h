@@ -15,6 +15,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *lblSaidAbout;
 @property (nonatomic, strong) IBOutlet UILabel *lblSaidAbout2;
 @property (nonatomic, strong) IBOutlet UILabel *lblSays;
+@property (nonatomic, strong) IBOutlet UILabel *lbl1ProfileSay;
 @property (nonatomic, strong) IBOutlet UIImageView *imgViewProfile1;
 @property (nonatomic, strong) IBOutlet UIImageView *imgViewProfile2;
 @property (nonatomic, strong) IBOutlet UIView *viewSays;
@@ -28,6 +29,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *btnLblProfile1;
 @property (nonatomic, strong) IBOutlet UIButton *btnLblProfile2;
 @property (nonatomic, strong) IBOutlet UIButton *btnLikeCount;
+@property (nonatomic, strong) IBOutlet UIButton *btnAddSay;
 
 @end
 

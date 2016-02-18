@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FeedViewController.h"
 #import "WhoLikeThisViewController.h"
+#import "AddNewSayViewController.h"
 
 @interface FeedViewController : GAITrackedViewController  <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, LikeListDelegate, FBSDKSharingDelegate>
 

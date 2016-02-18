@@ -633,7 +633,7 @@
     CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     if (arrProfiles.count == 1) {
-        return 105;
+        return 115;
     }
     return expectedSize.height+138;
 }
@@ -777,8 +777,11 @@
         [cell.lblSaidAbout setText:@""];
         [cell.lblSaidAbout2 setText:@""];
         [cell.viewBottom setHidden:YES];
+        [cell.lbl1ProfileSay setHidden:YES];
         [cell.imgViewProfile1 setHidden:YES];
         [cell.imgViewProfile2 setHidden:YES];
+        [cell.lblDate setHidden:YES];
+        [cell.btnAddSay setHidden:YES];
         if (string == nil) {
             [cell.viewSays setHidden:YES];
         }
@@ -786,19 +789,32 @@
     
     if (arrProfiles.count == 1) {
         [cell.imgViewProfile1 setHidden:NO];
+        [cell.lblSaidAbout setHidden:YES];
         [cell.imgViewProfile2 setHidden:YES];
         [cell.lblSaidAbout2 setHidden:YES];
         [cell.viewSays setHidden:YES];
         [cell.viewBottom setHidden:YES];
+        [cell.lbl1ProfileSay setHidden:NO];
+        [cell.lblDate setHidden:YES];
+        [cell.btnAddSay setHidden:NO];
+        [cell.btnAddSay setTag:indexPath.section];
+        
+        NSAttributedString *attributedText = [[NSAttributedString alloc]initWithString:[[currentSaysDict valueForKey:@"feed_title"] stringByReplacingOccurrencesOfString:@"%1" withString:cell.lblSaidAbout.text]];
+        if (attributedText == nil){
+            attributedText = [[NSAttributedString alloc]initWithString:@""];
+        }
+        cell.lbl1ProfileSay.attributedText = attributedText;
         
         //        [cell.lblSaidAbout setFrame:CGRectMake(cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.size.width+200, cell.lblSaidAbout.frame.size.height)];
     }
     else if (arrProfiles.count == 2){
+        [cell.lbl1ProfileSay setHidden:YES];
         [cell.imgViewProfile1 setHidden:NO];
         [cell.imgViewProfile2 setHidden:NO];
         [cell.lblSaidAbout2 setHidden:NO];
         [cell.viewSays setHidden:NO];
         [cell.viewBottom setHidden:NO];
+        [cell.btnAddSay setHidden:YES];
         
         
         [cell.btnLikes setTag:indexPath.section];
@@ -858,7 +874,7 @@
         [cell.btnLikeCount setTag:[[currentSaysDict valueForKey:@"say_id"] integerValue]];
     }
     
-    cell.layer.cornerRadius = 0.005 * cell.bounds.size.width;
+    cell.layer.cornerRadius = 0.015 * cell.bounds.size.width;
     cell.layer.masksToBounds = YES;
     cell.layer.borderWidth = 1;
     cell.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
@@ -913,12 +929,12 @@
     cString = [cString stringByReplacingOccurrencesOfString:@"#" withString:@""];
     
     // String should be 6 or 8 characters
-    if ([cString length] < 6) return [UIColor grayColor];
+    if ([cString length] < 6) return [UIColor colorWithRed:237.0/255.0 green:155.0/255.0 blue:73.0/255.0 alpha:1.0];
     
     // strip 0X if it appears
     if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
     
-    if ([cString length] != 6) return  [UIColor grayColor];
+    if ([cString length] != 6) return  [UIColor colorWithRed:237.0/255.0 green:155.0/255.0 blue:73.0/255.0 alpha:1.0];
     
     // Separate into r, g, b substrings
     NSRange range;
@@ -1081,6 +1097,28 @@
     [self.txtSearch setText:@""];
     isShowRecentSearch = YES;
     [self.searchUserTableView reloadData];
+}
+
+- (IBAction)btnAddSayClicked:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    //chartState = ChartStateViewing;
+    AddNewSayViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddNewSayViewController"];
+    NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:[sender tag]];
+    NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
+    NSDictionary *profileDictionary = [arrProfiles objectAtIndex:0];
+    
+    ProfileOwnerModel *model = [[ProfileOwnerModel alloc]init];
+    model.Name = [profileDictionary objectForKey:@"name"];
+    model.ProfileImage = [profileDictionary objectForKey:@"avatar"];
+   // model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
+    model.UserID = [profileDictionary objectForKey:@"profile_id"];
+    vc.model = model;
+    //vc.delegate = self;
+    vc.colorDict = [AppDelegate sharedDelegate].colorDict;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [nav setNavigationBarHidden:YES];
+    [self presentViewController:nav animated:YES completion:nil];
+
 }
 
 #pragma mark - ScrollViewDelegate
