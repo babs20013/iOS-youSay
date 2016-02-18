@@ -103,7 +103,7 @@
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
             ShowWebVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ShowWebVC"];
             //initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-            [vc setUrl:@"https://yousayweb.com/yousay/contact_us.php"];
+            [vc setUrl:@"http://yousayweb.com/yousay/profileshare.html#contactus"];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
             [nav setNavigationBarHidden:YES];
             [[SlideNavigationController sharedInstance] presentViewController:nav animated:YES completion:nil];}];
@@ -113,7 +113,7 @@
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
             ShowWebVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ShowWebVC"];
             //initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-            [vc setUrl:@"https://yousayweb.com/yousay/privacy_policy.php"];
+            [vc setUrl:@"http://yousayweb.com/yousay/profileshare.html#privacypolicy"];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
             [nav setNavigationBarHidden:YES];
             [[SlideNavigationController sharedInstance] presentViewController:nav animated:YES completion:nil];}];
