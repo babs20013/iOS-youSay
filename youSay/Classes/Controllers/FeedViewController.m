@@ -635,7 +635,7 @@
     if (arrProfiles.count == 1) {
         return 105;
     }
-    return expectedSize.height+115;
+    return expectedSize.height+138;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -776,11 +776,7 @@
     if (arrProfiles.count == 0) {
         [cell.lblSaidAbout setText:@""];
         [cell.lblSaidAbout2 setText:@""];
-        [cell.btnReport setHidden:YES];
-        [cell.btnShare setHidden:YES];
-        [cell.btnShareFB setHidden:YES];
-        [cell.btnLikes setHidden:YES];
-        [cell.lblLikes setHidden:YES];
+        [cell.viewBottom setHidden:YES];
         [cell.imgViewProfile1 setHidden:YES];
         [cell.imgViewProfile2 setHidden:YES];
         if (string == nil) {
@@ -793,11 +789,8 @@
         [cell.imgViewProfile2 setHidden:YES];
         [cell.lblSaidAbout2 setHidden:YES];
         [cell.viewSays setHidden:YES];
-        [cell.btnReport setHidden:YES];
-        [cell.btnShare setHidden:YES];
-        [cell.btnShareFB setHidden:YES];
-        [cell.btnLikes setHidden:YES];
-        [cell.lblLikes setHidden:YES];
+        [cell.viewBottom setHidden:YES];
+        
         //        [cell.lblSaidAbout setFrame:CGRectMake(cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.size.width+200, cell.lblSaidAbout.frame.size.height)];
     }
     else if (arrProfiles.count == 2){
@@ -805,11 +798,8 @@
         [cell.imgViewProfile2 setHidden:NO];
         [cell.lblSaidAbout2 setHidden:NO];
         [cell.viewSays setHidden:NO];
-        [cell.btnReport setHidden:NO];
-        [cell.btnShare setHidden:NO];
-        [cell.btnShareFB setHidden:NO];
-        [cell.btnLikes setHidden:NO];
-        [cell.lblLikes setHidden:NO];
+        [cell.viewBottom setHidden:NO];
+        
         
         [cell.btnLikes setTag:indexPath.section];
         if ([[currentSaysDict objectForKey:@"like_status"] isEqualToString:@"yes"]) {
@@ -963,16 +953,25 @@
     UIButton *button = (UIButton*)sender;
     button.selected = !button.selected;
     
+    UIView *superView = button.superview;
+    UIView *foundSuperView = nil;
+    
+    while (nil != superView && nil == foundSuperView) {
+        if ([superView isKindOfClass:[FeedTableViewCell class]]) {
+            foundSuperView = superView;
+        } else {
+            superView = superView.superview;
+        }
+    }
+    
     if ([button isSelected]) {
-        UIView *view = button.superview; //Cell contentView
-        FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+        FeedTableViewCell *cell = (FeedTableViewCell *)foundSuperView;
         NSInteger likeCount = [[cell.lblLikes text] integerValue] + 1;
         [cell.lblLikes setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         [self requesLikeSay:sender];
     }
     else {
-        UIView *view = button.superview; //Cell contentView
-        FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+        FeedTableViewCell *cell = (FeedTableViewCell *)foundSuperView;
         NSInteger likeCount = [[cell.lblLikes text] integerValue] - 1;
         [cell.lblLikes setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         [self requesUnlikeSay:sender];

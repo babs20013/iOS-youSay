@@ -18,6 +18,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *imgViewProfile1;
 @property (nonatomic, strong) IBOutlet UIImageView *imgViewProfile2;
 @property (nonatomic, strong) IBOutlet UIView *viewSays;
+@property (nonatomic, strong) IBOutlet UIView *viewBottom;
 @property (nonatomic, strong) IBOutlet UIButton *btnReport;
 @property (nonatomic, strong) IBOutlet UIButton *btnShare;
 @property (nonatomic, strong) IBOutlet UIButton *btnShareFB;
