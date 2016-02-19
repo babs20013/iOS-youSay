@@ -46,6 +46,11 @@
 #define shareSayTag 55
 #define shareAfterRateTag   56
 
+#define IS_IPHONE_4 [[UIScreen mainScreen] bounds].size.height == 480.0f
+#define IS_IPHONE_5 [[UIScreen mainScreen] bounds].size.height == 568.0f
+#define IS_IPHONE_6 [[UIScreen mainScreen] bounds].size.height == 667.0f
+#define IS_IPHONE_6PLUS [[UIScreen mainScreen] bounds].size.height == 736.0f
+
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate> {
     ProfileOwnerModel *friendsProfileModel;
     NSMutableDictionary *dictHideSay;
@@ -219,7 +224,26 @@
     NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     self.txtSearch.attributedPlaceholder = str;
     
-    btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(self.tableView.frame.size.width, 485, 60, 60)];
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    CGFloat screenWidth = screenSize.width;
+    CGFloat screenHeight = screenSize.height;
+    
+    btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(screenWidth-100, 485, 60, 60)];
+    
+    if (IS_IPHONE_4) {
+        btnAddSay.frame = CGRectMake(self.tableView.frame.size.width-60, 350, 60, 60);
+    }
+    else if (IS_IPHONE_5) {
+        btnAddSay.frame = CGRectMake(self.tableView.frame.size.width-70, 420, 80, 80);
+    }
+    else if (IS_IPHONE_6) {
+        btnAddSay.frame = CGRectMake(self.tableView.frame.size.width-30, 478, 80, 80);
+    }
+    else if (IS_IPHONE_6PLUS) {
+        btnAddSay.frame = CGRectMake(self.tableView.frame.size.width, 513, 80, 80);
+    }
+    
     [btnAddSay setImage:[UIImage imageNamed:@"AddButton"] forState:UIControlStateNormal];
     [btnAddSay setTitle:@"Add" forState:UIControlStateNormal];
     [btnAddSay addTarget:self action:@selector(btnAddSayTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -2065,8 +2089,18 @@
         chartState = ChartStateViewing;
     }
     UIButton *button = (UIButton*)sender;
-    UIView *view = button.superview; //Cell contentView
-    PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+    
+    UIView *superView = button.superview;
+    UIView *foundSuperView = nil;
+    
+    while (nil != superView && nil == foundSuperView) {
+        if ([superView isKindOfClass:[ProfileTableViewCell class]]) {
+            foundSuperView = superView;
+        } else {
+            superView = superView.superview;
+        }
+    }
+    PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)foundSuperView;
     [cell.peopleSayTitleLabel setTextColor:[UIColor lightGrayColor]];
     NSDictionary *value = [saysArray objectAtIndex:[sender tag]];
     requestedID = [value objectForKey:@"user_id"];
