@@ -1289,7 +1289,7 @@
         return 0;
     }
     else if (section == 1) {
-        return 0;
+        return 70;
     }
     return 0;
 }
@@ -1299,7 +1299,7 @@
         return 60;
     }
     else if (section == 0 && tableView == self.tableView) {
-        return 10;
+        return 0;
     }
     if (section > 0) {
         return 30;
@@ -2239,6 +2239,7 @@
 
 - (void)AddNewSayDidDismissed {
     isAfterAddNewSay = YES;
+    _isAddSay = NO;
     
     if (_isRequestingProfile == NO) {
         NSMutableDictionary *event =
@@ -2262,6 +2263,7 @@
 
 - (void) AddNewSayDidDismissedWithCancel {
     isFriendProfile = YES;
+    _isAddSay = NO;
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
