@@ -205,6 +205,7 @@ static NSString *const kAllowTracking = @"allowTracking";
     vc.isFromFeed = YES;
     vc.requestedID = [data objectForKey:@"profile_id"];
     vc.sayID = [data objectForKey:@"say_id"];
+    vc.isAddSay = NO;
     
     NSLog(@"sayID original: %@",[data objectForKey:@"say_id"]);
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;

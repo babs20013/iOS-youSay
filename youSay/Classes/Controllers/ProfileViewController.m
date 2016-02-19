@@ -1289,7 +1289,7 @@
         return 0;
     }
     else if (section == 1) {
-        return 50;
+        return 0;
     }
     return 0;
 }
@@ -1327,14 +1327,14 @@
         return height;
     }
     else {
-        NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+        NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.section-1];
         if ([[dictHideSay objectForKey:index] isEqualToString:@"isHide"]) {
             return 90;
         }
-        NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.row];
-        NSString *string = [currentSaysDict valueForKey:@"text"];
-        CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
-        return 70 + expectedSize.height + 30 + 20;
+//        NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.row];
+//        NSString *string = [currentSaysDict valueForKey:@"text"];
+//        CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
+        return 289; //144 + 145
     }
 //    else if (indexPath.section == 2) {
 //        return 65;
@@ -1717,11 +1717,12 @@
         PeopleSayTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.section-1];
         NSString *colorIndex = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
+        [cel.peopleSayTitleLabel setTextColor:[UIColor whiteColor]];
         
-        cel.mainView.layer.cornerRadius = 0.015 * cel.mainView.bounds.size.width;
-        cel.mainView.layer.masksToBounds = YES;
-        cel.mainView.layer.borderWidth = 1;
-        cel.mainView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        cel.layer.cornerRadius = 0.015 * cel.bounds.size.width;
+        cel.layer.masksToBounds = YES;
+        cel.layer.borderWidth = 1;
+        cel.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         
         NSURL *imgURL = [NSURL URLWithString:[currentSaysDict objectForKey:@"profile_image"]];
         if  (imgURL && [imgURL scheme] && [imgURL host]) {
@@ -1736,16 +1737,15 @@
         cel.imgViewProfilePic.layer.borderWidth = 1;
         cel.imgViewProfilePic.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         cel.peopleSayTitleLabel.text = [NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]];
-        [cel.peopleSayTitleLabel setTextColor:[UIColor darkGrayColor]];
         cel.dateLabel.text = [currentSaysDict objectForKey:@"date"];
         cel.likesLabel.text = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"like_count"]];
         cel.peopleSayLabel.text = [currentSaysDict objectForKey:@"text"];
-        cel.btnHide.tag = indexPath.row;
-        cel.btnUndo.tag = indexPath.row;
-        cel.btnProfile.tag = indexPath.row;
-        cel.btnReport.tag = indexPath.row;
-        cel.btnShareFB.tag = indexPath.row;
-        cel.btnShare.tag = indexPath.row;
+        cel.btnHide.tag = indexPath.section-1;
+        cel.btnUndo.tag = indexPath.section-1;
+        cel.btnProfile.tag = indexPath.section-1;
+        cel.btnReport.tag = indexPath.section-1;
+        cel.btnShareFB.tag = indexPath.section-1;
+        cel.btnShare.tag = indexPath.section-1;
         //[cel.btnProfile.titleLabel setText:[NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]]];
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
@@ -1755,7 +1755,7 @@
         cel.peopleSayLabel.frame = CGRectMake(cel.peopleSayLabel.frame.origin.x, cel.peopleSayLabel.frame.origin.y, expectedSize.width, expectedSize.height);
         cel.peopleSayView.frame =CGRectMake(cel.peopleSayView.frame.origin.x, cel.peopleSayView.frame.origin.y, expectedSize.width, expectedSize.height);
         
-        [cel.likeButton setTag:indexPath.row];
+        [cel.likeButton setTag:indexPath.section-1];
         
         if ([[currentSaysDict objectForKey:@"liked"] isEqualToString:@"true"]) {
             [cel.likeButton setSelected:YES];
@@ -1764,7 +1764,7 @@
             [cel.likeButton setSelected:NO];
         }
         
-        NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+        NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.section-1];
         if ([[dictHideSay objectForKey:index] isEqualToString:@"isHide"]) {
             UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
             UIView *hideView = [[UIView alloc]initWithFrame:CGRectMake(15, 10, tableView.frame.size.width-30, [tableView rectForRowAtIndexPath:indexPath].size.height - 20)];
@@ -1777,7 +1777,7 @@
             [hideView addSubview:lblHideInfo];
             
             UIButton *btnUndo = [[UIButton alloc]initWithFrame:CGRectMake((hideView.frame.size.width-50)/2, lblHideInfo.frame.origin.y+lblHideInfo.frame.size.height+0, 50, 25)];
-            btnUndo.tag = indexPath.row;
+            btnUndo.tag = indexPath.section-1;
             [btnUndo addTarget:self action:@selector(btnUndoClicked:) forControlEvents:UIControlEventTouchUpInside];
             NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
             [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"Undo"
@@ -1903,7 +1903,7 @@
     NSLog(@"btnClick : %ld", (long)[sender tag]);
     NSString *index = [NSString stringWithFormat:@"%ld", (long)[sender tag]];
     [dictHideSay setObject:@"isHide" forKey:index];
-    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]] withRowAnimation:UITableViewRowAnimationFade];
 
 }
 
@@ -1912,7 +1912,7 @@
     NSString *index = [NSString stringWithFormat:@"%ld", (long)[sender tag]];
     [dictHideSay setObject:@"isNoHide" forKey:index];
     //[self.tableView reloadData];
-    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)btnAddSayTapped:(id)sender {
@@ -2005,16 +2005,25 @@
     UIButton *button = (UIButton*)sender;
     button.selected = !button.selected;
     
+    UIView *superView = button.superview;
+    UIView *foundSuperView = nil;
+    
+    while (nil != superView && nil == foundSuperView) {
+        if ([superView isKindOfClass:[ProfileTableViewCell class]]) {
+            foundSuperView = superView;
+        } else {
+            superView = superView.superview;
+        }
+    }
+    
     if ([button isSelected]) {
-        UIView *view = button.superview; //Cell contentView
-        PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+        PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)foundSuperView;
         NSInteger likeCount = [[cell.likesLabel text] integerValue] + 1;
         [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         [self requesLikeSay:sender];
     }
    else {
-        UIView *view = button.superview; //Cell contentView
-        PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+        PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)foundSuperView;
         NSInteger likeCount = [[cell.likesLabel text] integerValue] - 1;
         [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         [self requesUnlikeSay:sender];
