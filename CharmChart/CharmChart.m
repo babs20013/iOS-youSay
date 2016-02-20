@@ -29,12 +29,12 @@
 //#define kMinHorizontalGap 5
 //#define kChartLabelHeight 29
 
-#define kMinVerticalGap 5
+#define kMinVerticalGap 7
 #define kMinHorizontalGap 10
-#define kChartLabelHeight 40
+#define kChartLabelHeight 33
 
 #define kDefaultFontArialBold @"Arial-BoldMT"
-#define kDefaultFontArial @"Arial"
+#define kDefaultFontHelvetica @"Helvetica-Neue"
 
 
 @interface CharmChart(){
@@ -116,7 +116,7 @@
     
     UILabel *lblTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, self.frame.size.height-kChartLabelHeight+5, self.frame.size.width, kChartLabelHeight)];
     [lblTitle setText:_title];
-    [lblTitle setFont:[UIFont fontWithName:kDefaultFontArial size:10]];
+    [lblTitle setFont:[UIFont systemFontOfSize:10]];
     [lblTitle setTextAlignment:NSTextAlignmentCenter];
     [lblTitle setTextColor:kChartTitleLabelColor];
     lblTitle.numberOfLines = 0;
@@ -132,7 +132,8 @@
     if ((_state == ChartStateViewing && _score == 0 && !_rated) || (_state ==  ChartStateRate && !_rated) ){
         position = 11;
     }
-    lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- ((position+2)*([self boxSize].height+kMinVerticalGap)), [self boxSize].width, [self boxSize].height)];
+
+    lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- ((position-1)*([self boxSize].height+kMinVerticalGap) + [self boxSize].height)-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
     
     if (_rated){
         [lblScore setText:[NSString stringWithFormat:@"%ld",(long)_score]];
@@ -141,7 +142,7 @@
         [lblScore setText:_state ==  ChartStateRate ? @"0" : [NSString stringWithFormat:@"%ld",(long)_score]];
     }
     
-    [lblScore setFont:[UIFont fontWithName:kDefaultFontArial size:13]];
+    [lblScore setFont:[UIFont systemFontOfSize:13]];
     if (position > 10 && _state ==  ChartStateRate) {
         [lblScore setHidden:YES];
     }

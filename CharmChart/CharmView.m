@@ -114,7 +114,6 @@
 }
 
 - (void) showCharmsSelection:(NSString*)charmOut withIndex:(NSString*)index{
-    NSLog(@"masuk charmView");
     NSArray * arrayOfObjects = [NSArray arrayWithObjects: charmOut, index, nil];
     if ([self.delegate performSelector:@selector(showSelectionOfCharm:) withObject:arrayOfObjects]) {
         [self.delegate showSelectionOfCharm:arrayOfObjects];

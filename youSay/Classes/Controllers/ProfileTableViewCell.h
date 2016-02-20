@@ -41,5 +41,6 @@
 @property (nonatomic, strong) IBOutlet UIView *buttonEditView;
 @property (nonatomic, strong) IBOutlet UIView *LongPressToRankView;
 @property (nonatomic, strong) IBOutlet UILabel *lblYourCharm;
+@property (nonatomic, strong) IBOutlet UILabel *lblWhatPeopleSay;
 
 @end

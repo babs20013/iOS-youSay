@@ -34,7 +34,6 @@
 @property (nonatomic, strong) NSString *saysID;
 @property (nonatomic, strong) UIButton *btnAddSay;
 
-- (void)setIsRefresh:(BOOL)isRefresh;
 - (void) refreshPage:(NSNotification *)notif;
 - (void)requestProfile:(NSString*)IDrequested;
 - (void)requestCreateProfile:(FriendModel*)friendModel;

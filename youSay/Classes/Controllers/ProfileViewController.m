@@ -100,6 +100,7 @@
 @synthesize isFriendProfile;
 @synthesize btnAddSay;
 @synthesize saysID;
+@synthesize lblRecentSearch;
 
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -1283,7 +1284,7 @@
     UIView *thisView = [[UIView alloc]init];
     thisView.backgroundColor = [UIColor clearColor];//kColorBG;
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, self.view.bounds.size.width-40, 37)];
-    label.text = [NSString stringWithFormat:@"What people SAID about %@", [profileDictionary objectForKey:@"name"]];
+    label.text = [NSString stringWithFormat:@"What people said about %@", [profileDictionary objectForKey:@"name"]];
     label.numberOfLines = 0;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor darkGrayColor];
@@ -1309,12 +1310,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (tableView == self.searchTableView) {
-        return 0;
-    }
-    else if (section == 1) {
-        return 70;
-    }
+//    if (tableView == self.searchTableView) {
+//        return 0;
+//    }
+//    else if (section == 1) {
+//        return 70;
+//    }
     return 0;
 }
 
@@ -1337,16 +1338,16 @@
     else if (indexPath.section == 0) {
         CGFloat height=0;
         if (self.view.frame.size.height >= 667) {//6+
-            height= self.view.frame.size.height - 165;
+            height= self.view.frame.size.height - 95;
         }
-        else if (self.view.frame.size.height >= 568) {//6
-            height= self.view.frame.size.height - 130;
+        else if (self.view.frame.size.height > 568) {//6
+            height= self.view.frame.size.height - 60;
         }
         else if (self.view.frame.size.height >= 480) {//5
-            height= self.view.frame.size.height - 50;
+            height= self.view.frame.size.height + 20;
         }
         else{//4
-            height= self.view.frame.size.height;
+            height= self.view.frame.size.height + 70;
         }
         return height;
     }
@@ -1725,6 +1726,9 @@
             [cel.imgVShare setHidden:NO];
             [cel.buttonEditView setHidden:YES];
         }
+        
+        cel.lblWhatPeopleSay.text = [NSString stringWithFormat:@"What people said about %@", [profileDictionary objectForKey:@"name"]];
+        
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(EnableCharmRateMode)];
         longPress.delegate =  self;
         [cel addGestureRecognizer:longPress];
@@ -1760,7 +1764,7 @@
         cel.imgViewProfilePic.layer.masksToBounds = YES;
         cel.imgViewProfilePic.layer.borderWidth = 1;
         cel.imgViewProfilePic.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-        cel.peopleSayTitleLabel.text = [NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]];
+        cel.peopleSayTitleLabel.text = [NSString stringWithFormat:@"%@", [currentSaysDict objectForKey:@"by"]];
         cel.dateLabel.text = [currentSaysDict objectForKey:@"date"];
         cel.likesLabel.text = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"like_count"]];
         cel.peopleSayLabel.text = [currentSaysDict objectForKey:@"text"];
