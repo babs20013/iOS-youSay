@@ -39,6 +39,8 @@
     BOOL isSearching;
     BOOL isSearchingFB;
     BOOL isAfterShareFB;
+    
+    WhoLikeThisViewController *likeListVC;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -1004,12 +1006,25 @@
 }
 
 - (IBAction)btnLikeCountClicked:(id)sender {
-    WhoLikeThisViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
-    vc.delegate = self;
-    vc.say_id = [NSString stringWithFormat:@"%li", (long)[sender tag]];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-    [nav setNavigationBarHidden:YES];
-    [self presentViewController:nav animated:YES completion:nil];
+    UIButton *button = (UIButton*)sender;
+    UIView *superView = button.superview;
+    UIView *foundSuperView = nil;
+    
+    while (nil != superView && nil == foundSuperView) {
+        if ([superView isKindOfClass:[FeedTableViewCell class]]) {
+            foundSuperView = superView;
+        } else {
+            superView = superView.superview;
+        }
+    }
+    
+    FeedTableViewCell *cell = (FeedTableViewCell *)foundSuperView;
+    
+    likeListVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
+    likeListVC.delegate = self;
+    likeListVC.say_id = [NSString stringWithFormat:@"%li", (long)[sender tag]];
+    [likeListVC.view setFrame:CGRectMake(likeListVC.view.frame.origin.x, likeListVC.view.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
+    [cell addSubview:likeListVC.view];
 }
 
 - (IBAction)btnClearSearchClicked:(id)sender {
@@ -1124,6 +1139,9 @@
             isScrollBounce = NO;
             [self requestFeed:[NSString stringWithFormat:@"%i", index]];
         }
+    }
+    if (likeListVC) {
+        [likeListVC.view removeFromSuperview];
     }
 }
 

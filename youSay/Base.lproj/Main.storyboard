@@ -2121,8 +2121,20 @@
                                                     <action selector="btnBackClicked:" destination="x8N-nM-h3I" eventType="touchUpInside" id="WQf-PG-s82"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Who liked this?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpx-iu-6I8">
-                                                <rect key="frame" x="10" y="13" width="300" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Who" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpx-iu-6I8">
+                                                <rect key="frame" x="10" y="13" width="31" height="18"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="liked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mlS-et-m92">
+                                                <rect key="frame" x="46" y="13" width="32" height="18"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                <color key="textColor" red="0.17254901960784313" green="0.63137254901960782" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="this?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jyc-MG-VjK">
+                                                <rect key="frame" x="83" y="13" width="33" height="18"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -2138,41 +2150,44 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="wGt-nl-jI0" secondAttribute="trailing" constant="10" id="5cd-9F-UAG"/>
-                                            <constraint firstItem="wGt-nl-jI0" firstAttribute="trailing" secondItem="Hpx-iu-6I8" secondAttribute="trailing" id="Hj6-r9-TKp"/>
+                                            <constraint firstItem="jyc-MG-VjK" firstAttribute="top" secondItem="Hpx-iu-6I8" secondAttribute="top" id="CWK-NZ-i1a"/>
                                             <constraint firstItem="PWe-iO-LfW" firstAttribute="top" secondItem="NwW-MF-4OD" secondAttribute="top" id="Nyt-c8-BDE"/>
                                             <constraint firstItem="Hpx-iu-6I8" firstAttribute="leading" secondItem="NwW-MF-4OD" secondAttribute="leading" constant="10" id="TG5-9v-kDy"/>
                                             <constraint firstAttribute="bottom" secondItem="wGt-nl-jI0" secondAttribute="bottom" id="TQ2-3W-M7y"/>
+                                            <constraint firstItem="jyc-MG-VjK" firstAttribute="leading" secondItem="mlS-et-m92" secondAttribute="trailing" constant="5" id="Yv6-Ko-9ft"/>
                                             <constraint firstItem="PWe-iO-LfW" firstAttribute="height" secondItem="NwW-MF-4OD" secondAttribute="height" id="ZSZ-sk-RGK"/>
+                                            <constraint firstItem="mlS-et-m92" firstAttribute="top" secondItem="Hpx-iu-6I8" secondAttribute="top" id="bWL-aL-cSY"/>
                                             <constraint firstAttribute="trailing" secondItem="PWe-iO-LfW" secondAttribute="trailing" constant="10" id="bdK-2C-3LX"/>
                                             <constraint firstAttribute="height" constant="43" id="jKu-Yz-eAl"/>
+                                            <constraint firstItem="mlS-et-m92" firstAttribute="leading" secondItem="Hpx-iu-6I8" secondAttribute="trailing" constant="5" id="nmS-iy-zjj"/>
                                             <constraint firstItem="wGt-nl-jI0" firstAttribute="leading" secondItem="NwW-MF-4OD" secondAttribute="leading" constant="10" id="pIe-DW-IiK"/>
                                             <constraint firstAttribute="bottom" secondItem="PWe-iO-LfW" secondAttribute="bottom" id="rrD-DK-R2c"/>
                                             <constraint firstItem="Hpx-iu-6I8" firstAttribute="centerY" secondItem="NwW-MF-4OD" secondAttribute="centerY" id="t9e-To-sD3"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3EX-hD-Ue6">
-                                        <rect key="frame" x="7" y="52" width="306" height="507"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3EX-hD-Ue6">
+                                        <rect key="frame" x="10" y="52" width="300" height="507"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="507" id="X0Q-5e-nEe"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="WhoLikeListTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="WhoLikeListTableViewCell" rowHeight="50" id="Hqn-bJ-UXT" customClass="WhoLikeListTableViewCell">
-                                                <rect key="frame" x="0.0" y="28" width="306" height="50"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="WhoLikeListTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="WhoLikeListTableViewCell" rowHeight="52" id="Hqn-bJ-UXT" customClass="WhoLikeListTableViewCell">
+                                                <rect key="frame" x="0.0" y="28" width="300" height="52"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hqn-bJ-UXT" id="kcM-lv-3iD">
-                                                    <rect key="frame" x="0.0" y="0.0" width="306" height="49"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="52"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2dL-qW-w2y">
-                                                            <rect key="frame" x="8" y="9" width="32" height="32"/>
+                                                            <rect key="frame" x="0.0" y="10" width="32" height="32"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="32" id="kmv-hM-VXm"/>
                                                                 <constraint firstAttribute="width" constant="32" id="zF8-d0-Cpp"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5O-Yh-1nh">
-                                                            <rect key="frame" x="49" y="-1" width="249" height="51"/>
+                                                            <rect key="frame" x="41" y="1" width="251" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="17r-vg-Z5Z"/>
                                                             </constraints>
@@ -2182,8 +2197,8 @@
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="2dL-qW-w2y" firstAttribute="leading" secondItem="kcM-lv-3iD" secondAttribute="leadingMargin" id="6BC-id-BFc"/>
                                                         <constraint firstItem="2dL-qW-w2y" firstAttribute="centerY" secondItem="kcM-lv-3iD" secondAttribute="centerY" id="NAs-7F-xSm"/>
+                                                        <constraint firstItem="2dL-qW-w2y" firstAttribute="leading" secondItem="kcM-lv-3iD" secondAttribute="leadingMargin" constant="-8" id="b44-Hg-N85"/>
                                                         <constraint firstItem="M5O-Yh-1nh" firstAttribute="centerY" secondItem="kcM-lv-3iD" secondAttribute="centerY" id="d2h-D6-RDa"/>
                                                         <constraint firstItem="M5O-Yh-1nh" firstAttribute="leading" secondItem="2dL-qW-w2y" secondAttribute="trailing" constant="9" id="dLV-Tx-aJ1"/>
                                                         <constraint firstItem="M5O-Yh-1nh" firstAttribute="trailing" secondItem="kcM-lv-3iD" secondAttribute="trailingMargin" id="oiX-ZD-zbR"/>
@@ -2206,8 +2221,8 @@
                                     <constraint firstItem="NwW-MF-4OD" firstAttribute="leading" secondItem="TRG-DS-Yck" secondAttribute="leading" id="Adk-xc-uvJ"/>
                                     <constraint firstItem="3EX-hD-Ue6" firstAttribute="top" secondItem="NwW-MF-4OD" secondAttribute="bottom" constant="9" id="RWb-dg-4Nu"/>
                                     <constraint firstItem="3EX-hD-Ue6" firstAttribute="centerX" secondItem="NwW-MF-4OD" secondAttribute="centerX" id="T2h-WP-Hg5"/>
-                                    <constraint firstItem="3EX-hD-Ue6" firstAttribute="leading" secondItem="TRG-DS-Yck" secondAttribute="leading" constant="7" id="X7o-Ac-q4X"/>
-                                    <constraint firstAttribute="trailing" secondItem="3EX-hD-Ue6" secondAttribute="trailing" constant="7" id="aeS-NI-f6l"/>
+                                    <constraint firstItem="3EX-hD-Ue6" firstAttribute="leading" secondItem="TRG-DS-Yck" secondAttribute="leading" constant="10" id="X7o-Ac-q4X"/>
+                                    <constraint firstAttribute="trailing" secondItem="3EX-hD-Ue6" secondAttribute="trailing" constant="10" id="aeS-NI-f6l"/>
                                     <constraint firstItem="NwW-MF-4OD" firstAttribute="top" secondItem="TRG-DS-Yck" secondAttribute="top" id="l0Y-x2-QAv"/>
                                     <constraint firstAttribute="trailing" secondItem="NwW-MF-4OD" secondAttribute="trailing" id="mcW-lY-5e6"/>
                                 </constraints>

@@ -58,6 +58,7 @@
     UIImageView *imgViewPopularity;
     ChartState chartState;
     CharmView *charmView;
+    WhoLikeThisViewController *likelistVC;
     
     NSInteger charmIndexRow;
     NSMutableArray *arrayFilteredCharm;
@@ -1774,6 +1775,7 @@
         cel.btnReport.tag = indexPath.section-1;
         cel.btnShareFB.tag = indexPath.section-1;
         cel.btnShare.tag = indexPath.section-1;
+        cel.btnLikeCount.tag = indexPath.section-1;
         //[cel.btnProfile.titleLabel setText:[NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]]];
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
@@ -2037,7 +2039,7 @@
     UIView *foundSuperView = nil;
     
     while (nil != superView && nil == foundSuperView) {
-        if ([superView isKindOfClass:[ProfileTableViewCell class]]) {
+        if ([superView isKindOfClass:[PeopleSayTableViewCell class]]) {
             foundSuperView = superView;
         } else {
             superView = superView.superview;
@@ -2059,12 +2061,25 @@
 }
 
 - (IBAction)btnLikesCountClicked:(id)sender {
-    WhoLikeThisViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
-    vc.delegate = self;
-    vc.say_id = [NSString stringWithFormat:@"%li", (long)[sender tag]];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-    [nav setNavigationBarHidden:YES];
-    [self presentViewController:nav animated:YES completion:nil];
+    UIButton *button = (UIButton*)sender;
+    UIView *superView = button.superview;
+    UIView *foundSuperView = nil;
+    
+    while (nil != superView && nil == foundSuperView) {
+        if ([superView isKindOfClass:[PeopleSayTableViewCell class]]) {
+            foundSuperView = superView;
+        } else {
+            superView = superView.superview;
+        }
+    }
+    
+    PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)foundSuperView;
+    
+    likelistVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
+    likelistVC.delegate = self;
+    likelistVC.say_id = [NSString stringWithFormat:@"%li", (long)[sender tag]];
+    [likelistVC.view setFrame:CGRectMake(likelistVC.view.frame.origin.x, likelistVC.view.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
+    [cell addSubview:likelistVC.view];
 }
 
 -(IBAction)btnOpenMenu:(UIButton*)sender{
@@ -2261,6 +2276,9 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y < -50) isScrollBounce = YES;
+    if (likelistVC) {
+        [likelistVC.view removeFromSuperview];
+    }
     
     if (fabs(scrollView.contentOffset.y) < 1 && isScrollBounce) {
         isScrollBounce = NO;
@@ -2325,7 +2343,9 @@
 #pragma mark LikeListDelegate
 
 - (void) ListDismissedAfterClickProfile:(NSString*)userID {
-    [self requestProfile:userID];
+    if (userID) {
+        [self requestProfile:userID];
+    }
 }
 
 - (void)dealloc {

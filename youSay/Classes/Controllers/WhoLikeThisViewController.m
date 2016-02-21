@@ -24,10 +24,6 @@
     [self.tblView setDataSource:self];
     [self.tblView setDelegate:self];
     [self requestGetLikeList];
-    self.tblView.layer.cornerRadius = 0.015 * self.tblView.bounds.size.width;
-    self.tblView.layer.masksToBounds = YES;
-    self.tblView.layer.borderWidth = 1;
-    self.tblView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,24 +32,6 @@
 }
 
 #pragma mark TableView
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Remove seperator inset
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-    }
-    
-    // Prevent the cell from inheriting the Table View's margin settings
-    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
-        [cell setPreservesSuperviewLayoutMargins:NO];
-    }
-    
-    // Explictly set your cell's layout margins
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -92,11 +70,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dict = [arrLikeList objectAtIndex:indexPath.row];
-    [self dismissViewControllerAnimated:YES completion:^{
-        if ([self.delegate performSelector:@selector(ListDismissedAfterClickProfile:) withObject:[dict objectForKey:@"user_id"]]) {
-            [self.delegate ListDismissedAfterClickProfile:[dict objectForKey:@"user_id"]];
-        }
-    }];
+    [self.view removeFromSuperview];
+    if ([self.delegate performSelector:@selector(ListDismissedAfterClickProfile:) withObject:[dict objectForKey:@"user_id"]]) {
+        [self.delegate ListDismissedAfterClickProfile:[dict objectForKey:@"user_id"]];
+    }
 }
 
 #pragma mark Request
@@ -145,7 +122,7 @@
 #pragma mark IBAction
 
 - (IBAction)btnBackClicked:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.view removeFromSuperview];
 }
 
 #pragma mark Method
