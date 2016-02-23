@@ -255,11 +255,11 @@
         [URL setHTTPServer];
         
         if ([HTTP_URL_SERVER isEqualToString:HTTP_PRODUCTION]) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:@"You are no working on the production server" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:@"You are now working on the production server" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
         else {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:@"You are no working on the staging server" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:@"You are now working on the staging server" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
     }
