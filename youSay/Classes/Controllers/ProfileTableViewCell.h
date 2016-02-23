@@ -46,6 +46,7 @@
 @property (nonatomic, strong) IBOutlet UIView *defaultFooterView;
 @property (nonatomic, strong) IBOutlet UIView *cancelSkip;
 @property (nonatomic, strong) IBOutlet UILabel *lblNeverRate;
+@property (nonatomic, strong) IBOutlet UILabel *lblTotalRateTitle;
 
 @property (nonatomic, strong) NSDictionary *saysDictionary;
 

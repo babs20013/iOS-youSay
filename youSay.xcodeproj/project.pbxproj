@@ -13,7 +13,6 @@
 		1B0DED4A1C3D7F3800F3B907 /* WhoLikeThisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DED491C3D7F3800F3B907 /* WhoLikeThisViewController.m */; };
 		1B17E3AB1C180BB30080A574 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AA1C180BB30080A574 /* AppDelegate.m */; };
 		1B17E3BC1C180BD90080A574 /* AddNewSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3AD1C180BD90080A574 /* AddNewSayViewController.m */; };
-		1B17E3BE1C180BD90080A574 /* InviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B11C180BD90080A574 /* InviteFriendsViewController.m */; };
 		1B17E3BF1C180BD90080A574 /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B31C180BD90080A574 /* MainPageViewController.m */; };
 		1B17E3C01C180BD90080A574 /* PeopleSayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B51C180BD90080A574 /* PeopleSayTableViewCell.m */; };
 		1B17E3C11C180BD90080A574 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17E3B71C180BD90080A574 /* ProfileTableViewCell.m */; };
@@ -104,8 +103,6 @@
 		1B17E3AA1C180BB30080A574 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1B17E3AC1C180BD90080A574 /* AddNewSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewSayViewController.h; path = youSay/Classes/Controllers/AddNewSayViewController.h; sourceTree = SOURCE_ROOT; };
 		1B17E3AD1C180BD90080A574 /* AddNewSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddNewSayViewController.m; path = youSay/Classes/Controllers/AddNewSayViewController.m; sourceTree = SOURCE_ROOT; };
-		1B17E3B01C180BD90080A574 /* InviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InviteFriendsViewController.h; path = youSay/Classes/Controllers/InviteFriendsViewController.h; sourceTree = SOURCE_ROOT; };
-		1B17E3B11C180BD90080A574 /* InviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteFriendsViewController.m; path = youSay/Classes/Controllers/InviteFriendsViewController.m; sourceTree = SOURCE_ROOT; };
 		1B17E3B21C180BD90080A574 /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainPageViewController.h; path = youSay/Classes/Controllers/MainPageViewController.h; sourceTree = SOURCE_ROOT; };
 		1B17E3B31C180BD90080A574 /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainPageViewController.m; path = youSay/Classes/Controllers/MainPageViewController.m; sourceTree = SOURCE_ROOT; };
 		1B17E3B41C180BD90080A574 /* PeopleSayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PeopleSayTableViewCell.h; path = youSay/Classes/Controllers/PeopleSayTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -514,8 +511,6 @@
 			children = (
 				1B17E3AC1C180BD90080A574 /* AddNewSayViewController.h */,
 				1B17E3AD1C180BD90080A574 /* AddNewSayViewController.m */,
-				1B17E3B01C180BD90080A574 /* InviteFriendsViewController.h */,
-				1B17E3B11C180BD90080A574 /* InviteFriendsViewController.m */,
 				1B17E3B21C180BD90080A574 /* MainPageViewController.h */,
 				1B17E3B31C180BD90080A574 /* MainPageViewController.m */,
 				1B17E3B41C180BD90080A574 /* PeopleSayTableViewCell.h */,
@@ -816,7 +811,6 @@
 				1BEECEFE1C2EAAAB00615C9F /* FeedViewController.m in Sources */,
 				9A906B4D1C294D0600C3327C /* UIButton+Extension.m in Sources */,
 				9AF52B841C3790F80078E568 /* UIColor+BFPaperColors.m in Sources */,
-				1B17E3BE1C180BD90080A574 /* InviteFriendsViewController.m in Sources */,
 				1B17E3D11C180BF70080A574 /* UIHelper.m in Sources */,
 				5DBF3BD61BD93BE800ACF60D /* ServiceConnector.m in Sources */,
 				1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */,

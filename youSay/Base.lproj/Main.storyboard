@@ -754,7 +754,7 @@
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="evF-gl-1E0">
                                                                     <rect key="frame" x="0.0" y="0.0" width="270" height="50"/>
-                                                                    <state key="normal" title="Done">
+                                                                    <state key="normal" title="Done" backgroundImage="DoneBtn">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
@@ -896,6 +896,7 @@
                                             <outlet property="lblRankCount" destination="0oP-V4-tJL" id="ruf-QQ-XJX"/>
                                             <outlet property="lblRankLevel" destination="mJw-sY-AUf" id="ZsO-Mb-q16"/>
                                             <outlet property="lblShare" destination="Uad-gD-3bx" id="YQ8-Ef-QBx"/>
+                                            <outlet property="lblTotalRateTitle" destination="L3I-hM-8Gm" id="8vq-Ib-bFq"/>
                                             <outlet property="lblTotalScore" destination="tvU-s0-44l" id="k6L-pU-MrY"/>
                                             <outlet property="lblWhatPeopleSay" destination="btd-59-r9S" id="VyH-gb-lFV"/>
                                             <outlet property="lblYourCharm" destination="VRz-RT-nLR" id="bNG-0n-PMa"/>

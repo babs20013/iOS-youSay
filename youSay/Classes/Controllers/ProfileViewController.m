@@ -1639,7 +1639,7 @@
         
         cel.lblRankLevel.text = [profileDictionary objectForKey:@"rank_level"];
         cel.lblPopularityLevel.text = [profileDictionary objectForKey:@"popularity_level"];
-        cel.lblTotalScore.text = [NSString stringWithFormat:@"%ld", (long)wiz];
+        cel.lblTotalScore.text = [NSString stringWithFormat:@"%@", [profileDictionary objectForKey:@"num_users_rated"]];
         
         cel.charmView.layer.cornerRadius = 0.015 * cel.charmView.bounds.size.width;
         cel.charmView.layer.masksToBounds = YES;
@@ -1706,11 +1706,8 @@
         [cel.cancelSkip setHidden:YES];
         [cel.lblNeverRate setHidden:YES];
         
-        [cel.btnDone setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:171.0/255.0 blue:197.0/255.0 alpha:1.0]];
-        cel.btnDone.layer.cornerRadius = 0.015 * cel.btnDone.bounds.size.width;
-        cel.btnDone.layer.masksToBounds = YES;
-        cel.btnDone.layer.borderWidth = 1;
-        cel.btnDone.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        [cel.lblTotalRateTitle setHidden:NO];
+        [cel.lblTotalScore setHidden:NO];
         
         if (chartState == ChartStateEdit) {
             [cel.longPressInfoView setHidden:YES];
@@ -1731,13 +1728,6 @@
             [btnAddSay setHidden:YES];
             [cel.defaultFooterView setHidden:YES];
             [cel.cancelSkip setHidden:NO];
-            
-            if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"]) {
-                [cel.lblNeverRate setHidden:NO];
-                [cel.lblNeverRate setText:[NSString stringWithFormat:@"Hold to rate %@'s charm", model.Name]];
-                [cel.btnDone setBackgroundColor:[UIColor colorWithRed:202.0/255.0 green:207.0/255.0 blue:211.0/255.0 alpha:1.0]];
-            }
-            
         }
         else if (isFriendProfile == YES) {
             [cel.longPressInfoView setHidden:YES];
@@ -1746,6 +1736,12 @@
             //            [cel.btnShare setHidden:YES];
             //            [cel.imgVShare setHidden:YES];
             [cel.buttonEditView setHidden:YES];
+            if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"]) {
+                [cel.lblNeverRate setHidden:NO];
+                [cel.lblNeverRate setText:[NSString stringWithFormat:@"Hold to rate %@'s charm", model.Name]];
+            }
+            [cel.lblTotalRateTitle setHidden:YES];
+            [cel.lblTotalScore setHidden:YES];
         }
         else{
             [cel.rankButton setHidden:YES];
@@ -1767,7 +1763,7 @@
         
         return cel;
     }
-    
+     
     else //if (indexPath.section == 1)
     {
         static NSString *cellIdentifier = @"PeopleSayTableViewCell";
