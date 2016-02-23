@@ -8,8 +8,9 @@
 
 #import "url.h"
 
-
-NSString * HTTP_URL_SERVER                       = @"https://sharkbyte.co.il/yousay/backend/api/";
+NSString * HTTP_STAGING                          = @"https://sharkbyte.co.il/yousay/backend/api/";
+NSString * HTTP_PRODUCTION                       = @"https://yousayweb.com/yousay/backend/api/";
+NSString * HTTP_URL_SERVER                       = @"https://yousayweb.com/yousay/backend/api/";
 //@"https://yousayweb.com/yousay_dev/backend/api/apiclient.php";
 //@"https://yousayweb.com/yousay_dev/backend/api/index.php";
 //@"https://yousayweb.com/yousay/backend/api/";
@@ -17,6 +18,15 @@ NSString * HTTP_URL_SERVER                       = @"https://sharkbyte.co.il/you
 static URL *instance = nil;
 
 @implementation URL : NSObject
+
++ (void)setHTTPServer {
+    if ([HTTP_URL_SERVER isEqualToString:HTTP_PRODUCTION]) {
+        HTTP_URL_SERVER = HTTP_STAGING;
+    }
+    else {
+        HTTP_URL_SERVER = HTTP_PRODUCTION;
+    }
+}
 
 
 @end

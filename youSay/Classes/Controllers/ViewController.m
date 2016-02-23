@@ -35,6 +35,8 @@
     PageControl *pageControl;
     UIImageView *cover1;
     UIButton *btnSkipDone;
+    int counter;
+    BOOL timedOut;
 }
 @property (weak, nonatomic) BFAppLinkReturnToRefererView *appLinkReturnToRefererView;
 @property (strong, nonatomic) BFAppLink *appLink;
@@ -73,6 +75,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    counter = 0;
+    timedOut = NO;
     NSMutableDictionary *event =
     [[GAIDictionaryBuilder createEventWithCategory:@"Action"
                                             action:@"app_launched"
@@ -233,4 +237,44 @@
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YouSay" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
 }
+
+#pragma mark - Activate Staging / Production
+- (IBAction)buttonClicked:(id)sender
+{
+    [NSTimer scheduledTimerWithTimeInterval:3.0
+                                     target:self
+                                   selector:@selector(timedOut)
+                                   userInfo:nil
+                                    repeats:NO];
+    if (++counter >= 5) {
+        NSLog(@"User clicked button 5 times within 3 secs");
+        
+        // for nitpickers
+        timedOut = NO;
+        counter = 0;
+        [URL setHTTPServer];
+        
+        if ([HTTP_URL_SERVER isEqualToString:HTTP_PRODUCTION]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:@"You are no working on the production server" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        else {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:@"You are no working on the staging server" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }
+//    if ((++counter >= 5) && !timedOut) {
+//        NSLog(@"User clicked button 5 times within 3 secs");
+//        
+//        // for nitpickers
+//        timedOut = NO;
+//        counter = 0;
+//    }
+}
+
+- (void)timedOut
+{
+    timedOut = YES;
+}
+
 @end

@@ -7,10 +7,14 @@
 //
 #import <Foundation/Foundation.h>
 
+extern NSString * HTTP_STAGING;
+extern NSString * HTTP_PRODUCTION;
 extern NSString * HTTP_URL_SERVER;
 
 @interface URL : NSObject{
 	
 }
+
++ (void)setHTTPServer;
 
 @end

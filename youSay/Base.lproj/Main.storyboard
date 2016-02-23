@@ -45,6 +45,12 @@
                                     <constraint firstAttribute="height" constant="104" id="sCt-TJ-GfY"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pnx-Dt-osi">
+                                <rect key="frame" x="23" y="39" width="274" height="104"/>
+                                <connections>
+                                    <action selector="buttonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dTU-We-slQ"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6H-GF-LsT">
                                 <rect key="frame" x="11" y="408" width="299" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -67,16 +73,20 @@
                         <constraints>
                             <constraint firstItem="gnT-wQ-KWa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="7" id="4dW-wp-6jv"/>
                             <constraint firstItem="Aaz-hU-GR0" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="54j-UF-LEB"/>
+                            <constraint firstItem="pnx-Dt-osi" firstAttribute="trailing" secondItem="gnT-wQ-KWa" secondAttribute="trailing" id="6pu-nR-ZOC"/>
                             <constraint firstItem="dbI-8K-AG7" firstAttribute="top" secondItem="Aaz-hU-GR0" secondAttribute="bottom" id="71g-aq-NYJ"/>
                             <constraint firstItem="gnT-wQ-KWa" firstAttribute="top" secondItem="bdP-fO-KJH" secondAttribute="bottom" constant="39" id="Bju-mD-Njl"/>
                             <constraint firstItem="r6H-GF-LsT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FkM-XN-W1k"/>
                             <constraint firstItem="ocN-SF-Kf4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L2n-Kp-LE8"/>
                             <constraint firstItem="dbI-8K-AG7" firstAttribute="top" secondItem="ocN-SF-Kf4" secondAttribute="bottom" constant="80" id="UZd-sa-9RE"/>
+                            <constraint firstItem="pnx-Dt-osi" firstAttribute="top" secondItem="gnT-wQ-KWa" secondAttribute="top" id="bQM-bB-4Uh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gnT-wQ-KWa" secondAttribute="trailing" constant="7" id="cIF-Oi-c14"/>
                             <constraint firstItem="Aaz-hU-GR0" firstAttribute="top" secondItem="bdP-fO-KJH" secondAttribute="bottom" id="eVo-YD-esE"/>
+                            <constraint firstItem="pnx-Dt-osi" firstAttribute="bottom" secondItem="gnT-wQ-KWa" secondAttribute="bottom" id="fRL-Kv-RCz"/>
                             <constraint firstItem="Aaz-hU-GR0" firstAttribute="centerX" secondItem="r6H-GF-LsT" secondAttribute="centerX" id="giD-ls-UI3"/>
                             <constraint firstItem="ocN-SF-Kf4" firstAttribute="top" secondItem="r6H-GF-LsT" secondAttribute="bottom" constant="15" id="heJ-Dh-C2Z"/>
                             <constraint firstItem="Aaz-hU-GR0" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="nH9-37-Vhf"/>
+                            <constraint firstItem="pnx-Dt-osi" firstAttribute="leading" secondItem="gnT-wQ-KWa" secondAttribute="leading" id="x2b-lr-r9z"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="RTC-Tm-fbM"/>
