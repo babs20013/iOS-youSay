@@ -1730,13 +1730,12 @@
             [btnAddSay setHidden:YES];
             [cel.defaultFooterView setHidden:YES];
             [cel.cancelSkip setHidden:NO];
+            [cel.lblTotalRateTitle setHidden:YES];
+            [cel.lblTotalScore setHidden:YES];
         }
         else if (isFriendProfile == YES) {
             [cel.longPressInfoView setHidden:YES];
             [cel.rankButton setHidden:NO];
-            //            [cel.lblShare setHidden:YES];
-            //            [cel.btnShare setHidden:YES];
-            //            [cel.imgVShare setHidden:YES];
             [cel.buttonEditView setHidden:YES];
             if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"]) {
                 [cel.lblNeverRate setHidden:NO];
