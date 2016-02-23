@@ -51,6 +51,8 @@
 #define IS_IPHONE_6 [[UIScreen mainScreen] bounds].size.height == 667.0f
 #define IS_IPHONE_6PLUS [[UIScreen mainScreen] bounds].size.height == 736.0f
 
+#define RADIANS(degrees) ((degrees * M_PI) / 180.0)
+
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate> {
     ProfileOwnerModel *friendsProfileModel;
     NSMutableDictionary *dictHideSay;
@@ -1710,6 +1712,7 @@
         
         [cel.lblTotalRateTitle setHidden:NO];
         [cel.lblTotalScore setHidden:NO];
+        [cel.imgHand setHidden:YES];
         
         if (chartState == ChartStateEdit) {
             [cel.longPressInfoView setHidden:YES];
@@ -1732,6 +1735,19 @@
             [cel.cancelSkip setHidden:NO];
             [cel.lblTotalRateTitle setHidden:YES];
             [cel.lblTotalScore setHidden:YES];
+            
+            //TODO Later
+//            [cel.imgHand setHidden:NO];
+//            
+//            CABasicAnimation *hover = [CABasicAnimation animationWithKeyPath:@"position"];
+//            hover.additive = YES; // fromValue and toValue will be relative instead of absolute values
+//            hover.fromValue = [NSValue valueWithCGPoint:CGPointZero];
+//            hover.toValue = [NSValue valueWithCGPoint:CGPointMake(0.0, -10.0)]; // y increases downwards on iOS
+//            hover.autoreverses = YES; // Animate back to normal afterwards
+//            hover.duration = 0.2; // The duration for one part of the animation (0.2 up and 0.2 down)
+//            hover.repeatCount = INFINITY; // The number of times the animation should repeat
+//            [cel.imgHand.layer addAnimation:hover forKey:@"myHoverAnimation"];
+            
         }
         else if (isFriendProfile == YES) {
             [cel.longPressInfoView setHidden:YES];

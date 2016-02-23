@@ -733,6 +733,9 @@
                                                             <rect key="frame" x="14" y="40" width="270" height="137"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Hand" translatesAutoresizingMaskIntoConstraints="NO" id="9hH-ln-xwH">
+                                                            <rect key="frame" x="29" y="55" width="60" height="90"/>
+                                                        </imageView>
                                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hold to rate Lila hsjasa's Charm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB0-UI-6Jq">
                                                             <rect key="frame" x="77" y="64" width="145" height="90"/>
                                                             <constraints>
@@ -889,6 +892,7 @@
                                             <outlet property="charmChartView" destination="4a2-Hx-UY4" id="sC4-qB-eXw"/>
                                             <outlet property="charmView" destination="nE6-Cf-vUH" id="eVr-gQ-0FK"/>
                                             <outlet property="defaultFooterView" destination="ygP-LQ-nBq" id="cnE-NV-qvd"/>
+                                            <outlet property="imgHand" destination="9hH-ln-xwH" id="wIX-2j-NAb"/>
                                             <outlet property="imgVShare" destination="RN6-Lb-UVg" id="3Fq-n0-xF5"/>
                                             <outlet property="imgViewCover" destination="Zhk-b9-8Bj" id="dn7-fX-1cm"/>
                                             <outlet property="imgViewProfilePicture" destination="OWM-P9-iZl" id="NYI-dD-MPa"/>
@@ -2430,6 +2434,7 @@
         <image name="Close" width="19" height="21"/>
         <image name="Color" width="49" height="45"/>
         <image name="DoneBtn" width="468" height="75"/>
+        <image name="Hand" width="269" height="414"/>
         <image name="Heart" width="59" height="59"/>
         <image name="Likes" width="43" height="38"/>
         <image name="LoginBG" width="640" height="1136"/>

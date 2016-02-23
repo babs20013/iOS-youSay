@@ -47,6 +47,7 @@
 @property (nonatomic, strong) IBOutlet UIView *cancelSkip;
 @property (nonatomic, strong) IBOutlet UILabel *lblNeverRate;
 @property (nonatomic, strong) IBOutlet UILabel *lblTotalRateTitle;
+@property (nonatomic, strong) IBOutlet UIImageView *imgHand;
 
 @property (nonatomic, strong) NSDictionary *saysDictionary;
 
