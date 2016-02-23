@@ -34,6 +34,7 @@
 
 @property (nonatomic, strong) IBOutlet UIView *longPressInfoView;
 @property (nonatomic, strong) IBOutlet UIButton *btnShare;
+@property (nonatomic, strong) IBOutlet UIButton *btnDone;
 @property (nonatomic, strong) IBOutlet UIButton *rankButton;
 @property (nonatomic, strong) IBOutlet UILabel *lblShare;
 @property (nonatomic, strong) IBOutlet UIImageView *imgVShare;
@@ -42,5 +43,8 @@
 @property (nonatomic, strong) IBOutlet UIView *LongPressToRankView;
 @property (nonatomic, strong) IBOutlet UILabel *lblYourCharm;
 @property (nonatomic, strong) IBOutlet UILabel *lblWhatPeopleSay;
+@property (nonatomic, strong) IBOutlet UIView *defaultFooterView;
+@property (nonatomic, strong) IBOutlet UIView *cancelSkip;
+@property (nonatomic, strong) IBOutlet UILabel *lblNeverRate;
 
 @end

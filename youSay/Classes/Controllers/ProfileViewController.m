@@ -85,6 +85,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *btnCancel;
 @property (nonatomic, weak) IBOutlet UIButton *btnRightMenu;
 @property (nonatomic, weak) IBOutlet UIView *viewButton;
+@property (nonatomic, weak) IBOutlet UIView *viewSkip;
+@property (nonatomic, weak) IBOutlet UIView *viewSkipBox;
 @property (nonatomic, weak) IBOutlet UILabel *lblRecentSearch;
 @property (strong, nonatomic) IQURLConnection *userSearchRequest;
 
@@ -157,6 +159,12 @@
     self.searchTableView.layer.masksToBounds = YES;
     self.searchTableView.layer.borderWidth = 1;
     self.searchTableView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    
+    
+    self.viewSkipBox.layer.cornerRadius = 0.015 * self.viewSkipBox.bounds.size.width;
+    self.viewSkipBox.layer.masksToBounds = YES;
+    self.viewSkipBox.layer.borderWidth = 1;
+    self.viewSkipBox.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
     
     [_txtSearch addTarget:self
                          action:@selector(textFieldDidChange:)
@@ -1700,8 +1708,16 @@
         
         cell.btnShare.frame = CGRectMake(cell.btnShare.frame.origin.x, charmView.frame.size.height, cell.btnShare.frame.size.width, cell.btnShare.frame.size.height);
         
+        [cel.cancelSkip setHidden:YES];
+        [cel.lblNeverRate setHidden:YES];
         
-        if (chartState == ChartStateEdit || chartState == ChartStateRate) {
+        [cel.btnDone setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:171.0/255.0 blue:197.0/255.0 alpha:1.0]];
+        cel.btnDone.layer.cornerRadius = 0.015 * cel.btnDone.bounds.size.width;
+        cel.btnDone.layer.masksToBounds = YES;
+        cel.btnDone.layer.borderWidth = 1;
+        cel.btnDone.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        
+        if (chartState == ChartStateEdit) {
             [cel.longPressInfoView setHidden:YES];
             [cel.lblShare setHidden:YES];
             [cel.btnShare setHidden:YES];
@@ -1709,6 +1725,23 @@
             [cel.buttonEditView setHidden:NO];
             [cel.rankButton setHidden:YES];
             [btnAddSay setHidden:YES];
+        }
+        else if (chartState == ChartStateRate) {
+            [cel.longPressInfoView setHidden:YES];
+            [cel.lblShare setHidden:YES];
+            [cel.btnShare setHidden:YES];
+            [cel.imgVShare setHidden:YES];
+            [cel.buttonEditView setHidden:NO];
+            [cel.rankButton setHidden:YES];
+            [btnAddSay setHidden:YES];
+            [cel.defaultFooterView setHidden:YES];
+            [cel.cancelSkip setHidden:NO];
+            
+            if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"]) {
+                [cel.lblNeverRate setHidden:NO];
+                [cel.lblNeverRate setText:[NSString stringWithFormat:@"Hold to rate %@'s charm", model.Name]];
+                [cel.btnDone setBackgroundColor:[UIColor colorWithRed:202.0/255.0 green:207.0/255.0 blue:211.0/255.0 alpha:1.0]];
+            }
             
         }
         else if (isFriendProfile == YES) {
@@ -1929,6 +1962,21 @@
 
 #pragma mark - IBAction
 
+- (IBAction)btnShowSkipClicked:(id)sender {
+    [self.viewSkip setHidden:NO];
+    [self.view bringSubviewToFront:self.viewSkip];
+}
+
+- (IBAction)btnLetsRateClicked:(id)sender {
+    [self.viewSkip setHidden:YES];
+}
+
+- (IBAction)btnSkipClicked:(id)sender {
+    [self.viewSkip setHidden:YES];
+    chartState = ChartStateDefault;
+    [self.tableView reloadData];
+}
+
 - (IBAction)btnHideClicked:(id)sender {
     NSLog(@"btnClick : %ld", (long)[sender tag]);
     NSString *index = [NSString stringWithFormat:@"%ld", (long)[sender tag]];
@@ -2096,7 +2144,6 @@
 -(IBAction)btnCancelEdit:(UIButton*)sender{
     chartState = ChartStateDefault;
     [self.tableView reloadData];
-
 }
 
 -(IBAction)btnProfileClicked:(UIButton*)sender{
