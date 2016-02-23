@@ -124,7 +124,7 @@ static NSString *const kAllowTracking = @"allowTracking";
     self.parsedUrl = parsedUrl;
     if ([parsedUrl appLinkData]) {
         // this is an applink url, handle it here
-        NSURL *targetUrl = [parsedUrl targetURL];
+       // NSURL *targetUrl = [parsedUrl targetURL];
 
     }
     return [[FBSDKApplicationDelegate sharedInstance] application:application

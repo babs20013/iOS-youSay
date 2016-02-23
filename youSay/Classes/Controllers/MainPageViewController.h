@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ViewPagerController.h"
-#import "InviteFriendsViewController.h"
 #import "ProfileViewController.h"
 #import "FeedViewController.h"
 #import "FriendModel.h"

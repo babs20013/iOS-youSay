@@ -237,7 +237,6 @@
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
     CGFloat screenWidth = screenSize.width;
-    CGFloat screenHeight = screenSize.height;
     
     btnAddSay = [[UIButton alloc]initWithFrame:CGRectMake(screenWidth-100, 485, 60, 60)];
     
@@ -605,7 +604,7 @@
     for (CharmChart *charts in charm.charts ) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
         [dict setObject:charts.title forKey:@"charm"];
-        [dict setObject:[NSString stringWithFormat:@"%i",charts.score] forKey:@"rate"];
+        [dict setObject:[NSString stringWithFormat:@"%li",(long)charts.score] forKey:@"rate"];
         if (charts.score > 0) {
             [arrayRating addObject:dict];
         }
@@ -1676,11 +1675,7 @@
                 }
             }
         }
-        
-        CGFloat w = (self.tableView.frame.size.width - 40-28) / 5;
-        CGFloat h = (( w/3 )+2)*13;
-        CGRect f1 =  CGRectMake(0, 0, w,h);
-        
+                
         [[cel.charmChartView subviews]
          makeObjectsPerformSelector:@selector(removeFromSuperview)];
         

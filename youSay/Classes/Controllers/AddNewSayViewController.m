@@ -181,8 +181,6 @@
 
 
 - (IBAction)selectColor:(id)sender {
-    CGFloat containerWidth = colorContainer.frame.size.width;
-    CGFloat gridWidth = containerWidth / 4;
     if (previousButton != nil) {
         for (UIView *i in colorContainer.subviews){
             if([i isKindOfClass:[UIButton class]]){
@@ -262,8 +260,8 @@
     //Randomize the array
     NSUInteger count = [arrayColor count];
     for (NSUInteger i = 0; i < count; ++i) {
-        int nElements = count - i;
-        int n = (arc4random() % nElements) + i;
+        unsigned long int nElements = count - i;
+        unsigned long int n = (arc4random() % nElements) + i;
         [arrayColor exchangeObjectAtIndex:i withObjectAtIndex:n];
         [arrayColorKey exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
@@ -289,7 +287,7 @@
     }
     
     //Randomly select color
-    int nElements = [arrayColor count] - 1;
+    unsigned long int nElements = [arrayColor count] - 1;
     int n = (arc4random() % nElements) + 1;
     
     [self selectColor:[colorContainer.subviews objectAtIndex:n]];

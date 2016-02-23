@@ -200,7 +200,7 @@
         isClick = YES;
         [self viewPager:viewPager contentViewControllerForTabAtIndex:index];
     }
-    NSLog(@"index %i", index);
+    NSLog(@"index %lu", (unsigned long)index);
 }
 
 @end
