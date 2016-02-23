@@ -123,7 +123,7 @@
     [self.tableView setHidden:NO];
     [self.btnRightMenu setHidden:NO];
     [self.btnCancel setHidden:YES];
-    self.btnViewConstraint.constant = 30;
+    self.btnViewConstraint.constant = 38;
     [self.viewButton needsUpdateConstraints];
     [self.btnAddSay setHidden:YES];
 }
@@ -230,7 +230,7 @@
     [clearTextButton addTarget:self action:@selector(clearTextField:) forControlEvents:UIControlEventTouchUpInside];
     [self.txtSearch setRightView:clearTextButton];
     [self.txtSearch setClearButtonMode:UITextFieldViewModeNever];
-    [self.txtSearch setRightViewMode:UITextFieldViewModeAlways];
+    [self.txtSearch setRightViewMode:UITextFieldViewModeWhileEditing];
 
     
     NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
@@ -274,7 +274,7 @@
                                              selector:@selector(refreshPage:)
                                                  name:@"notification"
                                                object:nil];
-    self.btnViewConstraint.constant = 30;
+    self.btnViewConstraint.constant = 38;
     [self.viewButton needsUpdateConstraints];
 
 }
@@ -1443,7 +1443,7 @@
         }
         [self.btnCancel setHidden:YES];
         [self.btnRightMenu setHidden:NO];
-        self.btnViewConstraint.constant = 30;
+        self.btnViewConstraint.constant = 38;
         [self.viewButton needsUpdateConstraints];
         [self.searchView setHidden:YES];
         [self.tableView setHidden:NO];
@@ -2200,16 +2200,6 @@
 //    [self.searchTableView needsUpdateConstraints];
     [self.searchTableView reloadData];
 }
-- (IBAction)btnCancelSearchClicked:(id)sender {
-    [self.txtSearch resignFirstResponder];
-    [self.searchView setHidden:YES];
-    [self.tableView setHidden:NO];
-    [self.btnRightMenu setHidden:NO];
-    [self.btnCancel setHidden:YES];
-    [self.btnAddSay setHidden:NO];
-    self.btnViewConstraint.constant = 30;
-    [self.viewButton needsUpdateConstraints];
-}
 
 - (void)EnableCharmRateMode {
     [charmView beginEditing];
@@ -2229,9 +2219,21 @@
 }
 
 - (IBAction)clearTextField:(id)sender {
-    [self.txtSearch setText:@""];
-    isShowRecentSearch = YES;
-    [self.searchTableView reloadData];
+    if ([self.txtSearch.text length] == 0) {
+        [self.txtSearch resignFirstResponder];
+        [self.searchView setHidden:YES];
+        [self.tableView setHidden:NO];
+        [self.btnRightMenu setHidden:NO];
+        [self.btnCancel setHidden:YES];
+        [self.btnAddSay setHidden:NO];
+        self.btnViewConstraint.constant = 38;
+        [self.viewButton needsUpdateConstraints];
+    }
+    else {
+        [self.txtSearch setText:@""];
+        isShowRecentSearch = YES;
+        [self.searchTableView reloadData];
+    }
 }
 
 
@@ -2455,7 +2457,7 @@
     [textField becomeFirstResponder];
     [self.tableView setHidden:YES];
     [self.searchView setHidden:NO];
-    self.btnViewConstraint.constant = 50;
+    self.btnViewConstraint.constant = 0;
     [self.viewButton needsUpdateConstraints];
     
     [self.btnCancel setHidden:NO];
@@ -2502,7 +2504,7 @@
 //    self.searchTableView.scrollIndicatorInsets = contentInsets;
     [self.tableView setHidden:YES];
     [self.searchView setHidden:NO];
-    self.btnViewConstraint.constant = 50;
+    self.btnViewConstraint.constant = 0;
     [self.viewButton needsUpdateConstraints];
     
     [self.btnCancel setHidden:NO];
@@ -2519,7 +2521,7 @@
         isAfterShareFB = NO;
         [self.btnCancel setHidden:YES];
         [self.btnRightMenu setHidden:NO];
-        self.btnViewConstraint.constant = 30;
+        self.btnViewConstraint.constant = 38;
         [self.viewButton needsUpdateConstraints];
         [self.searchView setHidden:YES];
         [self.tableView setHidden:NO];
