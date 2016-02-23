@@ -680,7 +680,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Rates " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3I-hM-8Gm">
-                                                            <rect key="frame" x="164" y="13" width="80" height="17"/>
+                                                            <rect key="frame" x="193" y="13" width="80" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="RFX-MN-kXt"/>
                                                             </constraints>
@@ -688,8 +688,8 @@
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvU-s0-44l">
-                                                            <rect key="frame" x="250" y="13" width="34" height="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvU-s0-44l">
+                                                            <rect key="frame" x="279" y="13" width="5" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="17" id="wgy-k9-GTk"/>
                                                             </constraints>

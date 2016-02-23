@@ -1639,7 +1639,9 @@
         
         cel.lblRankLevel.text = [profileDictionary objectForKey:@"rank_level"];
         cel.lblPopularityLevel.text = [profileDictionary objectForKey:@"popularity_level"];
-        cel.lblTotalScore.text = [NSString stringWithFormat:@"%@", [profileDictionary objectForKey:@"num_users_rated"]];
+        if ([profileDictionary objectForKey:@"num_users_rated"]) {
+            cel.lblTotalScore.text = [NSString stringWithFormat:@"%@", [profileDictionary objectForKey:@"num_users_rated"]];
+        }
         
         cel.charmView.layer.cornerRadius = 0.015 * cel.charmView.bounds.size.width;
         cel.charmView.layer.masksToBounds = YES;
@@ -1763,7 +1765,7 @@
         
         return cel;
     }
-     
+    
     else //if (indexPath.section == 1)
     {
         static NSString *cellIdentifier = @"PeopleSayTableViewCell";
@@ -2306,8 +2308,8 @@
                 [charmsSelection setActiveCharm:arrActiveCharm];
             }
         }
-        [self.tableView reloadData];
     }
+    [self.tableView reloadData];
 }
 
 #pragma mark - ScrollViewDelegate

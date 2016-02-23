@@ -41,6 +41,7 @@
     NSMutableArray *boxes;
     UILabel *lblScore;
     UIButton *btn;
+    UIButton *btnClose;
 }
 @end
 @implementation CharmChart
@@ -159,9 +160,18 @@
        forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
     
+    btnClose = [[UIButton alloc]initWithFrame:CGRectMake(lblTitle.frame.origin.x, 0, ([self boxSize].height+50), self.frame.size.height)];
+    [btnClose setBackgroundColor:[UIColor clearColor]];
+    [btnClose addTarget:self
+            action:@selector(btnCloseClicked: withCharm:)
+  forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:btnClose];
+    
     [btn setHidden:YES];
+    [btnClose setHidden:YES];
     if (_state == ChartStateEdit) {
         [btn setHidden:NO];
+        [btnClose setHidden:NO];
     }
     else if (_state == ChartStateViewing && !_rated){
         [lblScore setHidden:YES];
