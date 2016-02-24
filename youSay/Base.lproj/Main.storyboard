@@ -871,6 +871,7 @@
                                         <connections>
                                             <outlet property="btnDone" destination="evF-gl-1E0" id="V1J-Fq-1Nl"/>
                                             <outlet property="btnShare" destination="M6e-SR-w8q" id="Ef1-GB-tjU"/>
+                                            <outlet property="btnSkip" destination="Qx4-pg-NY4" id="s71-tf-gcw"/>
                                             <outlet property="buttonEditView" destination="cvO-jw-9VG" id="hzD-Ug-ubh"/>
                                             <outlet property="cancelSkip" destination="Iog-UV-PXN" id="APj-65-VST"/>
                                             <outlet property="charmChartView" destination="4a2-Hx-UY4" id="sC4-qB-eXw"/>

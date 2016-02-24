@@ -1452,6 +1452,7 @@
         [cel.lblTotalRateTitle setHidden:NO];
         [cel.lblTotalScore setHidden:NO];
         [cel.imgHand setHidden:YES];
+        [cel.btnSkip setHidden:YES];
         
         if (chartState == ChartStateEdit) {
             [cel.longPressInfoView setHidden:YES];
@@ -1468,6 +1469,9 @@
             [cel.btnShare setHidden:YES];
             [cel.imgVShare setHidden:YES];
             [cel.buttonEditView setHidden:NO];
+            if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"]) {
+                [cel.btnSkip setHidden:NO];
+            }
             [cel.rankButton setHidden:YES];
             [btnAddSay setHidden:YES];
             [cel.defaultFooterView setHidden:YES];
