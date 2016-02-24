@@ -1570,6 +1570,7 @@
         cel.btnShareFB.tag = indexPath.section-1;
         cel.btnShare.tag = indexPath.section-1;
         cel.btnLikeCount.tag = indexPath.section-1;
+        [cel.btnLikeCount setHighlighted:NO];
         //[cel.btnProfile.titleLabel setText:[NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]]];
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
@@ -1870,18 +1871,6 @@
 }
 
 - (IBAction)btnLikesCountClicked:(id)sender {
-    UIButton *button = (UIButton*)sender;
-    UIView *superView = button.superview;
-    UIView *foundSuperView = nil;
-    
-    while (nil != superView && nil == foundSuperView) {
-        if ([superView isKindOfClass:[PeopleSayTableViewCell class]]) {
-            foundSuperView = superView;
-        } else {
-            superView = superView.superview;
-        }
-    }
-
     PeopleSayTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
     likelistVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
     likelistVC.delegate = self;
@@ -1917,19 +1906,9 @@
         chartState = ChartStateViewing;
     }
     UIButton *button = (UIButton*)sender;
-    
-    UIView *superView = button.superview;
-    UIView *foundSuperView = nil;
-    
-    while (nil != superView && nil == foundSuperView) {
-        if ([superView isKindOfClass:[ProfileTableViewCell class]]) {
-            foundSuperView = superView;
-        } else {
-            superView = superView.superview;
-        }
-    }
-    PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)foundSuperView;
-    [cell.peopleSayTitleLabel setTextColor:[UIColor lightGrayColor]];
+    UIView *view = button.superview; //Cell contentView
+    PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+    [cell.peopleSayTitleLabel setTextColor:[UIColor darkGrayColor]];
     NSDictionary *value = [saysArray objectAtIndex:[sender tag]];
     requestedID = [value objectForKey:@"user_id"];
     [self requestProfile:[value objectForKey:@"user_id"]];
