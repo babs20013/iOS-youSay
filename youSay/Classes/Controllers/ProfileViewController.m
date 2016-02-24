@@ -22,9 +22,9 @@
 #import "CharmChart.h"
 #import "AddNewSayViewController.h"
 #import "ReportSayViewController.h"
-#import "WhoLikeListTableViewCell.h"
 #import <Social/Social.h>
 #import "CustomActivityProvider.h"
+#import "SearchViewController.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -66,31 +66,20 @@
     NSMutableArray *arrayFilteredCharm;
     NSMutableArray *arrayOriginalCharm;
     NSMutableArray *arrActiveCharm;
-    NSMutableArray *arrSearch;
     BOOL isAfterChangeCharm;
     BOOL isScrollBounce;
     SelectCharmsViewController *charmsSelection;
     BOOL isFirstLoad;
     BOOL isAfterCharm;
     BOOL isAfterAddNewSay;
-    BOOL isShowRecentSearch;
     NSString *profileShared;
     NSString *sayShared;
     BOOL isProfileShared;
-    BOOL isSearching;
-    BOOL isSearchingFB;
     BOOL isAfterShareFB;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet UITableView *searchTableView;
-@property (nonatomic, weak) IBOutlet UIButton *btnClear;
-@property (nonatomic, weak) IBOutlet UIButton *btnCancel;
-@property (nonatomic, weak) IBOutlet UIButton *btnRightMenu;
-@property (nonatomic, weak) IBOutlet UIView *viewButton;
 @property (nonatomic, weak) IBOutlet UIView *viewSkip;
 @property (nonatomic, weak) IBOutlet UIView *viewSkipBox;
-@property (nonatomic, weak) IBOutlet UILabel *lblRecentSearch;
-@property (strong, nonatomic) IQURLConnection *userSearchRequest;
 
 @end
 
@@ -105,8 +94,6 @@
 @synthesize isFriendProfile;
 @synthesize btnAddSay;
 @synthesize saysID;
-@synthesize lblRecentSearch;
-
 
 - (NSManagedObjectContext *)managedObjectContext {
     NSManagedObjectContext *context = nil;
@@ -119,27 +106,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     dictHideSay = [[NSMutableDictionary alloc] init];
-    [self.searchView setHidden:YES];
-    [self.tableView setHidden:NO];
-    [self.btnRightMenu setHidden:NO];
-    [self.btnCancel setHidden:YES];
-    self.btnViewConstraint.constant = 38;
-    [self.viewButton needsUpdateConstraints];
     [self.btnAddSay setHidden:YES];
 }
-
-
-//- (void)viewDidAppear:(BOOL)animated {
-//    // Fetch the devices from persistent data store
-//    if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
-//        NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-//        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
-//        NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"%K like %@",@"id", [[AppDelegate sharedDelegate].profileOwner UserID]];
-//        [fetchRequest setPredicate:predicateID];
-//        
-//        [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-//    }
-//}
 
 - (void)viewDidDisappear:(BOOL)animated {
     if ([dictHideSay allKeys].count >0) {
@@ -155,24 +123,13 @@
     chartState = ChartStateDefault;
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    [self.searchTableView setDelegate:self];
-    [self.searchTableView setDataSource:self];
-    self.searchTableView.layer.cornerRadius = 0.015 * self.searchTableView.bounds.size.width;
-    self.searchTableView.layer.masksToBounds = YES;
-    self.searchTableView.layer.borderWidth = 1;
-    self.searchTableView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-    
     
     self.viewSkipBox.layer.cornerRadius = 0.015 * self.viewSkipBox.bounds.size.width;
     self.viewSkipBox.layer.masksToBounds = YES;
     self.viewSkipBox.layer.borderWidth = 1;
     self.viewSkipBox.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
     
-    [_txtSearch addTarget:self
-                         action:@selector(textFieldDidChange:)
-               forControlEvents:UIControlEventEditingChanged];
     NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
-    
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (isFriendProfile == NO && [colorDictionary allKeys].count == 0) {
@@ -188,10 +145,6 @@
         }
     }
     
-//    else if (_isFromFeed == NO) {
-//        [self requestProfile:requestedID];
-//    }
-    
     isAfterChangeCharm = NO;
     CharmChart *chart = [[CharmChart alloc]init];
     chart.delegate = self;
@@ -202,10 +155,6 @@
     profileModel = [AppDelegate sharedDelegate].profileOwner;
     imgViewRank = [[UIImageView alloc]init];
     imgViewPopularity = [[UIImageView alloc]init];
-    UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
-    searchBar.backgroundColor = [UIColor clearColor];
-    searchBar.tintColor = [UIColor clearColor];
-    //[self.view addSubview:searchBar];
     
     saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
     charmsArray = [[NSMutableArray alloc]init];
@@ -223,15 +172,6 @@
     self.txtSearch.layer.borderWidth = 1;
     self.txtSearch.layer.borderColor = kColorSearch.CGColor;
     self.txtSearch.autocorrectionType = UITextAutocorrectionTypeNo;
-    
-    UIButton *clearTextButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
-    [clearTextButton setImage:[UIImage imageNamed:@"ClearText"] forState:UIControlStateNormal];
-    [clearTextButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
-    [clearTextButton addTarget:self action:@selector(clearTextField:) forControlEvents:UIControlEventTouchUpInside];
-    [self.txtSearch setRightView:clearTextButton];
-    [self.txtSearch setClearButtonMode:UITextFieldViewModeNever];
-    [self.txtSearch setRightViewMode:UITextFieldViewModeWhileEditing];
-
     
     NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     self.txtSearch.attributedPlaceholder = str;
@@ -260,23 +200,6 @@
     [btnAddSay addTarget:self action:@selector(btnAddSayTapped:) forControlEvents:UIControlEventTouchUpInside];
     [btnAddSay setHidden:YES];
     [self.view addSubview:btnAddSay];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshPage:)
-                                                 name:@"notification"
-                                               object:nil];
-    self.btnViewConstraint.constant = 38;
-    [self.viewButton needsUpdateConstraints];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -403,20 +326,11 @@
                 isFriendProfile = NO;
                 requestedID = [dictResult valueForKey:@"user_id"];
                 [AppDelegate sharedDelegate].isFirstLoad = NO;
-                if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
-                    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
-                    NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"%K like %@",@"id", [[AppDelegate sharedDelegate].profileOwner UserID]];
-                    [fetchRequest setPredicate:predicateID];
-                    
-                    [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-                }
 
                 [self requestSayColor];
                 if ([AppDelegate sharedDelegate].isNewToken == YES) {
                     [self requestAddUserDevice];
                 }
-                
                 
                 [AppDelegate sharedDelegate].num_of_new_notifications = [[dictResult valueForKey:@"num_of_new_notifications"] integerValue];
                 
@@ -851,118 +765,6 @@
     }];
 }
 
-- (void)requestUser:(NSString*)searchString withSearchID:(NSString*)searchID {
-    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
-    [dictRequest setObject:REQUEST_SEARCH_USER forKey:@"request"];
-    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
-    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token] forKey:@"token"];
-    [dictRequest setObject:searchString forKey:@"search_text"];
-    [dictRequest setObject:AUTHORITY_TYPE_FB forKey:@"authority_type"];
-    [dictRequest setObject:[FBSDKAccessToken currentAccessToken].tokenString forKey:@"authority_access_token"];
-    [dictRequest setObject:searchID forKey:@"search_id"];
-    
-    _userSearchRequest =  [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
-        
-        if (result)
-        {
-            HideLoader();
-            NSDictionary *dictResult = result;
-            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
-            {
-                isSearchingFB = YES;
-                if ([dictResult objectForKey:@"yousay_users"] ) {
-                    NSString *searchid = [dictResult objectForKey:@"search_id"];
-                    NSArray *tempArr = [dictResult objectForKey:@"yousay_users"];
-                    for (int i = 0; i < tempArr.count; i++) {
-                        NSDictionary *dict = [tempArr objectAtIndex:i];
-                        
-                        FriendModel *model = [[FriendModel alloc]init];
-                        model.Name = [dict objectForKey:@"name"];
-                        model.ProfileImage = [dict objectForKey:@"image_url"];
-                        model.userID = [dict objectForKey:@"user_id"];
-                        model.isNeedProfile = NO;
-                        if (arrSearch == nil) {
-                            arrSearch = [[NSMutableArray alloc]init];
-                        }
-                        [arrSearch addObject:model];
-                    }
-//                    self.tableHeightConstraint.constant = (arrSearch.count+1)*50;
-//                    [self.searchTableView needsUpdateConstraints];
-                    [self.searchTableView reloadData];
-                    [self requestUser:searchString withSearchID:searchid];
-                }
-                else if ([dictResult objectForKey:@"facebook_users"]) {
-                    isSearchingFB = NO;
-                   // HideLoader();
-                    _isRequestingProfile = NO;
-                    NSArray *tempArr = [[dictResult objectForKey:@"facebook_users"] allObjects];
-                    for (int i = 0; i < tempArr.count; i++) {
-                        NSDictionary *dict = [tempArr objectAtIndex:i];
-                        FriendModel *model = [[FriendModel alloc]init];
-                        model.Name = [dict objectForKey:@"name"];
-                        model.userID = [dict objectForKey:@"id"];
-                        NSDictionary *dictPic = [[dict objectForKey:@"picture"] objectForKey:@"data"];
-                        model.ProfileImage = [dictPic objectForKey:@"url"];
-                        model.isNeedProfile = YES;
-                        
-                        model.CoverImage = [[dict objectForKey:@"cover"] objectForKey:@"source"];
-                        if (arrSearch == nil) {
-                            arrSearch = [[NSMutableArray alloc]init];
-                        }
-                        if (model.CoverImage == nil) {
-                            model.CoverImage = DEFAULT_COVER_IMG;
-                        }
-                        if (model.ProfileImage == nil) {
-                            model.ProfileImage = DEFAULT_PROFILE_IMG;
-                        }
-                        //--Check if the facebook user is already a yousay user
-                        
-                        [arrSearch addObject:model];
-                    }
-                    isShowRecentSearch = NO;
-//                    self.tableHeightConstraint.constant = arrSearch.count*50;
-//                    [self.searchTableView needsUpdateConstraints];
-                    if (arrSearch.count == 0) {
-                        [self.lblRecentSearch setText:@"No Profiles Found"];
-                    }
-                    [self.searchTableView reloadData];
-                    
-                    [AppDelegate sharedDelegate].num_of_new_notifications = [[dictResult valueForKey:@"num_of_new_notifications"] integerValue];
-                    
-                    [[NSNotificationCenter defaultCenter]
-                     postNotificationName:kNotificationUpdateNotification object:nil];
-                }
-            }
-            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-                [self logout];
-            }
-            else if ([[dictResult valueForKey:@"rc"] integerValue] == 602) {
-                [self requestUser:searchString withSearchID:searchID];
-            }
-            else {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-        }
-        else if (error)
-        {
-            HideLoader();
-            isSearchingFB = NO;
-            _isRequestingProfile = NO;
-        }
-        else{
-            isSearchingFB = NO;
-            _isRequestingProfile = NO;
-
-            HideLoader();
-        }
-        //HideLoader();
-    }];
-}
-
 - (void)requestCreateProfile:(FriendModel*)friendModel {
     ShowLoader();
     
@@ -1305,47 +1107,22 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *thisView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 35)];
     thisView.backgroundColor = kColorBG;
-    
-    if (tableView == self.searchTableView & isSearchingFB == YES) {
-        MBProgressHUD *loading = [[MBProgressHUD alloc]initWithView:thisView];
-        [loading setFrame:thisView.frame];
-        [loading setBackgroundColor:[UIColor clearColor]];
-        [loading setLabelText:@"Searching users"];
-        [loading setLabelFont:[UIFont fontWithName:@"Arial" size:12]];
-        [loading setAlpha:0.5];
-        [thisView addSubview:loading];
-        [loading show:YES];
-    }
     return thisView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    if (tableView == self.searchTableView) {
-//        return 0;
-//    }
-//    else if (section == 1) {
-//        return 70;
-//    }
     return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (tableView == self.searchTableView && isSearchingFB == YES) {
-        return 60;
-    }
-    else if (section == 0 && tableView == self.tableView) {
-        return 0;
-    }
     if (section > 0) {
         return 30;
     }
     return 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.searchTableView) {
-        return 50;
-    }
-    else if (indexPath.section == 0) {
+
+    if (indexPath.section == 0) {
         CGFloat height=0;
         if (self.view.frame.size.height >= 667) {//6+
             height= self.view.frame.size.height - 95;
@@ -1371,17 +1148,11 @@
 //        CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
         return 289; //144 + 145
     }
-//    else if (indexPath.section == 2) {
-//        return 65;
-//    }
     return 0;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (tableView == self.searchTableView) {
-        return 1;
-    }
-    else if ([saysArray count]>0){
+    if ([saysArray count]>0){
         return [saysArray count]+1;
     }
     else if (profileModel ) {
@@ -1391,65 +1162,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.searchTableView && isShowRecentSearch == NO) {
-        return arrSearch.count;
-    }
-    else if (tableView == self.searchTableView && isShowRecentSearch == YES) {
-        if ([[AppDelegate sharedDelegate].arrRecentSeacrh count] == 0) {
-            [self.btnClear setHidden:YES];
-        }
-        else {
-            [self.btnClear setHidden:NO];
-        }
-        return [[AppDelegate sharedDelegate].arrRecentSeacrh count];
-    }
-//    else if (section == 1) {
-//        return saysArray.count;}
     return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if  (tableView == self.searchTableView) {
-        return [self constructCellForSearchUser:indexPath forTableView:tableView];
-    }
     return [self constructCellForProfilePage:indexPath forTableView:tableView];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.searchTableView) {
-        if (_isRequestingProfile == NO) {
-            //--Add the profile to recent search
-            if (![AppDelegate sharedDelegate].arrRecentSeacrh) {
-                [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
-            }
-            FriendModel *search;
-            if (isShowRecentSearch == YES) {
-                // Configure the cell...
-                NSManagedObject *recentSearchClicked = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
-                [self requestProfile:[recentSearchClicked valueForKey:@"userID"]];
-            }
-            else {
-                search = [arrSearch objectAtIndex:indexPath.row];
-                if (search.isNeedProfile == YES) {
-                    [self requestCreateProfile:search];
-                }
-                else {
-                    [self convertModelToObject:search];
-                    [self requestProfile:[search valueForKey:@"userID"]];
-                }
-
-            }
-            
-        }
-        [self.btnCancel setHidden:YES];
-        [self.btnRightMenu setHidden:NO];
-        self.btnViewConstraint.constant = 38;
-        [self.viewButton needsUpdateConstraints];
-        [self.searchView setHidden:YES];
-        [self.tableView setHidden:NO];
-        [self.txtSearch setText:@""];
-        [self.txtSearch resignFirstResponder];
-    }
 }
 
 - (void)convertModelToObject:(FriendModel*)model {
@@ -1531,42 +1251,6 @@
                            green:((float) g / 255.0f)
                             blue:((float) b / 255.0f)
                            alpha:1.0f];
-}
-
-- (UITableViewCell*)constructCellForSearchUser:(NSIndexPath*)indexPath forTableView:(UITableView*)tableView {
-    static NSString *cellIdentifier = @"WhoLikeListTableViewCell";
-    WhoLikeListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if (! cell) {
-        
-        cell = [[WhoLikeListTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-    }
-    FriendModel *model;
-    if (isShowRecentSearch == YES) {
-        [self.lblRecentSearch setText:@"Recent Search"];
-        NSManagedObject *recentSearch = [[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:indexPath.row];
-        
-        [cell.profileView setImageURL:[NSURL URLWithString:[recentSearch valueForKey:@"profileImage"]]];
-        cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
-        cell.profileView.layer.masksToBounds = YES;
-        cell.profileView.layer.borderWidth = 1;
-        cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-        
-        [cell.profileName setText:[recentSearch valueForKey:@"name"]];
-    }
-    else {
-        [self.lblRecentSearch setText:@"Profiles Found"];
-        model = [arrSearch objectAtIndex:indexPath.row];
-        [cell.profileView setImageURL:[NSURL URLWithString:model.ProfileImage]];
-        cell.profileView.layer.cornerRadius = cell.profileView.frame.size.width/2;
-        cell.profileView.layer.masksToBounds = YES;
-        cell.profileView.layer.borderWidth = 1;
-        cell.profileView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-        
-        [cell.profileName setText:model.Name];
-    }
-    
-    return cell;
 }
 
 - (UITableViewCell*)constructCellForProfilePage:(NSIndexPath*)indexPath forTableView:(UITableView*)tableView {
@@ -2181,26 +1865,6 @@
     [self requestProfile:[value objectForKey:@"user_id"]];
 }
 
-- (IBAction)btnClearSearchClicked:(id)sender {
-    arrSearch= [[NSMutableArray alloc]init];
-    NSManagedObjectContext *context = [self managedObjectContext];
-    for (int i = 0; i < [[AppDelegate sharedDelegate].arrRecentSeacrh count]; i++) {
-         [context deleteObject:[[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:i]];
-    }
-    
-    [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
-    NSError *error = nil;
-    if (![context save:&error]) {
-        NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
-        return;
-    }
-    [context deletedObjects];
-
-//    self.tableHeightConstraint.constant = arrSearch.count*50;
-//    [self.searchTableView needsUpdateConstraints];
-    [self.searchTableView reloadData];
-}
-
 - (void)EnableCharmRateMode {
     [charmView beginEditing];
 }
@@ -2218,28 +1882,9 @@
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
 }
 
-- (IBAction)clearTextField:(id)sender {
-    if ([self.txtSearch.text length] == 0) {
-        [self.txtSearch resignFirstResponder];
-        [self.searchView setHidden:YES];
-        [self.tableView setHidden:NO];
-        [self.btnRightMenu setHidden:NO];
-        [self.btnCancel setHidden:YES];
-        [self.btnAddSay setHidden:NO];
-        self.btnViewConstraint.constant = 38;
-        [self.viewButton needsUpdateConstraints];
-    }
-    else {
-        [self.txtSearch setText:@""];
-        isShowRecentSearch = YES;
-        [self.searchTableView reloadData];
-    }
-}
-
 
 #pragma mark - FBInviteDelegate
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
-
 }
 
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
@@ -2333,9 +1978,9 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y < -50) isScrollBounce = YES;
-    if (likelistVC) {
-        [likelistVC.view removeFromSuperview];
-    }
+//    if (likelistVC) {
+//        [likelistVC.view removeFromSuperview];
+//    }
     
     if (fabs(scrollView.contentOffset.y) < 1 && isScrollBounce) {
         isScrollBounce = NO;
@@ -2413,78 +2058,10 @@
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [_btnClear setHidden:YES];
-    [self.tableView setHidden:YES];
-    [self.searchView setHidden:NO];
-    [self.btnAddSay setHidden:YES];
-    return YES;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if ([textField.text length]==0){
-        [self.tableView setHidden:YES];
-        [self.searchView setHidden:NO];
-        [self.btnAddSay setHidden:YES];
-        isShowRecentSearch = YES;
-        [self.searchTableView reloadData];
-    }
-
-    [textField becomeFirstResponder];
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    [textField resignFirstResponder];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    arrSearch = nil;
-//    if ([textField.text length]>2){
-//        isShowRecentSearch = NO;
-//        if (isSearching == NO) {
-//            ShowLoader();
-//        }
-//        
-//        [self requestUser:textField.text withSearchID:@""];
-//    }
-    [textField resignFirstResponder];
-    //[_btnClear setHidden:NO];
-    return YES;
-}
-
-- (void)textFieldDidChange:(UITextField*)textField {
-    HideLoader();
-    [_userSearchRequest cancel];
-    [textField becomeFirstResponder];
-    [self.tableView setHidden:YES];
-    [self.searchView setHidden:NO];
-    self.btnViewConstraint.constant = 0;
-    [self.viewButton needsUpdateConstraints];
-    
-    [self.btnCancel setHidden:NO];
-    [self.btnRightMenu setHidden:YES];
-    if ([textField.text length]==0){
-        isShowRecentSearch = YES;
-//        self.tableHeightConstraint.constant = ([[AppDelegate sharedDelegate].arrRecentSeacrh count]+1)*50;
-//        [self.searchTableView needsUpdateConstraints];
-        [self.searchTableView reloadData];
-    }
-    else {
-        isShowRecentSearch = NO;
-        [self.btnClear setHidden:YES];
-    }
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), queue, ^{
-        if ([textField.text length]>2 && _isRequestingProfile == NO){
-            _isRequestingProfile = YES;
-            [self.btnClear setHidden:YES];
-            arrSearch = nil;
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                ShowLoader();
-                [self requestUser:textField.text withSearchID:@""];
-            }];
-        }
-    });
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SearchViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SearchViewController"];
+    [self.navigationController pushViewController:vc animated:NO];
+    return NO;
 }
 
 #pragma mark Keyboard
@@ -2499,32 +2076,12 @@
     } else {
         contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.width), 0.0);
     }
-    
-//    self.searchTableView.contentInset = contentInsets;
-//    self.searchTableView.scrollIndicatorInsets = contentInsets;
-    [self.tableView setHidden:YES];
-    [self.searchView setHidden:NO];
-    self.btnViewConstraint.constant = 0;
-    [self.viewButton needsUpdateConstraints];
-    
-    [self.btnCancel setHidden:NO];
-    [self.btnRightMenu setHidden:YES];
-    
-   // [self.searchTableView reloadData];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    self.searchTableView.contentInset = UIEdgeInsetsZero;
-    self.searchTableView.scrollIndicatorInsets = UIEdgeInsetsZero;
     if (isAfterShareFB == YES) {
         isAfterShareFB = NO;
-        [self.btnCancel setHidden:YES];
-        [self.btnRightMenu setHidden:NO];
-        self.btnViewConstraint.constant = 38;
-        [self.viewButton needsUpdateConstraints];
-        [self.searchView setHidden:YES];
-        [self.tableView setHidden:NO];
         [self.txtSearch setText:@""];
         [self.txtSearch resignFirstResponder];
     }
