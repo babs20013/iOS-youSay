@@ -127,7 +127,7 @@
                 [cvc requestProfile:_friendModel.userID];
             }
         }
-        else if (isClick == YES && _isFromFeed == NO && _requestedID == nil) {
+        else if (isClick == YES && _isFromFeed == NO && _requestedID == nil && isSameTab == YES) {
             [cvc setIsFriendProfile:NO];
             cvc.isFromFeed = NO;
             isClick = NO;

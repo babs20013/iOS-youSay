@@ -20,6 +20,7 @@
 #import "WhoLikeListTableViewCell.h"
 #import "FriendModel.h"
 #import "CustomActivityProvider.h"
+#import "SearchViewController.h"
 
 #define kColorSearch [UIColor colorWithRed:42.0/255.0 green:180.0/255.0 blue:202.0/255.0 alpha:1.0]
 
@@ -73,11 +74,12 @@
     [super viewWillAppear:animated];
     
     isScrollBounce = YES;
+    [self.navigationController setNavigationBarHidden:YES];
     [self.searchView setHidden:YES];
     [self.tableView setHidden:NO];
     [self.btnRightMenu setHidden:NO];
     [self.btnCancel setHidden:YES];
-    self.btnViewConstraint.constant = 30;
+    self.btnViewConstraint.constant = 38;
     [self.viewButton needsUpdateConstraints];
 }
 
@@ -123,7 +125,7 @@
     [clearTextButton addTarget:self action:@selector(clearTextField:) forControlEvents:UIControlEventTouchUpInside];
     [self.txtSearch setRightView:clearTextButton];
     [self.txtSearch setClearButtonMode:UITextFieldViewModeNever];
-    [self.txtSearch setRightViewMode:UITextFieldViewModeAlways];
+    [self.txtSearch setRightViewMode:UITextFieldViewModeWhileEditing];
     
     
     NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
@@ -149,7 +151,7 @@
                                                  name:@"refreshpage"
                                                object:nil];
     
-    self.btnViewConstraint.constant = 30;
+    self.btnViewConstraint.constant = 38;
     [self.viewButton needsUpdateConstraints];
     
 }
@@ -1044,15 +1046,6 @@
     [self.searchUserTableView reloadData];
 }
 
-- (IBAction)btnCancelSearchClicked:(id)sender {
-    [self.txtSearch resignFirstResponder];
-    [self.searchView setHidden:YES];
-    [self.tableView setHidden:NO];
-    [self.btnRightMenu setHidden:NO];
-    [self.btnCancel setHidden:YES];
-    self.btnViewConstraint.constant = 30;
-    [self.viewButton needsUpdateConstraints];
-}
 
 - (void) refreshFeed:(NSNotification *)notif {
     arrayFeed = [[NSMutableArray alloc]init];
@@ -1109,9 +1102,20 @@
 }
 
 - (IBAction)clearTextField:(id)sender {
-    [self.txtSearch setText:@""];
-    isShowRecentSearch = YES;
-    [self.searchUserTableView reloadData];
+    if ([self.txtSearch.text length] == 0) {
+        [self.txtSearch resignFirstResponder];
+        [self.searchView setHidden:YES];
+        [self.tableView setHidden:NO];
+        [self.btnRightMenu setHidden:NO];
+        [self.btnCancel setHidden:YES];
+        self.btnViewConstraint.constant = 38;
+        [self.viewButton needsUpdateConstraints];
+    }
+    else {
+        [self.txtSearch setText:@""];
+        isShowRecentSearch = YES;
+        [self.searchUserTableView reloadData];
+    }
 }
 
 - (IBAction)btnAddSayClicked:(id)sender {
@@ -1289,11 +1293,14 @@
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [self.tableView setHidden:YES];
-    [self.searchView setHidden:NO];
-    [_btnClear setHidden:YES];
-    isAfterShareFB = NO;
-    return YES;
+//    [self.tableView setHidden:YES];
+//    [self.searchView setHidden:NO];
+//    [_btnClear setHidden:YES];
+//    isAfterShareFB = NO;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SearchViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SearchViewController"];
+    [self.navigationController pushViewController:vc animated:NO];
+    return NO;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -1326,7 +1333,7 @@
     [textField becomeFirstResponder];
     [self.tableView setHidden:YES];
     [self.searchView setHidden:NO];
-    self.btnViewConstraint.constant = 50;
+    self.btnViewConstraint.constant = 0;
     [self.viewButton needsUpdateConstraints];
     
     [self.btnCancel setHidden:NO];
@@ -1374,7 +1381,7 @@
     [self.btnClear setHidden:NO];
     [self.tableView setHidden:YES];
     [self.searchView setHidden:NO];
-    self.btnViewConstraint.constant = 50;
+    self.btnViewConstraint.constant = 0;
     [self.viewButton needsUpdateConstraints];
     
     [self.btnCancel setHidden:NO];
@@ -1394,7 +1401,7 @@
         [self.tableView setHidden:NO];
         [self.btnRightMenu setHidden:NO];
         [self.btnCancel setHidden:YES];
-        self.btnViewConstraint.constant = 30;
+        self.btnViewConstraint.constant = 38;
         [self.viewButton needsUpdateConstraints];
         isAfterShareFB = NO;
     }

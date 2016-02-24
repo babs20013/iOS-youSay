@@ -8,7 +8,7 @@
 
 #import "url.h"
 
-NSString * HTTP_STAGING                          = @"https://yousayweb.com/yousay_dev/backend/api/";
+NSString * HTTP_STAGING                          = @"https://yousayweb.com/yousay_dev/backend/api/apiclient.php";
 NSString * HTTP_PRODUCTION                       = @"https://sharkbyte.co.il/yousay/backend/api/";
 NSString * HTTP_URL_SERVER                       = @"https://sharkbyte.co.il/yousay/backend/api/";
 

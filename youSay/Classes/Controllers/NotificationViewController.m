@@ -182,7 +182,7 @@
     vc.sayID = [dict objectForKey:@"say_id"];
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
     vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 
 #pragma mark Request
