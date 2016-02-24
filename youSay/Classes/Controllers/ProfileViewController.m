@@ -76,6 +76,7 @@
     NSString *sayShared;
     BOOL isProfileShared;
     BOOL isAfterShareFB;
+    BOOL isAfterRate;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIView *viewSkip;
@@ -369,6 +370,7 @@
 - (void)requestProfile:(NSString*)IDrequested {
     _isRequestingProfile = YES;
     isFirstLoad = NO;
+    isAfterRate = NO;
     ShowLoader();
     if (profileModel == nil) {
         profileModel = [AppDelegate sharedDelegate].profileOwner;
@@ -555,6 +557,8 @@
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:message delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Share", nil];
                 alert.tag = shareAfterRateTag;
                 [alert performSelector:@selector(show) withObject:nil afterDelay:1];
+                isAfterRate = YES;
+                [self.tableView reloadData];
 
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
@@ -1437,7 +1441,7 @@
             [cel.longPressInfoView setHidden:YES];
             [cel.rankButton setHidden:NO];
             [cel.buttonEditView setHidden:YES];
-            if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"]) {
+            if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"] && isAfterRate == NO) {
                 [cel.lblNeverRate setHidden:NO];
                 [cel.lblNeverRate setText:[NSString stringWithFormat:@"Hold to rate %@'s charm", model.Name]];
             }
