@@ -11,6 +11,9 @@
 #import "NotificationTableViewCell.h"
 #import "CommonHelper.h"
 #import "MainPageViewController.h"
+#import "SearchViewController.h"
+
+#define kColorSearch [UIColor colorWithRed:42.0/255.0 green:180.0/255.0 blue:202.0/255.0 alpha:1.0]
 
 @interface NotificationViewController (){
     NSMutableArray *arrNotification;
@@ -18,6 +21,7 @@
     BOOL isNoMoreNotification;
     BOOL isScrollBounce;
 }
+@property (nonatomic, strong) IBOutlet UITextField * txtSearch;
 @end
 
 @implementation NotificationViewController
@@ -35,6 +39,23 @@
     self.tblView.layer.masksToBounds = YES;
     self.tblView.layer.borderWidth = 1;
     self.tblView.layer.borderColor = [UIColor clearColor].CGColor;//[UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    
+    [self.txtSearch setDelegate:self];
+    UIImageView *imgMagnifyingGlass = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 15, 15)];
+    imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
+    [leftView addSubview:imgMagnifyingGlass];
+    self.txtSearch.leftView = leftView;
+    self.txtSearch.textColor = [UIColor whiteColor];
+    self.txtSearch.leftViewMode = UITextFieldViewModeAlways;
+    self.txtSearch.layer.cornerRadius = round(self.txtSearch.frame.size.height / 2);
+    self.txtSearch.layer.borderWidth = 1;
+    self.txtSearch.layer.borderColor = kColorSearch.CGColor;
+    self.txtSearch.autocorrectionType = UITextAutocorrectionTypeNo;
+
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+    self.txtSearch.attributedPlaceholder = str;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -281,6 +302,10 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+-(IBAction)btnOpenMenu:(UIButton*)sender{
+    [[SlideNavigationController sharedInstance]openMenu:MenuRight withCompletion:nil];
+}
+
 #pragma mark -- App Invite Delegate
 
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
@@ -289,6 +314,15 @@
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YouSay" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
+}
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SearchViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SearchViewController"];
+    [self.navigationController pushViewController:vc animated:NO];
+    return NO;
 }
 
 #pragma mark - ScrollViewDelegate
