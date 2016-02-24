@@ -201,6 +201,12 @@
     [btnAddSay addTarget:self action:@selector(btnAddSayTapped:) forControlEvents:UIControlEventTouchUpInside];
     [btnAddSay setHidden:YES];
     [self.view addSubview:btnAddSay];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshPage:)
+                                                 name:@"notification"
+                                               object:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -1075,6 +1081,51 @@
     }];
 }
 
+- (void)requestSkipRating {
+    ShowLoader();
+    
+    NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
+    [dictRequest setObject:REQUEST_SKIP_RATING forKey:@"request"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];
+    [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner token] forKey:@"token"];
+    [dictRequest setObject:requestedID forKey:@"skip_user_id"];
+    
+    [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
+        if (result)
+        {
+            NSDictionary *dictResult = result;
+            if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
+            {
+                NSMutableDictionary *event =
+                [[GAIDictionaryBuilder createEventWithCategory:@"Action"
+                                                        action:@"skipRating"
+                                                         label:@"skipRating"
+                                                         value:nil] build];
+                [[GAI sharedInstance].defaultTracker send:event];
+                [[GAI sharedInstance] dispatch];
+                [self requestProfile:requestedID];
+            }
+            else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
+                HideLoader();
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [self logout];
+            }
+            else {
+                HideLoader();
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }
+        else if (error)
+        {
+            HideLoader();
+        }
+        else{
+            HideLoader();
+        }
+    }];
+}
 
 #pragma mark TableView
 
@@ -1670,7 +1721,7 @@
 - (IBAction)btnSkipClicked:(id)sender {
     [self.viewSkip setHidden:YES];
     chartState = ChartStateDefault;
-    [self.tableView reloadData];
+    [self requestSkipRating];
 }
 
 - (IBAction)btnHideClicked:(id)sender {

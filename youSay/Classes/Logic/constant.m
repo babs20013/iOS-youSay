@@ -32,6 +32,7 @@ NSString *const REQUEST_GET_SAY_IMG = @"getSayImage";
 NSString *const REQUEST_PROFILE_SHARED = @"profileShared";
 NSString *const REQUEST_SAY_SHARED = @"sayShared";
 NSString *const REQUEST_GET_NOTIFICATION = @"getNotification";
+NSString *const REQUEST_SKIP_RATING = @"skipRateUserCharms";
 NSString *const AUTHORITY_TYPE_FB = @"2";
 
 
