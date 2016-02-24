@@ -680,7 +680,7 @@
                 [feedDict setObject:@"true" forKey:@"liked"];
                 [feedDict setObject:[NSNumber numberWithInteger:count] forKey:@"like_count"];
                 [saysArray replaceObjectAtIndex:[sender tag] withObject:feedDict];
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]] withRowAnimation:UITableViewRowAnimationNone];
 
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
@@ -738,7 +738,7 @@
                 [feedDict setObject:@"false" forKey:@"liked"];
                 [feedDict setObject:[NSNumber numberWithInteger:count] forKey:@"like_count"];
                 [saysArray replaceObjectAtIndex:[sender tag] withObject:feedDict];
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[sender tag] inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]] withRowAnimation:UITableViewRowAnimationNone];
             }
             else if ([[dictResult valueForKey:@"message"] isEqualToString:@"invalid user token"]) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -1528,9 +1528,19 @@
     {
         static NSString *cellIdentifier = @"PeopleSayTableViewCell";
         PeopleSayTableViewCell *cel = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (cel == nil) {
+            cel = [[PeopleSayTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault    reuseIdentifier:cellIdentifier] ;
+        }
+        
         NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.section-1];
         NSString *colorIndex = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
         [cel.peopleSayTitleLabel setTextColor:[UIColor whiteColor]];
+        NSInteger sayID = [[currentSaysDict objectForKey:@"say_id"] integerValue];
+        
+        if (likelistVC && [likelistVC.say_id integerValue] != sayID) {
+            [likelistVC.view setHidden:YES];
+        }
         
         cel.layer.cornerRadius = 0.015 * cel.bounds.size.width;
         cel.layer.masksToBounds = YES;
@@ -1621,7 +1631,7 @@
         }
         else {
             [cel.btnLikeCount setEnabled:YES];
-            [cel.btnLikeCount setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
+            //[cel.btnLikeCount setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
         }
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
         return cel;
@@ -1871,12 +1881,13 @@
             superView = superView.superview;
         }
     }
-    
-    PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)foundSuperView;
-    
+
+    PeopleSayTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
     likelistVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
     likelistVC.delegate = self;
-    likelistVC.say_id = [NSString stringWithFormat:@"%li", (long)[sender tag]];
+    
+    NSDictionary *currentSaysDict = [saysArray objectAtIndex:[sender tag]];
+    likelistVC.say_id = [currentSaysDict objectForKey:@"say_id"];
     [likelistVC.view setFrame:CGRectMake(likelistVC.view.frame.origin.x, likelistVC.view.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
     [cell addSubview:likelistVC.view];
 }
