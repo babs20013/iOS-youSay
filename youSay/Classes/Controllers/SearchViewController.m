@@ -43,6 +43,18 @@
     return context;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    // Fetch the devices from persistent data store
+    if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
+        NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
+        NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"%K like %@",@"id", [[AppDelegate sharedDelegate].profileOwner UserID]];
+        [fetchRequest setPredicate:predicateID];
+        
+        [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.screenName = @"SearchUser";
@@ -272,6 +284,7 @@
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), queue, ^{
         if ([textField.text length]>2 && isRequesting == NO){
+            isRequesting = YES;
             [self.btnClear setHidden:YES];
             arrayUser = nil;
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -385,6 +398,23 @@
 }
 
 #pragma mark Method
+
+- (IBAction)btnClearSearchClicked:(id)sender {
+    arrayUser= [[NSMutableArray alloc]init];
+    NSManagedObjectContext *context = [self managedObjectContext];
+    for (int i = 0; i < [[AppDelegate sharedDelegate].arrRecentSeacrh count]; i++) {
+        [context deleteObject:[[AppDelegate sharedDelegate].arrRecentSeacrh objectAtIndex:i]];
+    }
+    [AppDelegate sharedDelegate].arrRecentSeacrh = [[NSMutableArray alloc]init];
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+        return;
+    }
+    [context deletedObjects];
+    
+    [self.tblView reloadData];
+}
 
 - (void)convertModelToObject:(FriendModel*)model {
     NSManagedObjectContext *context = [self managedObjectContext];

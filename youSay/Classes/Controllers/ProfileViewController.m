@@ -129,17 +129,17 @@
 }
 
 
-- (void)viewDidAppear:(BOOL)animated {
-    // Fetch the devices from persistent data store
-    if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
-        NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
-        NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"%K like %@",@"id", [[AppDelegate sharedDelegate].profileOwner UserID]];
-        [fetchRequest setPredicate:predicateID];
-        
-        [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    }
-}
+//- (void)viewDidAppear:(BOOL)animated {
+//    // Fetch the devices from persistent data store
+//    if ([[AppDelegate sharedDelegate].profileOwner UserID]) {
+//        NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+//        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Search"];
+//        NSPredicate *predicateID = [NSPredicate predicateWithFormat:@"%K like %@",@"id", [[AppDelegate sharedDelegate].profileOwner UserID]];
+//        [fetchRequest setPredicate:predicateID];
+//        
+//        [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+//    }
+//}
 
 - (void)viewDidDisappear:(BOOL)animated {
     if ([dictHideSay allKeys].count >0) {
