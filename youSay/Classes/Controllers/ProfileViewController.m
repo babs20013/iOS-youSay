@@ -1584,6 +1584,7 @@
         cel.btnDot.tag = indexPath.section-1;
         
         [cel.viewMore setHidden:YES];
+        [cel.btnDot setSelected:NO];
         [cel.btnLikeCount setHighlighted:NO];
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
@@ -1602,7 +1603,7 @@
             [cel.likeButton setSelected:NO];
         }
         
-        [cel bringSubviewToFront:cel.btnDot];
+        [cel setWillDisplayMenu:YES];
         
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.section-1];
         if ([[dictHideSay objectForKey:index] isEqualToString:@"isHide"]) {
@@ -1742,20 +1743,15 @@
 - (IBAction)btnDotlicked:(id)sender {
     
     PeopleSayTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
-    [self.view bringSubviewToFront:cell.btnDot];
-    [cell.btnDot setBackgroundColor:[UIColor blueColor]];
-    if (displayMoreMenu) {
+    if (cell.willDisplayMenu) {
         [cell.viewMore setHidden:NO];
-        [cell.btnDot setImage:[UIImage imageNamed:@"3dotBlue"] forState:UIControlStateNormal];
+        [cell.btnDot setSelected:YES];
     }
     else {
-        [cell.viewMore setHidden:NO];
-        [cell.btnDot setImage:[UIImage imageNamed:@"3dot"] forState:UIControlStateNormal];
-        
+        [cell.viewMore setHidden:YES];
+        [cell.btnDot setSelected:NO];        
     }
-    
-    
-    displayMoreMenu = !displayMoreMenu;
+    cell.willDisplayMenu = !cell.willDisplayMenu;
 }
 
 - (IBAction)btnInstagramClicked:(id)sender {
