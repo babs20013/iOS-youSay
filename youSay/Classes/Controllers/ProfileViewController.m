@@ -109,7 +109,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     dictHideSay = [[NSMutableDictionary alloc] init];
-    [self.btnAddSay setHidden:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -135,16 +134,27 @@
     NSString *completeUrl=[NSString stringWithFormat:@"https://graph.facebook.com/"];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (isFriendProfile == NO && [colorDictionary allKeys].count == 0) {
-        if ([defaults objectForKey:@"yousayuserid"] && [defaults objectForKey:@"yousaytoken"] ) {
-            profileModel = [[ProfileOwnerModel alloc]init];
-            profileModel.UserID = [defaults stringForKey:@"yousayuserid"];
-            profileModel.token = [defaults stringForKey:@"yousaytoken"];
-            [AppDelegate sharedDelegate].profileOwner = profileModel;
-            [self requestProfile:[defaults objectForKey:@"yousayuserid"]];
-        }
-        else {
-            [self loadFaceBookData:completeUrl param:@{@"fields":@"friends, email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+//    if (isFriendProfile == NO && [[[AppDelegate sharedDelegate].colorDict allKeys] count] == 0) {
+//        if ([defaults objectForKey:@"yousayuserid"] && [defaults objectForKey:@"yousaytoken"] ) {
+//            profileModel = [[ProfileOwnerModel alloc]init];
+//            profileModel.UserID = [defaults stringForKey:@"yousayuserid"];
+//            profileModel.token = [defaults stringForKey:@"yousaytoken"];
+//            [AppDelegate sharedDelegate].profileOwner = profileModel;
+//            [self requestProfile:[defaults objectForKey:@"yousayuserid"]];
+//        }
+//        
+//        else {
+//            
+//        }
+//    }
+//    else
+    if ([[[AppDelegate sharedDelegate].ownerDict allKeys] count] == 0) {
+        [self loadFaceBookData:completeUrl param:@{@"fields":@"friends, email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+    }
+    else if ([[AppDelegate sharedDelegate].colorDict allKeys].count > 0 && isFriendProfile == NO) {
+        if ([[profileDictionary allKeys] count] == 0) {
+            profileDictionary = [AppDelegate sharedDelegate].ownerDict;
+            [self.tableView reloadData];
         }
     }
     
@@ -332,6 +342,7 @@
                 
                 [AppDelegate sharedDelegate].profileOwner = profileModel;
                 profileDictionary = [result objectForKey:@"profile"];
+                [AppDelegate sharedDelegate].ownerDict = profileDictionary;
                 isFriendProfile = NO;
                 requestedID = [dictResult valueForKey:@"user_id"];
                 [AppDelegate sharedDelegate].isFirstLoad = NO;
@@ -403,6 +414,7 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 profileDictionary = [dictResult objectForKey:@"profile"];
+                [AppDelegate sharedDelegate].ownerDict = profileDictionary;
                 saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
                 charmsArray = [profileDictionary valueForKey:@"charms"];
                 isFriendProfile = YES;
@@ -414,7 +426,7 @@
                 isAfterChangeCharm = NO;
                 //[self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
                 [self.tableView reloadData];
-                if  ([colorDictionary.allKeys count] == 0) {
+                if  ([[[AppDelegate sharedDelegate] colorDict].allKeys count] == 0) {
                     [self requestSayColor];
                 }
                 if (isAfterAddNewSay == YES) {
@@ -1323,7 +1335,7 @@
         model.ProfileImage = [profileDictionary objectForKey:@"picture"];
         model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
         model.UserID = requestedID;
-        if  (isFriendProfile == NO){
+        if  ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:[profileDictionary objectForKey:@"id"]]){
             //model = profileModel;
             chartState = chartState == ChartStateViewing ? ChartStateDefault : chartState;
             [btnAddSay setHidden:YES];
@@ -1600,7 +1612,7 @@
         [cel.viewMore setHidden:YES];
         [cel.btnDot setSelected:NO];
         [cel.btnLikeCount setHighlighted:NO];
-        NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
+        NSDictionary *indexDict = [[AppDelegate sharedDelegate].colorDict objectForKey:colorIndex];
         [cel setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
         [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];
         [cel.peopleSayLabel sizeToFit];
@@ -1823,7 +1835,7 @@
     model.UserID = requestedID;
     vc.model = model;
     vc.delegate = self;
-    vc.colorDict = colorDictionary;
+    vc.colorDict = [AppDelegate sharedDelegate].colorDict;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [nav setNavigationBarHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
@@ -2085,18 +2097,9 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y < -50) isScrollBounce = YES;
-//    if (likelistVC) {
-//        [likelistVC.view removeFromSuperview];
-//    }
-    
     if (fabs(scrollView.contentOffset.y) < 1 && isScrollBounce) {
         isScrollBounce = NO;
-        if (requestedID && self.tableView.hidden == NO && isFriendProfile == YES) {
-            [self requestProfile:requestedID];
-        }
-        else if (self.tableView.hidden == NO) {
-            [self requestProfile:[[AppDelegate sharedDelegate].profileOwner UserID]];
-        }
+        [self requestProfile:[profileDictionary objectForKey:@"id"]];
     }
 }
 
@@ -2138,7 +2141,8 @@
          return;
     }
     else if ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:requestedID]){
-        return;
+        profileDictionary = [AppDelegate sharedDelegate].ownerDict;
+        [self.tableView reloadData];
     }
     else if (requestedID==nil){
         return;

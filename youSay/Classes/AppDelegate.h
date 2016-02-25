@@ -18,6 +18,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) ProfileOwnerModel *profileOwner;
 @property (strong, nonatomic) NSDictionary *colorDict;
+@property (strong, nonatomic) NSDictionary *ownerDict;
 @property (strong, nonatomic) NSString *deviceToken;
 @property (readwrite, nonatomic) NSInteger num_of_new_notifications;
 @property (strong, nonatomic) NSMutableArray *arrRecentSeacrh;

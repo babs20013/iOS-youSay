@@ -231,7 +231,7 @@
     }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
-    vc.isFriendProfile = NO;
+    vc.isFriendProfile = YES;
     vc.isFromFeed = YES;
     vc.friendModel = model;
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
