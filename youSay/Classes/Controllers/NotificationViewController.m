@@ -328,12 +328,38 @@
 #pragma mark - ScrollViewDelegate
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if(self.tblView.contentOffset.y >= (self.tblView.contentSize.height - self.tblView.bounds.size.height) && isScrollBounce) {
+    if (scrollView.contentOffset.y < -50) isScrollBounce = YES;
+    
+    if (fabs(scrollView.contentOffset.y) < 1 && isScrollBounce) {
+        isScrollBounce = NO;
         if (!isNoMoreNotification) {
             isScrollBounce = NO;
             [self requestGetNotification:[NSString stringWithFormat:@"%i", index]];
         }
+        else {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            // Configure for text only and offset down
+            hud.mode = MBProgressHUDModeText;
+            hud.opacity = 0.1;
+            hud.color = [UIColor blackColor];
+            hud.labelText = @"No more notification";
+            hud.labelFont = [UIFont systemFontOfSize:12];
+            hud.margin = 10.f;
+            hud.yOffset = 10.f;
+            hud.dimBackground = NO;
+            hud.removeFromSuperViewOnHide = YES;
+            
+            [hud hide:YES afterDelay:1.0];
+        }
     }
+//    
+//    
+//    if(self.tblView.contentOffset.y >= (self.tblView.contentSize.height - self.tblView.bounds.size.height) && isScrollBounce) {
+//        if (!isNoMoreNotification) {
+//            isScrollBounce = NO;
+//            [self requestGetNotification:[NSString stringWithFormat:@"%i", index]];
+//        }
+//    }
 }
 
 
