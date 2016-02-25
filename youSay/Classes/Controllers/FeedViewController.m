@@ -444,12 +444,14 @@
 
 - (UITableViewCell*)consctructTableForFeed:(UITableView*)tableView withIndexPath:(NSIndexPath*)indexPath {
     static NSString *cellIdentifier = @"FeedTableViewCell";
+    
     FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (! cell) {
         
         cell = [[FeedTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
+    
     NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:indexPath.section];
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     NSString *string = [currentSaysDict valueForKey:@"feed_message"];
@@ -476,11 +478,6 @@
         cell.viewMore.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         [cell.viewMore.layer setBorderColor:[UIColor whiteColor].CGColor];
         
-        NSAttributedString *attributedText = [[NSAttributedString alloc]initWithString:[[currentSaysDict valueForKey:@"feed_title"] stringByReplacingOccurrencesOfString:@"%1" withString:[profile1 objectForKey:@"name"]]];
-        if (attributedText == nil){
-            attributedText = [[NSAttributedString alloc]initWithString:@""];
-        }
-        //cell.lblSaidAbout.attributedText = attributedText;
         cell.lblSaidAbout.text = [profile1 objectForKey:@"name"];
         [cell.btnProfile1 setTag:indexPath.section];
         [cell.btnLblProfile1 setTag:indexPath.section];
@@ -489,7 +486,6 @@
         [cell.btnShare setTag:indexPath.section];
         [cell.btnShareFB setTag:indexPath.section];
         [cell.btnDot setTag:indexPath.section];
-        cell.willDisplayMenu = YES;
     }
     
     if (arrProfiles.count == 0) {
@@ -518,7 +514,8 @@
         [cell.btnAddSay setHidden:NO];
         [cell.btnAddSay setTag:indexPath.section];
         
-        NSAttributedString *attributedText = [[NSAttributedString alloc]initWithString:[[currentSaysDict valueForKey:@"feed_title"] stringByReplacingOccurrencesOfString:@"%1" withString:cell.lblSaidAbout.text]];
+        NSDictionary *profile1 = [arrProfiles objectAtIndex:0];
+        NSAttributedString *attributedText = [[NSAttributedString alloc]initWithString:[[currentSaysDict valueForKey:@"feed_title"] stringByReplacingOccurrencesOfString:@"%1" withString:[profile1 objectForKey:@"name"]]];
         if (attributedText == nil){
             attributedText = [[NSAttributedString alloc]initWithString:@""];
         }
@@ -577,6 +574,14 @@
         [cell.btnLikeCount setTag:[[currentSaysDict valueForKey:@"say_id"] integerValue]];
     }
     
+    if (cell.tag == indexPath.section+1) {
+        [cell.viewMore setHidden:NO];
+        [cell.btnDot setSelected:YES];
+    }
+    else {
+        [cell.viewMore setHidden:YES];
+         [cell.btnDot setSelected:NO];
+    }
     cell.layer.cornerRadius = 0.015 * cell.bounds.size.width;
     cell.layer.masksToBounds = YES;
     cell.layer.borderWidth = 1;
@@ -714,17 +719,18 @@
 }
 
 - (IBAction)btnDotlicked:(id)sender {
-    
+    UIButton *button = (UIButton*)sender;
     FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
-    if (cell.willDisplayMenu) {
+    if (button.selected == NO) {
         [cell.viewMore setHidden:NO];
         [cell.btnDot setSelected:YES];
+        cell.tag = [sender tag]+1;
     }
     else {
         [cell.viewMore setHidden:YES];
         [cell.btnDot setSelected:NO];
+        cell.tag = 50000;
     }
-    cell.willDisplayMenu = !cell.willDisplayMenu;
 }
 
 #pragma mark - ScrollViewDelegate

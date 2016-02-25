@@ -1145,6 +1145,13 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (cell.tag != indexPath.section) {
+        [likelistVC.view setHidden:YES];
+    }
+    else {
+        [likelistVC.view setHidden:NO];
+    }
+    
     // Remove seperator inset
     if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
         [cell setSeparatorInset:UIEdgeInsetsZero];
@@ -1240,6 +1247,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+}
+
 
 - (void)convertModelToObject:(FriendModel*)model {
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -1556,13 +1567,6 @@
             cel = [[PeopleSayTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault    reuseIdentifier:cellIdentifier] ;
         }
         
-        if (cel.tag != indexPath.section && indexPath.section ) {
-            [likelistVC.view setHidden:YES];
-        }
-        else {
-            [likelistVC.view setHidden:NO];
-        }
-
         cel.clipsToBounds = YES;
         NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.section-1];
         NSString *colorIndex = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
@@ -1629,8 +1633,6 @@
             [cel.likeButton setSelected:NO];
         }
         
-        [cel setWillDisplayMenu:YES];
-        
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.section-1];
         if ([[dictHideSay objectForKey:index] isEqualToString:@"isHide"]) {
             UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
@@ -1675,6 +1677,16 @@
         else {
             [cel.btnLikeCount setEnabled:YES];
             //[cel.btnLikeCount setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
+        }
+        
+        
+        if (cel.tag == indexPath.section+10) {
+            [cel.viewMore setHidden:NO];
+            [cel.btnDot setSelected:YES];
+        }
+        else {
+            [cel.viewMore setHidden:YES];
+            [cel.btnDot setSelected:NO];
         }
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -1768,17 +1780,18 @@
 #pragma mark - IBAction
 
 - (IBAction)btnDotlicked:(id)sender {
-    
+    UIButton *button = (UIButton*)sender;
     PeopleSayTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
-    if (cell.willDisplayMenu) {
+    if (button.selected == NO) {
         [cell.viewMore setHidden:NO];
         [cell.btnDot setSelected:YES];
+        cell.tag = [sender tag]+11;
     }
     else {
         [cell.viewMore setHidden:YES];
-        [cell.btnDot setSelected:NO];        
+        [cell.btnDot setSelected:NO];
+        cell.tag = 5000;
     }
-    cell.willDisplayMenu = !cell.willDisplayMenu;
 }
 
 - (IBAction)btnInstagramClicked:(id)sender {
