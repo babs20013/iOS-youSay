@@ -399,16 +399,22 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:indexPath.section];
-    NSString *string = [currentSaysDict valueForKey:@"feed_message"];
-    CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     if (arrProfiles.count == 1) {
         return 115;
+    }
+    else if (arrProfiles.count == 0){
+        return 0;
     }
     return 289;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:section];
+    NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
+    if (arrProfiles.count == 0) {
+        return 0;
+    }
     return 10;
 }
 
@@ -517,8 +523,6 @@
             attributedText = [[NSAttributedString alloc]initWithString:@""];
         }
         cell.lbl1ProfileSay.attributedText = attributedText;
-        
-        //        [cell.lblSaidAbout setFrame:CGRectMake(cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.origin.x, cell.lblSaidAbout.frame.size.width+200, cell.lblSaidAbout.frame.size.height)];
     }
     else if (arrProfiles.count == 2){
         [cell.lbl1ProfileSay setHidden:YES];
@@ -528,8 +532,9 @@
         [cell.viewSays setHidden:NO];
         [cell.viewBottom setHidden:NO];
         [cell.btnAddSay setHidden:YES];
-        
-        
+        [cell.lblSaidAbout setHidden:NO];
+        [cell.lblDate setHidden:NO];
+
         [cell.btnLikes setTag:indexPath.section];
         if ([[currentSaysDict objectForKey:@"like_status"] isEqualToString:@"yes"]) {
             [cell.btnLikes setSelected:YES];
@@ -542,21 +547,6 @@
         NSDictionary *profile2 = [arrProfiles objectAtIndex:1];
         string = [string stringByReplacingOccurrencesOfString:@"%2"
                                                    withString:@""];
-        
-//        NSURL *avatar = [NSURL URLWithString:[profile2 objectForKey:@"avatar"]];
-//        if  (avatar && [avatar scheme] && [avatar host]) {
-//            [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:[profile2 objectForKey:@"avatar"]]];
-//        }
-//        else {
-//            [cell.imgViewProfile2 setImageURL:[NSURL URLWithString:@"http://2.bp.blogspot.com/-6QyJDHjB5XE/Uscgo2DVBdI/AAAAAAAACS0/DFSFGLBK_fY/s1600/facebook-default-no-profile-pic.jpg"]];
-//        }
-//        
-//        
-//        cell.imgViewProfile2.layer.cornerRadius = 0.5 * cell.imgViewProfile2.bounds.size.width;
-//        cell.imgViewProfile2.layer.masksToBounds = YES;
-//        cell.imgViewProfile2.layer.borderWidth = 1;
-//        cell.imgViewProfile2.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
-//        
         [cell.lblSaidAbout2 setText:[profile2 objectForKey:@"name"]];
         [cell.lblSaidAbout2 setNumberOfLines:0];
         if (![profile2 objectForKey:@"name"]) {
