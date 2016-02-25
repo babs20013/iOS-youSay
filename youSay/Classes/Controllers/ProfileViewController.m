@@ -1511,8 +1511,8 @@
                 [cel.lblNeverRate setHidden:NO];
                 [cel.lblNeverRate setText:[NSString stringWithFormat:@"Hold to rate %@'s charm", model.Name]];
             }
-            [cel.lblTotalRateTitle setHidden:YES];
-            [cel.lblTotalScore setHidden:YES];
+//            [cel.lblTotalRateTitle setHidden:YES];
+//            [cel.lblTotalScore setHidden:YES];
         }
         else{
             [cel.rankButton setHidden:YES];
