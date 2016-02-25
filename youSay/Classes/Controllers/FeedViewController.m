@@ -405,7 +405,7 @@
     if (arrProfiles.count == 1) {
         return 115;
     }
-    return expectedSize.height+138;
+    return 289;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -463,6 +463,13 @@
         cell.imgViewProfile1.layer.masksToBounds = YES;
         cell.imgViewProfile1.layer.borderWidth = 1;
         cell.imgViewProfile1.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        
+        cell.viewMore.layer.cornerRadius = 0.03 * cell.viewMore.bounds.size.width;
+        cell.viewMore.layer.masksToBounds = YES;
+        cell.viewMore.layer.borderWidth = 1;
+        cell.viewMore.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        [cell.viewMore.layer setBorderColor:[UIColor whiteColor].CGColor];
+        
         NSAttributedString *attributedText = [[NSAttributedString alloc]initWithString:[[currentSaysDict valueForKey:@"feed_title"] stringByReplacingOccurrencesOfString:@"%1" withString:[profile1 objectForKey:@"name"]]];
         if (attributedText == nil){
             attributedText = [[NSAttributedString alloc]initWithString:@""];
@@ -472,8 +479,11 @@
         [cell.btnProfile1 setTag:indexPath.section];
         [cell.btnLblProfile1 setTag:indexPath.section];
         [cell.btnReport setTag:indexPath.section];
+        [cell.btnReportLabel setTag:indexPath.section];
         [cell.btnShare setTag:indexPath.section];
         [cell.btnShareFB setTag:indexPath.section];
+        [cell.btnDot setTag:indexPath.section];
+        cell.willDisplayMenu = YES;
     }
     
     if (arrProfiles.count == 0) {
@@ -711,6 +721,20 @@
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
     vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)btnDotlicked:(id)sender {
+    
+    FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
+    if (cell.willDisplayMenu) {
+        [cell.viewMore setHidden:NO];
+        [cell.btnDot setSelected:YES];
+    }
+    else {
+        [cell.viewMore setHidden:YES];
+        [cell.btnDot setSelected:NO];
+    }
+    cell.willDisplayMenu = !cell.willDisplayMenu;
 }
 
 #pragma mark - ScrollViewDelegate

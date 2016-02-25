@@ -1151,7 +1151,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *thisView = [[UIView alloc]init];
-    thisView.backgroundColor = [UIColor clearColor];//kColorBG;
+    thisView.backgroundColor = [UIColor blackColor];//kColorBG;
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, self.view.bounds.size.width-40, 37)];
     label.text = [NSString stringWithFormat:@"What people said about %@", [profileDictionary objectForKey:@"name"]];
     label.numberOfLines = 0;
@@ -1480,19 +1480,18 @@
             [cel.cancelSkip setHidden:NO];
             [cel.lblTotalRateTitle setHidden:YES];
             [cel.lblTotalScore setHidden:YES];
-            
-            //TODO Later
+
 //            [cel.imgHand setHidden:NO];
 //            
 //            CABasicAnimation *hover = [CABasicAnimation animationWithKeyPath:@"position"];
 //            hover.additive = YES; // fromValue and toValue will be relative instead of absolute values
 //            hover.fromValue = [NSValue valueWithCGPoint:CGPointZero];
-//            hover.toValue = [NSValue valueWithCGPoint:CGPointMake(0.0, -10.0)]; // y increases downwards on iOS
+//            hover.toValue = [NSValue valueWithCGPoint:CGPointMake(0.0, -100.0)]; // y increases downwards on iOS
 //            hover.autoreverses = YES; // Animate back to normal afterwards
-//            hover.duration = 0.2; // The duration for one part of the animation (0.2 up and 0.2 down)
+//            hover.duration = 1.5; // The duration for one part of the animation (0.2 up and 0.2 down)
 //            hover.repeatCount = INFINITY; // The number of times the animation should repeat
 //            [cel.imgHand.layer addAnimation:hover forKey:@"myHoverAnimation"];
-            
+//            
         }
         else if (isFriendProfile == YES) {
             [cel.longPressInfoView setHidden:YES];
@@ -1535,14 +1534,19 @@
             cel = [[PeopleSayTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault    reuseIdentifier:cellIdentifier] ;
         }
         
+        if (cel.tag != indexPath.section && indexPath.section ) {
+            [likelistVC.view setHidden:YES];
+        }
+        else {
+            [likelistVC.view setHidden:NO];
+        }
+
+        cel.clipsToBounds = YES;
         NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.section-1];
         NSString *colorIndex = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
         [cel.peopleSayTitleLabel setTextColor:[UIColor whiteColor]];
         NSInteger sayID = [[currentSaysDict objectForKey:@"say_id"] integerValue];
         
-        if (likelistVC && [likelistVC.say_id integerValue] != sayID) {
-            [likelistVC.view setHidden:YES];
-        }
         
         cel.layer.cornerRadius = 0.015 * cel.bounds.size.width;
         cel.layer.masksToBounds = YES;
@@ -1651,6 +1655,7 @@
             //[cel.btnLikeCount setTag:[[currentSaysDict objectForKey:@"say_id"] integerValue]];
         }
         cel.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         return cel;
     }
     return cell;
@@ -1920,6 +1925,7 @@
     NSDictionary *currentSaysDict = [saysArray objectAtIndex:[sender tag]];
     likelistVC.say_id = [currentSaysDict objectForKey:@"say_id"];
     [likelistVC.view setFrame:CGRectMake(likelistVC.view.frame.origin.x, likelistVC.view.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
+    cell.tag = [sender tag]+1;
     [cell addSubview:likelistVC.view];
 }
 

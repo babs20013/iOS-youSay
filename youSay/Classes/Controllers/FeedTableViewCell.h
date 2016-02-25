@@ -21,6 +21,7 @@
 @property (nonatomic, strong) IBOutlet UIView *viewSays;
 @property (nonatomic, strong) IBOutlet UIView *viewBottom;
 @property (nonatomic, strong) IBOutlet UIButton *btnReport;
+@property (nonatomic, strong) IBOutlet UIButton *btnReportLabel;
 @property (nonatomic, strong) IBOutlet UIButton *btnShare;
 @property (nonatomic, strong) IBOutlet UIButton *btnShareFB;
 @property (nonatomic, strong) IBOutlet UIButton *btnLikes;
@@ -30,6 +31,9 @@
 @property (nonatomic, strong) IBOutlet UIButton *btnLblProfile2;
 @property (nonatomic, strong) IBOutlet UIButton *btnLikeCount;
 @property (nonatomic, strong) IBOutlet UIButton *btnAddSay;
+@property (nonatomic, strong) IBOutlet UIButton *btnDot;
+@property (nonatomic, strong) IBOutlet UIView *viewMore;
+@property (nonatomic, readwrite) BOOL willDisplayMenu;
 
 @end
 
