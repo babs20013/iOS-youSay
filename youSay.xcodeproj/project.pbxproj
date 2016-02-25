@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1B07AD861C7CA8E300EB7E5C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B07AD841C7CA8E300EB7E5C /* SearchViewController.m */; };
+		1B07AD891C7E57DF00EB7E5C /* MGInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B07AD881C7E57DF00EB7E5C /* MGInstagram.m */; };
 		1B0CF1901C270DF000E20D6E /* AddSayRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CF18F1C270DF000E20D6E /* AddSayRequest.m */; };
 		1B0DED451C3D215600F3B907 /* ReportSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DED441C3D215600F3B907 /* ReportSayViewController.m */; };
 		1B0DED471C3D6C5A00F3B907 /* ReportList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B0DED461C3D6C5A00F3B907 /* ReportList.plist */; };
@@ -95,6 +96,8 @@
 		1787B273D28568E85213A729 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B07AD841C7CA8E300EB7E5C /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = youSay/Classes/Controllers/SearchViewController.m; sourceTree = SOURCE_ROOT; };
 		1B07AD851C7CA8E300EB7E5C /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = youSay/Classes/Controllers/SearchViewController.h; sourceTree = SOURCE_ROOT; };
+		1B07AD871C7E57DF00EB7E5C /* MGInstagram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGInstagram.h; path = youSay/Classes/Component/UIComponent/MGInstagram.h; sourceTree = SOURCE_ROOT; };
+		1B07AD881C7E57DF00EB7E5C /* MGInstagram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGInstagram.m; path = youSay/Classes/Component/UIComponent/MGInstagram.m; sourceTree = SOURCE_ROOT; };
 		1B0CF18E1C270DDB00E20D6E /* AddSayRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AddSayRequest.h; path = youSay/Classes/Model/AddSayRequest.h; sourceTree = SOURCE_ROOT; };
 		1B0CF18F1C270DF000E20D6E /* AddSayRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddSayRequest.m; path = youSay/Classes/Model/AddSayRequest.m; sourceTree = SOURCE_ROOT; };
 		1B0DED431C3D214800F3B907 /* ReportSayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReportSayViewController.h; path = youSay/Classes/Controllers/ReportSayViewController.h; sourceTree = SOURCE_ROOT; };
@@ -581,6 +584,8 @@
 		9A1406771C1305BB006547A0 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				1B07AD871C7E57DF00EB7E5C /* MGInstagram.h */,
+				1B07AD881C7E57DF00EB7E5C /* MGInstagram.m */,
 				1BC88A861C42B2BC0032503E /* MBProgressHUD.h */,
 				1BC88A871C42B2BC0032503E /* MBProgressHUD.m */,
 				9AF52B811C3790F80078E568 /* UIColor+BFPaperColors */,
@@ -828,6 +833,7 @@
 				1B28B1531C4C9E5A00D112CD /* NotificationViewController.m in Sources */,
 				1B2C6D681C4C08DD00724E24 /* ShowWebVC.m in Sources */,
 				1B17E3E61C180C120080A574 /* IQMultipartFormData.m in Sources */,
+				1B07AD891C7E57DF00EB7E5C /* MGInstagram.m in Sources */,
 				1B17E3F31C1813C20080A574 /* RequestModel.m in Sources */,
 				9A9CB6251C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorFade.m in Sources */,
 				1B17E3C81C180BE90080A574 /* FriendModel.m in Sources */,

@@ -25,6 +25,7 @@
 #import <Social/Social.h>
 #import "CustomActivityProvider.h"
 #import "SearchViewController.h"
+#import "MGInstagram.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -77,6 +78,7 @@
     BOOL isProfileShared;
     BOOL isAfterShareFB;
     BOOL isAfterRate;
+    BOOL displayMoreMenu;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIView *viewSkip;
@@ -1547,6 +1549,12 @@
         cel.layer.borderWidth = 1;
         cel.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
         
+        cel.viewMore.layer.cornerRadius = 0.03 * cel.viewMore.bounds.size.width;
+        cel.viewMore.layer.masksToBounds = YES;
+        cel.viewMore.layer.borderWidth = 1;
+        cel.viewMore.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+        [cel.viewMore.layer setBorderColor:[UIColor whiteColor].CGColor];
+        
         NSURL *imgURL = [NSURL URLWithString:[currentSaysDict objectForKey:@"profile_image"]];
         if  (imgURL && [imgURL scheme] && [imgURL host]) {
             [cel.imgViewProfilePic setImageURL:imgURL];
@@ -1567,11 +1575,16 @@
         cel.btnUndo.tag = indexPath.section-1;
         cel.btnProfile.tag = indexPath.section-1;
         cel.btnReport.tag = indexPath.section-1;
+        cel.btnReportLabel.tag = indexPath.section-1;
+        cel.btnInstagram.tag = indexPath.section-1;
+        cel.btnInstagramLabel.tag = indexPath.section-1;
         cel.btnShareFB.tag = indexPath.section-1;
         cel.btnShare.tag = indexPath.section-1;
         cel.btnLikeCount.tag = indexPath.section-1;
+        cel.btnDot.tag = indexPath.section-1;
+        
+        [cel.viewMore setHidden:YES];
         [cel.btnLikeCount setHighlighted:NO];
-        //[cel.btnProfile.titleLabel setText:[NSString stringWithFormat:@"%@ said about", [currentSaysDict objectForKey:@"by"]]];
         NSDictionary *indexDict = [colorDictionary objectForKey:colorIndex];
         [cel setBackgroundColor:[self colorWithHexString: [indexDict objectForKey:@"back"]]];
         [cel.peopleSayLabel setTextColor:[self colorWithHexString: [indexDict objectForKey:@"fore"]]];
@@ -1588,6 +1601,8 @@
         else {
             [cel.likeButton setSelected:NO];
         }
+        
+        [cel bringSubviewToFront:cel.btnDot];
         
         NSString *index = [NSString stringWithFormat:@"%ld", (long)indexPath.section-1];
         if ([[dictHideSay objectForKey:index] isEqualToString:@"isHide"]) {
@@ -1723,6 +1738,37 @@
 }
 
 #pragma mark - IBAction
+
+- (IBAction)btnDotlicked:(id)sender {
+    
+    PeopleSayTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
+    [self.view bringSubviewToFront:cell.btnDot];
+    [cell.btnDot setBackgroundColor:[UIColor blueColor]];
+    if (displayMoreMenu) {
+        [cell.viewMore setHidden:NO];
+        [cell.btnDot setImage:[UIImage imageNamed:@"3dotBlue"] forState:UIControlStateNormal];
+    }
+    else {
+        [cell.viewMore setHidden:NO];
+        [cell.btnDot setImage:[UIImage imageNamed:@"3dot"] forState:UIControlStateNormal];
+        
+    }
+    
+    
+    displayMoreMenu = !displayMoreMenu;
+}
+
+- (IBAction)btnInstagramClicked:(id)sender {
+    //TODO
+    UIImage *image = [UIImage imageNamed:@"3dot"];
+    MGInstagram *test = [[MGInstagram alloc]init];
+    if ([MGInstagram isAppInstalled] && [MGInstagram isImageCorrectSize:image]) {
+        [test postImage:image inView:self.view];
+    }
+    else {
+        NSLog(@"Error Instagram is either not installed or image is incorrect size");
+    }
+}
 
 - (IBAction)btnShowSkipClicked:(id)sender {
     [self.viewSkip setHidden:NO];

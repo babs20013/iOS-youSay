@@ -23,8 +23,13 @@
 @property (nonatomic, strong) IBOutlet UIButton *likeButton;
 @property (nonatomic, strong) IBOutlet UIButton *btnShare;
 @property (nonatomic, strong) IBOutlet UIButton *btnReport;
+@property (nonatomic, strong) IBOutlet UIButton *btnReportLabel;
+@property (nonatomic, strong) IBOutlet UIButton *btnInstagram;
+@property (nonatomic, strong) IBOutlet UIButton *btnInstagramLabel;
 @property (nonatomic, strong) IBOutlet UIButton *btnLikeCount;
 @property (nonatomic, strong) IBOutlet UIButton *btnShareFB;
 @property (nonatomic, strong) IBOutlet UIButton *btnLike;
+@property (nonatomic, strong) IBOutlet UIButton *btnDot;
+@property (nonatomic, strong) IBOutlet UIView *viewMore;
 @end
 

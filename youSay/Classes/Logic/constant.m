@@ -42,7 +42,7 @@ NSString *const ERR_MSG_NO_INTERNET = @"There Is NO internet connection";
 NSString *const ERR_MSG_TITLE_SORRY = @"Sorry!";
 
 #pragma mark -- Message
-NSString *const MSG_REPORT_SENT = @"Thank you. Your report has been sent.";
+NSString *const MSG_REPORT_SENT = @"The say was successfully reported";
 
 #pragma mark -- Misc
 NSString *const DEFAULT_COVER_IMG = @"http://freephotos.atguru.in/hdphotos/best-cover-photos/best-friend-facebook-timeline-cover-image.png";
