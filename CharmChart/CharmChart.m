@@ -130,7 +130,9 @@
     [self addSubview:lblTitle];
     
     float position = ceil(roundedScore/10)+1;
-    if ((_state == ChartStateViewing && _score == 0 && !_active) || (_state ==  ChartStateRate && !_active) || (_state != ChartStateDefault && _isNeverRate)){
+    if ((_state == ChartStateViewing && _score == 0 && !_active) ||
+        (_state ==  ChartStateRate && !_active) ||
+        (_state != ChartStateDefault && _isNeverRate && _state != ChartStateEdit)){
         position = 12;
     }
     else if (self.score == 0 && _state != ChartStateRate){
