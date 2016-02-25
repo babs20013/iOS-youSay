@@ -130,8 +130,11 @@
     [self addSubview:lblTitle];
     
     float position = ceil(roundedScore/10)+1;
-    if ((_state == ChartStateViewing && _score == 0 && !_active) || (_state ==  ChartStateRate && !_active) || _isNeverRate){
+    if ((_state == ChartStateViewing && _score == 0 && !_active) || (_state ==  ChartStateRate && !_active) || (_state != ChartStateDefault && _isNeverRate)){
         position = 12;
+    }
+    else if (self.score == 0 && _state != ChartStateRate){
+        position = 1;
     }
 
     lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- ((position-1)*([self boxSize].height+kMinVerticalGap) + [self boxSize].height)-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
@@ -328,6 +331,7 @@
     }
     
     float position = ceil(roundedScore/10)+1;
+    
     if (position <= 1) {
         position = 2;
     }
