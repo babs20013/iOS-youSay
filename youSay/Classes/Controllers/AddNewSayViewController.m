@@ -352,7 +352,29 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    if ([textView.text length] >0){
+
+    float rawLineNumber = (textView.contentSize.height - textView.textContainerInset.top - textView.textContainerInset.bottom) / textView.font.lineHeight;
+    int finalLineNumber = round(rawLineNumber);
+    NSLog(@"final: %d", finalLineNumber);
+    
+    if ([textView.text length] > 470 || finalLineNumber >= 10) {
+        [placeholderLabel setHidden:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        
+        // Configure for text only and offset down
+        hud.mode = MBProgressHUDModeText;
+        hud.opacity = 0.1;
+        hud.color = [UIColor blackColor];
+        hud.labelText = @"Text is limited to 470 characters and 10 lines";
+        hud.labelFont = [UIFont systemFontOfSize:12];
+        hud.margin = 10.f;
+        hud.yOffset = 10.f;
+        hud.dimBackground = NO;
+        hud.removeFromSuperViewOnHide = YES;
+        
+        [hud hide:YES afterDelay:1.0];
+    }
+    else if ([textView.text length] >0){
         [placeholderLabel setHidden:YES];
     }
     else {
