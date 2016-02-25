@@ -77,9 +77,9 @@
     self.txtSearch.layer.borderColor = kColorSearch.CGColor;
     self.txtSearch.autocorrectionType = UITextAutocorrectionTypeNo;
     
-    UIButton *clearTextButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
+    UIButton *clearTextButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 45, 45)];
     [clearTextButton setImage:[UIImage imageNamed:@"ClearText"] forState:UIControlStateNormal];
-    [clearTextButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
+    [clearTextButton setImageEdgeInsets:UIEdgeInsetsMake(15, 15, 15, 15)];
     [clearTextButton addTarget:self action:@selector(clearTextField:) forControlEvents:UIControlEventTouchUpInside];
     [self.txtSearch setRightView:clearTextButton];
     [self.txtSearch setClearButtonMode:UITextFieldViewModeNever];
