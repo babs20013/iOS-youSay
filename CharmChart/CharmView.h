@@ -26,7 +26,10 @@
 @property (strong,nonatomic) NSMutableArray *chartScores;
 @property (strong,nonatomic) NSMutableArray *chartNames;
 @property (strong,nonatomic) NSMutableArray *chartLocked;
+@property (strong,nonatomic) NSMutableArray *chartActive;
 @property (strong,nonatomic) NSMutableArray *charts;
+@property (readwrite,nonatomic) BOOL isNeverRate;
+
 
 -(void)beginEditing;
 -(void)endEditing;

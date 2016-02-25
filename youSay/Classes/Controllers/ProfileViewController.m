@@ -1428,6 +1428,7 @@
         NSMutableArray *arrScore = [[NSMutableArray alloc]init];
         NSMutableArray *arrNames = [[NSMutableArray alloc]init];
         NSMutableArray *arrLocked = [[NSMutableArray alloc]init];
+        NSMutableArray *arrActive = [[NSMutableArray alloc]init];
         if (arrActiveCharm.count == 0) {
             arrActiveCharm = arrayFilteredCharm;
         }
@@ -1438,10 +1439,19 @@
             [arrScore addObject:[dict valueForKey:@"rate"]];
             [arrNames addObject:[dict valueForKey:@"name"]];
             [arrLocked addObject:[dict valueForKey:@"rated"]];
+            [arrActive addObject:[dict valueForKey:@"active"]];
         }
         cel.charmChartView.chartScores  =  arrScore;
         cel.charmChartView.chartNames  =  arrNames;
         cel.charmChartView.chartLocked  =  arrLocked;
+        cel.charmChartView.chartActive = arrActive;
+        
+        if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"] && isAfterRate == NO) {
+            [cel.charmChartView setIsNeverRate:YES];
+        }
+        else {
+            [cel.charmChartView setIsNeverRate:NO];
+        }
         
         cel.charmChartView.state = chartState;
         charmView = cel.charmChartView;

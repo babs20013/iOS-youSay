@@ -43,6 +43,16 @@
             chart.rated = NO;
         }
         
+        if ([[_chartActive objectAtIndex:i] isEqualToString:@"true"]) {
+            chart.active = YES;
+        }
+        else{
+            chart.active = NO;
+        }
+        
+        chart.isNeverRate = _isNeverRate;
+        
+        
         chart.tag = i;
         if (_state != ChartStateEdit && _state != ChartStateRate) {
             UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tapAndHoldChart:)];

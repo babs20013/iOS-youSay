@@ -80,7 +80,7 @@
                 [valueBox setBackgroundColor:[self getColor:0]];
                 [valueBox setHidden:NO];
             }
-            else if(!_rated){
+            else if(!_active || _isNeverRate){
                 //on viewing mode if its not yet rated user can see the actual score before set rating
                 _score = 0;//
                 //if not rated change val to 0 so able to rate
@@ -89,7 +89,7 @@
             }
         }
         else if ( _state == ChartStateRate){
-            if (_rated) {
+            if (_active && !_isNeverRate) {
                 
             }
             else{
@@ -130,13 +130,13 @@
     [self addSubview:lblTitle];
     
     float position = ceil(roundedScore/10)+1;
-    if ((_state == ChartStateViewing && _score == 0 && !_rated) || (_state ==  ChartStateRate && !_rated) ){
-        position = 11;
+    if ((_state == ChartStateViewing && _score == 0 && !_active) || (_state ==  ChartStateRate && !_active) || _isNeverRate){
+        position = 12;
     }
 
     lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- ((position-1)*([self boxSize].height+kMinVerticalGap) + [self boxSize].height)-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
     
-    if (_rated){
+    if (_active){
         [lblScore setText:[NSString stringWithFormat:@"%ld",(long)_score]];
     }
     else {
@@ -144,9 +144,13 @@
     }
     
     [lblScore setFont:[UIFont systemFontOfSize:13]];
-    if (position > 10 && _state ==  ChartStateRate) {
+    if (position > 11 && _state ==  ChartStateRate) {
         [lblScore setHidden:YES];
     }
+    else if (position > 11 && _state == ChartStateViewing){
+        [lblScore setHidden:YES];
+    }
+    
     lblScore.textAlignment = NSTextAlignmentCenter;
     [lblScore setTextColor:[self getColor:roundedScore/10]];
     [self addSubview:lblScore];
@@ -173,7 +177,7 @@
         [btn setHidden:NO];
         [btnClose setHidden:NO];
     }
-    else if (_state == ChartStateViewing && !_rated){
+    else if (_state == ChartStateViewing && !_active){
         [lblScore setHidden:YES];
     }
     
@@ -187,7 +191,21 @@
         longPress.delegate      =   self;
         [self addGestureRecognizer:longPress];
         longPress = nil;
+        
+//        for (int i = 0; i < 10; i++) {
+//            UIView *box = [boxes objectAtIndex:i];
+//            if (i > 2 && self.frame.origin.x == 0 && i < 8) {
+//                box.tag = i+1;
+//                [self animaTeCharm:box];
+////                [self performSelector:@selector(animaTeCharm:) withObject:box afterDelay:1.0];
+//            }
+//        }
     }
+}
+
+- (void)animaTeCharm:(UIView*)box {
+    [box setHidden:NO];
+    [box setBackgroundColor:[self getColor:box.tag]];
 }
 
 -(CGSize)boxSize{
@@ -313,8 +331,8 @@
     if (position <= 1) {
         position = 2;
     }
-    else if (position > 10){
-        position= 11;//max
+    else if (position > 11){
+        position= 12;//max
     }
     [lblScore setHidden:NO];
     lblScore.frame = CGRectMake(kMinHorizontalGap/2,self.frame.size.height- (position*([self boxSize].height+kMinVerticalGap))-kChartLabelHeight, [self boxSize].width, [self boxSize].height);

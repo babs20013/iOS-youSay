@@ -26,6 +26,8 @@ typedef enum {
 
 @property (assign,nonatomic) ChartState state;
 @property (assign,nonatomic) BOOL rated;
+@property (assign,nonatomic) BOOL active;
+@property (assign,nonatomic) BOOL isNeverRate;
 @property (assign,nonatomic) NSInteger score;
 @property (assign,nonatomic) NSInteger index;
 @property (copy,nonatomic) NSString *title;
