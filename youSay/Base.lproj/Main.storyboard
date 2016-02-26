@@ -387,6 +387,21 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zvh-qX-eSb" userLabel="SkipView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xMh-1z-LGs">
+                                        <rect key="frame" x="49" y="510" width="222" height="30"/>
+                                        <state key="normal" title="OK, you convinced me let's rate!">
+                                            <color key="titleColor" red="0.0" green="0.63137254899999995" blue="0.74117647060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnLetsRateClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="hW4-LN-vMn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUi-ey-ETP">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <connections>
+                                            <action selector="btnLetsRateClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="Uth-WL-vgf"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2R-oB-b42">
                                         <rect key="frame" x="10" y="166" width="300" height="236"/>
                                         <subviews>
@@ -439,30 +454,18 @@
                                             <constraint firstAttribute="trailing" secondItem="DRT-Hy-ROj" secondAttribute="trailing" constant="10" id="ske-2T-rJE"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUi-ey-ETP">
-                                        <rect key="frame" x="0.0" y="402" width="320" height="120"/>
-                                        <connections>
-                                            <action selector="btnLetsRateClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="Uth-WL-vgf"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OK, you convinced me let's rate!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWJ-Vo-idp">
-                                        <rect key="frame" x="49" y="522" width="222" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.0" green="0.63137254899999995" blue="0.74117647060000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.62566105769230773" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="xMh-1z-LGs" firstAttribute="centerX" secondItem="zvh-qX-eSb" secondAttribute="centerX" id="3lZ-YQ-Fgy"/>
                                     <constraint firstAttribute="trailing" secondItem="D2R-oB-b42" secondAttribute="trailing" constant="10" id="4lh-B7-Amu"/>
-                                    <constraint firstItem="IWJ-Vo-idp" firstAttribute="centerX" secondItem="zvh-qX-eSb" secondAttribute="centerX" id="5Lr-cO-akR"/>
                                     <constraint firstItem="kUi-ey-ETP" firstAttribute="leading" secondItem="zvh-qX-eSb" secondAttribute="leading" id="9Vb-w5-Wut"/>
+                                    <constraint firstAttribute="bottom" secondItem="xMh-1z-LGs" secondAttribute="bottom" constant="28" id="FuZ-SP-6zc"/>
                                     <constraint firstItem="D2R-oB-b42" firstAttribute="leading" secondItem="zvh-qX-eSb" secondAttribute="leading" constant="10" id="JAe-MU-f0N"/>
-                                    <constraint firstAttribute="bottom" secondItem="IWJ-Vo-idp" secondAttribute="bottom" constant="28" id="O9c-sr-C7H"/>
-                                    <constraint firstItem="IWJ-Vo-idp" firstAttribute="top" secondItem="kUi-ey-ETP" secondAttribute="bottom" id="Rhh-1S-hav"/>
                                     <constraint firstAttribute="trailing" secondItem="kUi-ey-ETP" secondAttribute="trailing" id="Y6f-CP-mPx"/>
-                                    <constraint firstItem="kUi-ey-ETP" firstAttribute="top" secondItem="D2R-oB-b42" secondAttribute="bottom" id="ePy-56-Zvt"/>
+                                    <constraint firstItem="kUi-ey-ETP" firstAttribute="top" secondItem="zvh-qX-eSb" secondAttribute="top" id="ZaI-uw-kBz"/>
                                     <constraint firstItem="D2R-oB-b42" firstAttribute="centerY" secondItem="zvh-qX-eSb" secondAttribute="centerY" id="mf8-6k-XUH"/>
+                                    <constraint firstAttribute="bottom" secondItem="kUi-ey-ETP" secondAttribute="bottom" id="pmK-zd-sEJ"/>
                                     <constraint firstItem="D2R-oB-b42" firstAttribute="centerX" secondItem="zvh-qX-eSb" secondAttribute="centerX" id="zH7-6Y-yle"/>
                                 </constraints>
                             </view>
