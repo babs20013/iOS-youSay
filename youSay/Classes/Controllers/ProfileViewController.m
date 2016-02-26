@@ -1514,17 +1514,17 @@
             [cel.lblTotalRateTitle setHidden:YES];
             [cel.lblTotalScore setHidden:YES];
 
-//            [cel.imgHand setHidden:NO];
-//            
-//            CABasicAnimation *hover = [CABasicAnimation animationWithKeyPath:@"position"];
-//            hover.additive = YES; // fromValue and toValue will be relative instead of absolute values
-//            hover.fromValue = [NSValue valueWithCGPoint:CGPointZero];
-//            hover.toValue = [NSValue valueWithCGPoint:CGPointMake(0.0, -100.0)]; // y increases downwards on iOS
-//            hover.autoreverses = YES; // Animate back to normal afterwards
-//            hover.duration = 1.5; // The duration for one part of the animation (0.2 up and 0.2 down)
-//            hover.repeatCount = INFINITY; // The number of times the animation should repeat
-//            [cel.imgHand.layer addAnimation:hover forKey:@"myHoverAnimation"];
-//            
+            [cel.imgHand setHidden:NO];
+            
+            CABasicAnimation *hover = [CABasicAnimation animationWithKeyPath:@"position"];
+            hover.additive = YES; // fromValue and toValue will be relative instead of absolute values
+            hover.fromValue = [NSValue valueWithCGPoint:CGPointZero];
+            hover.toValue = [NSValue valueWithCGPoint:CGPointMake(0.0, -100.0)]; // y increases downwards on iOS
+            hover.autoreverses = YES; // Animate back to normal afterwards
+            hover.duration = 1.5; // The duration for one part of the animation (0.2 up and 0.2 down)
+            hover.repeatCount = 1; // The number of times the animation should repeat
+            [cel.imgHand.layer addAnimation:hover forKey:@"myHoverAnimation"];
+            [self performSelector:@selector(hideImageAfterAnimation:) withObject:cel afterDelay:3.0];
         }
         else if (isFriendProfile == YES) {
             [cel.longPressInfoView setHidden:YES];
@@ -2012,6 +2012,10 @@
     [defaults setObject:nil forKey:@"yousayuserid"];
     [defaults setObject:nil forKey:@"yousaytoken"];
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
+}
+
+- (void)hideImageAfterAnimation:(ProfileTableViewCell*)cell {
+    [cell.imgHand setHidden:YES];
 }
 
 

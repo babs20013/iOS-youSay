@@ -197,14 +197,58 @@
         [self addGestureRecognizer:longPress];
         longPress = nil;
         
-//        for (int i = 0; i < 10; i++) {
-//            UIView *box = [boxes objectAtIndex:i];
-//            if (i > 2 && self.frame.origin.x == 0 && i < 8) {
-//                box.tag = i+1;
-//                [self animaTeCharm:box];
-////                [self performSelector:@selector(animaTeCharm:) withObject:box afterDelay:1.0];
-//            }
-//        }
+        [self showAnimation];
+    }
+}
+
+- (void)showAnimation {
+    for (int i = 0; i < 10; i++) {
+        UIView *box = [boxes objectAtIndex:i];
+        if (self.frame.origin.x == 0 && i < 8) {
+            box.tag = i+1;
+            float minTime = 1.5/8;
+            if  (box.tag < 3){
+                [self animaTeCharm:box];
+            }
+            else {
+                float time = minTime * (box.tag-2);
+                [self performSelector:@selector(animaTeCharm:) withObject:box afterDelay:time];
+            }
+        }
+    }
+    for (int i = 7; i >= 0; i--) {
+        UIView *box = [boxes objectAtIndex:i];
+        if (self.frame.origin.x == 0 && i < 8) {
+            box.tag = i+1;
+            float minTime = 3.0/12;
+            if  (box.tag < 3){
+                [self performSelector:@selector(animaTeCharm2:) withObject:box afterDelay:3.0];
+            }
+            else if (box.tag == 8){
+                float time = minTime *7;
+                [self performSelector:@selector(animaTeCharm2:) withObject:box afterDelay:time];
+            }
+            else if (box.tag == 7){
+                float time = minTime *8;
+                [self performSelector:@selector(animaTeCharm2:) withObject:box afterDelay:time];
+            }
+            else if (box.tag == 6){
+                float time = minTime *9;
+                [self performSelector:@selector(animaTeCharm2:) withObject:box afterDelay:time];
+            }
+            else if (box.tag == 5){
+                float time = minTime *10;
+                [self performSelector:@selector(animaTeCharm2:) withObject:box afterDelay:time];
+            }
+            else if (box.tag == 4){
+                float time = minTime *11;
+                [self performSelector:@selector(animaTeCharm2:) withObject:box afterDelay:time];
+            }
+            else if (box.tag == 3){
+                float time = minTime *12;
+                [self performSelector:@selector(animaTeCharm2:) withObject:box afterDelay:time];
+            }
+        }
     }
 }
 
@@ -212,6 +256,12 @@
     [box setHidden:NO];
     [box setBackgroundColor:[self getColor:box.tag]];
 }
+
+- (void)animaTeCharm2:(UIView*)box {
+    [box setHidden:NO];
+    [box setBackgroundColor:[self getColor:0]];
+}
+
 
 -(CGSize)boxSize{
     return CGSizeMake(self.frame.size.width-kMinHorizontalGap, ((self.frame.size.width-kMinHorizontalGap)/5));
