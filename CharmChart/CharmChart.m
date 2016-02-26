@@ -89,7 +89,7 @@
             }
         }
         else if ( _state == ChartStateRate){
-            if (_active && !_isNeverRate) {
+            if (_rated && !_isNeverRate) {
                 
             }
             else{
@@ -131,7 +131,7 @@
     
     float position = ceil(roundedScore/10)+1;
     if ((_state == ChartStateViewing && _score == 0 && !_active) ||
-        (_state ==  ChartStateRate && !_active) ||
+        (_state ==  ChartStateRate && !_rated) ||
         (_state != ChartStateDefault && _isNeverRate && _state != ChartStateEdit)){
         position = 12;
     }
