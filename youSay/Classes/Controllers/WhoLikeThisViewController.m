@@ -17,6 +17,7 @@
 
 @implementation WhoLikeThisViewController
 @synthesize say_id;
+@synthesize section;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -71,9 +72,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dict = [arrLikeList objectAtIndex:indexPath.row];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc]init];
+    [data setObject:[dict objectForKey:@"user_id"] forKey:@"user_id"];
+    [data setObject:[NSString stringWithFormat:@"%ld", (long)section] forKey:@"section"];
     [self.view removeFromSuperview];
-    if ([self.delegate performSelector:@selector(ListDismissedAfterClickProfile:) withObject:[dict objectForKey:@"user_id"]]) {
-        [self.delegate ListDismissedAfterClickProfile:[dict objectForKey:@"user_id"]];
+    if ([self.delegate performSelector:@selector(ListDismissedAfterClickProfile:) withObject:data]) {
+        [self.delegate ListDismissedAfterClickProfile:data];
     }
 }
 
@@ -124,6 +128,9 @@
 
 - (IBAction)btnBackClicked:(id)sender {
     [self.view removeFromSuperview];
+    if ([self.delegate performSelector:@selector(LikeListViewClosed:) withObject:[NSString stringWithFormat:@"%ld", (long)section]]) {
+        [self.delegate LikeListViewClosed:[NSString stringWithFormat:@"%ld", (long)section]];
+    }
 }
 
 #pragma mark Method

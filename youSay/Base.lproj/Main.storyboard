@@ -1242,6 +1242,10 @@
                                                         <constraint firstItem="5Ew-02-N81" firstAttribute="centerY" secondItem="1sf-0E-vkR" secondAttribute="centerY" id="y9s-3Q-Q5d"/>
                                                     </constraints>
                                                 </view>
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3Y-DX-Dhg">
+                                                    <rect key="frame" x="-17" y="0.0" width="298" height="300"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -1274,6 +1278,10 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="UU9-VT-uM7" secondAttribute="trailing" id="axe-Bj-ZIG"/>
+                                            <constraint firstItem="i3Y-DX-Dhg" firstAttribute="leading" secondItem="84r-SK-Jvj" secondAttribute="leading" id="cey-1b-lLG"/>
+                                            <constraint firstItem="i3Y-DX-Dhg" firstAttribute="top" secondItem="84r-SK-Jvj" secondAttribute="top" id="ghF-pL-he8"/>
+                                            <constraint firstItem="i3Y-DX-Dhg" firstAttribute="height" secondItem="84r-SK-Jvj" secondAttribute="height" id="jKA-rp-Feu"/>
+                                            <constraint firstItem="i3Y-DX-Dhg" firstAttribute="width" secondItem="84r-SK-Jvj" secondAttribute="width" id="sWK-15-qCH"/>
                                         </constraints>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
@@ -1296,6 +1304,7 @@
                                             <outlet property="peopleSayLabel" destination="HBU-bF-tAK" id="YtA-TH-7qi"/>
                                             <outlet property="peopleSayTitleLabel" destination="cVB-eN-2nf" id="IA2-jI-wqE"/>
                                             <outlet property="peopleSayView" destination="Z4q-s5-q8Y" id="iPI-4E-KGj"/>
+                                            <outlet property="viewLikeList" destination="i3Y-DX-Dhg" id="InN-r7-dvy"/>
                                             <outlet property="viewMore" destination="dZw-Vb-Qge" id="s7R-dM-1H9"/>
                                         </connections>
                                     </tableViewCell>
@@ -1887,6 +1896,10 @@
                                                         <action selector="btnAddSayClicked:" destination="1dz-LU-SJf" eventType="touchUpInside" id="kA3-cA-yC2"/>
                                                     </connections>
                                                 </button>
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F5K-wp-vzJ" userLabel="ViewLikeList">
+                                                    <rect key="frame" x="-25" y="0.0" width="304" height="350"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -1926,7 +1939,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="F5K-wp-vzJ" secondAttribute="trailing" id="FlG-TN-zYe"/>
+                                            <constraint firstItem="F5K-wp-vzJ" firstAttribute="leading" secondItem="PcH-T4-ozZ" secondAttribute="leading" id="P1G-jD-ocF"/>
+                                            <constraint firstItem="F5K-wp-vzJ" firstAttribute="top" secondItem="PcH-T4-ozZ" secondAttribute="top" id="YGJ-Ql-Ali"/>
                                             <constraint firstAttribute="trailing" secondItem="ZMV-3D-uHK" secondAttribute="trailing" id="cLX-yG-GIh"/>
+                                            <constraint firstAttribute="bottom" secondItem="F5K-wp-vzJ" secondAttribute="bottom" id="gw5-1D-vjP"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="btnAddSay" destination="svH-aO-EId" id="xjz-uA-9jt"/>
@@ -1949,6 +1966,7 @@
                                             <outlet property="lblSaidAbout2" destination="5sq-fL-CGK" id="GVa-ob-NFa"/>
                                             <outlet property="lblSays" destination="9Dd-NN-tIW" id="NrJ-bf-r5h"/>
                                             <outlet property="viewBottom" destination="S4G-Wg-OKU" id="q0a-G2-PAU"/>
+                                            <outlet property="viewLikeList" destination="F5K-wp-vzJ" id="oti-1k-ojI"/>
                                             <outlet property="viewMore" destination="b4i-Sv-APc" id="Z2o-0H-S5K"/>
                                             <outlet property="viewSays" destination="5yj-wd-w5K" id="OZA-wy-Ng5"/>
                                         </connections>

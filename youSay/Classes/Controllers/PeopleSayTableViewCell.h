@@ -31,6 +31,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *btnLike;
 @property (nonatomic, strong) IBOutlet UIButton *btnDot;
 @property (nonatomic, strong) IBOutlet UIView *viewMore;
+@property (nonatomic, strong) IBOutlet UIView *viewLikeList;
 @property (nonatomic, readwrite) BOOL willDisplayMenu;
 @end
 

@@ -1145,13 +1145,6 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (cell.tag != indexPath.section) {
-        [likelistVC.view setHidden:YES];
-    }
-    else {
-        [likelistVC.view setHidden:NO];
-    }
-    
     // Remove seperator inset
     if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
         [cell setSeparatorInset:UIEdgeInsetsZero];
@@ -1571,8 +1564,13 @@
         NSDictionary *currentSaysDict = [saysArray objectAtIndex:indexPath.section-1];
         NSString *colorIndex = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
         [cel.peopleSayTitleLabel setTextColor:[UIColor whiteColor]];
-        NSInteger sayID = [[currentSaysDict objectForKey:@"say_id"] integerValue];
         
+        if (cel.tag != indexPath.section) {
+            [cel.viewLikeList setHidden:YES];
+        }
+        else {
+            [cel.viewLikeList  setHidden:NO];
+        }
         
         cel.layer.cornerRadius = 0.015 * cel.bounds.size.width;
         cel.layer.masksToBounds = YES;
@@ -1961,7 +1959,9 @@
     likelistVC.say_id = [currentSaysDict objectForKey:@"say_id"];
     [likelistVC.view setFrame:CGRectMake(likelistVC.view.frame.origin.x, likelistVC.view.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
     cell.tag = [sender tag]+1;
-    [cell addSubview:likelistVC.view];
+    likelistVC.section = [sender tag]+1;
+    [cell.viewLikeList addSubview:likelistVC.view];
+    [cell.viewLikeList setHidden:NO];
 }
 
 -(IBAction)btnOpenMenu:(UIButton*)sender{
@@ -2171,12 +2171,24 @@
 
 
 #pragma mark LikeListDelegate
-
-- (void) ListDismissedAfterClickProfile:(NSString*)userID {
-    if (userID) {
-        [self requestProfile:userID];
-    }
+- (void) LikeListViewClosed:(NSString*)section {
+    PeopleSayTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[section integerValue]]];
+    [cell.viewLikeList setHidden:YES];
+    cell.tag = 9999;
 }
+
+
+- (void) ListDismissedAfterClickProfile:(NSMutableDictionary*)data {
+    if (data) {
+        [self requestProfile:[data objectForKey:@"user_id"]];
+        NSInteger section = [[data objectForKey:@"section"] integerValue];
+        PeopleSayTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+        [cell.viewLikeList setHidden:YES];
+        cell.tag = 9999;
+    }
+    
+}
+
 
 - (void)dealloc {
     //[super dealloc];
