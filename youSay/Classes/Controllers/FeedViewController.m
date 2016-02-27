@@ -877,7 +877,7 @@
 - (void) LikeListViewClosed:(NSString*)section {
     FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[section integerValue]]];
     [cell.viewLikeList setHidden:YES];
-    [cell.viewLikeList setTag:9999];
+    [cell setTag:9999];
 }
 
 
@@ -886,7 +886,7 @@
         NSInteger section = [[data objectForKey:@"section"] integerValue];
         FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
         [cell.viewLikeList setHidden:YES];
-        [cell.viewLikeList setTag:9999];
+        [cell setTag:9999];
         isLikeListReleased = !isLikeListReleased;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];

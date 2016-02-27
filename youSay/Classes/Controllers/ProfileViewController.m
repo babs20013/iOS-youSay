@@ -1499,6 +1499,28 @@
             [cel.buttonEditView setHidden:NO];
             if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"]) {
                 [cel.btnSkip setHidden:NO];
+                
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                NSInteger animationCount = [[defaults objectForKey:@"animation"] integerValue];
+                if (animationCount == 5) {
+                    animationCount = animationCount+1;
+                    [defaults setObject:[NSString stringWithFormat:@"%ld", (long)animationCount] forKey:@"animation"];
+                }
+                if (animationCount < 5) {
+                    [cel.imgHand setHidden:NO];
+                    
+                    CABasicAnimation *hover = [CABasicAnimation animationWithKeyPath:@"position"];
+                    hover.additive = YES; // fromValue and toValue will be relative instead of absolute values
+                    hover.fromValue = [NSValue valueWithCGPoint:CGPointZero];
+                    hover.toValue = [NSValue valueWithCGPoint:CGPointMake(0.0, -100.0)]; // y increases downwards on iOS
+                    hover.autoreverses = YES; // Animate back to normal afterwards
+                    hover.duration = 1.5; // The duration for one part of the animation
+                    hover.repeatCount = 1; // The number of times the animation should repeat
+                    [cel.imgHand.layer addAnimation:hover forKey:@"myHoverAnimation"];
+                    [self performSelector:@selector(hideImageAfterAnimation:) withObject:cel afterDelay:3.0];
+                    animationCount = animationCount+1;
+                    [defaults setObject:[NSString stringWithFormat:@"%ld", (long)animationCount] forKey:@"animation"];
+                }
             }
             [cel.rankButton setHidden:YES];
             [btnAddSay setHidden:YES];
@@ -1506,18 +1528,6 @@
             [cel.cancelSkip setHidden:NO];
             [cel.lblTotalRateTitle setHidden:YES];
             [cel.lblTotalScore setHidden:YES];
-
-            [cel.imgHand setHidden:NO];
-            
-            CABasicAnimation *hover = [CABasicAnimation animationWithKeyPath:@"position"];
-            hover.additive = YES; // fromValue and toValue will be relative instead of absolute values
-            hover.fromValue = [NSValue valueWithCGPoint:CGPointZero];
-            hover.toValue = [NSValue valueWithCGPoint:CGPointMake(0.0, -100.0)]; // y increases downwards on iOS
-            hover.autoreverses = YES; // Animate back to normal afterwards
-            hover.duration = 1.5; // The duration for one part of the animation (0.2 up and 0.2 down)
-            hover.repeatCount = 1; // The number of times the animation should repeat
-            [cel.imgHand.layer addAnimation:hover forKey:@"myHoverAnimation"];
-            [self performSelector:@selector(hideImageAfterAnimation:) withObject:cel afterDelay:3.0];
         }
         else if (isFriendProfile == YES) {
             [cel.longPressInfoView setHidden:YES];
@@ -2016,6 +2026,7 @@
 
 - (void)hideImageAfterAnimation:(ProfileTableViewCell*)cell {
     [cell.imgHand setHidden:YES];
+    
 }
 
 

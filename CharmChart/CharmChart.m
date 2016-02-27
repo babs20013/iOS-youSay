@@ -196,8 +196,11 @@
         longPress.delegate      =   self;
         [self addGestureRecognizer:longPress];
         longPress = nil;
-        
-        [self showAnimation];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSInteger animationCount = [[defaults objectForKey:@"animation"] integerValue];
+        if (animationCount < 6) {
+            [self showAnimation];
+        }
     }
 }
 
