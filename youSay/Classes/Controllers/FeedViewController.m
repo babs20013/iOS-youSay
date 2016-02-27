@@ -456,6 +456,9 @@
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     NSString *string = [currentSaysDict valueForKey:@"feed_message"];
     CGSize expectedSize = [CommonHelper expectedSizeForString:string width:tableView.frame.size.width-65 font:[UIFont fontWithName:@"Arial" size:14] attributes:nil];
+
+    
+    [cell.btnLikeCount setTag:indexPath.section];
     
     if (arrProfiles.count>0) {
         NSDictionary *profile1 = [arrProfiles objectAtIndex:0];
@@ -486,6 +489,7 @@
         [cell.btnShare setTag:indexPath.section];
         [cell.btnShareFB setTag:indexPath.section];
         [cell.btnDot setTag:indexPath.section];
+      
     }
     
     if (arrProfiles.count == 0) {
@@ -533,6 +537,7 @@
         [cell.lblDate setHidden:NO];
 
         [cell.btnLikes setTag:indexPath.section];
+        
         if ([[currentSaysDict objectForKey:@"like_status"] isEqualToString:@"yes"]) {
             [cell.btnLikes setSelected:YES];
         }
@@ -571,7 +576,6 @@
     }
     else {
         [cell.btnLikeCount setEnabled:YES];
-        [cell.btnLikeCount setTag:[[currentSaysDict valueForKey:@"say_id"] integerValue]];
     }
     
     if (cell.tag == indexPath.section+1) {
@@ -581,6 +585,13 @@
     else {
         [cell.viewMore setHidden:YES];
          [cell.btnDot setSelected:NO];
+    }
+    
+    if (cell.tag == indexPath.section+999) {
+        [cell.viewLikeList setHidden:NO];
+    }
+    else {
+        [cell.viewLikeList setHidden:YES];
     }
     cell.layer.cornerRadius = 0.015 * cell.bounds.size.width;
     cell.layer.masksToBounds = YES;
@@ -671,25 +682,17 @@
 }
 
 - (IBAction)btnLikeCountClicked:(id)sender {
-    UIButton *button = (UIButton*)sender;
-    UIView *superView = button.superview;
-    UIView *foundSuperView = nil;
-    
-    while (nil != superView && nil == foundSuperView) {
-        if ([superView isKindOfClass:[FeedTableViewCell class]]) {
-            foundSuperView = superView;
-        } else {
-            superView = superView.superview;
-        }
-    }
-    
-    FeedTableViewCell *cell = (FeedTableViewCell *)foundSuperView;
+    FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
     
     likeListVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WhoLikeThisViewController"];
     likeListVC.delegate = self;
-    likeListVC.say_id = [NSString stringWithFormat:@"%li", (long)[sender tag]];
+    likeListVC.section = [sender tag];
+    NSDictionary *currentDixt = [arrayFeed objectAtIndex:[sender tag]];
+    likeListVC.say_id = [currentDixt objectForKey:@"say_id"];
     [likeListVC.view setFrame:CGRectMake(likeListVC.view.frame.origin.x, likeListVC.view.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
-    [cell addSubview:likeListVC.view];
+    [cell setTag:[sender tag]+999];
+    [cell.viewLikeList addSubview:likeListVC.view];
+    [cell.viewLikeList setHidden:NO];
 }
 
 - (void) refreshFeed:(NSNotification *)notif {
@@ -870,18 +873,31 @@
 
 #pragma mark LikeListDelegate
 
-- (void) ListDismissedAfterClickProfile:(NSString*)userID {
-    if (!isLikeListReleased) {
+#pragma mark LikeListDelegate
+- (void) LikeListViewClosed:(NSString*)section {
+    FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[section integerValue]]];
+    [cell.viewLikeList setHidden:YES];
+    [cell.viewLikeList setTag:9999];
+}
+
+
+- (void) ListDismissedAfterClickProfile:(NSMutableDictionary*)data {
+    if (data && !isLikeListReleased) {
+        NSInteger section = [[data objectForKey:@"section"] integerValue];
+        FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+        [cell.viewLikeList setHidden:YES];
+        [cell.viewLikeList setTag:9999];
         isLikeListReleased = !isLikeListReleased;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
         vc.isFriendProfile = YES;
         vc.isFromFeed = YES;
-        vc.requestedID = userID;
+        vc.requestedID = [data objectForKey:@"user_id"];
         vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
 
 - (void)dealloc {
     //[super dealloc];

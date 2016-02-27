@@ -1896,7 +1896,7 @@
                                                         <action selector="btnAddSayClicked:" destination="1dz-LU-SJf" eventType="touchUpInside" id="kA3-cA-yC2"/>
                                                     </connections>
                                                 </button>
-                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F5K-wp-vzJ" userLabel="ViewLikeList">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F5K-wp-vzJ" userLabel="ViewLikeList">
                                                     <rect key="frame" x="-25" y="0.0" width="304" height="350"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>

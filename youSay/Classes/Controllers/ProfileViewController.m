@@ -1569,7 +1569,7 @@
             [cel.viewLikeList setHidden:YES];
         }
         else {
-            [cel.viewLikeList  setHidden:NO];
+            [cel.viewLikeList setHidden:NO];
         }
         
         cel.layer.cornerRadius = 0.015 * cel.bounds.size.width;
@@ -1678,7 +1678,7 @@
         }
         
         
-        if (cel.tag == indexPath.section+10) {
+        if (cel.tag == indexPath.section+999) {
             [cel.viewMore setHidden:NO];
             [cel.btnDot setSelected:YES];
         }
@@ -1783,7 +1783,7 @@
     if (button.selected == NO) {
         [cell.viewMore setHidden:NO];
         [cell.btnDot setSelected:YES];
-        cell.tag = [sender tag]+11;
+        cell.tag = [sender tag]+1000;
     }
     else {
         [cell.viewMore setHidden:YES];

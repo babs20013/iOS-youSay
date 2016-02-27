@@ -33,5 +33,6 @@
 @property (nonatomic, strong) IBOutlet UIButton *btnAddSay;
 @property (nonatomic, strong) IBOutlet UIButton *btnDot;
 @property (nonatomic, strong) IBOutlet UIView *viewMore;
+@property (nonatomic, strong) IBOutlet UIView *viewLikeList;
 @end
 
