@@ -718,10 +718,10 @@
                                                                 <constraint firstAttribute="height" constant="90" id="Usn-q4-lhv"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hold to rate Lila hsjasa's Charm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB0-UI-6Jq">
-                                                            <rect key="frame" x="77" y="80" width="145" height="90"/>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long press to rate and rate XXX's charms" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB0-UI-6Jq">
+                                                            <rect key="frame" x="49" y="80" width="200" height="90"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="145" id="GVU-dV-23Y"/>
+                                                                <constraint firstAttribute="width" constant="200" id="GVU-dV-23Y"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                             <color key="textColor" red="0.0" green="0.63137254901960782" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>

@@ -1354,7 +1354,8 @@
             if (model.Name == nil) {
                 model.Name = @"";
             }
-            [cel.lblYourCharm setText:[NSString stringWithFormat:@"%@ Charms", model.Name]];
+            [cel.lblYourCharm setText:[NSString stringWithFormat:@"%@'s Charms", model.Name]];
+           
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
             [btnAddSay setHidden:NO];
         }
@@ -1535,8 +1536,9 @@
             [cel.buttonEditView setHidden:YES];
             if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"] && isAfterRate == NO) {
                 [cel.lblNeverRate setHidden:NO];
-                [cel.lblNeverRate setText:[NSString stringWithFormat:@"Hold to rate %@'s charm", model.Name]];
+                [cel.lblNeverRate setText:[NSString stringWithFormat:@"Long press to rate and reveal %@'s charms", [[model.Name componentsSeparatedByString:@" "] objectAtIndex:0]]];
             }
+            
 //            [cel.lblTotalRateTitle setHidden:YES];
 //            [cel.lblTotalScore setHidden:YES];
         }
