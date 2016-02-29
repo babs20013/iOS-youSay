@@ -34,7 +34,6 @@
     self.screenName = @"Notification";
     isScrollBounce = YES;
     index = 1;
-    [self requestGetNotification:[NSString stringWithFormat:@"%d", index]];
     self.tblView.layer.cornerRadius = 0.015 * self.tblView.bounds.size.width;
     self.tblView.layer.masksToBounds = YES;
     self.tblView.layer.borderWidth = 1;
@@ -56,6 +55,11 @@
     NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     self.txtSearch.attributedPlaceholder = str;
 
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    ShowLoader();
+    [self requestGetNotification:[NSString stringWithFormat:@"%d", index]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -209,8 +213,6 @@
 #pragma mark Request
 
 - (void)requestGetNotification:(NSString*)startFrom  {
-    ShowLoader();
-    
     NSMutableDictionary *dictRequest =  [[NSMutableDictionary alloc]init];
     [dictRequest setObject:REQUEST_GET_NOTIFICATION forKey:@"request"];
     [dictRequest setObject:[[AppDelegate sharedDelegate].profileOwner UserID] forKey:@"user_id"];

@@ -25,7 +25,7 @@
 
 @interface FeedViewController ()
 {
-    NSMutableArray *arrayFeed;
+
     BOOL isScrollBounce;
     int index;
     BOOL isNoMoreFeed;
@@ -37,16 +37,23 @@
     WhoLikeThisViewController *likeListVC;
 }
 
+
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UITextField * txtSearch;
 @end
 
 @implementation FeedViewController
 
+@synthesize arrayFeed;
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     isScrollBounce = YES;
     [self.navigationController setNavigationBarHidden:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self requestFeed:[NSString stringWithFormat:@"%i", index]];
 }
 
 - (void)viewDidLoad {
@@ -55,7 +62,6 @@
     isLikeListReleased = NO;
     arrayFeed = [[NSMutableArray alloc]init];
     index = 1;
-    [self requestFeed:[NSString stringWithFormat:@"%i", index]];
     
     UIImageView *imgMagnifyingGlass = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 15, 15)];
     imgMagnifyingGlass.image = [UIImage imageNamed:@"search"];
@@ -447,10 +453,12 @@
     
     FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if (! cell) {
+    if (cell == nil) {
         
-        cell = [[FeedTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        cell = [[FeedTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
+    cell.clipsToBounds = YES;
+    NSLog(@"tag = %d", cell.tag);
     
     NSDictionary *currentSaysDict = [arrayFeed objectAtIndex:indexPath.section];
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
@@ -597,6 +605,8 @@
     cell.layer.masksToBounds = YES;
     cell.layer.borderWidth = 1;
     cell.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.5].CGColor;
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }

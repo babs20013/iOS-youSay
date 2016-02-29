@@ -1019,15 +1019,15 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="17B-Re-Bjg" userLabel="BottomView">
                                                     <rect key="frame" x="-18" y="186" width="299" height="100"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ew-02-N81">
-                                                            <rect key="frame" x="27" y="68" width="35" height="15"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ew-02-N81">
+                                                            <rect key="frame" x="28" y="68" width="35" height="15"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleAspectFill" misplaced="YES" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EW0-h3-X4Q" userLabel="BtnLikeLabel">
-                                                            <rect key="frame" x="27" y="60" width="35" height="30"/>
+                                                        <button opaque="NO" contentMode="scaleAspectFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EW0-h3-X4Q" userLabel="BtnLikeLabel">
+                                                            <rect key="frame" x="28" y="60" width="35" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="cab-JM-oZl"/>
                                                             </constraints>
@@ -1043,8 +1043,8 @@
                                                                 <action selector="btnLikesCountClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="2iX-9z-Wqk"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="center" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBS-I2-XQW" userLabel="BtnLike">
-                                                            <rect key="frame" x="62" y="65" width="20" height="20"/>
+                                                        <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBS-I2-XQW" userLabel="BtnLike">
+                                                            <rect key="frame" x="63" y="65" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="Bnw-X7-Zvf"/>
                                                                 <constraint firstAttribute="width" constant="20" id="r2a-2P-Yyh"/>
@@ -1055,16 +1055,16 @@
                                                                 <action selector="btnLikesClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="Q15-Mr-Jgv"/>
                                                             </connections>
                                                         </button>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S06-tF-4sq" userLabel="Line1">
-                                                            <rect key="frame" x="97" y="60" width="1" height="30"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S06-tF-4sq" userLabel="Line1">
+                                                            <rect key="frame" x="98" y="60" width="1" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="1" id="HuU-zb-j79"/>
                                                                 <constraint firstAttribute="height" constant="30" id="u5n-K3-Pgb"/>
                                                             </constraints>
                                                         </view>
-                                                        <button opaque="NO" contentMode="scaleAspectFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kvr-KM-ifj" userLabel="BtnShare">
-                                                            <rect key="frame" x="113" y="60" width="20" height="30"/>
+                                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kvr-KM-ifj" userLabel="BtnShare">
+                                                            <rect key="frame" x="114" y="60" width="20" height="30"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="YIU-oM-hhx"/>
@@ -1075,16 +1075,16 @@
                                                                 <action selector="btnShareSayClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="Re8-xj-3Td"/>
                                                             </connections>
                                                         </button>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1sf-0E-vkR" userLabel="Line2">
-                                                            <rect key="frame" x="148" y="60" width="1" height="30"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sf-0E-vkR" userLabel="Line2">
+                                                            <rect key="frame" x="149" y="60" width="1" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="6TD-nA-r0v"/>
                                                                 <constraint firstAttribute="width" constant="1" id="dGg-0Y-3tu"/>
                                                             </constraints>
                                                         </view>
-                                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SnU-BC-7lP">
-                                                            <rect key="frame" x="169" y="60" width="80" height="30"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SnU-BC-7lP">
+                                                            <rect key="frame" x="170" y="60" width="80" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="BYG-TJ-Obn"/>
                                                             </constraints>
@@ -1093,16 +1093,16 @@
                                                                 <action selector="btnShareSayToFBClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="i5n-Jm-Ikj"/>
                                                             </connections>
                                                         </button>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8dw-zt-hTR" userLabel="Line3">
-                                                            <rect key="frame" x="269" y="60" width="1" height="30"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8dw-zt-hTR" userLabel="Line3">
+                                                            <rect key="frame" x="270" y="60" width="1" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="1" id="Hr7-kH-vON"/>
                                                                 <constraint firstAttribute="height" constant="30" id="LTS-Uk-mkY"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dZw-Vb-Qge" userLabel="SayMore">
-                                                            <rect key="frame" x="126" y="55" width="170" height="45"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZw-Vb-Qge" userLabel="SayMore">
+                                                            <rect key="frame" x="127" y="55" width="170" height="45"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wxt-dg-TEQ" userLabel="btnReport">
                                                                     <rect key="frame" x="15" y="10" width="25" height="25"/>
@@ -1182,8 +1182,8 @@
                                                                 <constraint firstItem="KaW-Vj-0I8" firstAttribute="top" secondItem="xiW-oj-AZx" secondAttribute="top" id="sZu-pj-2MZ"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UU9-VT-uM7">
-                                                            <rect key="frame" x="269" y="59" width="29" height="33"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UU9-VT-uM7">
+                                                            <rect key="frame" x="270" y="59" width="29" height="33"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hvI-24-QOd" userLabel="3Dot">
                                                                     <rect key="frame" x="2" y="0.0" width="25" height="33"/>
@@ -1580,7 +1580,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedTableViewCell" rowHeight="350" id="PcH-T4-ozZ" customClass="FeedTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FeedTableViewCell" rowHeight="350" id="PcH-T4-ozZ" customClass="FeedTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="304" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PcH-T4-ozZ" id="Ooo-Hz-kqy">

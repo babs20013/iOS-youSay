@@ -13,6 +13,8 @@
 
 @interface FeedViewController : GAITrackedViewController  <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, LikeListDelegate, FBSDKSharingDelegate>
 
+@property (nonatomic, strong) NSMutableArray *arrayFeed;
+
 - (void) refreshFeed:(NSNotification *)notif;
 
 
