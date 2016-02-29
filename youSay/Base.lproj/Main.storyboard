@@ -151,12 +151,6 @@
                                                     <action selector="btnCloseClicked:" destination="Q0R-md-BV2" eventType="touchUpInside" id="8Qm-8p-3d0"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Say" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sk6-j7-wSV">
-                                                <rect key="frame" x="35" y="14" width="50" height="16"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VH9-IE-1NR">
                                                 <rect key="frame" x="247" y="2" width="73" height="40"/>
                                                 <constraints>
@@ -172,13 +166,10 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.0039215686274509803" green="0.67450980392156867" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="Sk6-j7-wSV" firstAttribute="centerY" secondItem="yUh-Zd-cYl" secondAttribute="centerY" id="7G6-Bc-tlH"/>
-                                            <constraint firstItem="Sk6-j7-wSV" firstAttribute="leading" secondItem="yUh-Zd-cYl" secondAttribute="trailing" id="HxZ-Uo-hOX"/>
                                             <constraint firstItem="yUh-Zd-cYl" firstAttribute="centerY" secondItem="mwn-Ty-Yad" secondAttribute="centerY" id="LTS-4I-Mgc"/>
                                             <constraint firstAttribute="height" constant="43" id="ON3-z6-RQp"/>
                                             <constraint firstItem="yUh-Zd-cYl" firstAttribute="centerY" secondItem="VH9-IE-1NR" secondAttribute="centerY" id="YPh-NZ-wlp"/>
                                             <constraint firstAttribute="trailing" secondItem="VH9-IE-1NR" secondAttribute="trailing" id="q7i-iG-P8C"/>
-                                            <constraint firstItem="yUh-Zd-cYl" firstAttribute="centerY" secondItem="Sk6-j7-wSV" secondAttribute="centerY" id="y9o-lA-Jot"/>
                                             <constraint firstItem="yUh-Zd-cYl" firstAttribute="leading" secondItem="mwn-Ty-Yad" secondAttribute="leading" constant="5" id="zb9-xl-nHM"/>
                                         </constraints>
                                     </view>
