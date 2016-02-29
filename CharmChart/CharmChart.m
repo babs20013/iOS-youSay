@@ -198,7 +198,7 @@
         longPress = nil;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSInteger animationCount = [[defaults objectForKey:@"animation"] integerValue];
-        if (animationCount < 6) {
+        if (animationCount < 6 && _isNeverRate) {
             [self showAnimation];
         }
     }
