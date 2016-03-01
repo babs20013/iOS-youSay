@@ -339,6 +339,7 @@
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                 [defaults setObject:[dictResult valueForKey:@"user_id"] forKey:@"yousayuserid"];
                 [defaults setObject:[dictResult valueForKey:@"token"] forKey:@"yousaytoken"];
+                [defaults setObject:[dictResult valueForKey:@"user_id"] forKey:@"yousayid"];
                 
                 [AppDelegate sharedDelegate].profileOwner = profileModel;
                 profileDictionary = [result objectForKey:@"profile"];
@@ -705,9 +706,7 @@
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
-                UIButton *button = (UIButton*)sender;
-                UIView *view = button.superview; //Cell contentView
-                PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+                PeopleSayTableViewCell *cell =  [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
                 [cell.likeButton setSelected:NO];
                 NSInteger likeCount = [[cell.likesLabel text]integerValue] - 1;
                 [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
@@ -715,17 +714,12 @@
         }
         else if (error)
         {
-            UIButton *button = (UIButton*)sender;
-            UIView *view = button.superview; //Cell contentView
-            PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
-            [cell.likeButton setSelected:NO];
+            PeopleSayTableViewCell *cell =  [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
             NSInteger likeCount = [[cell.likesLabel text]integerValue] - 1;
             [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         }
         else{
-            UIButton *button = (UIButton*)sender;
-            UIView *view = button.superview; //Cell contentView
-            PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+            PeopleSayTableViewCell *cell =  [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
             [cell.likeButton setSelected:NO];
             NSInteger likeCount = [[cell.likesLabel text]integerValue] - 1;
             [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
@@ -762,26 +756,20 @@
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
-                UIButton *button = (UIButton*)sender;
-                UIView *view = button.superview; //Cell contentView
-                PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+                PeopleSayTableViewCell *cell =  [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
                 [cell.likeButton setSelected:YES];
                 NSInteger likeCount = [[cell.likesLabel text]integerValue] + 1;
                 [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
             }        }
         else if (error)
         {
-            UIButton *button = (UIButton*)sender;
-            UIView *view = button.superview; //Cell contentView
-            PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+            PeopleSayTableViewCell *cell =  [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
             [cell.likeButton setSelected:YES];
             NSInteger likeCount = [[cell.likesLabel text]integerValue] + 1;
             [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         }
         else{
-            UIButton *button = (UIButton*)sender;
-            UIView *view = button.superview; //Cell contentView
-            PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+            PeopleSayTableViewCell *cell =  [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
             [cell.likeButton setSelected:YES];
             NSInteger likeCount = [[cell.likesLabel text]integerValue] + 1;
             [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
@@ -1937,25 +1925,14 @@
     UIButton *button = (UIButton*)sender;
     button.selected = !button.selected;
     
-    UIView *superView = button.superview;
-    UIView *foundSuperView = nil;
-    
-    while (nil != superView && nil == foundSuperView) {
-        if ([superView isKindOfClass:[PeopleSayTableViewCell class]]) {
-            foundSuperView = superView;
-        } else {
-            superView = superView.superview;
-        }
-    }
-    
     if ([button isSelected]) {
-        PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)foundSuperView;
+        PeopleSayTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
         NSInteger likeCount = [[cell.likesLabel text] integerValue] + 1;
         [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         [self requesLikeSay:sender];
     }
    else {
-        PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)foundSuperView;
+        PeopleSayTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
         NSInteger likeCount = [[cell.likesLabel text] integerValue] - 1;
         [cell.likesLabel setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         [self requesUnlikeSay:sender];
@@ -2000,9 +1977,7 @@
         [self requestHideSay];
         chartState = ChartStateViewing;
     }
-    UIButton *button = (UIButton*)sender;
-    UIView *view = button.superview; //Cell contentView
-    PeopleSayTableViewCell *cell = (PeopleSayTableViewCell *)view.superview;
+    PeopleSayTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]+1]];
     [cell.peopleSayTitleLabel setTextColor:[UIColor darkGrayColor]];
     NSDictionary *value = [saysArray objectAtIndex:[sender tag]];
     requestedID = [value objectForKey:@"user_id"];

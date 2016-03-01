@@ -97,7 +97,10 @@
         }];
     }
     else {
-        [self showWalkthrough];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if (![defaults objectForKey:@"yousayid"]) {
+                [self showWalkthrough];
+        }
     }
 }
 
