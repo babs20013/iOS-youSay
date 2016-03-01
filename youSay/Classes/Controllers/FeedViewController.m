@@ -173,9 +173,7 @@
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
-                UIButton *button = (UIButton*)sender;
-                UIView *view = button.superview; //Cell contentView
-                FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+                FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
                 [cell.btnLikes setSelected:NO];
                 NSInteger likeCount = [[cell.lblLikes text]integerValue] - 1;
                 [cell.lblLikes setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
@@ -183,17 +181,13 @@
         }
         else if (error)
         {
-            UIButton *button = (UIButton*)sender;
-            UIView *view = button.superview; //Cell contentView
-            FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+            FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
             [cell.btnLikes setSelected:NO];
             NSInteger likeCount = [[cell.lblLikes text]integerValue] - 1;
             [cell.lblLikes setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         }
         else{
-            UIButton *button = (UIButton*)sender;
-            UIView *view = button.superview; //Cell contentView
-            FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+            FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
             [cell.btnLikes setSelected:NO];
             NSInteger likeCount = [[cell.lblLikes text]integerValue] - 1;
             [cell.lblLikes setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
@@ -232,26 +226,20 @@
             else {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"You Say" message:[dictResult valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
-                UIButton *button = (UIButton*)sender;
-                UIView *view = button.superview; //Cell contentView
-                FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+                FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
                 [cell.btnLikes setSelected:YES];
                 NSInteger likeCount = [[cell.lblLikes text]integerValue] + 1;
                 [cell.lblLikes setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
             }        }
         else if (error)
         {
-            UIButton *button = (UIButton*)sender;
-            UIView *view = button.superview; //Cell contentView
-            FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+            FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
             [cell.btnLikes setSelected:YES];
             NSInteger likeCount = [[cell.lblLikes text]integerValue] + 1;
             [cell.lblLikes setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         }
         else{
-            UIButton *button = (UIButton*)sender;
-            UIView *view = button.superview; //Cell contentView
-            FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+            FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
             [cell.btnLikes setSelected:YES];
             NSInteger likeCount = [[cell.lblLikes text]integerValue] + 1;
             [cell.lblLikes setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
@@ -656,26 +644,15 @@
     NSLog(@"btnLikes : %ld", (long)[sender tag]);
     UIButton *button = (UIButton*)sender;
     button.selected = !button.selected;
-    
-    UIView *superView = button.superview;
-    UIView *foundSuperView = nil;
-    
-    while (nil != superView && nil == foundSuperView) {
-        if ([superView isKindOfClass:[FeedTableViewCell class]]) {
-            foundSuperView = superView;
-        } else {
-            superView = superView.superview;
-        }
-    }
-    
+
     if ([button isSelected]) {
-        FeedTableViewCell *cell = (FeedTableViewCell *)foundSuperView;
+        FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
         NSInteger likeCount = [[cell.lblLikes text] integerValue] + 1;
         [cell.lblLikes setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         [self requesLikeSay:sender];
     }
     else {
-        FeedTableViewCell *cell = (FeedTableViewCell *)foundSuperView;
+        FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
         NSInteger likeCount = [[cell.lblLikes text] integerValue] - 1;
         [cell.lblLikes setText:[NSString stringWithFormat:@"%li", (long)likeCount]];
         [self requesUnlikeSay:sender];
@@ -701,6 +678,11 @@
     likeListVC.say_id = [currentDixt objectForKey:@"say_id"];
     [likeListVC.view setFrame:CGRectMake(likeListVC.view.frame.origin.x, likeListVC.view.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
     [cell setTag:[sender tag]+999];
+    
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.type = kCATransitionPush; //choose your animation
+    [likeListVC.view.layer addAnimation:transition forKey:nil];
     [cell.viewLikeList addSubview:likeListVC.view];
     [cell.viewLikeList setHidden:NO];
 }
@@ -823,14 +805,11 @@
 }
 
 - (void)highlightProfileName1:(UIButton*)sender {
-    UIButton *button = (UIButton*)sender;
-    
     NSDictionary *value = [arrayFeed objectAtIndex:[sender tag]];
     NSArray *arrayProfile = [value objectForKey:@"profiles"];
     NSDictionary *requestedProfile = [arrayProfile objectAtIndex:0];
     
-    UIView *view = button.superview; //Cell contentView
-    FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+    FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
     
     NSMutableAttributedString *text =
     [[NSMutableAttributedString alloc]
@@ -853,9 +832,7 @@
 }
 
 - (void)highlightProfileName2:(UIButton*)sender {
-    UIButton *button = (UIButton*)sender;
-    UIView *view = button.superview; //Cell contentView
-    FeedTableViewCell *cell = (FeedTableViewCell *)view.superview;
+    FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[sender tag]]];
     [cell.lblSaidAbout2 setTextColor:[UIColor lightGrayColor]];
     [cell.lblSaidAbout2 setHighlighted:YES];
     
@@ -886,6 +863,12 @@
 #pragma mark LikeListDelegate
 - (void) LikeListViewClosed:(NSString*)section {
     FeedTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[section integerValue]]];
+    CATransition *transition = [CATransition animation];
+    transition.type =kCATransitionPush;
+    transition.subtype = kCATransitionFromRight;
+    transition.duration = 0.5f;
+    transition.delegate = self;
+    [cell.viewLikeList.layer addAnimation:transition forKey:nil];
     [cell.viewLikeList setHidden:YES];
     [cell setTag:9999];
 }

@@ -1949,7 +1949,14 @@
     [likelistVC.view setFrame:CGRectMake(likelistVC.view.frame.origin.x, likelistVC.view.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
     cell.tag = [sender tag]+1;
     likelistVC.section = [sender tag]+1;
+
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.type = kCATransitionPush; //choose your animation
+    [likelistVC.view.layer addAnimation:transition forKey:nil];
     [cell.viewLikeList addSubview:likelistVC.view];
+    
+    
     [cell.viewLikeList setHidden:NO];
 }
 
@@ -2161,6 +2168,12 @@
 #pragma mark LikeListDelegate
 - (void) LikeListViewClosed:(NSString*)section {
     PeopleSayTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[section integerValue]]];
+    CATransition *transition = [CATransition animation];
+    transition.type =kCATransitionPush;
+    transition.subtype = kCATransitionFromRight;
+    transition.duration = 0.5f;
+    transition.delegate = self;
+    [cell.viewLikeList.layer addAnimation:transition forKey:nil];
     [cell.viewLikeList setHidden:YES];
     cell.tag = 9999;
 }

@@ -2280,9 +2280,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWe-iO-LfW">
-                                                <rect key="frame" x="248" y="0.0" width="62" height="43"/>
+                                                <rect key="frame" x="271" y="0.0" width="39" height="43"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="Close" image="Back">
+                                                <state key="normal" title="Close">
                                                     <color key="titleColor" red="0.17254901960784313" green="0.63137254901960782" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
