@@ -694,6 +694,13 @@
                                                                 <action selector="btnShareProfileClicked:" destination="NxJ-Rl-Iqi" eventType="touchUpInside" id="BkO-5X-BhD"/>
                                                             </connections>
                                                         </button>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b9d-Nf-RWj" userLabel="Line">
+                                                            <rect key="frame" x="103" y="216" width="1" height="35"/>
+                                                            <color key="backgroundColor" red="0.17254901960784313" green="0.63137254901960782" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="35" id="nvH-X0-E6V"/>
+                                                            </constraints>
+                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uad-gD-3bx">
                                                             <rect key="frame" x="20" y="225" width="35" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -727,13 +734,6 @@
                                                             <color key="textColor" red="0.0" green="0.63137254901960782" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b9d-Nf-RWj" userLabel="Line">
-                                                            <rect key="frame" x="103" y="216" width="1" height="35"/>
-                                                            <color key="backgroundColor" red="0.17254901960784313" green="0.63137254901960782" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="35" id="nvH-X0-E6V"/>
-                                                            </constraints>
-                                                        </view>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cvO-jw-9VG" userLabel="Button Edit View">
                                                             <rect key="frame" x="14" y="210" width="270" height="50"/>
                                                             <subviews>
