@@ -660,7 +660,7 @@
     [dictRequest setObject:[AppDelegate sharedDelegate].deviceToken forKey:@"device_id"];
     [dictRequest setObject:[AppDelegate sharedDelegate].deviceToken forKey:@"registration_id"];
     [dictRequest setObject:@"ios" forKey:@"device_type"];
-    [dictRequest setObject:@"iPhone" forKey:@"device_info"];
+    [dictRequest setObject:[UIDevice currentDevice].model forKey:@"device_info"];
     
     [HTTPReq  postRequestWithPath:@"" class:nil object:dictRequest completionBlock:^(id result, NSError *error) {
         if (result)
@@ -1495,7 +1495,7 @@
                     animationCount = animationCount+1;
                     [defaults setObject:[NSString stringWithFormat:@"%ld", (long)animationCount] forKey:@"animation"];
                 }
-                if (animationCount < 5) {
+                if (animationCount < 5 && isAfterRate == NO) {
                     [cel.imgHand setHidden:NO];
                     
                     CABasicAnimation *hover = [CABasicAnimation animationWithKeyPath:@"position"];
