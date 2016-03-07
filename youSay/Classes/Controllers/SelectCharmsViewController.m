@@ -2,7 +2,7 @@
 //  SelectCharmsViewController.m
 //  youSay
 //
-//  Created by Muliana on 17/12/2015.
+//  Created by Baban on 17/12/2015.
 //  Copyright © 2015 macbokpro. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  SaysModel.h
 //  youSay
 //
-//  Created by Muliana on 11/12/2015.
+//  Created by Baban on 11/12/2015.
 //  Copyright © 2015 macbokpro. All rights reserved.
 //
 

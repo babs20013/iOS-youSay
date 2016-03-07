@@ -2,7 +2,7 @@
 //  AddNewSayViewController.h
 //  youSay
 //
-//  Created by Muliana on 04/12/2015.
+//  Created by Baban on 04/12/2015.
 //  Copyright © 2015 macbokpro. All rights reserved.
 //
 
