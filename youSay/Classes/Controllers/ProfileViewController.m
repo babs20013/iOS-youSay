@@ -149,7 +149,7 @@
 //    }
 //    else
     if ([[[AppDelegate sharedDelegate].ownerDict allKeys] count] == 0) {
-        [self loadFaceBookData:completeUrl param:@{@"fields":@"friends, email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+        [self loadFaceBookData:completeUrl param:@{@"fields":@"friends,friendlists, email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
     }
     else if ([[AppDelegate sharedDelegate].colorDict allKeys].count > 0 && isFriendProfile == NO) {
         if ([[profileDictionary allKeys] count] == 0) {
@@ -1524,7 +1524,7 @@
             [cel.buttonEditView setHidden:YES];
             if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"] && isAfterRate == NO) {
                 [cel.lblNeverRate setHidden:NO];
-                [cel.lblNeverRate setText:[NSString stringWithFormat:@"Long press to rate and reveal %@'s charms", [[model.Name componentsSeparatedByString:@" "] objectAtIndex:0]]];
+                [cel.lblNeverRate setText:[NSString stringWithFormat:@"Hold to rate and reveal %@'s charms", [[model.Name componentsSeparatedByString:@" "] objectAtIndex:0]]];
             }
             
 //            [cel.lblTotalRateTitle setHidden:YES];
@@ -2004,7 +2004,8 @@
     [fb logOut];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:nil forKey:@"yousayuserid"];
-    [defaults setObject:nil forKey:@"yousaytoken"];
+   [defaults setObject:nil forKey:@"yousaytoken"];
+    [AppDelegate sharedDelegate].ownerDict = nil;
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
 }
 

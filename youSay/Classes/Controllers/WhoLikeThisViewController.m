@@ -140,7 +140,8 @@
     [fb logOut];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:nil forKey:@"yousayuserid"];
-    [defaults setObject:nil forKey:@"yousaytoken"];
+   [defaults setObject:nil forKey:@"yousaytoken"];
+    [AppDelegate sharedDelegate].ownerDict = nil;
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
 }
 
