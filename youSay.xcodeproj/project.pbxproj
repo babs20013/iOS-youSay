@@ -897,8 +897,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -920,7 +920,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "ca5dc29b-dd30-40c3-8916-861d252dd25c";
+				PROVISIONING_PROFILE = "ed8a2baa-5e7f-454a-a5c4-d3e23b3c5079";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -942,8 +942,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -958,7 +958,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "ca5dc29b-dd30-40c3-8916-861d252dd25c";
+				PROVISIONING_PROFILE = "ed8a2baa-5e7f-454a-a5c4-d3e23b3c5079";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -970,8 +970,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -984,9 +984,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/youSay/Classes",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
 				PRODUCT_NAME = "Yousay Social";
-				PROVISIONING_PROFILE = "af0e4d93-73fb-43de-9537-1584e01a4f89";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -996,8 +996,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: eBworx Berhad";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: eBworx Berhad";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1010,9 +1010,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/youSay/Classes",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hebworx.push;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
 				PRODUCT_NAME = "Yousay Social";
-				PROVISIONING_PROFILE = "d730e762-fab0-4662-9be7-8bc27cd657e6";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

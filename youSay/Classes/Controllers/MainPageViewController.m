@@ -2,7 +2,7 @@
 //  MainPageViewController.m
 //  youSay
 //
-//  Created by Muliana on 06/12/2015.
+//  Created by Baban on 06/12/2015.
 //  Copyright © 2015 macbokpro. All rights reserved.
 //
 

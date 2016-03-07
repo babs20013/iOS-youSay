@@ -2,7 +2,7 @@
 //  FriendModel.m
 //  youSay
 //
-//  Created by muliana on 05/12/2015.
+//  Created by Baban on 05/12/2015.
 //  Copyright © 2015 macbokpro. All rights reserved.
 //
 
