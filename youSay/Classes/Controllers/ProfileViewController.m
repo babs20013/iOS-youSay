@@ -149,7 +149,8 @@
 //    }
 //    else
     if ([[[AppDelegate sharedDelegate].ownerDict allKeys] count] == 0) {
-        [self loadFaceBookData:completeUrl param:@{@"fields":@"friends,friendlists, email,picture,name,first_name,last_name,gender,cover",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
+
+        [self loadFaceBookData:completeUrl param:@{@"fields":@"",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
     }
     else if ([[AppDelegate sharedDelegate].colorDict allKeys].count > 0 && isFriendProfile == NO) {
         if ([[profileDictionary allKeys] count] == 0) {
@@ -264,6 +265,7 @@
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error!", nil) message:NSLocalizedString(@"There is an Error While logging in! Please try Again.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil]show];
+                 [self logout];
             }];
 }
 

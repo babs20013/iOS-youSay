@@ -197,7 +197,7 @@
         NSLog(@"There IS internet connection");
         FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
         login.loginBehavior = FBSDKLoginBehaviorNative;
-        [login logInWithReadPermissions:nil fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error){
+        [login logInWithReadPermissions:@[@"user_friends"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error){
             if (error) {
                 // Process error
             } else if (result.isCancelled) {
