@@ -94,7 +94,7 @@
     NSArray *arrProfile = [dict objectForKey:@"profiles"];
     NSDictionary *dictProfile;
     NSString *string;
-    if (arrProfile && [arrProfile isKindOfClass:[NSArray class]]) {
+    if (arrProfile && [arrProfile isKindOfClass:[NSArray class]] && arrProfile.count > 0) {
         dictProfile = [arrProfile objectAtIndex:0];
         string = [[NSString alloc]initWithString:[[dict objectForKey:@"message"] stringByReplacingOccurrencesOfString:@"%1" withString:[dictProfile objectForKey:@"name"]]];
         return 74;
@@ -144,7 +144,7 @@
     NSArray *arrProfile = [dict objectForKey:@"profiles"];
     NSDictionary *dictProfile;
     NSString *string;
-    if (arrProfile && [arrProfile isKindOfClass:[NSArray class]]) {
+    if (arrProfile && [arrProfile isKindOfClass:[NSArray class]] && arrProfile.count>0) {
         dictProfile = [arrProfile objectAtIndex:0];
         string = [[NSString alloc]initWithString:[[dict objectForKey:@"message"] stringByReplacingOccurrencesOfString:@"%1" withString:[dictProfile objectForKey:@"name"]]];
         if (string == nil){
