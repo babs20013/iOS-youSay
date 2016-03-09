@@ -21,6 +21,7 @@
     BOOL isShowRecentSearch;
     BOOL isSearchingFB;
     BOOL isRequesting;
+    CGFloat _currentKeyboardHeight;
 }
 @property (nonatomic, weak) IBOutlet UILabel *lblRecentSearch;
 @property (strong, nonatomic) IQURLConnection *userSearchRequest;
@@ -53,6 +54,29 @@
         
         [AppDelegate sharedDelegate].arrRecentSeacrh = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    // unregister for keyboard notifications while not visible.
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardDidShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardDidHideNotification
+                                                  object:nil];
 }
 
 - (void)viewDidLoad {
@@ -484,6 +508,20 @@
    [defaults setObject:nil forKey:@"yousaytoken"];
     [AppDelegate sharedDelegate].ownerDict = nil;
     [[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
+}
+
+- (void)keyboardDidShow:(NSNotification*)notification {
+    NSDictionary* keyboardInfo = [notification userInfo];
+    NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
+    
+    _currentKeyboardHeight = keyboardFrameBeginRect.size.height;
+    self.tableBottomConstraint.constant = _currentKeyboardHeight;
+}
+
+- (void)keyboardDidHide:(NSNotification*)notification {
+    _currentKeyboardHeight = 0.0;
+    self.tableBottomConstraint.constant = 10;
 }
 
 @end

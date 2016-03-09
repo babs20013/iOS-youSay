@@ -11,6 +11,6 @@
 @interface SearchViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tblView;
-@property (weak,nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
+@property (weak,nonatomic) IBOutlet NSLayoutConstraint *tableBottomConstraint;
 
 @end
