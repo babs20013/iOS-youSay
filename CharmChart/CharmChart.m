@@ -136,7 +136,7 @@
         position = 12;
     }
     else if (self.score == 0 && _state != ChartStateRate){
-        position = 1;
+        position = 2;
     }
 
     lblScore = [[UILabel alloc]initWithFrame:CGRectMake(kMinHorizontalGap/2,self.frame.size.height- ((position-1)*([self boxSize].height+kMinVerticalGap) + [self boxSize].height)-kChartLabelHeight, [self boxSize].width, [self boxSize].height)];
@@ -149,6 +149,12 @@
     }
     
     [lblScore setFont:[UIFont systemFontOfSize:13]];
+    NSString *string = @"The string to render";
+    CGSize size = [string sizeWithAttributes: @{NSFontAttributeName: [UIFont systemFontOfSize:13.0f]}];
+    float pointsPerPixel = 13.0 / size.height;
+    float desiredFontSize = ([self boxSize].height+4) * pointsPerPixel;
+    
+    [lblScore setFont:[UIFont systemFontOfSize:desiredFontSize]];
     if (position > 11 && _state ==  ChartStateRate) {
         [lblScore setHidden:YES];
     }
