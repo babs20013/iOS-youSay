@@ -212,7 +212,8 @@
     //[btn.layer setBorderColor:[UIColor colorWithWhite:0.9 alpha:0.9].CGColor];
     
     
-    [addSayTextView setBackgroundColor:btn.backgroundColor];
+    //[addSayTextView setBackgroundColor:btn.backgroundColor];
+    [textViewBG setBackgroundColor:btn.backgroundColor];
     NSDictionary *dict = [arrayColor objectAtIndex:btn.tag];
     [addSayTextView setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
     [placeholderLabel setTextColor:[self colorWithHexString:[dict objectForKey:@"fore"]]];
@@ -352,13 +353,28 @@
     
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    
+    float rawLineNumber = (textView.contentSize.height - textView.textContainerInset.top - textView.textContainerInset.bottom) / textView.font.lineHeight;
+    int finalLineNumber = round(rawLineNumber);
+    NSLog(@"final: %d", finalLineNumber);
+    if ([text isEqualToString:@""]) {
+        return YES;
+    }
+    else if ([textView.text length] > 100 || finalLineNumber > 5) {
+        return NO;
+    }
+    return YES;
+}
+
 - (void)textViewDidChange:(UITextView *)textView {
 
     float rawLineNumber = (textView.contentSize.height - textView.textContainerInset.top - textView.textContainerInset.bottom) / textView.font.lineHeight;
     int finalLineNumber = round(rawLineNumber);
     NSLog(@"final: %d", finalLineNumber);
     
-    if ([textView.text length] > 100 || finalLineNumber >= 5) {
+    if ([textView.text length] > 100 || finalLineNumber > 5) {
         [placeholderLabel setHidden:YES];
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         
