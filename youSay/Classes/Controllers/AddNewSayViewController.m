@@ -358,7 +358,7 @@
     int finalLineNumber = round(rawLineNumber);
     NSLog(@"final: %d", finalLineNumber);
     
-    if ([textView.text length] > 470 || finalLineNumber >= 10) {
+    if ([textView.text length] > 100 || finalLineNumber >= 5) {
         [placeholderLabel setHidden:YES];
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         
@@ -366,7 +366,7 @@
         hud.mode = MBProgressHUDModeText;
         hud.opacity = 0.1;
         hud.color = [UIColor blackColor];
-        hud.labelText = @"Text is limited to 470 characters and 10 lines";
+        hud.labelText = @"Text is limited to 100 characters and 5 lines";
         hud.labelFont = [UIFont systemFontOfSize:12];
         hud.margin = 10.f;
         hud.yOffset = 10.f;

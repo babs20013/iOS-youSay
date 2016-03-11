@@ -445,7 +445,7 @@
                     for (int i = 0; i < saysArray.count; i++) {
                         NSDictionary *says = [saysArray objectAtIndex:i];
                         if ([[says objectForKey:@"say_id"] integerValue] == [saysID integerValue]) {
-                            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i+1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
                             saysID = nil;
                             return;
                         }
