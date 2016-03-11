@@ -54,4 +54,6 @@ UIAlertView *av = [[UIAlertView alloc] initWithTitle:title message:msg delegate:
 #define appdelegate \
 ((AppDelegate*)[UIApplication sharedApplication].delegate)
 
+#define NSLog
+
 #endif
