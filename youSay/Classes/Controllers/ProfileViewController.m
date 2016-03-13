@@ -79,6 +79,8 @@
     BOOL isAfterShareFB;
     BOOL isAfterRate;
     BOOL displayMoreMenu;
+    
+    NSString *totalScoreAfterRate;
 }
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIView *viewSkip;
@@ -559,6 +561,8 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 charmsArray = [dictResult objectForKey:@"charms"];
+                totalScoreAfterRate = [NSString stringWithFormat:@"%@",[dictResult objectForKey:@"num_users_rated"]];
+                
                 isAfterChangeCharm = NO;
                 [self.tableView reloadData];
                 
@@ -1387,8 +1391,11 @@
         
         cel.lblRankLevel.text = [profileDictionary objectForKey:@"rank_level"];
         cel.lblPopularityLevel.text = [profileDictionary objectForKey:@"popularity_level"];
-        if ([profileDictionary objectForKey:@"num_users_rated"]) {
+        if ([profileDictionary objectForKey:@"num_users_rated"] && isAfterRate == NO) {
             cel.lblTotalScore.text = [NSString stringWithFormat:@"%@", [profileDictionary objectForKey:@"num_users_rated"]];
+        }
+        else {
+            cel.lblTotalScore.text = totalScoreAfterRate;
         }
         
         cel.charmView.layer.cornerRadius = 0.015 * cel.charmView.bounds.size.width;
