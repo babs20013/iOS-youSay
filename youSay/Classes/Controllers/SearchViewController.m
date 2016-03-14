@@ -306,7 +306,7 @@
         [self.btnClear setHidden:YES];
     }
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), queue, ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.5 * NSEC_PER_SEC), queue, ^{
         if ([textField.text length]>2 && isRequesting == NO){
             isRequesting = YES;
             [self.btnClear setHidden:YES];

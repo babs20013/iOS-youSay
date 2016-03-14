@@ -39,12 +39,12 @@
 
 @interface CharmChart(){
     NSMutableArray *boxes;
-    UILabel *lblScore;
     UIButton *btn;
     UIButton *btnClose;
 }
 @end
 @implementation CharmChart
+@synthesize lblScore;
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

@@ -30,6 +30,7 @@ typedef enum {
 @property (assign,nonatomic) BOOL isNeverRate;
 @property (assign,nonatomic) NSInteger score;
 @property (assign,nonatomic) NSInteger index;
+@property (retain,nonatomic) UILabel *lblScore;
 @property (copy,nonatomic) NSString *title;
 @property (nonatomic, weak) id <CharmDelegate> delegate;
 

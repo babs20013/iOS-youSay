@@ -548,7 +548,10 @@
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
         [dict setObject:charts.title forKey:@"charm"];
         [dict setObject:[NSString stringWithFormat:@"%li",(long)charts.score] forKey:@"rate"];
-        [arrayRating addObject:dict];
+        if (charts.score >= 0 && charts.lblScore.hidden == NO) {
+            [arrayRating addObject:dict];
+        }
+        
     }
     
     [dictRequest setObject:arrayRating forKey:@"rating"];
