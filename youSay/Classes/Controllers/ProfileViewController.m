@@ -86,6 +86,7 @@
 @property (nonatomic, weak) IBOutlet UIView *viewSkip;
 @property (nonatomic, weak) IBOutlet UIView *viewSkipBox;
 
+
 @end
 
 @implementation ProfileViewController
@@ -1195,7 +1196,7 @@
             height= self.view.frame.size.height - 60;
         }
         else if (self.view.frame.size.height >= 480) {//5
-            height= self.view.frame.size.height + 20;
+            height= self.view.frame.size.height-10;
         }
         else{//4
             height= self.view.frame.size.height + 70;
@@ -1334,12 +1335,14 @@
         model.ProfileImage = [profileDictionary objectForKey:@"picture"];
         model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
         model.UserID = requestedID;
+        
         if  ([[[AppDelegate sharedDelegate].profileOwner UserID] isEqualToString:[profileDictionary objectForKey:@"id"]]){
             //model = profileModel;
             chartState = chartState == ChartStateViewing ? ChartStateDefault : chartState;
             [btnAddSay setHidden:YES];
         }
         else {
+            
             model.Name = [profileDictionary objectForKey:@"name"];
             model.ProfileImage = [profileDictionary objectForKey:@"picture"];
             model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
@@ -1350,7 +1353,7 @@
                 model.Name = @"";
             }
             [cel.lblYourCharm setText:[NSString stringWithFormat:@"%@'s Charms", model.Name]];
-           
+            
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
             [btnAddSay setHidden:NO];
         }
@@ -1480,6 +1483,7 @@
         [cel.lblTotalScore setHidden:NO];
         [cel.imgHand setHidden:YES];
         [cel.btnSkip setHidden:YES];
+        [cel.line setHidden:NO];
         
         if (chartState == ChartStateEdit) {
             [cel.longPressInfoView setHidden:YES];
@@ -1496,6 +1500,17 @@
             [cel.btnShare setHidden:YES];
             [cel.imgVShare setHidden:YES];
             [cel.buttonEditView setHidden:NO];
+            [cel.line setHidden:YES];
+            if (self.view.frame.size.height < 568) {
+                cel.lblYourCharm.translatesAutoresizingMaskIntoConstraints = YES;
+                [cel.lblYourCharm setFrame:CGRectMake(14, 8, 250, cel.lblYourCharm.frame.size.height)];
+                cel.charmChartView.translatesAutoresizingMaskIntoConstraints = YES;
+                [cel.charmChartView setFrame:CGRectMake(14, 55, cel.charmChartView.frame.size.width, cel.charmChartView.frame.size.height)];
+                cel.buttonEditView.translatesAutoresizingMaskIntoConstraints = YES;
+                [cel.buttonEditView setFrame:CGRectMake(cel.buttonEditView.frame.origin.x, cel.buttonEditView.frame.origin.y+9, cel.buttonEditView.frame.size.width, 40)];
+                cel.defaultFooterView.translatesAutoresizingMaskIntoConstraints = YES;
+                [cel.defaultFooterView setFrame:CGRectMake(cel.defaultFooterView.frame.origin.x, cel.charmView.frame.origin.y+cel.charmView.frame.size.height+5, cel.defaultFooterView.frame.size.width, cel.defaultFooterView.frame.size.height)];
+            }
             if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"]) {
                 [cel.btnSkip setHidden:NO];
                 

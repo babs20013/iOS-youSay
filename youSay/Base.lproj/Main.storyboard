@@ -651,26 +651,26 @@
                                                     <rect key="frame" x="0.0" y="145" width="298" height="270"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Charms " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRz-RT-nLR">
-                                                            <rect key="frame" x="14" y="13" width="92" height="17"/>
-                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
+                                                            <rect key="frame" x="14" y="13" width="93" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Rates " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3I-hM-8Gm">
-                                                            <rect key="frame" x="193" y="13" width="80" height="17"/>
+                                                            <rect key="frame" x="191" y="13" width="80" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="RFX-MN-kXt"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvU-s0-44l">
-                                                            <rect key="frame" x="279" y="13" width="5" height="17"/>
+                                                            <rect key="frame" x="277" y="14" width="7" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="17" id="wgy-k9-GTk"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.12156862745098039" green="0.61176470588235299" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -714,7 +714,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4a2-Hx-UY4" userLabel="CharmView" customClass="CharmView">
-                                                            <rect key="frame" x="14" y="40" width="270" height="170"/>
+                                                            <rect key="frame" x="14" y="41" width="270" height="169"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
                                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Hand" translatesAutoresizingMaskIntoConstraints="NO" id="9hH-ln-xwH">
@@ -725,7 +725,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long press to rate and rate XXX's charms" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB0-UI-6Jq">
-                                                            <rect key="frame" x="49" y="80" width="200" height="90"/>
+                                                            <rect key="frame" x="49" y="81" width="200" height="90"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="200" id="GVU-dV-23Y"/>
                                                             </constraints>
@@ -746,7 +746,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nws-9h-Y9C">
-                                                                    <rect key="frame" x="-14" y="-352" width="30" height="30"/>
+                                                                    <rect key="frame" x="-14" y="-355" width="30" height="30"/>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -890,6 +890,7 @@
                                             <outlet property="lblTotalScore" destination="tvU-s0-44l" id="k6L-pU-MrY"/>
                                             <outlet property="lblWhatPeopleSay" destination="btd-59-r9S" id="VyH-gb-lFV"/>
                                             <outlet property="lblYourCharm" destination="VRz-RT-nLR" id="bNG-0n-PMa"/>
+                                            <outlet property="line" destination="b9d-Nf-RWj" id="Tnm-CI-FZV"/>
                                             <outlet property="newbie" destination="Pln-bs-DEU" id="Ind-xQ-Dov"/>
                                             <outlet property="popular" destination="BCt-Ai-5t1" id="MVh-0Z-Wha"/>
                                         </connections>

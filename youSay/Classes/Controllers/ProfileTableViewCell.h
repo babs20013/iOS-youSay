@@ -49,6 +49,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *lblTotalRateTitle;
 @property (nonatomic, strong) IBOutlet UIImageView *imgHand;
 @property (nonatomic, strong) IBOutlet UIButton *btnSkip;
+@property (nonatomic, strong) IBOutlet UIView *line;
 
 @property (nonatomic, strong) NSDictionary *saysDictionary;
 
