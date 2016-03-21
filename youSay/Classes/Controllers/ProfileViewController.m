@@ -867,7 +867,7 @@
                 if (tag == 1000) {//Means share to facebook
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentDescription = desc;
-                    content.contentTitle = [NSString stringWithFormat:@"%@ shared the following from YouSay application", [[AppDelegate sharedDelegate].profileOwner Name]];
+                    content.contentTitle = [NSString stringWithFormat:@"This Is %@ Personality On Yousay", [[AppDelegate sharedDelegate].profileOwner Name]];
                     NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
                     content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult valueForKey:@"url"]];
@@ -1890,11 +1890,11 @@
 - (IBAction)btnShareProfileClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
     if (isFriendProfile == YES) {
-        NSString *desc = [NSString stringWithFormat:@"These are %@ best charms \nCheck out how charming is your personality", [profileDictionary objectForKey:@"name"]];
+        NSString *desc = [NSString stringWithFormat:@"These are %@'s best charms \nClick to discover how charming you are", [profileDictionary objectForKey:@"name"]];
         [self requestGetProfileImage:[sender tag] withDescription:desc andID:requestedID];
     }
     else {
-        NSString *desc = @"These are my best charms \nCheck out how charming is your personality";
+        NSString *desc = @"These are my best charms \nClick to discover how charming you are";
         [self requestGetProfileImage:[sender tag] withDescription:desc andID:[[AppDelegate sharedDelegate].profileOwner UserID]];
     }
 
@@ -1903,11 +1903,11 @@
 - (IBAction)btnShareProfileToFacebookClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
     if (isFriendProfile == YES) {
-        NSString *desc = [NSString stringWithFormat:@"These are %@ best charms \nCheck out how charming is your personality", [profileDictionary objectForKey:@"name"]];
+        NSString *desc = [NSString stringWithFormat:@"These are %@'s best charms \nClick to discover how charming you are", [profileDictionary objectForKey:@"name"]];
         [self requestGetProfileImage:[sender tag] withDescription:desc andID:requestedID];
     }
     else {
-        NSString *desc = @"These are my best charms \nCheck out how charming is your personality";
+        NSString *desc = @"These are my best charms \nClick to discover how charming you are";
         [self requestGetProfileImage:[sender tag] withDescription:desc andID:[[AppDelegate sharedDelegate].profileOwner UserID]];
     }
 }

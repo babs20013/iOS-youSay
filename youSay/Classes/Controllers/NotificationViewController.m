@@ -59,6 +59,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     ShowLoader();
+    index = 1;
     [self requestGetNotification:[NSString stringWithFormat:@"%d", index]];
 }
 

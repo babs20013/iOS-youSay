@@ -766,15 +766,14 @@
     NSDictionary *dictProfile2 = [arrProfiles objectAtIndex:1];
     NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", [dictProfile1 objectForKey:@"name"] , [dictProfile2 objectForKey:@"name"]];
     if ([[dictProfile2 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
-        //desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dictProfile1 objectForKey:@"name"]];
+        desc = [NSString stringWithFormat:@"%@  Said This About Me on Yousay", [dictProfile2 objectForKey:@"name"]];
         profile = [[AppDelegate sharedDelegate].profileOwner UserID];
     }
     else if ([[dictProfile1 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]){
-        //desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dictProfile2 objectForKey:@"name"]];
+        desc = [NSString stringWithFormat:@"I Said This About %@ on Yousay", [dictProfile2 objectForKey:@"name"]];
         profile = [dictProfile2 objectForKey:@"profile_id"];
     }
     else {
-        //desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
         profile = [dictProfile2 objectForKey:@"profile_id"];
     }
     [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc isFB:NO];
@@ -787,20 +786,19 @@
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     NSDictionary *dictProfile1 = [arrProfiles objectAtIndex:0];
     NSDictionary *dictProfile2 = [arrProfiles objectAtIndex:1];
-    NSString *desc = [NSString stringWithFormat:@"%@ wrote something special about %@ on Yousay", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
+    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", [dictProfile1 objectForKey:@"name"] , [dictProfile2 objectForKey:@"name"]];
     if ([[dictProfile2 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
-        //desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about me on Yousay \nClick to see who wrote about you", [dictProfile1 objectForKey:@"name"]];
+        desc = [NSString stringWithFormat:@"%@  Said This About Me on Yousay", [dictProfile2 objectForKey:@"name"]];
         profile = [[AppDelegate sharedDelegate].profileOwner UserID];
     }
     else if ([[dictProfile1 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]){
-       // desc = [NSString stringWithFormat:@"I wrote something special about %@ on Yousay \nClick to read more and write your own", [dictProfile2 objectForKey:@"name"]];
+        desc = [NSString stringWithFormat:@"I Said This About %@ on Yousay", [dictProfile2 objectForKey:@"name"]];
         profile = [dictProfile2 objectForKey:@"profile_id"];
     }
     else {
-        //desc = [NSString stringWithFormat:@"%@ Wrote this cool thing about %@ on Yousay \nClick to see more and write your own", [dictProfile1 objectForKey:@"name"], [dictProfile2 objectForKey:@"name"]];
         profile = [dictProfile2 objectForKey:@"profile_id"];
     }
-    [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:[desc uppercaseString] isFB:YES];
+    [self requestGetSayImage:[currentSaysDict objectForKey:@"say_id"] withDescription:desc isFB:YES];
     
 }
 
