@@ -1352,7 +1352,7 @@
             if (model.Name == nil) {
                 model.Name = @"";
             }
-            [cel.lblYourCharm setText:[NSString stringWithFormat:@"%@'s Charms", model.Name]];
+            [cel.lblYourCharm setText:[NSString stringWithFormat:@"%@'s Traits", model.Name]];
             
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
             [btnAddSay setHidden:NO];
@@ -1549,7 +1549,7 @@
             [cel.buttonEditView setHidden:YES];
             if ([[profileDictionary objectForKey:@"rated"] isEqualToString:@"false"] && isAfterRate == NO) {
                 [cel.lblNeverRate setHidden:NO];
-                [cel.lblNeverRate setText:[NSString stringWithFormat:@"Hold to rate and reveal %@'s charms", [[model.Name componentsSeparatedByString:@" "] objectAtIndex:0]]];
+                [cel.lblNeverRate setText:[NSString stringWithFormat:@"Hold to rate and reveal %@'s traits", [[model.Name componentsSeparatedByString:@" "] objectAtIndex:0]]];
             }
             
 //            [cel.lblTotalRateTitle setHidden:YES];
@@ -1890,11 +1890,11 @@
 - (IBAction)btnShareProfileClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
     if (isFriendProfile == YES) {
-        NSString *desc = [NSString stringWithFormat:@"These are %@'s best charms \nClick to discover how charming you are", [profileDictionary objectForKey:@"name"]];
+        NSString *desc = [NSString stringWithFormat:@"These are %@'s best traits \nClick to discover how charming you are", [profileDictionary objectForKey:@"name"]];
         [self requestGetProfileImage:[sender tag] withDescription:desc andID:requestedID];
     }
     else {
-        NSString *desc = @"These are my best charms \nClick to discover how charming you are";
+        NSString *desc = @"These are my best traits \nClick to discover how charming you are";
         [self requestGetProfileImage:[sender tag] withDescription:desc andID:[[AppDelegate sharedDelegate].profileOwner UserID]];
     }
 
@@ -1903,11 +1903,11 @@
 - (IBAction)btnShareProfileToFacebookClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
     if (isFriendProfile == YES) {
-        NSString *desc = [NSString stringWithFormat:@"These are %@'s best charms \nClick to discover how charming you are", [profileDictionary objectForKey:@"name"]];
+        NSString *desc = [NSString stringWithFormat:@"These are %@'s best traits \nClick to discover how charming you are", [profileDictionary objectForKey:@"name"]];
         [self requestGetProfileImage:[sender tag] withDescription:desc andID:requestedID];
     }
     else {
-        NSString *desc = @"These are my best charms \nClick to discover how charming you are";
+        NSString *desc = @"These are my best traits \nClick to discover how charming you are";
         [self requestGetProfileImage:[sender tag] withDescription:desc andID:[[AppDelegate sharedDelegate].profileOwner UserID]];
     }
 }
