@@ -75,7 +75,7 @@
     self.txtSearch.layer.borderColor = kColorSearch.CGColor;
     self.txtSearch.autocorrectionType = UITextAutocorrectionTypeNo;
     
-    NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search your friends" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     self.txtSearch.attributedPlaceholder = str;
 }
 

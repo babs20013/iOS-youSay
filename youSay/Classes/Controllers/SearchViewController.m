@@ -110,7 +110,7 @@
     [self.txtSearch setRightViewMode:UITextFieldViewModeWhileEditing];
     
     
-    NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Search your friends" attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     self.txtSearch.attributedPlaceholder = str;
     
     self.tblView.layer.cornerRadius = 0.015 * self.tblView.bounds.size.width;

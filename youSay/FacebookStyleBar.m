@@ -49,7 +49,7 @@
     // Add search field and close button
     UITextField *searchField = [[UITextField alloc] init];
     searchField.layer.cornerRadius = 5.0;
-    searchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Search" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:0.55 green:0.6 blue:0.75 alpha:1]}];
+    searchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Search your friends" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:0.55 green:0.6 blue:0.75 alpha:1]}];
     searchField.backgroundColor = [UIColor colorWithRed:0.22 green:0.27 blue:0.46 alpha:1];
     searchField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
     
