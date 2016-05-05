@@ -265,10 +265,15 @@
                 if (isFacebook == YES) {
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&sayid=%@&imageid=%@", profile, sayID, [dictResult valueForKey:@"image_id"]];
-                    content.contentTitle = desc;
+                    
+                    //MM-- Specify title and desc specifically for facebook
+                    NSString *title = @"Click to discover which of your friends said this about you";
+                    NSString *description = @"Yousay - Discover what your friends think about you";
+                    
+                    content.contentTitle = title;
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
                     content.contentURL = [NSURL URLWithString:url];
-                    content.contentDescription = @"Click to find out more about yourself";
+                    content.contentDescription = description;
                     FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
                     dialog.fromViewController = self;
                     dialog.shareContent = content;
@@ -764,13 +769,13 @@
     NSArray *arrProfiles = [currentSaysDict objectForKey:@"profiles"];
     NSDictionary *dictProfile1 = [arrProfiles objectAtIndex:0];
     NSDictionary *dictProfile2 = [arrProfiles objectAtIndex:1];
-    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", [dictProfile1 objectForKey:@"name"] , [dictProfile2 objectForKey:@"name"]];
+    NSString *desc = [NSString stringWithFormat:@"This is what people said about %@\nClick to find out what your friends said about you", [dictProfile2 objectForKey:@"name"]];
     if ([[dictProfile2 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]) {
-        desc = [NSString stringWithFormat:@"%@  Said This About Me on Yousay", [dictProfile2 objectForKey:@"name"]];
+        desc = [NSString stringWithFormat:@"This is what people said about %@\nClick to find out what your friends said about you", [dictProfile1 objectForKey:@"name"]];
         profile = [[AppDelegate sharedDelegate].profileOwner UserID];
     }
     else if ([[dictProfile1 objectForKey:@"name"] isEqualToString:[[AppDelegate sharedDelegate].profileOwner Name]]){
-        desc = [NSString stringWithFormat:@"I Said This About %@ on Yousay", [dictProfile2 objectForKey:@"name"]];
+        desc = [NSString stringWithFormat:@"This is what people said about %@\nClick to find out what your friends said about you", [dictProfile2 objectForKey:@"name"]];
         profile = [dictProfile2 objectForKey:@"profile_id"];
     }
     else {

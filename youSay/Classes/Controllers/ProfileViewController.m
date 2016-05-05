@@ -865,9 +865,14 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 if (tag == 1000) {//Means share to facebook
+                    //MM -- 5 May 2016
+                    //-- Change the description text for facebook
+                    NSString *titleFB = @"Click to rate your friends and see what they said about you";
+                    NSString *descFB = @"Yousay - Find out what your friends think about you";
+                    
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-                    content.contentDescription = desc;
-                    content.contentTitle = [NSString stringWithFormat:@"This Is %@ Personality On Yousay", [[AppDelegate sharedDelegate].profileOwner Name]];
+                    content.contentDescription = descFB;
+                    content.contentTitle = titleFB;
                     NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
                     content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult valueForKey:@"url"]];
@@ -944,11 +949,16 @@
             {
                 if (isFacebook == YES) {//means facebook
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-                    content.contentTitle = desc;
+                    
+                    //MM-- Specify title and desc specifically for facebook
+                    NSString *title = @"Click to discover which of your friends said this about you";
+                    NSString *description = @"Yousay - Discover what your friends think about you";
+                    
+                    content.contentTitle = title;
                     NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&sayid=%@&imageid=%@", requestedID, sayID, [dictResult valueForKey:@"image_id"]];
                     content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
-                    content.contentDescription = @"Click to find out more about yourself";//desc;
+                    content.contentDescription = description;
                     
                     FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
                     dialog.fromViewController = self;
@@ -1890,11 +1900,11 @@
 - (IBAction)btnShareProfileClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
     if (isFriendProfile == YES) {
-        NSString *desc = [NSString stringWithFormat:@"These are %@'s best traits \nClick to discover how charming you are", [profileDictionary objectForKey:@"name"]];
+        NSString *desc = [NSString stringWithFormat:@"%@'s friends think they're the most %@\nClick to find out what your friends think about you", [profileDictionary objectForKey:@"name"],[self getHighestTraits]];
         [self requestGetProfileImage:[sender tag] withDescription:desc andID:requestedID];
     }
     else {
-        NSString *desc = @"These are my best traits \nClick to discover how charming you are";
+        NSString *desc = [NSString stringWithFormat:@"%@'s friends think they're the most %@\nClick to find out what your friends think about you", [profileDictionary objectForKey:@"name"],[self getHighestTraits] ];
         [self requestGetProfileImage:[sender tag] withDescription:desc andID:[[AppDelegate sharedDelegate].profileOwner UserID]];
     }
 
@@ -1915,15 +1925,15 @@
 - (IBAction)btnShareSayClicked:(id)sender {
     NSLog(@"btnShare : %ld", (long)[sender tag]);
     NSDictionary *dict = [saysArray objectAtIndex:[sender tag]];
-    NSString *by = [dict objectForKey:@"by"];
+   // NSString *by = [dict objectForKey:@"by"];
     NSString *to = [profileDictionary objectForKey:@"name"];
-    if ([[dict objectForKey:@"user_id"] isEqualToString:profileModel.UserID]) {
-        by = @"I";
-    }
-    if ([[profileDictionary objectForKey:@"id"] isEqualToString:profileModel.UserID]) {
-        to = @"Me";
-    }
-    NSString *desc = [NSString stringWithFormat:@"%@ Said This About %@ on Yousay", by, to];
+//    if ([[dict objectForKey:@"user_id"] isEqualToString:profileModel.UserID]) {
+//        by = @"I";
+//    }
+//    if ([[profileDictionary objectForKey:@"id"] isEqualToString:profileModel.UserID]) {
+//        to = @"Me";
+//    }
+    NSString *desc = [NSString stringWithFormat:@"This is what people said about %@\nClick to find out what your friends said about you", to];
     [self requestGetSayImage:[dict objectForKey:@"say_id"] withDescription:desc isFB:NO];
     
 }
@@ -2037,6 +2047,24 @@
 - (void)hideImageAfterAnimation:(ProfileTableViewCell*)cell {
     [cell.imgHand setHidden:YES];
     
+}
+
+- (NSString*)getHighestTraits {
+    NSString *highestTraits = @"";
+    int rate = 0;
+    for (int i=0; i<arrActiveCharm.count; i++) {
+        NSDictionary *dict = arrActiveCharm[i];
+        
+        int currentRate = [[dict objectForKey:@"rate"] integerValue];
+        if (currentRate >= rate) {
+            highestTraits = [dict objectForKey:@"name"];
+        }
+        else {
+            rate = currentRate;
+        }
+    }
+    
+    return [highestTraits lowercaseString];
 }
 
 
