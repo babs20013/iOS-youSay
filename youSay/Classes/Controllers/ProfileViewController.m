@@ -26,6 +26,7 @@
 #import "CustomActivityProvider.h"
 #import "SearchViewController.h"
 #import "MGInstagram.h"
+#import "UITooltip.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -1367,6 +1368,105 @@
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
             [btnAddSay setHidden:NO];
         }
+        
+        //TOOLTIP - Own profile Tips
+        //1. Appear on first time only
+        NSUserDefaults *firstTimeDefaults = [NSUserDefaults standardUserDefaults];
+        BOOL isNOTFirstTime = [firstTimeDefaults boolForKey:@"OWNPROFILE_NOT_FIRSTTIME"];
+        if (!isFriendProfile && !isNOTFirstTime) {
+            UIView *background = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+            [background setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
+            UIWindow* window = [UIApplication sharedApplication].keyWindow;
+            if (!window)
+                window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+            [[[window subviews] objectAtIndex:0] addSubview:background];
+            //tip
+            UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-180)/2, (background.frame.size.height-85)/2, 180, 85)];
+            tip1.tipArrow = TipArrowBottomLeft;
+            tip1.tooltipText = @"This is your profile, here you can see what your friends think about you";
+            [background addSubview:tip1];
+            
+            UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-205)/2, 130, 204, 98)];
+            tip2.tipArrow = TipArrowBottomLeft;
+            tip2.tooltipText = @"These are your best traits as rated  anonymously by your friends\nTap and hold to edit them";
+            
+            UITooltip *tip3 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-150)/2, 63, 150, 72)];
+            tip3.tipArrow = TipArrowTopLeft;
+            tip3.tooltipText = @"Type your friend’s name to find their profile";
+            
+            
+            [tip1 onButtonTap:^{
+                [tip1 closeToolTip];
+                [tip2 showToolTip:background];
+            }];
+            
+            [tip2 onButtonTap:^{
+                [tip2 closeToolTip];
+                [tip3 showToolTip:background];
+                
+            }];
+            
+            [tip3 onButtonTap:^{
+                [tip3 closeToolTip];
+                [background removeFromSuperview];
+            }];
+            
+            [firstTimeDefaults setBool:YES forKey:@"OWNPROFILE_NOT_FIRSTTIME"];
+        }
+        else{
+            
+
+        }
+
+        BOOL isNOTFirstTimeOnFriendProfile = [firstTimeDefaults boolForKey:@"FRIENDPROFILE_NOT_FIRSTTIME"];
+        if(isFriendProfile && !isNOTFirstTimeOnFriendProfile){
+            UIView *background = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+            [background setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
+            UIWindow* window = [UIApplication sharedApplication].keyWindow;
+            if (!window)
+                window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+            [[[window subviews] objectAtIndex:0] addSubview:background];
+            //tip
+            UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-210)/2, (background.frame.size.height-99)/2, 210, 99)];
+            tip1.tipArrow = TipArrowBottomLeft;
+            tip1.tooltipText = @"These are X’s best traits as rated  anonymously b y their friends\nTap and hold to rate X’s traits anonymously and see the final rates";
+            [tip1 showToolTip:background];
+            
+            UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-250), (background.frame.size.height-120), 170, 67)];
+            tip2.tipArrow = TipArrowMiddleRight;
+            tip2.tooltipText = @"Click on the + icon to write something awesome about X";
+            
+            UITooltip *tip3 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-150)/2, 63, 150, 72)];
+            tip3.tipArrow = TipArrowTopLeft;
+            tip3.tooltipText = @"Type your friend’s name to find their profile";
+            
+            
+            [tip1 onButtonTap:^{
+                [tip1 closeToolTip];
+                [tip2 showToolTip:background];
+            }];
+            
+            [tip2 onButtonTap:^{
+                [tip2 closeToolTip];
+                [tip3 showToolTip:background];
+                
+            }];
+            
+            [tip3 onButtonTap:^{
+                [tip3 closeToolTip];
+                [background removeFromSuperview];
+            }];
+            [firstTimeDefaults setBool:YES forKey:@"FRIENDPROFILE_NOT_FIRSTTIME"];
+            
+        }
+        
+        
+
+
+
+        
+        
+        
         //--Profile Box
         NSURL *cover = [NSURL URLWithString:model.CoverImage];
         if  (cover && [cover scheme] && [cover host]) {
