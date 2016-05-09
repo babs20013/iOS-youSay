@@ -47,6 +47,7 @@
 		1B6328231C54CA67001932AD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6328211C54CA67001932AD /* Fabric.framework */; };
 		1B6328241C54CA68001932AD /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6328221C54CA67001932AD /* Crashlytics.framework */; };
 		1B7C26C51C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */; };
+		1B9B87801CDEECAC0038904A /* AQSFacebookMessengerActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9B877F1CDEECAC0038904A /* AQSFacebookMessengerActivity.m */; };
 		1BA801CD1C74B046007EB3E2 /* PageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA801CB1C74B046007EB3E2 /* PageControl.m */; };
 		1BABACFD1C19EFBE00BD9EB4 /* SaysModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABACFC1C19EFBE00BD9EB4 /* SaysModel.m */; };
 		1BABAD031C1ABE6200BD9EB4 /* UIImageView+Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BABAD021C1ABE6200BD9EB4 /* UIImageView+Networking.m */; };
@@ -178,6 +179,8 @@
 		1B6328221C54CA67001932AD /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1B7C26C31C3EBC6F00DDEC2A /* WhoLikeListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WhoLikeListTableViewCell.h; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		1B7C26C41C3EBC7B00DDEC2A /* WhoLikeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhoLikeListTableViewCell.m; path = youSay/Classes/Controllers/WhoLikeListTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		1B9B877E1CDEECAC0038904A /* AQSFacebookMessengerActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQSFacebookMessengerActivity.h; path = youSay/Classes/Component/UIComponent/AQSFacebookMessengerActivity.h; sourceTree = SOURCE_ROOT; };
+		1B9B877F1CDEECAC0038904A /* AQSFacebookMessengerActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AQSFacebookMessengerActivity.m; path = youSay/Classes/Component/UIComponent/AQSFacebookMessengerActivity.m; sourceTree = SOURCE_ROOT; };
 		1BA801CB1C74B046007EB3E2 /* PageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageControl.m; path = youSay/Classes/Component/PageControl.m; sourceTree = SOURCE_ROOT; };
 		1BA801CC1C74B046007EB3E2 /* PageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageControl.h; path = youSay/Classes/Component/PageControl.h; sourceTree = SOURCE_ROOT; };
 		1BABACFB1C19EFB000BD9EB4 /* SaysModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SaysModel.h; path = youSay/Classes/Model/SaysModel.h; sourceTree = SOURCE_ROOT; };
@@ -582,6 +585,8 @@
 		9A1406771C1305BB006547A0 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				1B9B877E1CDEECAC0038904A /* AQSFacebookMessengerActivity.h */,
+				1B9B877F1CDEECAC0038904A /* AQSFacebookMessengerActivity.m */,
 				1B07AD871C7E57DF00EB7E5C /* MGInstagram.h */,
 				1B07AD881C7E57DF00EB7E5C /* MGInstagram.m */,
 				1BC88A861C42B2BC0032503E /* MBProgressHUD.h */,
@@ -816,6 +821,7 @@
 				5DBF3BA91BD8210D00ACF60D /* UIView+BLKFlexibleHeightBarSubview.m in Sources */,
 				1B28B1551C4C9E7700D112CD /* NotificationTableViewCell.m in Sources */,
 				1BEECEFE1C2EAAAB00615C9F /* FeedViewController.m in Sources */,
+				1B9B87801CDEECAC0038904A /* AQSFacebookMessengerActivity.m in Sources */,
 				9A906B4D1C294D0600C3327C /* UIButton+Extension.m in Sources */,
 				9AF52B841C3790F80078E568 /* UIColor+BFPaperColors.m in Sources */,
 				1B17E3D11C180BF70080A574 /* UIHelper.m in Sources */,
@@ -970,8 +976,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kai Lim (K5PWJ8EC93)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -996,8 +1002,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: eBworx Berhad";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: eBworx Berhad";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

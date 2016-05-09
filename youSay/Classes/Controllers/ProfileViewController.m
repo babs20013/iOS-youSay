@@ -26,6 +26,7 @@
 #import "CustomActivityProvider.h"
 #import "SearchViewController.h"
 #import "MGInstagram.h"
+#import "AQSFacebookMessengerActivity.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -896,8 +897,10 @@
                         NSString *url = [NSString stringWithFormat:@"http://yousayweb.com/yousay/profileshare.html?profile=%@&imageid=%@", IDRequested, [dictResult valueForKey:@"image_id"]];
                         CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
                         activityProvider.urlString = url;
+                        UIActivity *activity = [[AQSFacebookMessengerActivity alloc] init];
+                        
                         NSArray *activityItems = [NSArray arrayWithObjects:image, activityProvider, desc, nil];
-                        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+                        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[activity]];
                         activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
                         
                         [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
