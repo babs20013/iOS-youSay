@@ -86,6 +86,7 @@
 		9A9CB6271C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6201C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorScaleAndFade.m */; };
 		9A9CB6281C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6221C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m */; };
 		9A9CB6291C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */; };
+		9AC1CB361CDFAF5400D0D0C8 /* UITooltip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1CB351CDFAF5400D0D0C8 /* UITooltip.m */; };
 		9AC66C371C1F1971002B3834 /* CharmChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC66C361C1F1971002B3834 /* CharmChart.m */; };
 		9AF52B7C1C3790660078E568 /* BFPaperButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF52B7B1C3790660078E568 /* BFPaperButton.m */; };
 		9AF52B841C3790F80078E568 /* UIColor+BFPaperColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF52B831C3790F80078E568 /* UIColor+BFPaperColors.m */; };
@@ -258,6 +259,8 @@
 		9A9CB6221C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorSlide.m; sourceTree = "<group>"; };
 		9A9CB6231C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorSlideAndFade.h; sourceTree = "<group>"; };
 		9A9CB6241C19CEB10082B3E5 /* SlideNavigationContorllerAnimatorSlideAndFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorSlideAndFade.m; sourceTree = "<group>"; };
+		9AC1CB341CDFAF5400D0D0C8 /* UITooltip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UITooltip.h; path = youSay/Classes/Component/UIComponent/UITooltip.h; sourceTree = SOURCE_ROOT; };
+		9AC1CB351CDFAF5400D0D0C8 /* UITooltip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UITooltip.m; path = youSay/Classes/Component/UIComponent/UITooltip.m; sourceTree = SOURCE_ROOT; };
 		9AC66C351C1F1971002B3834 /* CharmChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharmChart.h; path = CharmChart/CharmChart.h; sourceTree = SOURCE_ROOT; };
 		9AC66C361C1F1971002B3834 /* CharmChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CharmChart.m; path = CharmChart/CharmChart.m; sourceTree = SOURCE_ROOT; };
 		9AF52B7A1C3790660078E568 /* BFPaperButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BFPaperButton.h; path = youSay/Classes/Component/UIComponent/BFPaperButton.h; sourceTree = SOURCE_ROOT; };
@@ -605,6 +608,8 @@
 				1B17E3CF1C180BF70080A574 /* ViewPagerController.m */,
 				9A906B4B1C294D0600C3327C /* UIButton+Extension.h */,
 				9A906B4C1C294D0600C3327C /* UIButton+Extension.m */,
+				9AC1CB341CDFAF5400D0D0C8 /* UITooltip.h */,
+				9AC1CB351CDFAF5400D0D0C8 /* UITooltip.m */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -849,6 +854,7 @@
 				1B48D83A1C4577EE00C92FE9 /* MyStore.xcdatamodeld in Sources */,
 				1B17E3BF1C180BD90080A574 /* MainPageViewController.m in Sources */,
 				5DBF3BA81BD8210D00ACF60D /* BLKFlexibleHeightBar.m in Sources */,
+				9AC1CB361CDFAF5400D0D0C8 /* UITooltip.m in Sources */,
 				1B17E3C01C180BD90080A574 /* PeopleSayTableViewCell.m in Sources */,
 				5DBF3BCB1BD8216600ACF60D /* LongPressTableViewCell.m in Sources */,
 				1B17E3F11C180C6A0080A574 /* url.m in Sources */,

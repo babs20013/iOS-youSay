@@ -27,6 +27,7 @@
 #import "SearchViewController.h"
 #import "MGInstagram.h"
 #import "AQSFacebookMessengerActivity.h"
+#import "UITooltip.h"
 
 #define kColor10 [UIColor colorWithRed:241.0/255.0 green:171.0/255.0 blue:15.0/255.0 alpha:1.0]
 #define kColor20 [UIColor colorWithRed:243.0/255.0 green:183.0/255.0 blue:63.0/255.0 alpha:1.0]
@@ -80,6 +81,8 @@
     BOOL isAfterShareFB;
     BOOL isAfterRate;
     BOOL displayMoreMenu;
+    
+    BOOL tooltipIsVisible;
     
     NSString *totalScoreAfterRate;
 }
@@ -1370,6 +1373,122 @@
             chartState = chartState == ChartStateDefault ? ChartStateViewing : chartState;
             [btnAddSay setHidden:NO];
         }
+        
+        //TOOLTIP - Own profile Tips
+        //1. Appear on first time only
+        NSUserDefaults *firstTimeDefaults = [NSUserDefaults standardUserDefaults];
+        BOOL isNOTFirstTime = [firstTimeDefaults boolForKey:@"OWNPROFILE_NOT_FIRSTTIME"];
+        if (!isFriendProfile && !isNOTFirstTime && !tooltipIsVisible) {
+            tooltipIsVisible = YES;
+            UIView *background = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+            [background setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
+            UIWindow* window = [UIApplication sharedApplication].keyWindow;
+            if (!window)
+                window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+            [[[window subviews] objectAtIndex:0] addSubview:background];
+            //tip
+            UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-180)/2, (background.frame.size.height-85)/2, 180, 85)];
+            tip1.tipArrow = TipArrowBottomLeft;
+            tip1.tooltipText = @"This is your profile, here you can see what your friends think about you";
+            [background addSubview:tip1];
+            
+            UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-205)/2, 130, 204, 98)];
+            tip2.tipArrow = TipArrowBottomLeft;
+            tip2.tooltipText = @"These are your best traits as rated  anonymously by your friends\nTap and hold to edit them";
+            
+            UITooltip *tip3 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-150)/2, 63, 150, 72)];
+            tip3.tipArrow = TipArrowTopLeft;
+            tip3.tooltipText = @"Type your friend’s name to find their profile";
+            
+            
+            [tip1 onButtonTap:^{
+                [tip1 closeToolTip];
+                [tip2 showToolTip:background];
+            }];
+            
+            [tip2 onButtonTap:^{
+                [tip2 closeToolTip];
+                [tip3 showToolTip:background];
+                
+            }];
+            
+            [tip3 onButtonTap:^{
+                [tip3 closeToolTip];
+                [background removeFromSuperview];
+                tooltipIsVisible = NO;
+                [firstTimeDefaults setBool:YES forKey:@"OWNPROFILE_NOT_FIRSTTIME"];
+
+            }];
+            
+        }
+        else{
+            
+
+        }
+
+        BOOL isNOTFirstTimeOnFriendProfile = [firstTimeDefaults boolForKey:@"FRIENDPROFILE_NOT_FIRSTTIME"];
+        if(isFriendProfile && !isNOTFirstTimeOnFriendProfile && !tooltipIsVisible){
+            tooltipIsVisible = YES;
+            UIView *background = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+            [background setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
+            UIWindow* window = [UIApplication sharedApplication].keyWindow;
+            if (!window)
+                window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+            [[[window subviews] objectAtIndex:0] addSubview:background];
+            //tip
+            UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-210)/2, (background.frame.size.height-99)/2, 210, 99)];
+            tip1.tipArrow = TipArrowBottomLeft;
+            tip1.tooltipText = @"These are X’s best traits as rated  anonymously b y their friends\nTap and hold to rate X’s traits anonymously and see the final rates";
+            [tip1 showToolTip:background];
+            
+            CGFloat tip2y =  360;
+            CGFloat tip2x =  70;
+
+            if (IS_IPHONE_6) {
+                tip2y = 500;
+                tip2x = 100;
+            }
+            else if(IS_IPHONE_5){
+                tip2y = 440;
+                tip2x = 60;
+            }
+            else if(IS_IPHONE_6PLUS){
+                tip2y = 530;
+                tip2x = 120;
+            }
+            
+            UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake(tip2x, tip2y, 170, 67)];
+            tip2.tipArrow = TipArrowMiddleRight;
+            tip2.tooltipText = @"Click on the + icon to write something awesome about X";
+            
+            UITooltip *tip3 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-150)/2, 63, 150, 72)];
+            tip3.tipArrow = TipArrowTopLeft;
+            tip3.tooltipText = @"Type your friend’s name to find their profile";
+            
+            
+            [tip1 onButtonTap:^{
+                [tip1 closeToolTip];
+                [tip2 showToolTip:background];
+            }];
+            
+            [tip2 onButtonTap:^{
+                [tip2 closeToolTip];
+                [tip3 showToolTip:background];
+                
+            }];
+            
+            [tip3 onButtonTap:^{
+                [tip3 closeToolTip];
+                [background removeFromSuperview];
+                tooltipIsVisible = NO;
+                [firstTimeDefaults setBool:YES forKey:@"FRIENDPROFILE_NOT_FIRSTTIME"];
+
+            }];
+            
+        }
+        
+        
+        
         //--Profile Box
         NSURL *cover = [NSURL URLWithString:model.CoverImage];
         if  (cover && [cover scheme] && [cover host]) {
@@ -2165,6 +2284,97 @@
 #pragma mark - ScrollViewDelegate
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSUserDefaults *firstTimeDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL isNOTFirstTime = [firstTimeDefaults boolForKey:@"OWNPROFILE_SAY_NOT_FIRSTTIME"];
+    BOOL isNOTFirstTimeOnFriendProfile = [firstTimeDefaults boolForKey:@"FRIENDPROFILE_SAY_NOT_FIRSTTIME"];
+
+    if(( !isFriendProfile && !isNOTFirstTime) || ( isFriendProfile && !isNOTFirstTimeOnFriendProfile)){
+        CGPoint scrollViewOffset = scrollView.contentOffset;
+        if (scrollViewOffset.y > 450) {
+            scrollViewOffset.y = 450;
+            [scrollView setContentOffset:scrollViewOffset];
+
+            CGFloat tip2y =  240;
+            CGFloat tip2x =  30;
+            
+            if (IS_IPHONE_6) {
+                tip2y = 300;
+            }
+            else if(IS_IPHONE_6PLUS){
+                tip2y = 325;
+                tip2x = 45;
+            }
+            
+            //TOOLTIP
+            //3.
+            if (!isFriendProfile && !tooltipIsVisible) {
+                tooltipIsVisible = YES;
+                UIView *background = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+                [background setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
+                UIWindow* window = [UIApplication sharedApplication].keyWindow;
+                if (!window)
+                    window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+                [[[window subviews] objectAtIndex:0] addSubview:background];
+                //tip
+                UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-210)/2, 45, 210, 99)];
+                tip1.tipArrow = TipArrowBottomLeft;
+                tip1.tooltipText = @"This is what your friends wrote about you\nLike and share their awesome says";
+                [tip1 showToolTip:background];
+                
+                [tip1 onButtonTap:^{
+                    [tip1 closeToolTip];
+                    if (isNOTFirstTime) {
+                        [background removeFromSuperview];
+                        tooltipIsVisible = NO;
+                        [firstTimeDefaults setBool:YES forKey:@"OWNPROFILE_SAY_NOT_FIRSTTIME"];
+                    }
+//                    [tip2 showToolTip:background];
+                }];
+                
+            }
+            
+            
+            if((isFriendProfile && !isNOTFirstTimeOnFriendProfile && !tooltipIsVisible) || (!isFriendProfile && !isNOTFirstTime && !tooltipIsVisible)){
+                tooltipIsVisible = YES;
+                UIView *background = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+                [background setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
+                UIWindow* window = [UIApplication sharedApplication].keyWindow;
+                if (!window)
+                    window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+                [[[window subviews] objectAtIndex:0] addSubview:background];
+                //tip
+                UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake(30, tip2y, 200, 97)];
+                tip2.tipArrow = TipArrowBottomLeft;
+                tip2.tooltipText = @"Click <heart icon> to like this say\nClick on the number next to it, to see who liked it already";
+                [tip2 showToolTip:background];
+
+                UITooltip *tip3 = [[UITooltip alloc]initWithFrame:CGRectMake(tip2x+70, tip2y+20, 150, 72)];
+                tip3.tipArrow = TipArrowBottomLeft;
+                tip3.tooltipText = @"Click share to share this with your friends";
+                
+                [tip2 onButtonTap:^{
+                    [tip2 closeToolTip];
+                    [tip3 showToolTip:background];
+                    
+                }];
+                
+                [tip3 onButtonTap:^{
+                    [tip3 closeToolTip];
+                    [background removeFromSuperview];
+                    tooltipIsVisible = NO;
+                    [firstTimeDefaults setBool:YES forKey:@"FRIENDPROFILE_SAY_NOT_FIRSTTIME"];
+
+                }];
+                
+                
+            }
+        }
+    
+    }
+    
+
+    
+    
     if (scrollView.contentOffset.y < -50) isScrollBounce = YES;
     if (fabs(scrollView.contentOffset.y) < 1 && isScrollBounce) {
         isScrollBounce = NO;
