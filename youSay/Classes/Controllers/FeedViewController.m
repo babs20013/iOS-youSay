@@ -561,6 +561,9 @@
         [cell.btnLblProfile2 setTag:indexPath.section];
     }
     NSString *key = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"say_color"]];
+    if ([key isEqualToString:@"(null)"]){
+        key = [NSString stringWithFormat:@"%@",[currentSaysDict objectForKey:@"color"]];
+    }
     NSDictionary *dicColor = [AppDelegate sharedDelegate].colorDict;
     NSDictionary *indexDict = [dicColor objectForKey:key];
     
@@ -606,6 +609,12 @@
 
 -(UIColor*)colorWithHexString:(NSString*)hex
 {
+    if (hex == nil) {
+        NSArray *arrRandomColor = [[NSArray alloc]initWithObjects:@"#473C8B", @"#F4A460", @"#FA8072", @"#DC143C", @"#D2691E", @"#C71585", @"#A52A2A", @"#8FBC8F", nil];
+        int r = arc4random() % [arrRandomColor count];
+        hex = [arrRandomColor objectAtIndex:r];
+    }
+    
     NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     cString = [cString stringByReplacingOccurrencesOfString:@"#" withString:@""];
     

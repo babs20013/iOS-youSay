@@ -505,13 +505,10 @@
                 saysArray = [[NSMutableArray alloc] initWithArray:[profileDictionary valueForKey:@"says"]];
                 
                 [self.tableView reloadData];
-                NSLog(@"saysID: %@", saysID);
                 if (saysID){
-                    NSLog(@"masuk kok");
                     for (int i = 0; i < saysArray.count; i++) {
                         NSDictionary *says = [saysArray objectAtIndex:i];
                         if ([[says objectForKey:@"say_id"] integerValue] == [saysID integerValue]) {
-                            NSLog(@"masuk lagi");
                             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
                             saysID = nil;
                             return;
