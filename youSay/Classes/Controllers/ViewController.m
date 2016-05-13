@@ -244,6 +244,8 @@
 #pragma mark - Activate Staging / Production
 - (IBAction)buttonClicked:(id)sender
 {
+    //Production version doesn't need this
+    /*
     [NSTimer scheduledTimerWithTimeInterval:3.0
                                      target:self
                                    selector:@selector(timedOut)
@@ -265,7 +267,7 @@
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Yousay" message:@"You are now working on the staging server" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
-    }
+    }*/
 //    if ((++counter >= 5) && !timedOut) {
 //        NSLog(@"User clicked button 5 times within 3 secs");
 //        
