@@ -255,9 +255,13 @@
     }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
-    vc.isFriendProfile = YES;
+    if (![model.userID isEqualToString:[[AppDelegate sharedDelegate] profileOwner].UserID]) {
+        vc.isFriendProfile = YES;
+    }
     vc.isFromFeed = YES;
     vc.friendModel = model;
+    vc.requestedID = model.userID;
+    vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
     
     [self.navigationController pushViewController:vc animated:YES];

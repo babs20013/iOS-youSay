@@ -159,7 +159,7 @@
 
         [self loadFaceBookData:completeUrl param:@{@"fields":@"",@"access_token":[FBSDKAccessToken currentAccessToken].tokenString}];
     }
-    else if ([[AppDelegate sharedDelegate].colorDict allKeys].count > 0 && isFriendProfile == NO) {
+    else if ([[AppDelegate sharedDelegate].colorDict allKeys].count > 0) {
         if ([[profileDictionary allKeys] count] == 0) {
             profileDictionary = [AppDelegate sharedDelegate].ownerDict;
             [self.tableView reloadData];
@@ -1356,10 +1356,10 @@
         }
         else {
             
-            model.Name = _friendModel.Name;//[profileDictionary objectForKey:@"name"];
-            model.ProfileImage = _friendModel.ProfileImage;//[profileDictionary objectForKey:@"picture"];
-            model.CoverImage = _friendModel.CoverImage;//[profileDictionary objectForKey:@"cover_url"];
-            model.UserID = _friendModel.userID;// requestedID;
+            model.Name = [profileDictionary objectForKey:@"name"];
+            model.ProfileImage = [profileDictionary objectForKey:@"picture"];
+            model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
+            model.UserID = requestedID;
             friendsProfileModel = model;
             //--To not show (null) Charms
             if (model.Name == nil) {

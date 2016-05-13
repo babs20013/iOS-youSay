@@ -300,6 +300,9 @@
         NSDictionary *dictProfile = [arrProfile objectAtIndex:0];
         vc.requestedID = [dictProfile objectForKey:@"profile_id"];
     }
+    if (![vc.requestedID isEqualToString:[[AppDelegate sharedDelegate] profileOwner].UserID]) {
+        vc.isFriendProfile = YES;
+    }
     vc.sayID = [dict objectForKey:@"say_id"];
     vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
     vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
