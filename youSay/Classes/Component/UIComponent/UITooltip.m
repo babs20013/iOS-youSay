@@ -31,30 +31,42 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:[UIScreen mainScreen].bounds];
     if (self) {
-        
+        tooltipFrame = frame;
     }
     return self;
 }
 
 -(void)layoutSubviews{
-//    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-//    imgView.image = [UIImage imageNamed:self.backgroundImage];//[[UIImageView alloc]initWithImage:[UIImage imageNamed:self.backgroundImage]];
-//    imgView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-//    imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    imgView.contentMode = UIViewContentModeScaleAspectFill;
-
-    UIGraphicsBeginImageContext(self.frame.size);
-    [[UIImage imageNamed:[self getImage]] drawInRect:self.bounds];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    self.backgroundColor = [UIColor colorWithPatternImage:image];
+    UIView *background = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [background setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.0]];
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(tapOnBackground:)];
+    [background addGestureRecognizer:singleFingerTap];
 
     
-//    [self addSubview:imgView];
+    [self addSubview:background];
+
+    UIImageView *imgView = [[UIImageView alloc]initWithFrame:tooltipFrame];
+    imgView.image = [UIImage imageNamed:[self getImage]];
+    imgView.frame = CGRectMake(0, 0, tooltipFrame.size.width,tooltipFrame.size.height);
+    imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    imgView.contentMode = UIViewContentModeScaleToFill;
+
+    UIView *tip = [[UIView alloc]initWithFrame:tooltipFrame];
     
-    UILabel *LBLTip = [[UILabel alloc]initWithFrame:CGRectMake(5+marginLeft, 5+marginTop, self.frame.size.width-10, self.frame.size.height-10)];
+//    UIGraphicsBeginImageContext(tooltipFrame.size);
+//    [[UIImage imageNamed:[self getImage]] drawInRect:tooltipFrame];
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    tip.backgroundColor = [UIColor colorWithPatternImage:image];
+
+    [self addSubview:tip];
+    [tip addSubview:imgView];
+    
+    UILabel *LBLTip = [[UILabel alloc]initWithFrame:CGRectMake(5+marginLeft, 5+marginTop, tooltipFrame.size.width-10, tooltipFrame.size.height-25-10)];
     [LBLTip setTextColor:[UIColor whiteColor]];
     LBLTip.numberOfLines = 0;
     LBLTip.font = [UIFont systemFontOfSize:12];
@@ -62,12 +74,12 @@
     LBLTip.textAlignment = NSTextAlignmentCenter;
     
     [LBLTip sizeToFit];
-    [LBLTip setFrame:CGRectMake(LBLTip.frame.origin.x, LBLTip.frame.origin.y, self.frame.size.width-10, LBLTip.frame.size.height)];
+    [LBLTip setFrame:CGRectMake(LBLTip.frame.origin.x, LBLTip.frame.origin.y, tooltipFrame.size.width-10, LBLTip.frame.size.height)];
 //    [LBLTip setBackgroundColor:[UIColor colorWithRed:0.298 green:0.298 blue:0.298 alpha:0.5]];
-    [self addSubview:LBLTip];
+    [tip addSubview:LBLTip];
     
     //Ok Button
-    UIButton *BTNOk = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width - 55+buttonMarginLeft, self.frame.size.height-25+buttonMarginTop, 50, 20)];
+    UIButton *BTNOk = [[UIButton alloc]initWithFrame:CGRectMake(tooltipFrame.size.width - 55+buttonMarginLeft, tooltipFrame.size.height-25+buttonMarginTop, 50, 20)];
     [BTNOk setBackgroundColor:[UIColor whiteColor]];
     BTNOk.titleLabel.font = [UIFont systemFontOfSize:12];
     [BTNOk setTitle:@"OK" forState:UIControlStateNormal];
@@ -78,7 +90,7 @@
     [BTNOk setTitleColor:[UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0] forState:UIControlStateSelected];
 
     [BTNOk addTarget:self action:@selector(butonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:BTNOk];
+    [tip addSubview:BTNOk];
 }
 
 - (void)butonPressed:(UIButton*)button {
@@ -139,5 +151,14 @@
                          [view addSubview:self];
                      }
      ];
+}
+
+- (void)tapOnBackground:(UITapGestureRecognizer*)recognizer {
+    if (self.onTap) {
+        self.onTap();
+    }
+    else{
+        [self removeFromSuperview];
+    }
 }
 @end
