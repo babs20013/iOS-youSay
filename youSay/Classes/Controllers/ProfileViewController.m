@@ -1435,7 +1435,7 @@
             //tip
             UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-210)/2, (background.frame.size.height-99)/2, 210, 99)];
             tip1.tipArrow = TipArrowBottomLeft;
-            tip1.tooltipText = @"These are X’s best traits as rated  anonymously b y their friends\nTap and hold to rate X’s traits anonymously and see the final rates";
+            tip1.tooltipText = [NSString stringWithFormat:@"These are %@’s best traits as rated  anonymously by their friends\nTap and hold to rate %@’s traits anonymously and see the final rates", [profileDictionary objectForKey:@"name"],  [profileDictionary objectForKey:@"name"]];
             [tip1 showToolTip:background];
             
             CGFloat tip2y =  360;
