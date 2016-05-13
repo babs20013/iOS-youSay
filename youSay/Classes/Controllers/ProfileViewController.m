@@ -1356,10 +1356,10 @@
         }
         else {
             
-            model.Name = [profileDictionary objectForKey:@"name"];
-            model.ProfileImage = [profileDictionary objectForKey:@"picture"];
-            model.CoverImage = [profileDictionary objectForKey:@"cover_url"];
-            model.UserID = requestedID;
+            model.Name = _friendModel.Name;//[profileDictionary objectForKey:@"name"];
+            model.ProfileImage = _friendModel.ProfileImage;//[profileDictionary objectForKey:@"picture"];
+            model.CoverImage = _friendModel.CoverImage;//[profileDictionary objectForKey:@"cover_url"];
+            model.UserID = _friendModel.userID;// requestedID;
             friendsProfileModel = model;
             //--To not show (null) Charms
             if (model.Name == nil) {
@@ -1433,9 +1433,9 @@
                 window = [[UIApplication sharedApplication].windows objectAtIndex:0];
             [[[window subviews] objectAtIndex:0] addSubview:background];
             //tip
-            UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-210)/2, (background.frame.size.height-99)/2, 210, 99)];
+            UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-210)/2, (background.frame.size.height-99)/2, 240, 110)];
             tip1.tipArrow = TipArrowBottomLeft;
-            tip1.tooltipText = [NSString stringWithFormat:@"These are %@’s best traits as rated  anonymously by their friends\nTap and hold to rate %@’s traits anonymously and see the final rates", [profileDictionary objectForKey:@"name"],  [profileDictionary objectForKey:@"name"]];
+            tip1.tooltipText = [NSString stringWithFormat:@"These are %@’s best traits as rated  anonymously by their friends\nTap and hold to rate %@’s traits anonymously and see the final rates", _friendModel.Name, _friendModel.Name];
             [tip1 showToolTip:background];
             
             CGFloat tip2y =  360;
@@ -1454,13 +1454,9 @@
                 tip2x = 120;
             }
             
-            UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake(tip2x, tip2y, 170, 67)];
+            UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake(tip2x, tip2y, 170, 84)];
             tip2.tipArrow = TipArrowMiddleRight;
-            tip2.tooltipText = @"Click on the + icon to write something awesome about X";
-            
-            UITooltip *tip3 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-150)/2, 63, 150, 72)];
-            tip3.tipArrow = TipArrowTopLeft;
-            tip3.tooltipText = @"Type your friend’s name to find their profile";
+            tip2.tooltipText = [NSString stringWithFormat:@"Click on the + icon to write something awesome about %@", _friendModel.Name];
             
             
             [tip1 onButtonTap:^{
@@ -1470,18 +1466,10 @@
             
             [tip2 onButtonTap:^{
                 [tip2 closeToolTip];
-                [tip3 showToolTip:background];
-                
-            }];
-            
-            [tip3 onButtonTap:^{
-                [tip3 closeToolTip];
                 [background removeFromSuperview];
                 tooltipIsVisible = NO;
                 [firstTimeDefaults setBool:YES forKey:@"FRIENDPROFILE_NOT_FIRSTTIME"];
-
             }];
-            
         }
         
         
