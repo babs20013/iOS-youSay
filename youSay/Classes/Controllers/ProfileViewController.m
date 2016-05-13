@@ -2275,19 +2275,39 @@
 
     if(( !isFriendProfile && !isNOTFirstTime) || ( isFriendProfile && !isNOTFirstTimeOnFriendProfile)){
         CGPoint scrollViewOffset = scrollView.contentOffset;
-        if (scrollViewOffset.y > 350) {
-            scrollViewOffset.y = 350;
+        CGFloat minOffset = 350;
+        if (IS_IPHONE_6){
+            minOffset = 300;
+        }
+        else if(IS_IPHONE_6PLUS){
+            minOffset = 300;
+        }
+        else if(IS_IPHONE_4){
+            minOffset = 440;
+        }
+        
+        if (scrollViewOffset.y > minOffset) {
+            scrollViewOffset.y = minOffset;
             [scrollView setContentOffset:scrollViewOffset];
 
+            CGFloat tip1y =  95;
             CGFloat tip2y =  340;
             CGFloat tip2x =  30;
             
             if (IS_IPHONE_6) {
-                tip2y = 400;
+                tip1y = 205;
+                tip2y = 450;
+                tip2x = 40;
             }
             else if(IS_IPHONE_6PLUS){
-                tip2y = 425;
-                tip2x = 45;
+                tip1y = 260;
+                tip2y = 505;
+                tip2x = 50;
+            }
+            else if(IS_IPHONE_4){
+                tip1y = 60;
+                tip2y = 240;
+                tip2x = 30;
             }
             
             //TOOLTIP
@@ -2301,7 +2321,7 @@
                     window = [[UIApplication sharedApplication].windows objectAtIndex:0];
                 [[[window subviews] objectAtIndex:0] addSubview:background];
                 //tip
-                UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake(((background.frame.size.width-210)/2), 95, 210, 99)];
+                UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake(((background.frame.size.width-210)/2), tip1y, 210, 99)];
                 tip1.tipArrow = TipArrowBottomLeft;
                 tip1.tooltipText = @"This is what your friends wrote about you\nLike and share their awesome says";
                 [tip1 showToolTip:background];
