@@ -19,6 +19,8 @@ typedef void (^OnTapActionBlock)();
 
 @property (nonatomic, strong) NSString* backgroundImage;
 @property (nonatomic, strong) NSString* tooltipText;
+@property (nonatomic, strong) NSDictionary* imgMap;
+
 @property (nonatomic) TipArrow tipArrow;
 @property (copy, nonatomic) OnTapActionBlock onTap;
 

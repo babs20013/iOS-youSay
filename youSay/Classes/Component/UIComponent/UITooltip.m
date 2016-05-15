@@ -7,6 +7,7 @@
 //
 
 #import "UITooltip.h"
+#import "DZGImgGlyphLabel.h"
 @interface UITooltip(){
     CGRect tooltipFrame;
     CGFloat marginTop ;
@@ -66,13 +67,14 @@
     [self addSubview:tip];
     [tip addSubview:imgView];
     
-    UILabel *LBLTip = [[UILabel alloc]initWithFrame:CGRectMake(5+marginLeft, 5+marginTop, tooltipFrame.size.width-10, tooltipFrame.size.height-25-10)];
+    DZGImgGlyphLabel *LBLTip = [[DZGImgGlyphLabel alloc]initWithFrame:CGRectMake(5+marginLeft, 5+marginTop, tooltipFrame.size.width-10, tooltipFrame.size.height-25-10)];
     [LBLTip setTextColor:[UIColor whiteColor]];
     LBLTip.numberOfLines = 0;
     LBLTip.font = [UIFont systemFontOfSize:12];
+//    LBLTip.font.capHeight = 20;
     [LBLTip setText:self.tooltipText];
     LBLTip.textAlignment = NSTextAlignmentCenter;
-    
+    LBLTip.imgMap = self.imgMap;
     [LBLTip sizeToFit];
     [LBLTip setFrame:CGRectMake(LBLTip.frame.origin.x, LBLTip.frame.origin.y, tooltipFrame.size.width-10, LBLTip.frame.size.height)];
 //    [LBLTip setBackgroundColor:[UIColor colorWithRed:0.298 green:0.298 blue:0.298 alpha:0.5]];
@@ -113,6 +115,9 @@
     buttonMarginLeft = 0;
     if (_tipArrow == TipArrowBottomLeft) {
         buttonMarginTop = -10;
+        if (tooltipFrame.size.height > 100) {
+            buttonMarginTop = buttonMarginTop - 4;
+        }
         return @"ToolTip-BottomLeft";
     }
     else if (_tipArrow == TipArrowTopLeft) {

@@ -1389,7 +1389,7 @@
             tip1.tooltipText = @"This is your profile, here you can see what your friends think about you";
             [background addSubview:tip1];
             
-            UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-205)/2, 130, 204, 98)];
+            UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-205)/2, 130, 209, 85)];
             tip2.tipArrow = TipArrowBottomLeft;
             tip2.tooltipText = @"These are your best traits as rated  anonymously by your friends\nTap and hold to edit them";
             
@@ -1424,7 +1424,7 @@
         }
         //FRIENDS PROFILE
         BOOL isNOTFirstTimeOnFriendProfile = [firstTimeDefaults boolForKey:@"FRIENDPROFILE_NOT_FIRSTTIME"];
-        if(isFriendProfile && !isNOTFirstTimeOnFriendProfile && !tooltipIsVisible && profileDictionary){
+        if(isFriendProfile && !isNOTFirstTimeOnFriendProfile && !tooltipIsVisible && friendsProfileModel){
             tooltipIsVisible = YES;
             UIView *background = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
             [background setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
@@ -1434,30 +1434,30 @@
             [[[window subviews] objectAtIndex:0] addSubview:background];
             
             //tip
-            UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-210)/2, (background.frame.size.height-99)/2, 240, 110)];
+            UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake((background.frame.size.width-210)/2, (background.frame.size.height-99)/2, 240, 115)];
             tip1.tipArrow = TipArrowBottomLeft;
-            tip1.tooltipText = [NSString stringWithFormat:@"These are %@’s best traits as rated  anonymously by their friends\nTap and hold to rate %@’s traits anonymously and see the final rates", model.Name, model.Name];
+            tip1.tooltipText = [NSString stringWithFormat:@"These are %@’s best traits as rated  anonymously by their friends\nTap and hold to rate %@’s traits anonymously and see the final rates\n", [profileDictionary objectForKey:@"name"], [profileDictionary objectForKey:@"name"]];
             [tip1 showToolTip:background];
             
-            CGFloat tip2y =  360;
+            CGFloat tip2y =  355;
             CGFloat tip2x =  70;
 
             if (IS_IPHONE_6) {
-                tip2y = 500;
+                tip2y = 495;
                 tip2x = 100;
             }
             else if(IS_IPHONE_5){
-                tip2y = 440;
+                tip2y = 435;
                 tip2x = 60;
             }
             else if(IS_IPHONE_6PLUS){
-                tip2y = 530;
+                tip2y = 525;
                 tip2x = 120;
             }
             
             UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake(tip2x, tip2y, 170, 84)];
             tip2.tipArrow = TipArrowMiddleRight;
-            tip2.tooltipText = [NSString stringWithFormat:@"Click on the + icon to write something awesome about %@", _friendModel.Name];
+            tip2.tooltipText = [NSString stringWithFormat:@"Click on the + icon to write something awesome about %@", friendsProfileModel.Name];
             
             [tip1 onButtonTap:^{
                 [tip1 closeToolTip];
@@ -2280,7 +2280,7 @@
             minOffset = 300;
         }
         else if(IS_IPHONE_6PLUS){
-            minOffset = 300;
+            minOffset = 280;
         }
         else if(IS_IPHONE_4){
             minOffset = 440;
@@ -2290,24 +2290,28 @@
             scrollViewOffset.y = minOffset;
             [scrollView setContentOffset:scrollViewOffset];
 
-            CGFloat tip1y =  95;
+            CGFloat tip1y =  105;
             CGFloat tip2y =  340;
-            CGFloat tip2x =  30;
-            
+            CGFloat tip2x =  33;
+            CGFloat tip3x =  100;
+
             if (IS_IPHONE_6) {
-                tip1y = 205;
-                tip2y = 450;
-                tip2x = 40;
+                tip1y = 215;
+                tip2y = 440;
+                tip2x = 33;
+                tip3x = 110;
             }
             else if(IS_IPHONE_6PLUS){
-                tip1y = 260;
+                tip1y = 270;
                 tip2y = 505;
-                tip2x = 50;
+                tip2x = 38;
+                tip3x = 120;
             }
             else if(IS_IPHONE_4){
-                tip1y = 60;
+                tip1y = 70;
                 tip2y = 240;
-                tip2x = 30;
+                tip2x = 33;
+                tip3x = 100;
             }
             
             //TOOLTIP
@@ -2321,19 +2325,20 @@
                     window = [[UIApplication sharedApplication].windows objectAtIndex:0];
                 [[[window subviews] objectAtIndex:0] addSubview:background];
                 //tip
-                UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake(((background.frame.size.width-210)/2), tip1y, 210, 99)];
+                UITooltip *tip1 = [[UITooltip alloc]initWithFrame:CGRectMake(((background.frame.size.width-210)/2), tip1y, 191, 90)];
                 tip1.tipArrow = TipArrowBottomLeft;
                 tip1.tooltipText = @"This is what your friends wrote about you\nLike and share their awesome says";
                 [tip1 showToolTip:background];
                 
-                UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake(30, tip2y, 200, 97)];
+                UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake(tip2x, tip2y+15, 181, 85 )];
                 tip2.tipArrow = TipArrowBottomLeft;
-                tip2.tooltipText = @"Click <heart icon> to like this say\nClick on the number next to it, to see who liked it already";
-                
-                UITooltip *tip3 = [[UITooltip alloc]initWithFrame:CGRectMake(tip2x+70, tip2y+20, 150, 72)];
+                tip2.tooltipText = @"Click %i to like this say\nClick on the number next to it, to see who liked it already";
+                tip2.imgMap = @{@"%i":@"Likes"};
+                UITooltip *tip3 = [[UITooltip alloc]initWithFrame:CGRectMake(tip3x, tip2y+20, 170, 80)];
                 tip3.tipArrow = TipArrowBottomLeft;
-                tip3.tooltipText = @"Click share to share this with your friends";
-                
+                tip3.tooltipText = @"Click %i to share this with your friends";
+                tip3.imgMap = @{@"%i":@"shareProfile"};
+
                 [tip1 onButtonTap:^{
                     [tip1 closeToolTip];
                     [tip2 showToolTip:background];
@@ -2373,14 +2378,16 @@
                     window = [[UIApplication sharedApplication].windows objectAtIndex:0];
                 [[[window subviews] objectAtIndex:0] addSubview:background];
                 //tip
-                UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake(30, tip2y, 200, 97)];
+                UITooltip *tip2 = [[UITooltip alloc]initWithFrame:CGRectMake(tip2x, tip2y+15, 181, 85)];
                 tip2.tipArrow = TipArrowBottomLeft;
-                tip2.tooltipText = @"Click <heart icon> to like this say\nClick on the number next to it, to see who liked it already";
+                tip2.tooltipText = @"Click %i to like this say\nClick on the number next to it, to see who liked it already";
+                tip2.imgMap = @{@"%i":@"Likes"};
                 [tip2 showToolTip:background];
 
-                UITooltip *tip3 = [[UITooltip alloc]initWithFrame:CGRectMake(tip2x+70, tip2y+20, 150, 72)];
+                UITooltip *tip3 = [[UITooltip alloc]initWithFrame:CGRectMake(tip3x, tip2y+20, 170, 80)];
                 tip3.tipArrow = TipArrowBottomLeft;
-                tip3.tooltipText = @"Click share to share this with your friends";
+                tip3.tooltipText = @"Click %i to share this with your friends";
+                tip3.imgMap = @{@"%i":@"shareProfile"};
                 
                 [tip2 onButtonTap:^{
                     [tip2 closeToolTip];
