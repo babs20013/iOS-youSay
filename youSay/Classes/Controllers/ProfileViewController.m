@@ -2270,10 +2270,9 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     NSUserDefaults *firstTimeDefaults = [NSUserDefaults standardUserDefaults];
-    BOOL isNOTFirstTime = [firstTimeDefaults boolForKey:@"OWNPROFILE_SAY_NOT_FIRSTTIME"];
-    BOOL isNOTFirstTimeOnFriendProfile = [firstTimeDefaults boolForKey:@"FRIENDPROFILE_SAY_NOT_FIRSTTIME"];
+    BOOL isNOTFirstTime = [firstTimeDefaults boolForKey:@"SAY_NOT_FIRSTTIME"];
 
-    if(( !isFriendProfile && !isNOTFirstTime) || ( isFriendProfile && !isNOTFirstTimeOnFriendProfile)){
+    if(!isNOTFirstTime){
         CGPoint scrollViewOffset = scrollView.contentOffset;
         CGFloat minOffset = 350;
         if (IS_IPHONE_6){
@@ -2342,15 +2341,6 @@
                 [tip1 onButtonTap:^{
                     [tip1 closeToolTip];
                     [tip2 showToolTip:background];
-
-//                    if (isNOTFirstTime) {
-//                        [background removeFromSuperview];
-//                        tooltipIsVisible = NO;
-//                        [firstTimeDefaults setBool:YES forKey:@"OWNPROFILE_SAY_NOT_FIRSTTIME"];
-//                    }
-//                    else{
-//                        
-//                    }
                 }];
                 
                 [tip2 onButtonTap:^{
@@ -2363,13 +2353,13 @@
                     [tip3 closeToolTip];
                     [background removeFromSuperview];
                     tooltipIsVisible = NO;
-                    [firstTimeDefaults setBool:YES forKey:@"OWNPROFILE_SAY_NOT_FIRSTTIME"];
+                    [firstTimeDefaults setBool:YES forKey:@"SAY_NOT_FIRSTTIME"];
                     
                 }];
             }
             
             //Friend Profile Say
-            if((isFriendProfile && !isNOTFirstTimeOnFriendProfile && !tooltipIsVisible) || (!isFriendProfile && !isNOTFirstTime && !tooltipIsVisible)){
+            if(isFriendProfile && !tooltipIsVisible){
                 tooltipIsVisible = YES;
                 UIView *background = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
                 [background setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
@@ -2399,7 +2389,7 @@
                     [tip3 closeToolTip];
                     [background removeFromSuperview];
                     tooltipIsVisible = NO;
-                    [firstTimeDefaults setBool:YES forKey:@"FRIENDPROFILE_SAY_NOT_FIRSTTIME"];
+                    [firstTimeDefaults setBool:YES forKey:@"SAY_NOT_FIRSTTIME"];
 
                 }];
                 
