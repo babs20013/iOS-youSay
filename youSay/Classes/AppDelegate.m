@@ -194,6 +194,33 @@ static NSString *const kAllowTracking = @"allowTracking";
     NSLog(@"Failed to get token, error: %@", error);
 }
 
+- (void) onAppOpenAttribution:(NSDictionary*) attributionData {
+    NSLog(@"attribution data: %@",attributionData );
+    NSDictionary *type = [attributionData objectForKey:@"type"];
+    NSArray *keys = [type allKeys];
+    NSString *key;
+    if ([keys count] != 0) {
+        key = [keys objectAtIndex:0];}
+    if ([key integerValue] == 8) {
+        FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
+        content.appLinkURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/profileshare.html"];
+        content.appInvitePreviewImageURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/images/Invite_Friends.png"];
+        [FBSDKAppInviteDialog showFromViewController:self.window.rootViewController withContent:content delegate:self];
+    }
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+    vc.isFromFeed = YES;
+    vc.requestedID = [attributionData objectForKey:@"profile"];
+    vc.sayID = [attributionData objectForKey:@"sayid"];
+    vc.isAddSay = NO;
+    
+    NSLog(@"sayID original: %@",[attributionData objectForKey:@"sayid"]);
+    vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
+    vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
+    [(UINavigationController *)self.window.rootViewController pushViewController:vc animated:YES];
+}
+
 - (void)pushNotificationAction:(NSDictionary*)data{
     NSDictionary *type = [data objectForKey:@"type"];
     NSArray *keys = [type allKeys];

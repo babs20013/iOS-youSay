@@ -264,7 +264,7 @@
             {
                 if (isFacebook == YES) {
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-                    NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true",[dictResult valueForKey:@"selected_image"]];
+                    NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true&profile=%@&sayid=%@",[dictResult valueForKey:@"selected_image"], profile, sayID];
                     
                     //MM-- Specify title and desc specifically for facebook
                     NSString *title = @"Click to discover which of your friends said this about you";
@@ -288,7 +288,7 @@
                 }
                 else {
                     UIImageView *imgView = [[UIImageView alloc]init];
-                    NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true",[dictResult valueForKey:@"selected_image"]];
+                    NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true&profile=%@&sayid=%@",[dictResult valueForKey:@"selected_image"], profile, sayID];
                     ShowLoader();
                     [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
                         HideLoader();

@@ -874,7 +874,7 @@
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentDescription = descFB;
                     content.contentTitle = titleFB;
-                    NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=profile%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true",[dictResult valueForKey:@"selected_image"]];
+                    NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=profile%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true&profile=%@",[dictResult valueForKey:@"selected_image"], IDRequested];
                     content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult valueForKey:@"url"]];
                     
@@ -894,7 +894,7 @@
                     UIImageView *imgView = [[UIImageView alloc]init];
                     [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
                         HideLoader();
-                        NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=profile%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true",[dictResult valueForKey:@"selected_image"]];
+                        NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=profile%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true&profile=%@",[dictResult valueForKey:@"selected_image"], IDRequested];
                         CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
                         activityProvider.urlString = url;
                         UIActivity *activity = [[AQSFacebookMessengerActivity alloc] init];
@@ -958,7 +958,7 @@
                     NSString *description = @"Yousay - Discover what your friends think about you";
                     
                     content.contentTitle = title;
-                    NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true",[dictResult valueForKey:@"selected_image"]];
+                    NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true&profile=%@&sayid=%@",[dictResult valueForKey:@"selected_image"], requestedID, sayID];
                     content.contentURL = [NSURL URLWithString:url];
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
                     content.contentDescription = description;
@@ -979,7 +979,7 @@
                     UIImageView *imgView = [[UIImageView alloc]init];
                     [imgView setImageURL:[NSURL URLWithString:[dictResult objectForKey:@"url"]] withCompletionBlock:^(BOOL succes, UIImage *image, NSError *error) {
                         HideLoader();
-                        NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true",[dictResult valueForKey:@"selected_image"]];
+                        NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true&profile=%@&sayid=%@",[dictResult valueForKey:@"selected_image"], requestedID, sayID];
                         CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
                         activityProvider.urlString = url;
                         NSArray *activityItems = [NSArray arrayWithObjects:image, activityProvider, desc, nil];
@@ -1353,6 +1353,7 @@
             //model = profileModel;
             chartState = chartState == ChartStateViewing ? ChartStateDefault : chartState;
             [btnAddSay setHidden:YES];
+            [cel.lblYourCharm setText:@"Your Traits as rated by your friends"];
         }
         else {
             
