@@ -41,6 +41,7 @@
 		1B2C6D681C4C08DD00724E24 /* ShowWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C6D671C4C08DD00724E24 /* ShowWebVC.m */; };
 		1B39AC901C50D77200383D51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B39AC8F1C50D77200383D51 /* GoogleService-Info.plist */; };
 		1B48D83A1C4577EE00C92FE9 /* MyStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B48D8381C4577EE00C92FE9 /* MyStore.xcdatamodeld */; };
+		1B57968B1CEC0F7D00D4407C /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B57968A1CEC0F7D00D4407C /* libAppsFlyerLib.a */; };
 		1B60A05A1C4DE055006EF699 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B60A0591C4DE055006EF699 /* libGoogleAnalyticsServices.a */; };
 		1B60A06E1C4DE6F4006EF699 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B60A06D1C4DE6F4006EF699 /* libz.1.dylib */; };
 		1B60A0701C4DE70F006EF699 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B60A06F1C4DE70F006EF699 /* libsqlite3.dylib */; };
@@ -163,6 +164,8 @@
 		1B2C6D671C4C08DD00724E24 /* ShowWebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShowWebVC.m; path = youSay/Classes/Controllers/ShowWebVC.m; sourceTree = SOURCE_ROOT; };
 		1B39AC8F1C50D77200383D51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1B48D8391C4577EE00C92FE9 /* MyStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyStore.xcdatamodel; sourceTree = "<group>"; };
+		1B57968A1CEC0F7D00D4407C /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = youSay/Classes/libAppsFlyerLib.a; sourceTree = "<group>"; };
+		1B57968C1CEC0F9000D4407C /* AppsFlyerTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppsFlyerTracker.h; sourceTree = "<group>"; };
 		1B60A0591C4DE055006EF699 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		1B60A05B1C4DE077006EF699 /* GAI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
 		1B60A05C1C4DE077006EF699 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
@@ -284,6 +287,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B57968B1CEC0F7D00D4407C /* libAppsFlyerLib.a in Frameworks */,
 				1B60A0701C4DE70F006EF699 /* libsqlite3.dylib in Frameworks */,
 				1B60A06E1C4DE6F4006EF699 /* libz.1.dylib in Frameworks */,
 				5D91F79B1BDA9C69005845BE /* SystemConfiguration.framework in Frameworks */,
@@ -354,6 +358,7 @@
 		1B17E3691C1807C00080A574 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1B57968C1CEC0F9000D4407C /* AppsFlyerTracker.h */,
 				1B60A0581C4DE03A006EF699 /* GoogleAnalytics */,
 				1B17E3A91C180BB30080A574 /* AppDelegate.h */,
 				1B17E3AA1C180BB30080A574 /* AppDelegate.m */,
@@ -572,6 +577,7 @@
 		641ACAE6EB98C3799C34D85E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B57968A1CEC0F7D00D4407C /* libAppsFlyerLib.a */,
 				1B6328211C54CA67001932AD /* Fabric.framework */,
 				1B6328221C54CA67001932AD /* Crashlytics.framework */,
 				1B60A06F1C4DE70F006EF699 /* libsqlite3.dylib */,

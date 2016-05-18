@@ -13,7 +13,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "MainPageViewController.h"
-
+#import "AppsFlyerTracker.h"
 #import <BFAppLinkReturnToRefererView.h>
 
 
@@ -51,6 +51,9 @@ static NSString *const kAllowTracking = @"allowTracking";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //--For AppFlyer
+    [AppsFlyerTracker sharedTracker].appsFlyerDevKey = @"gafroSTLxPwjdqBW8WR9Mo";
+    [AppsFlyerTracker sharedTracker].appleAppID = @"1063234995";
     
     //--For push notification
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
@@ -107,6 +110,10 @@ static NSString *const kAllowTracking = @"allowTracking";
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    //--For AppsFlyer
+    // Track Installs, updates & sessions(app opens) (You must include this API to enable tracking)
+    [[AppsFlyerTracker sharedTracker] trackAppLaunch];
+    
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [GAI sharedInstance].optOut =
     ![[NSUserDefaults standardUserDefaults] boolForKey:kAllowTracking];
