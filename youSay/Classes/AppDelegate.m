@@ -13,7 +13,6 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "MainPageViewController.h"
-#import "AppsFlyerTracker.h"
 #import <BFAppLinkReturnToRefererView.h>
 
 
@@ -54,6 +53,8 @@ static NSString *const kAllowTracking = @"allowTracking";
     //--For AppFlyer
     [AppsFlyerTracker sharedTracker].appsFlyerDevKey = @"gafroSTLxPwjdqBW8WR9Mo";
     [AppsFlyerTracker sharedTracker].appleAppID = @"1063234995";
+    [AppsFlyerTracker sharedTracker].delegate = self;
+    [[AppsFlyerTracker sharedTracker] trackAppLaunch];
     
     //--For push notification
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
@@ -113,6 +114,7 @@ static NSString *const kAllowTracking = @"allowTracking";
     //--For AppsFlyer
     // Track Installs, updates & sessions(app opens) (You must include this API to enable tracking)
     [[AppsFlyerTracker sharedTracker] trackAppLaunch];
+    [AppsFlyerTracker sharedTracker].delegate = self;
     
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [GAI sharedInstance].optOut =
@@ -137,11 +139,15 @@ static NSString *const kAllowTracking = @"allowTracking";
        // NSURL *targetUrl = [parsedUrl targetURL];
 
     }
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                   openURL:url
+                                         sourceApplication:sourceApplication
+                                                annotation:annotation];
     return YES;
-//    //[[FBSDKApplicationDelegate sharedInstance] application:application
-//                                                          openURL:url
-//                                                sourceApplication:sourceApplication
-//                                                       annotation:annotation];
+}
+
+- (void) handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication withAnnotation:(id) annotation {
+    NSLog(@"My URL is: %@", url);
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
@@ -200,29 +206,31 @@ static NSString *const kAllowTracking = @"allowTracking";
 
 - (void) onAppOpenAttribution:(NSDictionary*) attributionData {
     NSLog(@"attribution data: %@",attributionData );
-    NSDictionary *type = [attributionData objectForKey:@"type"];
-    NSArray *keys = [type allKeys];
-    NSString *key;
-    if ([keys count] != 0) {
-        key = [keys objectAtIndex:0];}
-    if ([key integerValue] == 8) {
-        FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
-        content.appLinkURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/profileshare.html"];
-        content.appInvitePreviewImageURL = [NSURL URLWithString:@"http://yousayweb.com/yousay/images/Invite_Friends.png"];
-        [FBSDKAppInviteDialog showFromViewController:self.window.rootViewController withContent:content delegate:self];
+
+    if ([attributionData objectForKey:@"profile"]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
+        vc.isFromFeed = YES;
+        vc.requestedID = [attributionData objectForKey:@"profile"];
+        vc.sayID = [attributionData objectForKey:@"sayid"];
+        vc.isAddSay = NO;
+        
+        NSLog(@"sayID original: %@",[attributionData objectForKey:@"sayid"]);
+        vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
+        vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
+         [(UINavigationController *)self.window.rootViewController pushViewController:vc animated:YES];
     }
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MainPageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MainPageViewController"];
-    vc.isFromFeed = YES;
-    vc.requestedID = [attributionData objectForKey:@"profile"];
-    vc.sayID = [attributionData objectForKey:@"sayid"];
-    vc.isAddSay = NO;
-    
-    NSLog(@"sayID original: %@",[attributionData objectForKey:@"sayid"]);
-    vc.colorDictionary = [AppDelegate sharedDelegate].colorDict;
-    vc.profileModel = [AppDelegate sharedDelegate].profileOwner;
-    [(UINavigationController *)self.window.rootViewController pushViewController:vc animated:YES];
+}
+
+-(void)onConversionDataReceived:(NSDictionary*) installData {
+    id status = [installData objectForKey:@"af_status"];
+    if([status isEqualToString:@"Non-organic"]) {
+        id sourceID = [installData objectForKey:@"media_source"];
+        id campaign = [installData objectForKey:@"campaign"];
+        NSLog(@"This is a none organic install. Media source: %@  Campaign: %@",sourceID,campaign);
+    } else if([status isEqualToString:@"Organic"]) {
+        NSLog(@"This is an organic install.");
+    }
 }
 
 - (void)pushNotificationAction:(NSDictionary*)data{

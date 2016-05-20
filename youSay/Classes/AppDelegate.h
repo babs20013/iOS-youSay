@@ -12,8 +12,9 @@
 #import "ProfileOwnerModel.h"
 #import <BFURL.h>
 #import "GAI.h"
+#import "AppsFlyerTracker.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, FBSDKAppInviteDialogDelegate, UIAlertViewDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, FBSDKAppInviteDialogDelegate, UIAlertViewDelegate, AppsFlyerTrackerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) ProfileOwnerModel *profileOwner;
