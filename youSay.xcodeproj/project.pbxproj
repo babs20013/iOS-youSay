@@ -1031,8 +1031,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "youSay/Yousay Social.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1047,7 +1047,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
 				PRODUCT_NAME = "Yousay Social";
-				PROVISIONING_PROFILE = "c6e10de4-1db3-4068-8c3d-ec1cd2e8ca0f";
+				PROVISIONING_PROFILE = "ed8a2baa-5e7f-454a-a5c4-d3e23b3c5079";
 			};
 			name = Debug;
 		};
@@ -1058,8 +1058,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "youSay/Yousay Social.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1074,7 +1074,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
 				PRODUCT_NAME = "Yousay Social";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ed8a2baa-5e7f-454a-a5c4-d3e23b3c5079";
 			};
 			name = Release;
 		};
