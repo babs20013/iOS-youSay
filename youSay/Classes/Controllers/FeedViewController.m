@@ -267,8 +267,8 @@
                     NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true&profile=%@&sayid=%@",[dictResult valueForKey:@"selected_image"], profile, sayID];
                     
                     //MM-- Specify title and desc specifically for facebook
-                    NSString *title = @"Click to discover which of your friends said this about you";
-                    NSString *description = @"Yousay - Discover what your friends think about you";
+                    NSString *title = [dictResult valueForKey:@"say_fb_messenger_share"];
+                    NSString *description = [NSString stringWithFormat:@"%@\n%@", [dictResult valueForKey:@"say_facebook_share_line1"], [dictResult valueForKey:@"say_facebook_share_line2"]];
                     
                     content.contentTitle = title;
                     content.imageURL = [NSURL URLWithString:[dictResult objectForKey:@"url"]];
@@ -294,7 +294,10 @@
                         HideLoader();
                         CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
                         activityProvider.urlString = url;
-                        NSArray *activityItems = [NSArray arrayWithObjects:image, activityProvider, desc, nil];
+                        //--Change share 23 May 2016
+                        NSString *shareText = [dictResult valueForKey:@"say_generic_share"];
+                        
+                        NSArray *activityItems = [NSArray arrayWithObjects:image, activityProvider, shareText, nil];
                         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
                         activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
                         [self presentViewController:activityViewController animated:YES completion:nil];

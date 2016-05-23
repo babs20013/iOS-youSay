@@ -1,4 +1,4 @@
-//
+ //
 //  ProfileViewController.m
 //  youSay
 //
@@ -866,10 +866,10 @@
             if([[dictResult valueForKey:@"message"] isEqualToString:@"success"])
             {
                 if (tag == 1000) {//Means share to facebook
-                    //MM -- 5 May 2016
+                    //MM -- 23 May 2016
                     //-- Change the description text for facebook
-                    NSString *titleFB = @"Click to rate your friends and see what they said about you";
-                    NSString *descFB = @"Yousay - Find out what your friends think about you";
+                    NSString *titleFB = [dictResult valueForKey:@"say_fb_messenger_share"];
+                    NSString *descFB = [NSString stringWithFormat:@"%@\n%@", [dictResult valueForKey:@"say_facebook_share_line1"], [dictResult valueForKey:@"say_facebook_share_line2"]];
                     
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentDescription = descFB;
@@ -899,7 +899,9 @@
                         activityProvider.urlString = url;
                         UIActivity *activity = [[AQSFacebookMessengerActivity alloc] init];
                         
-                        NSArray *activityItems = [NSArray arrayWithObjects:image, activityProvider, desc, nil];
+                        //--Change the share text 23 May 2016
+                        NSString *shareText = [dictResult valueForKey:@"say_generic_share"];
+                        NSArray *activityItems = [NSArray arrayWithObjects:image, activityProvider, shareText, nil];
                         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[activity]];
                         activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
                         
@@ -954,8 +956,8 @@
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     
                     //MM-- Specify title and desc specifically for facebook
-                    NSString *title = @"Click to discover which of your friends said this about you";
-                    NSString *description = @"Yousay - Discover what your friends think about you";
+                    NSString *title = [dictResult valueForKey:@"say_fb_messenger_share"];
+                    NSString *description = [NSString stringWithFormat:@"%@\n%@", [dictResult valueForKey:@"say_facebook_share_line1"], [dictResult valueForKey:@"say_facebook_share_line2"]];
                     
                     content.contentTitle = title;
                     NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true&is_retargeting=true&profile=%@&sayid=%@",[dictResult valueForKey:@"selected_image"], requestedID, sayID];
@@ -982,7 +984,11 @@
                         NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true&is_retargeting=true&profile=%@&sayid=%@",[dictResult valueForKey:@"selected_image"], requestedID, sayID];
                         CustomActivityProvider *activityProvider = [[CustomActivityProvider alloc]initWithPlaceholderItem:@""];
                         activityProvider.urlString = url;
-                        NSArray *activityItems = [NSArray arrayWithObjects:image, activityProvider, desc, nil];
+                        
+                        //--Change share 23 May 2016
+                        NSString *shareText = [dictResult valueForKey:@"say_generic_share"];
+                        
+                        NSArray *activityItems = [NSArray arrayWithObjects:image, activityProvider, shareText, nil];
                         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
                         activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
                         
