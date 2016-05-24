@@ -868,8 +868,8 @@
                 if (tag == 1000) {//Means share to facebook
                     //MM -- 23 May 2016
                     //-- Change the description text for facebook
-                    NSString *titleFB = [dictResult valueForKey:@"say_fb_messenger_share"];
-                    NSString *descFB = [NSString stringWithFormat:@"%@\n%@", [dictResult valueForKey:@"say_facebook_share_line1"], [dictResult valueForKey:@"say_facebook_share_line2"]];
+                    NSString *titleFB = [dictResult valueForKey:@"say_facebook_share_line1"];
+                    NSString *descFB = [NSString stringWithFormat:@"%@", [dictResult valueForKey:@"say_facebook_share_line2"]];
                     
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     content.contentDescription = descFB;
@@ -956,8 +956,8 @@
                     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
                     
                     //MM-- Specify title and desc specifically for facebook
-                    NSString *title = [dictResult valueForKey:@"say_fb_messenger_share"];
-                    NSString *description = [NSString stringWithFormat:@"%@\n%@", [dictResult valueForKey:@"say_facebook_share_line1"], [dictResult valueForKey:@"say_facebook_share_line2"]];
+                    NSString *title = [dictResult valueForKey:@"say_facebook_share_line1"];
+                    NSString *description = [NSString stringWithFormat:@"%@", [dictResult valueForKey:@"say_facebook_share_line2"]];
                     
                     content.contentTitle = title;
                     NSString *url = [NSString stringWithFormat:@"https://go.onelink.me/3683706271?pid=ios&c=say%@&af_dp=yousay://&af_web_dp=http://yousayweb.com&af_force_dp=true&is_retargeting=true&profile=%@&sayid=%@",[dictResult valueForKey:@"selected_image"], requestedID, sayID];
