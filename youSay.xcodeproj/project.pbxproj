@@ -166,7 +166,6 @@
 		1B48D8391C4577EE00C92FE9 /* MyStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyStore.xcdatamodel; sourceTree = "<group>"; };
 		1B57968A1CEC0F7D00D4407C /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = youSay/Classes/libAppsFlyerLib.a; sourceTree = "<group>"; };
 		1B57968C1CEC0F9000D4407C /* AppsFlyerTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppsFlyerTracker.h; sourceTree = "<group>"; };
-		1B57968D1CECAE0D00D4407C /* Yousay Social.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Yousay Social.entitlements"; sourceTree = "<group>"; };
 		1B60A0591C4DE055006EF699 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		1B60A05B1C4DE077006EF699 /* GAI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
 		1B60A05C1C4DE077006EF699 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
@@ -281,6 +280,7 @@
 		9AF52B821C3790F80078E568 /* UIColor+BFPaperColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BFPaperColors.h"; sourceTree = "<group>"; };
 		9AF52B831C3790F80078E568 /* UIColor+BFPaperColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BFPaperColors.m"; sourceTree = "<group>"; };
 		A49055F20855DDD853D5A0A6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		FEF060A91CF3781E00CC759E /* Yousay Social.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Yousay Social.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -424,7 +424,7 @@
 		358C90861BD654AC000B17AB /* youSay */ = {
 			isa = PBXGroup;
 			children = (
-				1B57968D1CECAE0D00D4407C /* Yousay Social.entitlements */,
+				FEF060A91CF3781E00CC759E /* Yousay Social.entitlements */,
 				1B17E3691C1807C00080A574 /* Classes */,
 				5DBF3BD71BD93BF100ACF60D /* JSONDictionaryExtensions */,
 				5DBF3BD31BD93BD500ACF60D /* Service Connector */,
@@ -1031,8 +1031,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "youSay/Yousay Social.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1047,7 +1047,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
 				PRODUCT_NAME = "Yousay Social";
-				PROVISIONING_PROFILE = "c6e10de4-1db3-4068-8c3d-ec1cd2e8ca0f";
+				PROVISIONING_PROFILE = "ed8a2baa-5e7f-454a-a5c4-d3e23b3c5079";
 			};
 			name = Debug;
 		};
@@ -1058,8 +1058,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "youSay/Yousay Social.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guy Raichelgauz (KK7EW5D6Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guy Raichelgauz (8M8K44GP3L)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1074,7 +1074,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yousaysocial.ios;
 				PRODUCT_NAME = "Yousay Social";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ed8a2baa-5e7f-454a-a5c4-d3e23b3c5079";
 			};
 			name = Release;
 		};
