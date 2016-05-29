@@ -94,6 +94,13 @@
 		9AC66C371C1F1971002B3834 /* CharmChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC66C361C1F1971002B3834 /* CharmChart.m */; };
 		9AF52B7C1C3790660078E568 /* BFPaperButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF52B7B1C3790660078E568 /* BFPaperButton.m */; };
 		9AF52B841C3790F80078E568 /* UIColor+BFPaperColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF52B831C3790F80078E568 /* UIColor+BFPaperColors.m */; };
+		FE74854E1CFB2CA500BF0CFE /* Appsee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE74854D1CFB2CA500BF0CFE /* Appsee.framework */; };
+		FE7485501CFB2CDD00BF0CFE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE74854F1CFB2CDD00BF0CFE /* AVFoundation.framework */; };
+		FE7485521CFB2CEA00BF0CFE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7485511CFB2CEA00BF0CFE /* CoreGraphics.framework */; };
+		FE7485541CFB2CF300BF0CFE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7485531CFB2CF300BF0CFE /* CoreMedia.framework */; };
+		FE7485561CFB2D0200BF0CFE /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7485551CFB2D0200BF0CFE /* CoreVideo.framework */; };
+		FE7485581CFB2D4500BF0CFE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7485571CFB2D4500BF0CFE /* QuartzCore.framework */; };
+		FE7485591CFB2D9400BF0CFE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B60A0671C4DE139006EF699 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -280,6 +287,12 @@
 		9AF52B821C3790F80078E568 /* UIColor+BFPaperColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BFPaperColors.h"; sourceTree = "<group>"; };
 		9AF52B831C3790F80078E568 /* UIColor+BFPaperColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BFPaperColors.m"; sourceTree = "<group>"; };
 		A49055F20855DDD853D5A0A6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		FE74854D1CFB2CA500BF0CFE /* Appsee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Appsee.framework; sourceTree = "<group>"; };
+		FE74854F1CFB2CDD00BF0CFE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		FE7485511CFB2CEA00BF0CFE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FE7485531CFB2CF300BF0CFE /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		FE7485551CFB2D0200BF0CFE /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		FE7485571CFB2D4500BF0CFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FEF060A91CF3781E00CC759E /* Yousay Social.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Yousay Social.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -288,10 +301,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE7485591CFB2D9400BF0CFE /* libz.tbd in Frameworks */,
+				5D91F79B1BDA9C69005845BE /* SystemConfiguration.framework in Frameworks */,
+				FE7485581CFB2D4500BF0CFE /* QuartzCore.framework in Frameworks */,
+				FE7485561CFB2D0200BF0CFE /* CoreVideo.framework in Frameworks */,
+				FE7485541CFB2CF300BF0CFE /* CoreMedia.framework in Frameworks */,
+				FE7485521CFB2CEA00BF0CFE /* CoreGraphics.framework in Frameworks */,
+				FE7485501CFB2CDD00BF0CFE /* AVFoundation.framework in Frameworks */,
 				1B57968B1CEC0F7D00D4407C /* libAppsFlyerLib.a in Frameworks */,
 				1B60A0701C4DE70F006EF699 /* libsqlite3.dylib in Frameworks */,
 				1B60A06E1C4DE6F4006EF699 /* libz.1.dylib in Frameworks */,
-				5D91F79B1BDA9C69005845BE /* SystemConfiguration.framework in Frameworks */,
+				FE74854E1CFB2CA500BF0CFE /* Appsee.framework in Frameworks */,
 				4FB16F6028629C6BDBBA350E /* libPods.a in Frameworks */,
 				1B60A05A1C4DE055006EF699 /* libGoogleAnalyticsServices.a in Frameworks */,
 				1B6328231C54CA67001932AD /* Fabric.framework in Frameworks */,
@@ -579,6 +599,12 @@
 		641ACAE6EB98C3799C34D85E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE7485571CFB2D4500BF0CFE /* QuartzCore.framework */,
+				FE7485551CFB2D0200BF0CFE /* CoreVideo.framework */,
+				FE7485531CFB2CF300BF0CFE /* CoreMedia.framework */,
+				FE7485511CFB2CEA00BF0CFE /* CoreGraphics.framework */,
+				FE74854F1CFB2CDD00BF0CFE /* AVFoundation.framework */,
+				FE74854D1CFB2CA500BF0CFE /* Appsee.framework */,
 				1B57968A1CEC0F7D00D4407C /* libAppsFlyerLib.a */,
 				1B6328211C54CA67001932AD /* Fabric.framework */,
 				1B6328221C54CA67001932AD /* Crashlytics.framework */,

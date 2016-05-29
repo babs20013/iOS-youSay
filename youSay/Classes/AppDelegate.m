@@ -14,6 +14,8 @@
 #import <Crashlytics/Crashlytics.h>
 #import "MainPageViewController.h"
 #import <BFAppLinkReturnToRefererView.h>
+#import <Appsee/Appsee.h>
+
 
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -55,6 +57,8 @@ static NSString *const kAllowTracking = @"allowTracking";
     [AppsFlyerTracker sharedTracker].appleAppID = @"1063234995";
     [AppsFlyerTracker sharedTracker].delegate = self;
     [[AppsFlyerTracker sharedTracker] trackAppLaunch];
+    
+    [Appsee start:@"9eeb550f06e8463ba23cecf3b326826a"];
     
     //--For push notification
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
